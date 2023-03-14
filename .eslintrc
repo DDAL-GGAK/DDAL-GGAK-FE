@@ -23,5 +23,10 @@
     "project": "./tsconfig.json"
   },
   "plugins": ["react", "@typescript-eslint"],
-  "rules": { "import/export": 0 }
+  "rules": {
+    "import/export": 0,
+    "no-use-before-define": 0,
+    "@typescript-eslint/no-use-before-define": 0,
+    "react/react-in-jsx-scope": 0
+  }
 }
