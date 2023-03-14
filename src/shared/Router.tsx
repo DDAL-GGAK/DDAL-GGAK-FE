@@ -1,11 +1,20 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import { Home } from 'pages';
+import { ContentWrapper } from 'shared';
 
-const Router = () => {
+function Router() {
   return (
-    <BrowserRouter>
-      <Routes></Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <ContentWrapper>
+            <Home />
+          </ContentWrapper>
+        }
+      />
+    </Routes>
   );
-};
+}
 
 export default Router;
