@@ -1,7 +1,12 @@
-import React from 'react';
+import { Nav, Router } from 'shared';
 
 function App() {
-  return <div className="App">Learn React</div>;
+  return (
+    <>
+      <Nav />
+      <Router />
+    </>
+  );
 }
 
 export default App;
