@@ -1,12 +1,22 @@
-import React from 'react';
-import { BrowserRouter, Routes } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Home } from 'pages';
+import { ContentWrapper } from 'shared';
 
 function Router() {
-	return (
-		<BrowserRouter>
-			<Routes />
-		</BrowserRouter>
-	);
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ContentWrapper>
+              <Home />
+            </ContentWrapper>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default Router;
