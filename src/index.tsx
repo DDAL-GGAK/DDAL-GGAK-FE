@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { GlobalStyle } from 'styles/GlobalStyle';
-import { ThemeProvider } from 'styled-components';
-import { darkTheme } from 'styles/theme';
+import { Provider } from 'react-redux';
+import store from 'redux/store';
+import Providers from 'shared/Providers';
 import App from './App';
 
 const root = ReactDOM.createRoot(
@@ -11,9 +12,11 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={darkTheme}>
-      <GlobalStyle />
-      <App />
-    </ThemeProvider>
+    <Provider store={store}>
+      <Providers>
+        <GlobalStyle />
+        <App />
+      </Providers>
+    </Provider>
   </React.StrictMode>
 );
