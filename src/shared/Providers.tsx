@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { darkTheme, lightTheme } from 'styles/theme';
 import { useSelector } from 'react-redux';
@@ -8,9 +9,11 @@ function Providers({ children }: { children: React.ReactNode }) {
   const isDark = useSelector((state: RootState) => state.themeToggle);
 
   return (
-    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-      {children}
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+        {children}
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 
