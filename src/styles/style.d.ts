@@ -25,5 +25,6 @@ declare module 'styled-components' {
     /* nav */
     navBackground: string;
     navLinkBackground: string;
+    borderColor: string;
   }
 }

@@ -22,8 +22,9 @@ export const darkTheme: DefaultTheme = {
   PALETTE_900: '#212121',
 
   /* nav */
-  navBackground: '#D9D9D9',
-  navLinkBackground: '#666666',
+  navBackground: '#666666',
+  navLinkBackground: '#D9D9D9',
+  borderColor: '#000000',
 };
 
 export const lightTheme: DefaultTheme = {
@@ -50,4 +51,5 @@ export const lightTheme: DefaultTheme = {
   /* nav */
   navBackground: '#D9D9D9',
   navLinkBackground: '#666666',
+  borderColor: '#000000',
 };
