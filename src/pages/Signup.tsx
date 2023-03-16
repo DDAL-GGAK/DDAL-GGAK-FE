@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import axios from 'axios'
+import { useMutation } from 'react-query';
+import { signUp } from '../api/auth'
 
-
-interface SignUpForm {
+export interface Typevalues {
   email: string;
   password: string;
   passwordConfirm: string;
@@ -36,32 +36,44 @@ function Signup() {
       .oneOf([yup.ref("password")], "비밀번호가 다릅니다."),
   });
 
+  // react-hook-form 사용
   const {
     register,
     handleSubmit,
+    // watch,
     formState: { errors },
-  } = useForm<SignUpForm>({
+  } = useForm<Typevalues>({
     mode: "onChange",
     reValidateMode: "onChange",
     resolver: yupResolver(formSchema),
   });
-  // const onSubmit: SubmitHandler<SignUpForm> = (data) => {console.log(data);}
 
-  const onSubmit: SubmitHandler<SignUpForm> = async (data) => {
-    const response = await axios.post(
-      ``,
-      data
-    )
-    console.log(response);
-    alert('회원가입 성공!');
-    navigate('/');
+  const getSignUp = async (data: any) => {
+    signUp(data)
+  };
+
+  const { mutate, isLoading } = useMutation(getSignUp, {
+    onSuccess: () => {
+      console.log(mutate);
+      alert('회원가입 성공!');
+      navigate('/');
+    },
+    onError: (err) => {
+      console.log(err);
+      alert('이미 존재하는 이메일입니다!')
+    },
+  });
+
+  const onSubmit: SubmitHandler<Typevalues> = async (data) => {
+    const { email, password } = data;
+    mutate({ email, password });
   }
 
   return (
     <Wrapper>
       <Container>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <h1>logo</h1>
+          <h1>SignUp</h1>
           <Label>email</Label>
           <Input
             type="email"
@@ -88,7 +100,7 @@ function Signup() {
             {...register("passwordConfirm")}
           />
           {errors.passwordConfirm && <p>{errors.passwordConfirm.message}</p>}
-          <Submit type="submit">Signup</Submit>
+          <Submit type="submit" disabled={isLoading}>Signup</Submit>
         </Form>
       </Container>
     </Wrapper>
