@@ -1,8 +1,10 @@
 import styled from "styled-components";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import axios from 'axios'
+
 
 interface SignUpForm {
   email: string;
@@ -11,7 +13,7 @@ interface SignUpForm {
 }
 
 function Signup() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // 유효성 검사 yup 라이브러리
   const formSchema = yup.object({
@@ -43,7 +45,17 @@ function Signup() {
     resolver: yupResolver(formSchema),
   });
 
-  const onSubmit: SubmitHandler<SignUpForm> = (data) => console.log(data);
+  // const onSubmit: SubmitHandler<SignUpForm> = (data) => {console.log(data);}
+
+  const onSubmit: SubmitHandler<SignUpForm> = async (data) => {
+    const response = await axios.post(
+      ``,
+      data
+    )
+    console.log(response)
+    alert('회원가입 성공!')
+    navigate('/')
+  }
 
   return (
     <Wrapper>
