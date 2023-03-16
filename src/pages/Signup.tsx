@@ -21,6 +21,7 @@ function Signup() {
       .string()
       .required("이메일을 입력해주세요")
       .email("이메일 형식이 아닙니다."),
+      // .matches(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,"이메일 형식이 아닙니다."),
     password: yup
       .string()
       .required("영문, 숫자포함 8자리를 입력해주세요.")
@@ -44,7 +45,6 @@ function Signup() {
     reValidateMode: "onChange",
     resolver: yupResolver(formSchema),
   });
-
   // const onSubmit: SubmitHandler<SignUpForm> = (data) => {console.log(data);}
 
   const onSubmit: SubmitHandler<SignUpForm> = async (data) => {
@@ -52,9 +52,9 @@ function Signup() {
       ``,
       data
     )
-    console.log(response)
-    alert('회원가입 성공!')
-    navigate('/')
+    console.log(response);
+    alert('회원가입 성공!');
+    navigate('/');
   }
 
   return (
