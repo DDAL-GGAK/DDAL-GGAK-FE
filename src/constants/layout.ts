@@ -9,6 +9,11 @@ export const TOP_NAV = Object.freeze({
   BORDER_WIDTH: 1 as const,
 });
 
+export const SUB_NAV = Object.freeze({
+  HEIGHT: 80 as const,
+  BORDER_WIDTH: 1 as const,
+});
+
 export const MAIN_NAV = Object.freeze({
   HEIGHT: 100 as const,
   BORDER_WIDTH: 1 as const,

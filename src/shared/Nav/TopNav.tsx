@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { SIDE_NAV, TOP_NAV } from 'constants/';
+import { SIDE_NAV, TOP_NAV, SUB_NAV } from 'constants/';
 import { Search } from 'assets/icons';
 
 function TopNav() {
@@ -45,7 +45,6 @@ const MainNav = styled.div`
 
 /* MainWrapper */
 const LeftWrapper = styled.div`
-  background: tomato;
   display: flex;
 `;
 
@@ -68,12 +67,10 @@ const SearchInput = styled.input.attrs({ type: 'text' })`
 
 const ProfileImage = styled.div`
   box-sizing: border-box;
-
   width: 50px;
   height: 50px;
-
   background: url(.jpg);
-  border: 1px solid #000000;
+  border-bottom: 1px solid #000000;
   border-radius: 10px;
   background: ${({ theme }) => theme.navLinkBackground};
 `;
@@ -81,7 +78,9 @@ const ProfileImage = styled.div`
 /* subNav */
 
 const SubNav = styled.div`
-  height: 80px;
+  height: ${SUB_NAV.HEIGHT}px;
+  border-bottom: 1px solid #000000;
+  box-sizing: border-box;
 `;
 
 const ProjectTitle = styled.div`
@@ -90,7 +89,6 @@ const ProjectTitle = styled.div`
   align-items: center;
   width: 200px;
   height: 50px;
-
   background: #ffffff;
   box-sizing: border-box;
   border: 1px solid #000000;
