@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { NAV } from 'constants/layout';
+import { SIDE_NAV } from 'constants/';
 
 function ContentWrapper({ children }: { children: React.ReactNode }) {
   return <Wrapper>{children}</Wrapper>;
@@ -8,8 +8,8 @@ function ContentWrapper({ children }: { children: React.ReactNode }) {
 export default ContentWrapper;
 
 const Wrapper = styled.div`
-  width: calc(100% - ${NAV.WIDTH}px);
+  width: calc(100% - ${SIDE_NAV.WIDTH}px);
   position: fixed;
-  left: ${NAV.WIDTH}px;
+  left: ${SIDE_NAV.WIDTH}px;
   height: 100vh;
 `;

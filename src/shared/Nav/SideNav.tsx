@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { NAV } from 'constants/layout';
+import { SIDE_NAV } from 'constants/layout';
 import NavLink from 'components/NavLink';
 import { ProjectsLink } from 'utils/types';
 
-function Nav() {
+function SideNav() {
   const dummyLink: ProjectsLink[] = [
     { id: '1', title: 'title1' },
     { id: '2', title: 'title2' },
@@ -22,7 +22,7 @@ function Nav() {
   );
 }
 
-export default Nav;
+export default SideNav;
 
 const Wrapper = styled.div`
   position: fixed;
@@ -30,12 +30,12 @@ const Wrapper = styled.div`
   top: 0;
   background: ${({ theme }) => theme.navBackground};
   box-sizing: border-box;
-  border-right: black ${NAV.BORDER_WIDTH}px solid;
-  width: ${NAV.WIDTH}px;
+  border-right: black ${SIDE_NAV.BORDER_WIDTH}px solid;
+  width: ${SIDE_NAV.WIDTH}px;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 23.5px;
-  gap: ${NAV.GAP}px;
+  gap: ${SIDE_NAV.GAP}px;
 `;
