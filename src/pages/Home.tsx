@@ -7,6 +7,5 @@ function Home() {
 export default Home;
 
 const Wrapper = styled.div`
-  background: bisque;
   height: 100vh;
 `;
