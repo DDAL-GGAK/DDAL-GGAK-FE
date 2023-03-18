@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { SIDE_NAV, TOP_NAV } from 'constants/';
 import { Logo, Menu } from 'assets/icons';
 import { DEVICES } from 'styles';
+import { ThemeToggle } from 'components';
 import useMediaQuery from 'hooks/useMediaquery';
 
 function TopNav() {
@@ -19,6 +20,7 @@ function TopNav() {
         </LeftWrapper>
         {isNotSmallDevice ? (
           <RightWrapper>
+            <ThemeToggle />
             <ProfileImage />
           </RightWrapper>
         ) : (
@@ -91,6 +93,7 @@ const ProfileImage = styled.div`
   border-bottom: 1px solid #000000;
   border-radius: 10px;
   background: ${({ theme }) => theme.navLinkBackground};
+  transition: ${({ theme }) => theme.transitionOption};
 `;
 
 const ProjectTitle = styled.div`

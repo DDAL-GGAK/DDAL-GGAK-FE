@@ -29,7 +29,6 @@ const Wrapper = styled.div`
   transition: ${({ theme }) => theme.transitionOption};
   background: ${({ theme }) => theme.transparentColor};
   color: ${({ theme }) => theme.background};
-  box-shadow: 0 1px 1px ${({ theme }) => theme.color};
 
   :hover {
     cursor: pointer;
