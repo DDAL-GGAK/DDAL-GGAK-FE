@@ -1,23 +1,14 @@
-import { Link } from 'react-router-dom';
-import { NAVLINK } from 'constants/layout';
 import styled from 'styled-components';
-import { ProjectsLink } from 'utils/types';
+import { NAVLINK } from 'constants/';
+import { ConfigSvg } from 'assets/icons';
 
-interface NavLinkProps {
-  navData: ProjectsLink;
-}
-
-function NavLink({ navData }: NavLinkProps) {
-  const { id } = navData;
-
+export default function Config() {
   return (
-    <Link to={`/${id}`}>
-      <Wrapper />
-    </Link>
+    <Wrapper>
+      <ConfigSvg />
+    </Wrapper>
   );
 }
-
-export default NavLink;
 
 const Wrapper = styled.div`
   width: ${NAVLINK.WIDTH}px;
@@ -26,6 +17,9 @@ const Wrapper = styled.div`
   flex: none;
   order: 0;
   flex-grow: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: ${({ theme }) => theme.transitionOption};
   background: ${({ theme }) => theme.transparentColor};
   color: ${({ theme }) => theme.background};

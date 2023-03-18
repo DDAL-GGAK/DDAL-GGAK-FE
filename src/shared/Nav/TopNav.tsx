@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { SIDE_NAV, TOP_NAV } from 'constants/';
 import { Logo, Menu } from 'assets/icons';
 import { DEVICES } from 'styles';
+import { ThemeToggle } from 'components';
 import useMediaQuery from 'hooks/useMediaquery';
 
 function TopNav() {
@@ -12,13 +13,14 @@ function TopNav() {
       <NavToggle>
         <Menu />
       </NavToggle>
-      <MainNav>
+      <MainNav isNotSmall={isNotSmallDevice}>
         <LeftWrapper>
           <Logo />
           <ProjectTitle>Project name</ProjectTitle>
         </LeftWrapper>
         {isNotSmallDevice ? (
           <RightWrapper>
+            <ThemeToggle />
             <ProfileImage />
           </RightWrapper>
         ) : (
@@ -57,11 +59,16 @@ const Wrapper = styled.div`
   min-width: 400px;
 `;
 
-const MainNav = styled.div`
+interface MainNavProps {
+  isNotSmall: boolean;
+}
+
+const MainNav = styled.div<MainNavProps>`
   height: ${TOP_NAV.HEIGHT}px;
   box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
+  justify-content: ${(props) =>
+    props.isNotSmall ? 'space-between' : 'flex-end'};
   align-items: center;
   padding: ${TOP_NAV.PADDING}px;
   width: calc(100% - ${SIDE_NAV.WIDTH}px);
@@ -91,6 +98,7 @@ const ProfileImage = styled.div`
   border-bottom: 1px solid #000000;
   border-radius: 10px;
   background: ${({ theme }) => theme.navLinkBackground};
+  transition: ${({ theme }) => theme.transitionOption};
 `;
 
 const ProjectTitle = styled.div`
