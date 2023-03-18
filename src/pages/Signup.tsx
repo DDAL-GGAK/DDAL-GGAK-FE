@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { useForm, SubmitHandler } from "react-hook-form";
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import { signUp } from '../api/auth'
+import { signUp } from '../api/auth';
 
-export interface Typevalues {
+export interface SignUpForm {
   email: string;
   password: string;
   passwordConfirm: string;
@@ -13,90 +13,104 @@ export interface Typevalues {
 function Signup() {
   const navigate = useNavigate();
 
-  // 유효성 검사 yup 라이브러리
-  const formSchema = yup.object({
-    email: yup
-      .string()
-      .required("이메일을 입력해주세요")
-      .email("이메일 형식이 아닙니다."),
-      // .matches(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,"이메일 형식이 아닙니다."),
-    password: yup
-      .string()
-      .required("영문, 숫자포함 8자리를 입력해주세요.")
-      .min(8, "최소 8자 이상 가능합니다")
-      .max(15, "최대 15자 까지만 가능합니다")
-      .matches(
-        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,15}$/,
-        "영문 숫자포함 8자리를 입력해주세요."
-      ),
-    passwordConfirm: yup
-      .string()
-      .oneOf([yup.ref("password")], "비밀번호가 다릅니다."),
-  });
-
   // react-hook-form 사용
   const {
     register,
     handleSubmit,
-    // watch,
+    watch,
     formState: { errors },
-  } = useForm<Typevalues>({
-    mode: "onChange",
-    reValidateMode: "onChange",
-    resolver: yupResolver(formSchema),
+  } = useForm<SignUpForm>({
+    mode: 'onChange',
   });
 
-  const getSignUp = async (data: any) => {
-    signUp(data)
-  };
-
-  const { mutate, isLoading } = useMutation(getSignUp, {
+  const { mutate, isLoading } = useMutation(signUp, {
     onSuccess: () => {
-      alert('회원가입 성공!');
+      alert('Signup success!');
       navigate('/');
     },
-    onError: (err) => {
-      alert('이미 존재하는 이메일입니다!')
+    onError: () => {
+      alert('axios error');
     },
   });
 
-  const onSubmit: SubmitHandler<Typevalues> = async (data) => {
+  const onSubmit = async (data: SignUpForm) => {
     const { email, password } = data;
     mutate({ email, password });
-  }
+  };
 
   return (
     <Wrapper>
       <Container>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <h1>SignUp</h1>
+          <div>
           <Label>email</Label>
           <Input
-            type="email"
-            placeholder="Enter your email address"
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...register("email")}
+            type='email'
+            placeholder='Enter your email address'
+            {...register('email', {
+              required: 'Please enter your email!',
+              // 커스텀 validation
+              validate: {
+                isAlphabet: (value) => {
+                  const isAlphabet = value.match(/[a-zA-Z]/g);
+                  return isAlphabet ? true : 'must be include Alphabet';
+                },
+                isEmail: (value) => {
+                  const isEmail = value.match(
+                    /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+                  );
+                  return isEmail ? true : 'not email format';
+                },
+              },
+            })}
           />
-          {errors.email && <p>{errors.email.message}</p>}
+          {errors.email && <Errorspan>{errors.email.message}</Errorspan>}
+          </div>
           {/* <Label>verify</Label>
           <Input /> */}
+          <div>
           <Label>password</Label>
           <Input
-            type="password"
-            placeholder="Enter your password"
+            type='password'
+            placeholder='Enter your password'
             // eslint-disable-next-line react/jsx-props-no-spreading
-            {...register("password")}
+            {...register('password', {
+              required: 'Please enter your password!',
+              minLength: {
+                value: 8,
+                message: 'Requires longer than 8',
+              },
+              pattern: {
+                value:
+                  /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,}$/,
+                message: 'must be include Alphabet & number',
+              },
+            })}
           />
-          {errors.password && <p>{errors.password.message}</p>}
+          {errors.password && <Errorspan>{errors.password.message}</Errorspan>}
+          </div>
+          <div>
           <Label>passwordConfirm</Label>
           <Input
-            type="password"
-            placeholder="Enter your password"
+            type='password'
+            placeholder='Enter your password'
             // eslint-disable-next-line react/jsx-props-no-spreading
-            {...register("passwordConfirm")}
+            {...register('passwordConfirm', {
+              required: 'Please enter your password!',
+              validate: {
+                matchesPrevios: (value) => {
+                  const pwd = watch('password');
+                  return value === pwd || 'Password not match';
+                },
+              },
+            })}
           />
-          {errors.passwordConfirm && <p>{errors.passwordConfirm.message}</p>}
-          <Submit type="submit" disabled={isLoading}>Signup</Submit>
+          {errors.passwordConfirm && (<Errorspan>{errors.passwordConfirm.message}</Errorspan>)}
+          </div>
+          <Submit type='submit' disabled={isLoading}>
+            Signup
+          </Submit>
         </Form>
       </Container>
     </Wrapper>
@@ -142,4 +156,8 @@ const Submit = styled.button`
   padding: 10px;
   border-radius: 5px;
   font-size: 15px;
+`;
+
+const Errorspan = styled.span`
+  color: red;
 `;
