@@ -13,7 +13,7 @@ function TopNav() {
       <NavToggle>
         <Menu />
       </NavToggle>
-      <MainNav>
+      <MainNav isNotSmall={isNotSmallDevice}>
         <LeftWrapper>
           <Logo />
           <ProjectTitle>Project name</ProjectTitle>
@@ -59,11 +59,16 @@ const Wrapper = styled.div`
   min-width: 400px;
 `;
 
-const MainNav = styled.div`
+interface MainNavProps {
+  isNotSmall: boolean;
+}
+
+const MainNav = styled.div<MainNavProps>`
   height: ${TOP_NAV.HEIGHT}px;
   box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
+  justify-content: ${(props) =>
+    props.isNotSmall ? 'space-between' : 'flex-end'};
   align-items: center;
   padding: ${TOP_NAV.PADDING}px;
   width: calc(100% - ${SIDE_NAV.WIDTH}px);
