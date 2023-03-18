@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 import { SIDE_NAV, TOP_NAV } from 'constants/';
-import { ThemeToggle } from 'components';
 import { Logo, Menu } from 'assets/icons';
 import { DEVICES } from 'styles';
+import useMediaQuery from 'hooks/useMediaquery';
 
 function TopNav() {
+  const isNotSmallDevice = useMediaQuery(DEVICES.MOBILES);
+
   return (
     <Wrapper>
       <NavToggle>
@@ -15,10 +17,13 @@ function TopNav() {
           <Logo />
           <ProjectTitle>Project name</ProjectTitle>
         </LeftWrapper>
-        <RightWrapper>
-          <ProfileImage />
-          <ThemeToggle />
-        </RightWrapper>
+        {isNotSmallDevice ? (
+          <RightWrapper>
+            <ProfileImage />
+          </RightWrapper>
+        ) : (
+          ''
+        )}
       </MainNav>
     </Wrapper>
   );
@@ -49,6 +54,7 @@ const Wrapper = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
   box-sizing: border-box;
   transition: ${({ theme }) => theme.transitionOption};
+  min-width: 400px;
 `;
 
 const MainNav = styled.div`
@@ -57,7 +63,7 @@ const MainNav = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: ${TOP_NAV.PADDING}px;
   width: calc(100% - ${SIDE_NAV.WIDTH}px);
 
   @media ${DEVICES.MOBILES} {
@@ -73,13 +79,14 @@ const LeftWrapper = styled.div`
 
 const RightWrapper = styled.div`
   display: flex;
-  gap: 24px;
+  align-items: center;
+  gap: 15px;
 `;
 
 const ProfileImage = styled.div`
   box-sizing: border-box;
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
   background: url(.jpg);
   border-bottom: 1px solid #000000;
   border-radius: 10px;
