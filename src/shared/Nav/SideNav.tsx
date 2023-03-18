@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { SIDE_NAV, TOP_NAV } from 'constants/layout';
-import { NavLink, AddProject } from 'components';
+import { NavLink, AddProject, Config } from 'components';
 import { ProjectsLink } from 'utils/types';
 
 function SideNav() {
@@ -20,7 +20,10 @@ function SideNav() {
           <NavLink key={`${v.id}`} navData={v} />
         ))}
       </TopWrapper>
-      <AddProject />
+      <BottomWrapper>
+        <AddProject />
+        <Config />
+      </BottomWrapper>
     </Wrapper>
   );
 }
@@ -48,5 +51,11 @@ const TopWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: ${SIDE_NAV.GAP}px;
+`;
+
+const BottomWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   gap: ${SIDE_NAV.GAP}px;
 `;
