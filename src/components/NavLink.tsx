@@ -34,6 +34,6 @@ const Wrapper = styled.div`
 
   :hover {
     cursor: pointer;
-    background: ${({ theme }) => theme.PALETTE_900};
+    border-radius: ${NAVLINK.HOVER_BORDER_RADIUS}px;
   }
 `;

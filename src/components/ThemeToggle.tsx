@@ -15,4 +15,9 @@ const Wrapper = styled.div`
   width: 30px;
   height: 30px;
   border-radius: 5px;
+  background: ${({ theme }) => theme.color};
+  transition: ${({ theme }) => theme.transitionOption};
+  :hover {
+    cursor: pointer;
+  }
 `;
