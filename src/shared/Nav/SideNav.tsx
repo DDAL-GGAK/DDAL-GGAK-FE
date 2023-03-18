@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { SIDE_NAV } from 'constants/layout';
-import NavLink from 'components/NavLink';
+import { SIDE_NAV, TOP_NAV } from 'constants/layout';
+import { NavLink, AddProject } from 'components';
 import { ProjectsLink } from 'utils/types';
 
 function SideNav() {
@@ -15,9 +15,12 @@ function SideNav() {
 
   return (
     <Wrapper>
-      {dummyLink.map((v) => (
-        <NavLink navData={v} />
-      ))}
+      <TopWrapper>
+        {dummyLink.map((v) => (
+          <NavLink key={`${v.id}`} navData={v} />
+        ))}
+      </TopWrapper>
+      <AddProject />
     </Wrapper>
   );
 }
@@ -27,15 +30,23 @@ export default SideNav;
 const Wrapper = styled.div`
   position: fixed;
   left: 0;
-  top: 0;
+  top: ${TOP_NAV.HEIGHT}px;
   background: ${({ theme }) => theme.navBackground};
   box-sizing: border-box;
-  border-right: black ${SIDE_NAV.BORDER_WIDTH}px solid;
+  border-right: 1px solid ${({ theme }) => theme.borderColor};
   width: ${SIDE_NAV.WIDTH}px;
-  height: 100vh;
+  height: calc(100vh - ${TOP_NAV.HEIGHT}px);
+  padding: ${TOP_NAV.PADDING}px 0;
+  transition: ${({ theme }) => theme.transitionOption};
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const TopWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 23.5px;
   gap: ${SIDE_NAV.GAP}px;
 `;
