@@ -8,14 +8,11 @@ interface NavLinkProps {
 }
 
 function NavLink({ navData }: NavLinkProps) {
-  const { id, title } = navData;
+  const { id } = navData;
 
   return (
-    <Link to="/">
-      <Wrapper>
-        <div>{title}</div>
-        <div>{id}</div>
-      </Wrapper>
+    <Link to={`/${id}`}>
+      <Wrapper />
     </Link>
   );
 }
@@ -29,11 +26,14 @@ const Wrapper = styled.div`
   flex: none;
   order: 0;
   flex-grow: 0;
-  background: ${({ theme }) => theme.navLinkBackground};
   transition: ${({ theme }) => theme.transitionOption};
+  background: ${({ theme }) => theme.transparentColor};
+  color: ${({ theme }) => theme.background};
+  box-shadow: 0 1px 1px ${({ theme }) => theme.color};
 
   :hover {
     cursor: pointer;
+    background: ${({ theme }) => theme.color};
     border-radius: ${NAVLINK.HOVER_BORDER_RADIUS}px;
   }
 `;
