@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { useMutation } from 'react-query';
 import { signUp } from '../api/auth'
 
@@ -54,12 +52,10 @@ function Signup() {
 
   const { mutate, isLoading } = useMutation(getSignUp, {
     onSuccess: () => {
-      console.log(mutate);
       alert('회원가입 성공!');
       navigate('/');
     },
     onError: (err) => {
-      console.log(err);
       alert('이미 존재하는 이메일입니다!')
     },
   });

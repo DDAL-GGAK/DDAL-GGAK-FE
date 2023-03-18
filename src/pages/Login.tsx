@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { logIn } from "../api/auth";
 
 
