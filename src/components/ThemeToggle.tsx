@@ -22,18 +22,21 @@ const Wrapper = styled.div`
   width: 60px;
   height: 30px;
   border-radius: 5px;
-  background: ${({ theme }) => theme.transparentColor};
+  background: rgba(111, 111, 111, 0.5);
   transition: ${({ theme }) => theme.transitionOption};
   :hover {
     cursor: pointer;
   }
 `;
 
-const TogggleBtn = styled.div<{ isDark: boolean }>`
+interface ToggleBtnProps {
+  isDark: boolean;
+}
+
+const TogggleBtn = styled.div<ToggleBtnProps>`
   position: absolute;
   top: 3px;
-  left: ${(props) => (props.isDark ? null : '3px')};
-  right: ${(props) => (props.isDark ? '3px' : null)};
+  right: ${(props) => (props.isDark ? '3px' : '30px')};
   width: 25px;
   height: 25px;
   border-radius: 10px;
