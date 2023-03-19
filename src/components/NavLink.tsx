@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { NAVLINK } from 'constants/layout';
 import styled from 'styled-components';
-import { ProjectsLink } from 'utils/types';
+import { ProjectsLink } from 'types';
 
 interface NavLinkProps {
   navData: ProjectsLink;
@@ -11,7 +11,7 @@ function NavLink({ navData }: NavLinkProps) {
   const { id } = navData;
 
   return (
-    <Link to={`/${id}`}>
+    <Link to={`/project/${id}`}>
       <Wrapper />
     </Link>
   );

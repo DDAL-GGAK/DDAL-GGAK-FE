@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { SIDE_NAV, TOP_NAV } from 'constants/layout';
 import { NavLink, AddProject, Config } from 'components';
-import { ProjectsLink } from 'utils/types';
+import { ProjectsLink } from 'types';
 
 function SideNav() {
   const dummyLink: ProjectsLink[] = [
