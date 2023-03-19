@@ -1,18 +1,45 @@
 import styled from 'styled-components';
 import { toggle } from 'redux/modules/themeToggle';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
 
 function ThemeToggle() {
+  const isDark = useSelector((state: RootState) => state.themeToggle);
   const dispatch = useDispatch();
   const onClickHandler = () => dispatch(toggle());
 
-  return <Wrapper onClick={onClickHandler} />;
+  return (
+    <Wrapper onClick={onClickHandler}>
+      <TogggleBtn isDark={isDark} />
+    </Wrapper>
+  );
 }
 
 export default ThemeToggle;
 
 const Wrapper = styled.div`
-  width: 30px;
+  position: relative;
+  width: 60px;
   height: 30px;
   border-radius: 5px;
+  background: rgba(111, 111, 111, 0.5);
+  transition: ${({ theme }) => theme.transitionOption};
+  :hover {
+    cursor: pointer;
+  }
+`;
+
+interface ToggleBtnProps {
+  isDark: boolean;
+}
+
+const TogggleBtn = styled.div<ToggleBtnProps>`
+  position: absolute;
+  top: 3px;
+  right: ${(props) => (props.isDark ? '3px' : '30px')};
+  width: 25px;
+  height: 25px;
+  border-radius: 10px;
+  background: ${({ theme }) => theme.color};
+  transition: ${({ theme }) => theme.transitionOption};
 `;
