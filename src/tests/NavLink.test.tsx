@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { NavLink } from 'components';
-import { ProjectsLink } from 'utils/types';
+import { ProjectsLink } from 'types';
 import { BrowserRouter } from 'react-router-dom';
 
 const mockProps: ProjectsLink = {
