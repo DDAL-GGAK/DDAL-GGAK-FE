@@ -5,9 +5,34 @@ import { useEffect, useState } from 'react';
 import { ProjectDataForm } from 'types';
 
 export default function Project() {
-  const [projectData, setProjectData] = useState<ProjectDataForm>();
+  const [, setProjectData] = useState<ProjectDataForm>();
   const { id: param } = useParams();
-  const { tasks } = projectData;
+  const tasks = [
+    {
+      id: 1,
+      title: 1,
+      owner: 1,
+      description: 1,
+    },
+    {
+      id: 1,
+      title: 1,
+      owner: 1,
+      description: 1,
+    },
+    {
+      id: 1,
+      title: 1,
+      owner: 1,
+      description: 1,
+    },
+    {
+      id: 1,
+      title: 1,
+      owner: 1,
+      description: 1,
+    },
+  ];
 
   const getData = async () => {
     if (!param) return;
@@ -23,7 +48,7 @@ export default function Project() {
   return (
     <Wrapper>
       <div>Project : {param}</div>
-      {tasks.map((v) => {
+      {tasks.map((v: any) => {
         const { id, owner, title, description } = v;
         return (
           <div key={id}>

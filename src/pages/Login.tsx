@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { logIn } from "../api/auth";
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { logIn } from '../api/auth';
 
 interface LogInForm {
   email: string;
@@ -10,8 +10,6 @@ interface LogInForm {
 
 function Login() {
   const navigate = useNavigate();
-
-  // react-hook-form 사용
   const {
     register,
     handleSubmit,
@@ -25,10 +23,10 @@ function Login() {
       const response = await logIn(data);
 
       if (response.status === 200) {
-        alert("Login successful.");
-        navigate("/");
+        alert('Login successful.');
+        navigate('/');
       } else {
-        alert("Login failed.");
+        alert('Login failed.');
       }
     } catch (err) {
       alert("Login error.");
@@ -94,17 +92,19 @@ function Login() {
 export default Login;
 
 const Wrapper = styled.div`
-  background: bisque;
-  height: 100vh;
+  height: 100%;
 `;
 
 const Container = styled.div`
   padding-top: 200px;
 `;
+
 const Form = styled.form`
   width: 500px;
   border: 1px solid #ddd;
-  background: #fff;
+  background: rgba(222, 222, 222, 0.1);
+  border: none;
+  backdrop-filter: blur(1px);
   border-radius: 10px;
   margin: 0 auto;
   padding: 50px;

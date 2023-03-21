@@ -30,7 +30,7 @@
     "react/react-in-jsx-scope": 0,
     "import/prefer-default-export": 0,
     "@typescript-eslint/lines-between-class-members": 0,
-    "class-methods-use-this": 0
+    "class-methods-use-this": 0,
     "react/jsx-props-no-spreading": 0,
     "arrow-body-style": 0
   }

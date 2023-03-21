@@ -5,9 +5,30 @@ import { ContentWrapper } from 'shared';
 function Router() {
   return (
     <Routes>
-      <Route path="/" element={<ContentWrapper><Home /></ContentWrapper>}/>
-      <Route path="/Signup" element={<ContentWrapper><Signup /></ContentWrapper>}/>
-      <Route path="/Login" element={<ContentWrapper><Login /></ContentWrapper>}/>
+      <Route
+        path="/"
+        element={
+          <ContentWrapper>
+            <Home />
+          </ContentWrapper>
+        }
+      />
+      <Route
+        path="/signup"
+        element={
+          <ContentWrapper>
+            <Signup />
+          </ContentWrapper>
+        }
+      />
+      <Route
+        path="/login"
+        element={
+          <ContentWrapper>
+            <Login />
+          </ContentWrapper>
+        }
+      />
     </Routes>
   );
 }
