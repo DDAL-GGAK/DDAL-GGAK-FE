@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { logIn } from '../api/auth';
+import { logIn } from '../api';
 
 interface LogInForm {
   email: string;
@@ -10,6 +10,7 @@ interface LogInForm {
 
 function Login() {
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -18,6 +19,7 @@ function Login() {
     mode: 'onChange',
   });
 
+<<<<<<< Updated upstream
   const getLogin = async (data: LogInForm) => {
     try {
       const response = await logIn(data);
@@ -31,12 +33,18 @@ function Login() {
     } catch (err) {
       alert('Login error.');
     }
+=======
+  const onValid = async (data: SignInForm) => {
+    const response = await logIn(data);
+    if (response.status === 200) return navigate('/');
+    return alert('Login failed.');
+>>>>>>> Stashed changes
   };
 
   return (
     <Wrapper>
       <Container>
-        <Form onSubmit={handleSubmit(getLogin)}>
+        <Form onSubmit={handleSubmit(onValid)}>
           <h1>Login</h1>
           <Label>email</Label>
           <div>
