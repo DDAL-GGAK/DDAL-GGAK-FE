@@ -6,14 +6,14 @@ import { Cookies } from "react-cookie";
 const cookies = new Cookies();
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_SERVER,
+  baseURL: process.env.REACT_APP_API_BASE_ROUTE,
 });
 
 /* request interceptor */
-const reqOnValid = (config: any) => {
+const reqOnValid = (req: any) => {
   const token = cookies.get("authorization");
-  config.headers.Authorization = token;
-  return config;
+  req.headers.Authorization = token;
+  return req;
 }
 
 const reqOnInvalid = (error: any) => {

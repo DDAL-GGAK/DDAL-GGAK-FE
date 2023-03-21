@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { logIn } from "../api/auth";
 
-interface Typevalues {
+interface LogInForm {
   email: string;
   password: string;
 }
@@ -16,13 +16,13 @@ function Login() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Typevalues>({
+  } = useForm<LogInForm>({
     mode: "onChange",
   });
 
-  const getLogin = async ({ email, password }: Typevalues) => {
+  const getLogin = async (data: LogInForm) => {
     try {
-      const response = await logIn({ email, password });
+      const response = await logIn(data);
 
       if (response.status === 200) {
         alert("Login successful.");
@@ -31,7 +31,7 @@ function Login() {
         alert("Login failed.");
       }
     } catch (err) {
-      alert("Login failed.");
+      alert("Login error.");
     }
   };
 
@@ -41,21 +41,49 @@ function Login() {
         <Form onSubmit={handleSubmit(getLogin)}>
           <h1>Login</h1>
           <Label>email</Label>
+          <div>
           <Input
             type="email"
             placeholder="Enter your email address"
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...register("email")}
+            {...register("email", {
+              required: 'Please enter your email!',
+              // 커스텀 validation
+              validate: {
+                isAlphabet: (value) => {
+                  const isAlphabet = value.match(/[a-zA-Z]/g);
+                  return isAlphabet ? true : 'must be include Alphabet';
+                },
+                isEmail: (value) => {
+                  const isEmail = value.match(
+                    /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+                  );
+                  return isEmail ? true : 'not email format';
+                },
+              },
+            })}
           />
           {errors.email && <Errorspan>{errors.email.message}</Errorspan>}
+          </div>
+          <div>
           <Label>password</Label>
           <Input
             type="password"
             placeholder="Enter your password"
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...register("password")}
+            {...register("password", {
+              required: 'Please enter your password!',
+              minLength: {
+                value: 8,
+                message: 'Requires longer than 8',
+              },
+              pattern: {
+                value:
+                  /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,15}$/,
+                message: 'must be include Alphabet & number',
+              },
+            })}
           />
           {errors.password && <Errorspan>{errors.password.message}</Errorspan>}
+          </div>
           <Submit type="submit">Signup</Submit>
         </Form>
       </Container>
