@@ -44,71 +44,73 @@ function Signup() {
         <Form onSubmit={handleSubmit(onSubmit)}>
           <h1>SignUp</h1>
           <div>
-          <Label>email</Label>
-          <Input
-            type='email'
-            placeholder='Enter your email address'
-            {...register('email', {
-              required: 'Please enter your email!',
-              // 커스텀 validation
-              validate: {
-                isAlphabet: (value) => {
-                  const isAlphabet = value.match(/[a-zA-Z]/g);
-                  return isAlphabet ? true : 'must be include Alphabet';
+            <Label>email</Label>
+            <Input
+              type="email"
+              placeholder="Enter your email address"
+              {...register('email', {
+                required: 'Please enter your email!',
+                validate: {
+                  isAlphabet: (value) => {
+                    const isAlphabet = value.match(/[a-zA-Z]/g);
+                    return isAlphabet ? true : 'must be include Alphabet';
+                  },
+                  isEmail: (value) => {
+                    const isEmail = value.match(
+                      /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+                    );
+                    return isEmail ? true : 'not email format';
+                  },
                 },
-                isEmail: (value) => {
-                  const isEmail = value.match(
-                    /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/g
-                  );
-                  return isEmail ? true : 'not email format';
-                },
-              },
-            })}
-          />
-          {errors.email && <Errorspan>{errors.email.message}</Errorspan>}
+              })}
+            />
+            {errors.email && <Errorspan>{errors.email.message}</Errorspan>}
           </div>
           {/* <Label>verify</Label>
           <Input /> */}
           <div>
-          <Label>password</Label>
-          <Input
-            type='password'
-            placeholder='Enter your password'
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...register('password', {
-              required: 'Please enter your password!',
-              minLength: {
-                value: 8,
-                message: 'Requires longer than 8',
-              },
-              pattern: {
-                value:
-                  /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,}$/,
-                message: 'must be include Alphabet & number',
-              },
-            })}
-          />
-          {errors.password && <Errorspan>{errors.password.message}</Errorspan>}
+            <Label>password</Label>
+            <Input
+              type="password"
+              placeholder="Enter your password"
+              {...register('password', {
+                required: 'Please enter your password!',
+                minLength: {
+                  value: 8,
+                  message: 'Requires longer than 8',
+                },
+                pattern: {
+                  value:
+                    /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,}$/,
+                  message: 'must be include Alphabet & number',
+                },
+              })}
+            />
+            {errors.password && (
+              <Errorspan>{errors.password.message}</Errorspan>
+            )}
           </div>
           <div>
-          <Label>passwordConfirm</Label>
-          <Input
-            type='password'
-            placeholder='Enter your password'
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...register('passwordConfirm', {
-              required: 'Please enter your password!',
-              validate: {
-                matchesPrevios: (value) => {
-                  const pwd = watch('password');
-                  return value === pwd || 'Password not match';
+            <Label>passwordConfirm</Label>
+            <Input
+              type="password"
+              placeholder="Enter your password"
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...register('passwordConfirm', {
+                required: 'Please enter your password!',
+                validate: {
+                  matchesPrevios: (value) => {
+                    const pwd = watch('password');
+                    return value === pwd || 'Password not match';
+                  },
                 },
-              },
-            })}
-          />
-          {errors.passwordConfirm && (<Errorspan>{errors.passwordConfirm.message}</Errorspan>)}
+              })}
+            />
+            {errors.passwordConfirm && (
+              <Errorspan>{errors.passwordConfirm.message}</Errorspan>
+            )}
           </div>
-          <Submit type='submit' disabled={isLoading}>
+          <Submit type="submit" disabled={isLoading}>
             Signup
           </Submit>
         </Form>
@@ -120,8 +122,7 @@ function Signup() {
 export default Signup;
 
 const Wrapper = styled.div`
-  background: bisque;
-  height: 100vh;
+  height: 100%;
 `;
 
 const Container = styled.div`

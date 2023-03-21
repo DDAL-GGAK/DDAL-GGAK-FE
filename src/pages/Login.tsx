@@ -23,58 +23,54 @@ function Login() {
 
   return (
     <Wrapper>
-      <Container>
-        <Form onSubmit={handleSubmit(onValid)}>
-          <h1>Login</h1>
-          <Label>email</Label>
-          <div>
-            <Input
-              type="email"
-              placeholder="Enter your email address"
-              {...register('email', {
-                required: 'Please enter your email!',
-                // 커스텀 validation
-                validate: {
-                  isAlphabet: (value) => {
-                    const isAlphabet = value.match(/[a-zA-Z]/g);
-                    return isAlphabet ? true : 'must be include Alphabet';
-                  },
-                  isEmail: (value) => {
-                    const isEmail = value.match(
-                      /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/g
-                    );
-                    return isEmail ? true : 'not email format';
-                  },
+      <Form onSubmit={handleSubmit(onValid)}>
+        <h1>Login</h1>
+        <Label>email</Label>
+        <div>
+          <Input
+            type="email"
+            placeholder="Enter your email address"
+            {...register('email', {
+              required: 'Please enter your email!',
+              // 커스텀 validation
+              validate: {
+                isAlphabet: (value) => {
+                  const isAlphabet = value.match(/[a-zA-Z]/g);
+                  return isAlphabet ? true : 'must be include Alphabet';
                 },
-              })}
-            />
-            {errors.email && <Errorspan>{errors.email.message}</Errorspan>}
-          </div>
-          <div>
-            <Label>password</Label>
-            <Input
-              type="password"
-              placeholder="Enter your password"
-              {...register('password', {
-                required: 'Please enter your password!',
-                minLength: {
-                  value: 8,
-                  message: 'Requires longer than 8',
+                isEmail: (value) => {
+                  const isEmail = value.match(
+                    /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+                  );
+                  return isEmail ? true : 'not email format';
                 },
-                pattern: {
-                  value:
-                    /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,15}$/,
-                  message: 'must be include Alphabet & number',
-                },
-              })}
-            />
-            {errors.password && (
-              <Errorspan>{errors.password.message}</Errorspan>
-            )}
-          </div>
-          <Submit type="submit">Signup</Submit>
-        </Form>
-      </Container>
+              },
+            })}
+          />
+          {errors.email && <Errorspan>{errors.email.message}</Errorspan>}
+        </div>
+        <div>
+          <Label>password</Label>
+          <Input
+            type="password"
+            placeholder="Enter your password"
+            {...register('password', {
+              required: 'Please enter your password!',
+              minLength: {
+                value: 8,
+                message: 'Requires longer than 8',
+              },
+              pattern: {
+                value:
+                  /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,15}$/,
+                message: 'must be include Alphabet & number',
+              },
+            })}
+          />
+          {errors.password && <Errorspan>{errors.password.message}</Errorspan>}
+        </div>
+        <Submit type="submit">Signup</Submit>
+      </Form>
     </Wrapper>
   );
 }
@@ -83,10 +79,9 @@ export default Login;
 
 const Wrapper = styled.div`
   height: 100%;
-`;
-
-const Container = styled.div`
-  padding-top: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Form = styled.form`
