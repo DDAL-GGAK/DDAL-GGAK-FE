@@ -1,12 +1,8 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { logIn } from '../api';
-
-interface LogInForm {
-  email: string;
-  password: string;
-}
+import { LogInForm } from 'types/';
+import { logIn } from 'api';
 
 function Login() {
   const navigate = useNavigate();
@@ -19,26 +15,10 @@ function Login() {
     mode: 'onChange',
   });
 
-<<<<<<< Updated upstream
-  const getLogin = async (data: LogInForm) => {
-    try {
-      const response = await logIn(data);
-
-      if (response.status === 200) {
-        alert('Login successful.');
-        navigate('/');
-      } else {
-        alert('Login failed.');
-      }
-    } catch (err) {
-      alert('Login error.');
-    }
-=======
-  const onValid = async (data: SignInForm) => {
+  const onValid = async (data: LogInForm) => {
     const response = await logIn(data);
     if (response.status === 200) return navigate('/');
     return alert('Login failed.');
->>>>>>> Stashed changes
   };
 
   return (
