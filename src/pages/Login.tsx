@@ -1,12 +1,8 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { logIn } from '../api/auth';
-
-interface LogInForm {
-  email: string;
-  password: string;
-}
+import { LogInForm } from 'types/';
+import { logIn } from 'api';
 
 function Login() {
   const navigate = useNavigate();
@@ -15,72 +11,65 @@ function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm<LogInForm>({
-    mode: "onChange",
+    mode: 'onChange',
   });
 
-  const getLogin = async (data: LogInForm) => {
-    try {
-      const response = await logIn(data);
-
-      if (response.status === 200) {
-        alert('Login successful.');
-        navigate('/');
-      } else {
-        alert('Login failed.');
-      }
-    } catch (err) {
-      alert("Login error.");
-    }
+  const onValid = async (data: LogInForm) => {
+    const response = await logIn(data);
+    if (response.status === 200) return navigate('/');
+    return alert('Login failed.');
   };
 
   return (
     <Wrapper>
       <Container>
-        <Form onSubmit={handleSubmit(getLogin)}>
+        <Form onSubmit={handleSubmit(onValid)}>
           <h1>Login</h1>
           <Label>email</Label>
           <div>
-          <Input
-            type="email"
-            placeholder="Enter your email address"
-            {...register("email", {
-              required: 'Please enter your email!',
-              // 커스텀 validation
-              validate: {
-                isAlphabet: (value) => {
-                  const isAlphabet = value.match(/[a-zA-Z]/g);
-                  return isAlphabet ? true : 'must be include Alphabet';
+            <Input
+              type="email"
+              placeholder="Enter your email address"
+              {...register('email', {
+                required: 'Please enter your email!',
+                // 커스텀 validation
+                validate: {
+                  isAlphabet: (value) => {
+                    const isAlphabet = value.match(/[a-zA-Z]/g);
+                    return isAlphabet ? true : 'must be include Alphabet';
+                  },
+                  isEmail: (value) => {
+                    const isEmail = value.match(
+                      /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+                    );
+                    return isEmail ? true : 'not email format';
+                  },
                 },
-                isEmail: (value) => {
-                  const isEmail = value.match(
-                    /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/g
-                  );
-                  return isEmail ? true : 'not email format';
-                },
-              },
-            })}
-          />
-          {errors.email && <Errorspan>{errors.email.message}</Errorspan>}
+              })}
+            />
+            {errors.email && <Errorspan>{errors.email.message}</Errorspan>}
           </div>
           <div>
-          <Label>password</Label>
-          <Input
-            type="password"
-            placeholder="Enter your password"
-            {...register("password", {
-              required: 'Please enter your password!',
-              minLength: {
-                value: 8,
-                message: 'Requires longer than 8',
-              },
-              pattern: {
-                value:
-                  /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,15}$/,
-                message: 'must be include Alphabet & number',
-              },
-            })}
-          />
-          {errors.password && <Errorspan>{errors.password.message}</Errorspan>}
+            <Label>password</Label>
+            <Input
+              type="password"
+              placeholder="Enter your password"
+              {...register('password', {
+                required: 'Please enter your password!',
+                minLength: {
+                  value: 8,
+                  message: 'Requires longer than 8',
+                },
+                pattern: {
+                  value:
+                    /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,15}$/,
+                  message: 'must be include Alphabet & number',
+                },
+              })}
+            />
+            {errors.password && (
+              <Errorspan>{errors.password.message}</Errorspan>
+            )}
           </div>
           <Submit type="submit">Signup</Submit>
         </Form>
