@@ -28,7 +28,7 @@ export default function Project() {
           const id = v; // 현재는 v가 new Array로 생성한 값이지만, 이후 해당 프로젝트에 존재하는 Task의 id를 넣어주시면 됩니다.
 
           return (
-            <Link to={`./${id}`} key={v}>
+            <Link to={`./task/${id}`} key={v}>
               <ProjectCard />
             </Link>
           );
