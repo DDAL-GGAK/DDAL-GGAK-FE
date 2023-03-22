@@ -1,38 +1,14 @@
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { getProjectData } from 'api';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { ProjectDataForm } from 'types';
+import { TOP_NAV, CONTENT_WRAPPER } from 'constants/';
 
 export default function Project() {
   const [, setProjectData] = useState<ProjectDataForm>();
   const { id: param } = useParams();
-  const tasks = [
-    {
-      id: 1,
-      title: 1,
-      owner: 1,
-      description: 1,
-    },
-    {
-      id: 1,
-      title: 1,
-      owner: 1,
-      description: 1,
-    },
-    {
-      id: 1,
-      title: 1,
-      owner: 1,
-      description: 1,
-    },
-    {
-      id: 1,
-      title: 1,
-      owner: 1,
-      description: 1,
-    },
-  ];
+  const tasks = useMemo(() => new Array(21).fill('').map((v, i) => i + 1), []);
 
   const getData = async () => {
     if (!param) return;
@@ -47,19 +23,48 @@ export default function Project() {
 
   return (
     <Wrapper>
-      <div>Project : {param}</div>
-      {tasks.map((v: any) => {
-        const { id, owner, title, description } = v;
-        return (
-          <div key={id}>
-            <div>{title}</div>
-            <div>{owner}</div>
-            <div>{description}</div>
-          </div>
-        );
-      })}
+      <ProjectBoard>
+        {tasks.map((v: any) => {
+          const id = v; // 현재는 v가 new Array로 생성한 값이지만, 이후 해당 프로젝트에 존재하는 Task의 id를 넣어주시면 됩니다.
+
+          return (
+            <Link to={`./${id}`} key={v}>
+              <ProjectCard />
+            </Link>
+          );
+        })}
+      </ProjectBoard>
     </Wrapper>
   );
 }
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  height: calc(100vh - ${TOP_NAV.HEIGHT}px - ${CONTENT_WRAPPER.PADDING * 2}px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ProjectBoard = styled.div`
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  overflow: auto;
+  gap: 10px;
+  overflow-y: auto;
+  padding-right: 10px;
+`;
+
+const ProjectCard = styled.div`
+  background: ${({ theme }) => theme.transparentColor};
+  transition: ${({ theme }) => theme.transitionOption};
+  border-radius: 5px;
+  height: 400px;
+  min-width: 250px;
+
+  :hover {
+    background: ${({ theme }) => theme.color};
+    cursor: pointer;
+  }
+`;

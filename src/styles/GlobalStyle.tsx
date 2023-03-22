@@ -7,6 +7,39 @@ export const GlobalStyle = createGlobalStyle`
     transition: ${({ theme }) => theme.transitionOption};
   }
 
+  /* Prevent Drag */
+  * {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+  }
+
+  /* Scroll webkit CSS */
+  *::-webkit-scrollbar {
+      width: 10px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 255, 255, 0.4);
+      border-radius: 3px;
+      transition: 0.2s ease-in-out;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(255, 255, 255, 0.7);
+  }
+
+  *::-webkit-scrollbar-track {
+      background-color: #0c0d1182;
+      border-radius: 3px;
+  }
+
   a {
     color: inherit;
     text-decoration: none;
