@@ -29,3 +29,5 @@ export const logIn = async ({ email, password }: UserProps) => {
 
   return response;
 };
+
+export const logOut = async () => authAPI.post(API_ROUTE.AUTH.LOG_OUT, {});

@@ -2,25 +2,8 @@ import styled from 'styled-components';
 import { SIDE_NAV, TOP_NAV } from 'constants/layout';
 import { NavLink, AddProject, Config } from 'components';
 import { ProjectsLink } from 'types';
-import { useEffect, useState } from 'react';
-import { Axios } from 'libs';
 
 function SideNav() {
-  const [userProjects, setUserProjects] = useState<any>();
-  const api = new Axios(true);
-
-  const setProjectData = async () => {
-    const { data } = await api.get('/api/projects');
-
-    setUserProjects(data);
-  };
-
-  useEffect(() => {
-    setProjectData();
-  });
-
-  console.log(userProjects);
-
   const dummyLink: ProjectsLink[] = [
     { id: '1', title: 'title1' },
     { id: '2', title: 'title2' },

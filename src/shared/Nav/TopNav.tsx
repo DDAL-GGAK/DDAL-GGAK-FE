@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import { SIDE_NAV, TOP_NAV } from 'constants/';
 import { Logo, Menu } from 'assets/icons';
 import { DEVICES } from 'styles';
-import { ThemeToggle } from 'components';
+import { ThemeToggle, LogOut } from 'components';
 import useMediaQuery from 'hooks/useMediaquery';
+import { Link } from 'react-router-dom';
 
 function TopNav() {
   const isNotSmallDevice = useMediaQuery(DEVICES.MOBILES);
@@ -20,6 +21,18 @@ function TopNav() {
         </LeftWrapper>
         {isNotSmallDevice ? (
           <RightWrapper>
+            <NavWrapper>
+              <Link to="/">Home</Link>
+            </NavWrapper>
+            <NavWrapper>
+              <Link to="/login">Login</Link>
+            </NavWrapper>
+            <NavWrapper>
+              <Link to="/signup">SignUp</Link>
+            </NavWrapper>
+            <NavWrapper>
+              <LogOut />
+            </NavWrapper>
             <ThemeToggle />
             <ProfileImage />
           </RightWrapper>
@@ -32,6 +45,19 @@ function TopNav() {
 }
 
 export default TopNav;
+
+const NavWrapper = styled.div`
+  font-weight: 600;
+  padding: 5px;
+  box-sizing: border-box;
+  border-bottom: 2px solid transparent;
+  transition: ${({ theme }) => theme.transitionOption};
+  :hover {
+    cursor: pointer;
+    box-sizing: border-box;
+    border-bottom: 2px solid black;
+  }
+`;
 
 const NavToggle = styled.div`
   width: ${SIDE_NAV.WIDTH}px;

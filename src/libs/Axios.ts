@@ -70,7 +70,17 @@ class Axios {
 
   /* Res */
   #resMiddleWare(res: AxiosInterceptorRes) {
-    const { refreshtoken } = res.headers;
+    const { authorization, refreshtoken } = res.headers;
+
+    if (authorization) {
+      const validUntil = new Date();
+      validUntil.setTime(new Date().getTime() + EXPIRE.ACCESS_TOKEN);
+
+      this.#cookie.set(KEY.ACCESS_TOKEN, authorization, {
+        path: '/',
+        expires: validUntil,
+      });
+    }
 
     if (refreshtoken) {
       const validUntil = new Date();
