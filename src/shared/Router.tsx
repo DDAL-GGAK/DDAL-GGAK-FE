@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { Home, Signup, Login, Task } from 'pages';
+import { Home, Signup, Login, Task, Project } from 'pages';
 import { ContentWrapper } from 'shared';
 
 function Router() {
@@ -26,6 +26,14 @@ function Router() {
         element={
           <ContentWrapper>
             <Login />
+          </ContentWrapper>
+        }
+      />
+      <Route
+        path="/project/:id"
+        element={
+          <ContentWrapper>
+            <Project />
           </ContentWrapper>
         }
       />
