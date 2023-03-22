@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { getProjectData } from 'api';
 import { useEffect, useState, useMemo } from 'react';
 import { ProjectDataForm } from 'types';
-import { TOP_NAV, CONTENT_WRAPPER } from 'constants/';
+import { CONTENT } from 'constants/';
 
 export default function Project() {
   const [, setProjectData] = useState<ProjectDataForm>();
@@ -39,7 +39,7 @@ export default function Project() {
 }
 
 const Wrapper = styled.div`
-  height: calc(100vh - ${TOP_NAV.HEIGHT}px - ${CONTENT_WRAPPER.PADDING * 2}px);
+  height: ${CONTENT.HEIGHT};
   display: flex;
   justify-content: center;
   align-items: center;

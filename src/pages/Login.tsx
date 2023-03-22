@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { LogInForm } from 'types/';
+import { CONTENT } from 'constants/';
 import { logIn } from 'api';
 
 function Login() {
@@ -77,7 +78,7 @@ function Login() {
 export default Login;
 
 const Wrapper = styled.div`
-  height: 100%;
+  height: ${CONTENT.HEIGHT};
   display: flex;
   align-items: center;
   justify-content: center;
