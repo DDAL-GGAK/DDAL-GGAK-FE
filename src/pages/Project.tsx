@@ -53,6 +53,7 @@ const ProjectBoard = styled.div`
   overflow: auto;
   gap: 10px;
   overflow-y: auto;
+  padding-right: 10px;
 `;
 
 const ProjectCard = styled.div`
