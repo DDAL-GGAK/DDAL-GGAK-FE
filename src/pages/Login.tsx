@@ -6,7 +6,6 @@ import { logIn } from 'api';
 
 function Login() {
   const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
