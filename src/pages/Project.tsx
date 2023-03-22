@@ -25,15 +25,7 @@ export default function Project() {
     <Wrapper>
       <ProjectBoard>
         {tasks.map((v: any) => {
-          const { id, owner, title, description } = v;
-
-          return (
-            <ProjectCard key={id}>
-              <div>{title}</div>
-              <div>{owner}</div>
-              <div>{description}</div>
-            </ProjectCard>
-          );
+          return <ProjectCard key={v} />;
         })}
       </ProjectBoard>
     </Wrapper>
