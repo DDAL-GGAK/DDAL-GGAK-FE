@@ -1,12 +1,36 @@
-import React from 'react';
-import { BrowserRouter, Routes } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import { Home, Signup, Login } from 'pages';
+import { ContentWrapper } from 'shared';
 
 function Router() {
-	return (
-		<BrowserRouter>
-			<Routes />
-		</BrowserRouter>
-	);
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <ContentWrapper>
+            <Home />
+          </ContentWrapper>
+        }
+      />
+      <Route
+        path="/signup"
+        element={
+          <ContentWrapper>
+            <Signup />
+          </ContentWrapper>
+        }
+      />
+      <Route
+        path="/login"
+        element={
+          <ContentWrapper>
+            <Login />
+          </ContentWrapper>
+        }
+      />
+    </Routes>
+  );
 }
 
 export default Router;

@@ -8,5 +8,10 @@ declare module 'styled-components' {
     transparentColor: string;
     pointColor: string;
     transitionOption: string;
+
+    /* nav */
+    navBackground: string;
+    navLinkBackground: string;
+    borderColor: string;
   }
 }
