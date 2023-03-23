@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { Ticket } from 'components';
+import { Link } from 'react-router-dom';
 
 interface TicketForm {
   id: number;
@@ -14,15 +16,18 @@ export default function Tickets({ data, children }: TicketsProps) {
   return (
     <Wrapper>
       <BoardTitle>{children}</BoardTitle>
-      {data.map((v) => {
-        const { id, name } = v;
 
-        return (
-          <div key={id}>
-            <div>{name}</div>
-          </div>
-        );
-      })}
+      <TicketWrapper>
+        {data.map((v) => {
+          const { id, name } = v;
+
+          return (
+            <Link to="./ticket/1">
+              <Ticket key={id} data={name} />
+            </Link>
+          );
+        })}
+      </TicketWrapper>
     </Wrapper>
   );
 }
@@ -34,4 +39,9 @@ const BoardTitle = styled.div`
   font-weight: 600;
   background: ${({ theme }) => theme.transparentBackground};
   color: ${({ theme }) => theme.pointColor};
+`;
+
+const TicketWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

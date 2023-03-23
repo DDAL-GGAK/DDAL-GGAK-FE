@@ -1,16 +1,11 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 interface TicketProps {
   data: string;
 }
 
 export default function Ticket({ data }: TicketProps) {
-  return (
-    <Wrapper>
-      <Link to="/1">{data}</Link>
-    </Wrapper>
-  );
+  return <Wrapper>{data}</Wrapper>;
 }
 
 const Wrapper = styled.div`
