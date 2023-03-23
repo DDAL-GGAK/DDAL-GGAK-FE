@@ -34,7 +34,7 @@ export default function Task() {
 const Wrapper = styled.div`
   background: rgba(111, 111, 111, 0.15);
   height: ${CONTENT.HEIGHT};
-  border-radius: 5px;
+  border-radius: 10px;
 `;
 
 const TopWrapper = styled.div`
@@ -45,6 +45,8 @@ const Teams = styled.div`
   display: flex;
   gap: 10px;
   padding: 10px;
+  background: ${({ theme }) => theme.navBackground};
+  border-radius: 10px 10px 0 0;
 `;
 
 const Team = styled.div`
@@ -55,7 +57,6 @@ const Team = styled.div`
   padding: 5px 10px;
   min-width: 50px;
   text-align: center;
-  transition: ${({ theme }) => theme.transitionOption};
   :hover {
     cursor: pointer;
     background-color: ${({ theme }) => theme.color};
@@ -68,7 +69,8 @@ const BottomWrapper = styled.div`
 `;
 
 const BottomHeader = styled.div`
-  background: bisque;
+  border-bottom: 1px solid ${({ theme }) => theme.borderColor};
+  background: ${({ theme }) => theme.navBackground};
   padding: 10px;
   font-weight: 600;
   font-size: 20px;

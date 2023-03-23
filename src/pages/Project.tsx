@@ -43,6 +43,9 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px;
 `;
 
 const ProjectBoard = styled.div`
@@ -50,10 +53,7 @@ const ProjectBoard = styled.div`
   height: 100%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  overflow: auto;
   gap: 10px;
-  overflow-y: auto;
-  padding-right: 10px;
 `;
 
 const ProjectCard = styled.div`
