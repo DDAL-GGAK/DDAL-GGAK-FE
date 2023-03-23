@@ -5,7 +5,7 @@ import { Add } from 'assets/icons';
 export default function AddProject() {
   return (
     <Wrapper>
-      <Add />
+      <Add width={20} />
     </Wrapper>
   );
 }

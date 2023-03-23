@@ -5,6 +5,7 @@ import { useEffect, useState, useMemo } from 'react';
 import { ProjectDataForm } from 'types';
 import { CONTENT } from 'constants/';
 import { AddTask } from 'components';
+import { TaskCard } from 'components/project';
 
 export default function Project() {
   const [, setProjectData] = useState<ProjectDataForm>();
@@ -25,13 +26,15 @@ export default function Project() {
   return (
     <Wrapper>
       <ProjectBoard>
-        <AddTask />
+        <TaskCard>
+          <AddTask />
+        </TaskCard>
         {tasks.map((v: any) => {
           const id = v; // 현재는 v가 new Array로 생성한 값이지만, 이후 해당 프로젝트에 존재하는 Task의 id를 넣어주시면 됩니다.
 
           return (
             <Link to={`./task/${id}`} key={v}>
-              <ProjectCard />
+              <TaskCard>1</TaskCard>
             </Link>
           );
         })}
@@ -56,17 +59,4 @@ const ProjectBoard = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
-`;
-
-const ProjectCard = styled.div`
-  background: ${({ theme }) => theme.transparentColor};
-  transition: ${({ theme }) => theme.transitionOption};
-  border-radius: 5px;
-  height: 400px;
-  min-width: 250px;
-
-  :hover {
-    background: ${({ theme }) => theme.color};
-    cursor: pointer;
-  }
 `;
