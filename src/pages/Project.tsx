@@ -1,27 +1,28 @@
 import styled from 'styled-components';
 import { useParams, Link } from 'react-router-dom';
 import { getProjectData } from 'api';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { ProjectDataForm } from 'types';
 import { CONTENT } from 'constants/';
 import { AddTask } from 'components';
 import { TaskCard } from 'components/project';
 
 export default function Project() {
-  const [, setProjectData] = useState<ProjectDataForm>();
+  const [projectData, setProjectData] = useState<ProjectDataForm>();
   const { id: param } = useParams();
-  const tasks = useMemo(() => new Array(21).fill('').map((v, i) => i + 1), []);
 
+  console.log('Project Render!');
   const getData = async () => {
     if (!param) return;
 
     const { data } = await getProjectData(param);
+    console.log(data);
     setProjectData(data);
   };
 
   useEffect(() => {
     getData();
-  });
+  }, [param]);
 
   return (
     <Wrapper>
@@ -29,12 +30,14 @@ export default function Project() {
         <TaskCard>
           <AddTask />
         </TaskCard>
-        {tasks.map((v: any) => {
-          const id = v; // 현재는 v가 new Array로 생성한 값이지만, 이후 해당 프로젝트에 존재하는 Task의 id를 넣어주시면 됩니다.
+        {projectData?.tasks.map((task: any) => {
+          const { id, taskTitle } = task;
 
           return (
-            <Link to={`./task/${id}`} key={v}>
-              <TaskCard>1</TaskCard>
+            <Link to={`./task/${id}`} key={id}>
+              <TaskCard>
+                <Title>Title: {taskTitle}</Title>
+              </TaskCard>
             </Link>
           );
         })}
@@ -60,3 +63,5 @@ const ProjectBoard = styled.div`
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
 `;
+
+const Title = styled.div``;
