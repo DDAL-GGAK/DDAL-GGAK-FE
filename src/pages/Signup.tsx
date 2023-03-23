@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
+import { CONTENT } from 'constants/';
 import { signUp } from '../api/auth';
 
 export interface SignUpForm {
@@ -122,7 +123,7 @@ function Signup() {
 export default Signup;
 
 const Wrapper = styled.div`
-  height: 100%;
+  height: ${CONTENT.HEIGHT};
 `;
 
 const Container = styled.div`
