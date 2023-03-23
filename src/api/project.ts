@@ -6,3 +6,9 @@ export const getProjectData = async (param: string) => {
 
   return res;
 };
+
+export const getTaskData = async (param: string) => {
+  const res = await api.getByParams('/api', param);
+
+  return res;
+};
