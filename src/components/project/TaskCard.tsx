@@ -15,11 +15,13 @@ const Wrapper = styled.div`
   height: 400px;
   min-width: 250px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 
   :hover {
     background: ${({ theme }) => theme.color};
+    color: ${({ theme }) => theme.background};
     cursor: pointer;
   }
 `;

@@ -6,7 +6,6 @@ export interface ProjectsLink {
 }
 
 export interface ProjectDataForm {
-  completedTickets: number;
   projectLeader: string;
   projectTitle: string;
   tasks: TaskDataForm[];
@@ -14,10 +13,11 @@ export interface ProjectDataForm {
 }
 
 export interface TaskDataForm {
-  expiredAt: string;
   id: number;
   participants: Participants[];
   participantsCount: number;
   taskTitle: string;
   totalTickets: number;
+  completedTickets: string;
+  expiredAt: string;
 }

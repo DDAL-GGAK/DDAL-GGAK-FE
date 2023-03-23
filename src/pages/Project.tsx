@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useParams, Link } from 'react-router-dom';
 import { getProjectData } from 'api';
 import { useEffect, useState } from 'react';
-import { ProjectDataForm } from 'types';
+import { ProjectDataForm, TaskDataForm } from 'types';
 import { CONTENT } from 'constants/';
 import { AddTask } from 'components';
 import { TaskCard } from 'components/project';
@@ -11,12 +11,9 @@ export default function Project() {
   const [projectData, setProjectData] = useState<ProjectDataForm>();
   const { id: param } = useParams();
 
-  console.log('Project Render!');
   const getData = async () => {
     if (!param) return;
-
     const { data } = await getProjectData(param);
-    console.log(data);
     setProjectData(data);
   };
 
@@ -30,13 +27,24 @@ export default function Project() {
         <TaskCard>
           <AddTask />
         </TaskCard>
-        {projectData?.tasks.map((task: any) => {
-          const { id, taskTitle } = task;
+        {projectData?.tasks.map((task: TaskDataForm) => {
+          const {
+            id,
+            // participants,
+            participantsCount,
+            taskTitle,
+            completedTickets,
+            totalTickets,
+            expiredAt,
+          } = task;
 
           return (
             <Link to={`./task/${id}`} key={id}>
               <TaskCard>
                 <Title>Title: {taskTitle}</Title>
+                <div>participantsCount : {participantsCount}</div>
+                <div>{`${completedTickets} / ${totalTickets}`}</div>
+                <div>{expiredAt}</div>
               </TaskCard>
             </Link>
           );
