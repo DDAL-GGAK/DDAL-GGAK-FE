@@ -1,35 +1,51 @@
 import styled from 'styled-components';
 import { useParams, Link } from 'react-router-dom';
 import { getProjectData } from 'api';
-import { useEffect, useState, useMemo } from 'react';
-import { ProjectDataForm } from 'types';
+import { useEffect, useState } from 'react';
+import { ProjectDataForm, TaskDataForm } from 'types';
 import { CONTENT } from 'constants/';
+import { AddTask } from 'components';
+import { TaskCard } from 'components/project';
 
 export default function Project() {
-  const [, setProjectData] = useState<ProjectDataForm>();
+  const [projectData, setProjectData] = useState<ProjectDataForm>();
   const { id: param } = useParams();
-  const tasks = useMemo(() => new Array(21).fill('').map((v, i) => i + 1), []);
 
   const getData = async () => {
     if (!param) return;
-
     const { data } = await getProjectData(param);
     setProjectData(data);
   };
 
   useEffect(() => {
     getData();
-  });
+  }, [param]);
 
   return (
     <Wrapper>
       <ProjectBoard>
-        {tasks.map((v: any) => {
-          const id = v; // 현재는 v가 new Array로 생성한 값이지만, 이후 해당 프로젝트에 존재하는 Task의 id를 넣어주시면 됩니다.
+        <TaskCard>
+          <AddTask />
+        </TaskCard>
+        {projectData?.tasks.map((task: TaskDataForm) => {
+          const {
+            id,
+            // participants,
+            participantsCount,
+            taskTitle,
+            completedTickets,
+            totalTickets,
+            expiredAt,
+          } = task;
 
           return (
-            <Link to={`./task/${id}`} key={v}>
-              <ProjectCard />
+            <Link to={`./task/${id}`} key={id}>
+              <TaskCard>
+                <Title>Title: {taskTitle}</Title>
+                <div>participantsCount : {participantsCount}</div>
+                <div>{`${completedTickets} / ${totalTickets}`}</div>
+                <div>{expiredAt}</div>
+              </TaskCard>
             </Link>
           );
         })}
@@ -56,15 +72,4 @@ const ProjectBoard = styled.div`
   gap: 10px;
 `;
 
-const ProjectCard = styled.div`
-  background: ${({ theme }) => theme.transparentColor};
-  transition: ${({ theme }) => theme.transitionOption};
-  border-radius: 5px;
-  height: 400px;
-  min-width: 250px;
-
-  :hover {
-    background: ${({ theme }) => theme.color};
-    cursor: pointer;
-  }
-`;
+const Title = styled.div``;
