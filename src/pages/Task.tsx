@@ -32,7 +32,6 @@ export default function Task() {
 }
 
 const Wrapper = styled.div`
-  background: rgba(111, 111, 111, 0.15);
   height: ${CONTENT.HEIGHT};
   border-radius: 10px;
 `;
