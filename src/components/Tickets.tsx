@@ -22,8 +22,8 @@ export default function Tickets({ data, children }: TicketsProps) {
           const { id, name } = v;
 
           return (
-            <Link to="./ticket/1">
-              <Ticket key={id} data={name} />
+            <Link key={id} to="./ticket/1">
+              <Ticket data={name} />
             </Link>
           );
         })}
