@@ -13,8 +13,13 @@ const TASK = Object.freeze({
   GET_DATA: '/api/task',
 });
 
+const USER = Object.freeze({
+  GET_DATA: '/api/user',
+});
+
 export const API_ROUTE = Object.freeze({
   AUTH,
   PROJECT,
   TASK,
+  USER,
 });
