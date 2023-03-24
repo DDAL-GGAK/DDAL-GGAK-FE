@@ -38,7 +38,7 @@ function Router() {
         }
       />
       <Route
-        path="/project/:id/task/:id"
+        path="/task/:id"
         element={
           <ContentWrapper>
             <Task />
