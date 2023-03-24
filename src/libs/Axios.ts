@@ -151,10 +151,10 @@ class Axios {
    * @param {number} id
    * @param {object} data
    */
-  put(endPoint: EndPoint, data: DataForm, id: ID) {
+  put(endPoint: EndPoint, data: object, id: ID | undefined = undefined) {
     return this.#instance({
       method: METHOD.PUT,
-      url: `${endPoint}/${id}`,
+      url: !!id || id === '' || id === 0 ? `${endPoint}/${id}` : endPoint,
       data,
     });
   }
