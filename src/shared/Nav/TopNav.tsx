@@ -34,7 +34,9 @@ function TopNav() {
               <LogOut />
             </NavWrapper>
             <ThemeToggle />
-            <ProfileImage />
+            <Link to="/user">
+              <ProfileImage />
+            </Link>
           </RightWrapper>
         ) : (
           ''

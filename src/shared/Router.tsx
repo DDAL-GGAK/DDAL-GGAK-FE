@@ -46,7 +46,7 @@ function Router() {
         }
       />
       <Route
-        path="/user/:id"
+        path="/user"
         element={
           <ContentWrapper>
             <User />
