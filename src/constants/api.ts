@@ -5,6 +5,16 @@ const AUTH = Object.freeze({
   LOG_OUT: '/api/auth/logout',
 });
 
+const PROJECT = Object.freeze({
+  GET_DATA: '/api/project',
+});
+
+const TASK = Object.freeze({
+  GET_DATA: '/api/task',
+});
+
 export const API_ROUTE = Object.freeze({
   AUTH,
+  PROJECT,
+  TASK,
 });
