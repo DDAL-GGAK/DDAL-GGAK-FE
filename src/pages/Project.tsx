@@ -39,7 +39,7 @@ export default function Project() {
           } = task;
 
           return (
-            <Link to={`./task/${id}`} key={id}>
+            <Link to={`/task/${id}`} key={id}>
               <TaskCard>
                 <Title>Title: {taskTitle}</Title>
                 <div>participantsCount : {participantsCount}</div>

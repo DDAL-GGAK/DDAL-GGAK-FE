@@ -22,8 +22,8 @@ export default function Tickets({ data, children }: TicketsProps) {
           const { id, name } = v;
 
           return (
-            <Link to="./ticket/1">
-              <Ticket key={id} data={name} />
+            <Link key={id} to="./ticket/1">
+              <Ticket data={name} />
             </Link>
           );
         })}
@@ -35,7 +35,7 @@ export default function Tickets({ data, children }: TicketsProps) {
 const Wrapper = styled.div``;
 
 const BoardTitle = styled.div`
-  padding: 10px;
+  padding: 10px 22px;
   font-weight: 600;
   background: ${({ theme }) => theme.transparentBackground};
   color: ${({ theme }) => theme.pointColor};

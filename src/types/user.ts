@@ -4,3 +4,10 @@ export interface Participants {
   nickname: string;
   thumbnail: string;
 }
+
+export interface UserDataForm {
+  userId: number;
+  email: string;
+  nickname: string;
+  profile: string;
+}

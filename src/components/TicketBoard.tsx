@@ -1,7 +1,23 @@
 import styled from 'styled-components';
 import { Tickets } from 'components';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { getTaskData } from 'api';
 
 export default function TicketBoard() {
+  const [ticketData, setTicketData] = useState();
+  const { pathname } = useLocation();
+  const endpoint = pathname.substring(1, pathname.length);
+  const getData = async () => {
+    const { data } = await getTaskData(endpoint);
+    setTicketData(data);
+  };
+  console.log(ticketData);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   const tickets = {
     Pending: [
       { id: 1, name: 'Pending ticket1' },
@@ -26,7 +42,11 @@ export default function TicketBoard() {
   return (
     <Wrapper>
       {Object.entries(tickets).map(([key, data]) => {
-        return <Tickets data={data}>{key}</Tickets>;
+        return (
+          <Tickets data={data} key={key}>
+            {key}
+          </Tickets>
+        );
       })}
     </Wrapper>
   );
