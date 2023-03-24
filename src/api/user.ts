@@ -8,3 +8,7 @@ export const getUserData = async () => {
 
   return res;
 };
+
+export const setUserProfile = async (data: FormData) => {
+  await api.put(API_ROUTE.USER.SET_PROFILE, data);
+};
