@@ -151,10 +151,24 @@ class Axios {
    * @param {number} id
    * @param {object} data
    */
-  put(endPoint: EndPoint, data: DataForm, id: ID | undefined = undefined) {
+  put(endPoint: EndPoint, data: DataForm, id: ID) {
     return this.#instance({
       method: METHOD.PUT,
-      url: !!id || id === '' || id === 0 ? `${endPoint}/${id}` : `${endPoint}`,
+      url: `${endPoint}/${id}`,
+      data,
+    });
+  }
+
+  /**
+   *
+   */
+  putFormData(endPoint: EndPoint, data: DataForm) {
+    return this.#instance({
+      method: METHOD.PUT,
+      url: `${endPoint}`,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
       data,
     });
   }

@@ -10,5 +10,5 @@ export const getUserData = async () => {
 };
 
 export const setUserProfile = async (data: FormData) => {
-  await api.put(API_ROUTE.USER.SET_PROFILE, data);
+  await api.putFormData(API_ROUTE.USER.SET_PROFILE, data);
 };
