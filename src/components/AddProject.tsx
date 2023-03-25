@@ -1,11 +1,18 @@
-import styled from 'styled-components';
-import { NAVLINK } from 'constants/';
-import { Add } from 'assets/icons';
+import styled from "styled-components";
+import { NAVLINK } from "constants/";
+import { Add } from "assets/icons";
+import AddProjectModal from "./Modal/AddProjectModal"
+import useModal from '../hooks/useModal';
 
 export default function AddProject() {
+  const { Modal, open } = useModal();
+
   return (
-    <Wrapper>
+    <Wrapper onClick={open}>
       <Add width={20} />
+      <Modal>
+        <AddProjectModal />
+      </Modal>
     </Wrapper>
   );
 }
