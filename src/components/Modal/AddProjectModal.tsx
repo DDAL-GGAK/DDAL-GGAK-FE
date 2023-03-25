@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import AddModal from "./AddModal";
-import InviteModal from "./JoinModal";
+import { AddModal, JoinModal } from 'components/modal';
 
 
 function AddProjectModal() {
@@ -16,7 +15,7 @@ function AddProjectModal() {
   if (page === 1) {
     content = <AddModal />;
   } else if (page === 2) {
-    content = <InviteModal />;
+    content = <JoinModal />;
   }
 
   return (

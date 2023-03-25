@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import Axios from "../../libs/Axios";
+import { Axios } from "libs";
 
 interface JoinForm {
   JoinCode: string;
 }
 
-function InviteModal() {
+function JoinModal() {
   const navigate = useNavigate();
   const {
     register,
@@ -49,7 +49,7 @@ function InviteModal() {
   );
 }
 
-export default InviteModal;
+export default JoinModal;
 
 const ModalContainer = styled.div`
   cursor: auto;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ModalPortal from "./ModalPortal";
+import { ModalPortal } from 'components/modal';
 
 export default function Modal({ onClose, children }: any) {
   return (

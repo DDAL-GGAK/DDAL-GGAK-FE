@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import Modal from '../components/Modal/Modal';
+import { Modal } from 'components/modal';
 
 // `useBlur` props로 모달 외부를 클릭하면 모달을 닫을지 선택하도록 했다.
 const useModal = ({ useBlur = true } = {}) => {

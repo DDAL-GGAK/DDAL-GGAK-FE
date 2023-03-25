@@ -3,7 +3,7 @@ import { SIDE_NAV, TOP_NAV } from 'constants/';
 import { Logo, Menu } from 'assets/icons';
 import { DEVICES } from 'styles';
 import { ThemeToggle, LogOut } from 'components';
-import useMediaQuery from 'hooks/useMediaquery';
+import { useMediaQuery } from 'hooks';
 import { Link } from 'react-router-dom';
 
 function TopNav() {
