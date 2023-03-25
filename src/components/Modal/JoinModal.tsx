@@ -1,8 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { Axios } from "libs";
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { Axios } from 'libs';
 
 interface JoinForm {
   JoinCode: string;
@@ -15,14 +14,14 @@ function JoinModal() {
     handleSubmit,
     formState: { errors },
   } = useForm<JoinForm>({
-    mode: "onChange",
+    mode: 'onChange',
   });
   const api = new Axios();
 
   const onValid = async (data: JoinForm) => {
-    const res = await api.post("api/project/{projectId}/join", data);
-    if (res.status === 200) return navigate("/");
-    return alert("Join failed.");
+    const res = await api.post('api/project/{projectId}/join', data);
+    if (res.status === 200) return navigate('/');
+    return alert('Join failed.');
   };
 
   return (
@@ -34,11 +33,11 @@ function JoinModal() {
         <Input
           type="JoinCode"
           placeholder="Enter your invite code"
-          {...register("JoinCode", {
-            required: "Please enter invite code!",
+          {...register('JoinCode', {
+            required: 'Please enter invite code!',
             maxLength: {
               value: 20,
-              message: "Requires shoter than 20",
+              message: 'Requires shoter than 20',
             },
           })}
         />

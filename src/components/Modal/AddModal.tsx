@@ -1,8 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { Axios } from "libs";
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { Axios } from 'libs';
 
 interface TitleForm {
   projectTitle: string;
@@ -15,14 +14,14 @@ function AddModal() {
     handleSubmit,
     formState: { errors },
   } = useForm<TitleForm>({
-    mode: "onChange",
+    mode: 'onChange',
   });
   const api = new Axios();
 
   const onValid = async (data: TitleForm) => {
-    const response = await api.post("api/project", data);
-    if (response.status === 200) return navigate("/");
-    return alert("Create failed.");
+    const response = await api.post('api/project', data);
+    if (response.status === 200) return navigate('/');
+    return alert('Create failed.');
   };
 
   return (
@@ -34,17 +33,19 @@ function AddModal() {
           <Input
             type="projectTitle"
             placeholder="Enter your ProjectName"
-            {...register("projectTitle", {
-              required: "Please enter your projectTitle!",
+            {...register('projectTitle', {
+              required: 'Please enter your projectTitle!',
               maxLength: {
                 value: 20,
-                message: "Requires shoter than 20",
+                message: 'Requires shoter than 20',
               },
             })}
           />
           <Button>create</Button>
         </InputContainer>
-        {errors.projectTitle && (<Errorspan>{errors.projectTitle.message}</Errorspan>)}
+        {errors.projectTitle && (
+          <Errorspan>{errors.projectTitle.message}</Errorspan>
+        )}
       </CreateForm>
     </ModalContainer>
   );
@@ -69,8 +70,8 @@ const CLabel = styled.label`
   color: rgb(217, 217, 217);
 `;
 const InputContainer = styled.div`
-display: flex;
-`
+  display: flex;
+`;
 const Input = styled.input`
   outline: none;
   padding: 10px 0px;

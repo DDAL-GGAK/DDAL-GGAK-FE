@@ -14,7 +14,7 @@ import {
   ID,
 } from 'types';
 
-class Axios {
+export class Axios {
   #instance;
   #auth;
   #cookie;
@@ -187,5 +187,3 @@ class Axios {
     });
   }
 }
-
-export default Axios;
