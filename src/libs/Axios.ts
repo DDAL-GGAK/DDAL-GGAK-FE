@@ -96,8 +96,11 @@ class Axios {
   }
 
   #resOnError(error: AxiosRes) {
+    if (error.response && error?.response.status === 1002) this.#getNewToken();
     return Promise.reject(error);
   }
+
+  #getNewToken() {}
 
   /**
    * @param {string} endPoint

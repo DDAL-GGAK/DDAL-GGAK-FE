@@ -7,7 +7,8 @@ export type ReqRejected = any;
 export type AxiosInterceptorRes = AxiosResponse<any, any>;
 export type AxiosRes =
   | AxiosResponse<any, any>
-  | Promise<AxiosResponse<any, any>>;
+  | Promise<AxiosResponse<any, any>>
+  | any;
 
 export type EndPoint = string;
 export type Query = object | undefined;
