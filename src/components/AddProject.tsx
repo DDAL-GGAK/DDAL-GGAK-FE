@@ -9,7 +9,7 @@ export default function AddProject() {
 
   return (
     <Wrapper onClick={open}>
-      <Add />
+      <Add width={20} />
       <Modal>
         <AddProjectModal />
       </Modal>
