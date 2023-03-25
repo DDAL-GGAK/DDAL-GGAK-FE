@@ -96,8 +96,11 @@ class Axios {
   }
 
   #resOnError(error: AxiosRes) {
+    if (error.response && error?.response.status === 1002) this.#getNewToken();
     return Promise.reject(error);
   }
+
+  #getNewToken() {}
 
   /**
    * @param {string} endPoint
@@ -151,10 +154,24 @@ class Axios {
    * @param {number} id
    * @param {object} data
    */
-  put(endPoint: EndPoint, id: ID, data: DataForm) {
+  put(endPoint: EndPoint, data: object, id: ID | undefined = undefined) {
     return this.#instance({
       method: METHOD.PUT,
-      url: `${endPoint}/${id}`,
+      url: !!id || id === '' || id === 0 ? `${endPoint}/${id}` : endPoint,
+      data,
+    });
+  }
+
+  /**
+   *
+   */
+  putFormData(endPoint: EndPoint, data: DataForm) {
+    return this.#instance({
+      method: METHOD.PUT,
+      url: `${endPoint}`,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
       data,
     });
   }

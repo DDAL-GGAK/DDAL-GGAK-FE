@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
+import { setUserProfile } from 'api';
 
 type ProfileState = string | ArrayBuffer | undefined | any;
 interface UploadProfileProps {
@@ -8,23 +9,21 @@ interface UploadProfileProps {
 
 export default function UploadProfile({ imageSrc }: UploadProfileProps) {
   const [profile, setProfile] = useState<ProfileState>();
-  const loadImage = (e: React.ChangeEvent) => {
-    console.log('change');
+  const loadImage = async (e: React.ChangeEvent) => {
     const target = e.currentTarget as HTMLInputElement;
     const files = target.files as FileList;
     const image = files[0];
 
+    /* setProfile */
     const formData = new FormData();
     formData.append('image', image);
+    await setUserProfile(formData);
 
+    /* renderProfile */
     const fileReader = new FileReader();
     fileReader.readAsDataURL(image);
-    fileReader.onloadend = () => {
-      const resultImage = fileReader.result;
-      setProfile(resultImage);
-    };
+    fileReader.onloadend = () => setProfile(fileReader.result);
   };
-  console.log(profile);
 
   useEffect(() => {
     setProfile(imageSrc);

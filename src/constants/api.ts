@@ -15,6 +15,8 @@ const TASK = Object.freeze({
 
 const USER = Object.freeze({
   GET_DATA: '/api/user',
+  SET_PROFILE: '/api/user/profile',
+  SET_NICKNAME: '/api/user/nickname',
 });
 
 export const API_ROUTE = Object.freeze({
