@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import ModalPortal from "./ModalPortal";
+import styled from 'styled-components';
+import { ModalPortal } from 'components/Modal';
 
 export default function Modal({ onClose, children }: any) {
   return (
@@ -52,4 +52,3 @@ const ModalClose = styled.div`
   user-select: auto;
   cursor: pointer;
 `;
-

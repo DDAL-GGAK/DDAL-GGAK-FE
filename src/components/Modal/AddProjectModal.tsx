@@ -1,8 +1,6 @@
-import { useState } from "react";
-import styled from "styled-components";
-import AddModal from "./AddModal";
-import InviteModal from "./JoinModal";
-
+import { useState } from 'react';
+import styled from 'styled-components';
+import { AddModal, JoinModal } from 'components/Modal';
 
 function AddProjectModal() {
   const [page, setPage] = useState(1);
@@ -16,24 +14,24 @@ function AddProjectModal() {
   if (page === 1) {
     content = <AddModal />;
   } else if (page === 2) {
-    content = <InviteModal />;
+    content = <JoinModal />;
   }
 
   return (
     <div>
       {content}
       {page !== 1 && <Button onClick={handlePrevClick}>이전</Button>}
-      {page !== 2 && 
-      <div>
-      if you have invite code, please enter invitation code.<br/>
-      <Button onClick={handleNextClick}>Join Project</Button>
-      </div>
-      }
+      {page !== 2 && (
+        <div>
+          if you have invite code, please enter invitation code.
+          <br />
+          <Button onClick={handleNextClick}>Join Project</Button>
+        </div>
+      )}
     </div>
   );
 }
 
 export default AddProjectModal;
 
-const Button = styled.button`
-`
+const Button = styled.button``;
