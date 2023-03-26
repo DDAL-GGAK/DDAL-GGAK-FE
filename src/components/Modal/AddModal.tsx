@@ -7,7 +7,7 @@ interface TitleForm {
   projectTitle: string;
 }
 
-function AddModal() {
+export default function AddModal() {
   const navigate = useNavigate();
   const {
     register,
@@ -50,8 +50,6 @@ function AddModal() {
     </ModalContainer>
   );
 }
-
-export default AddModal;
 
 const ModalContainer = styled.div`
   cursor: auto;
