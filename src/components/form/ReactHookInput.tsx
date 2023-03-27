@@ -8,15 +8,24 @@ export default function ReactHookInput({
   register,
   errorMessage,
 }: ReactHookInputProps) {
+  const content = (inputType: string) => {
+    switch (inputType) {
+      case 'Email':
+        return <EmailInput data={{ type, register, errorMessage }} />;
+      case 'Password':
+        return <PasswordInput data={{ type, register, errorMessage }} />;
+
+      default:
+        return null;
+    }
+  };
+
   return (
     <Wrapper>
-      <Label value={type} errorMessage={errorMessage} />
-      {type === 'Email' && (
-        <EmailInput data={{ type, register, errorMessage }} />
-      )}
-      {type === 'Password' && (
-        <PasswordInput data={{ type, register, errorMessage }} />
-      )}
+      <>
+        <Label value={type} errorMessage={errorMessage} />
+        {content(type)}
+      </>
     </Wrapper>
   );
 }
