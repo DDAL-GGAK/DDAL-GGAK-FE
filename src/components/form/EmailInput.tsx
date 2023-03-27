@@ -1,6 +1,7 @@
+import { ReactHookInputDataProps } from 'types/';
 import { Input } from './Input';
 
-export default function EmailInput({ data }: any) {
+export default function EmailInput({ data }: ReactHookInputDataProps) {
   const { type, register, errorMessage } = data;
 
   return (
