@@ -14,14 +14,16 @@ const InputComponent = styled.input<{ errorId: boolean }>`
   margin-bottom: 10px;
   border: none;
   font-weight: 600;
-  border-bottom: solid 2px
-    ${(props) => (props.errorId ? 'red' : 'rgba(133,133,133,0.5)')};
+  border: solid 2px ${({ theme }) => theme.pointColor};
+  border-radius: 5px;
+  ${(props) =>
+    props.errorId ? props.theme.pointColor : 'rgba(133,133,133,0.5)'};
   transition: ${({ theme }) => theme.transitionOption};
   color: ${({ theme }) => theme.color};
   background: transparent;
   :focus {
     outline: none;
     border-bottom: solid 2px
-      ${(props) => (props.errorId ? 'red' : props.theme.color)};
+      ${(props) => (props.errorId ? props.theme.pointColor : props.theme.color)};
   }
 `;

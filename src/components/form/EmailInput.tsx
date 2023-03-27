@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { Input } from './Input';
 
 export default function EmailInput({ data }: any) {
   const { type, register, errorMessage } = data;
@@ -26,22 +26,3 @@ export default function EmailInput({ data }: any) {
     />
   );
 }
-
-const Input = styled.input<{ errorId: boolean }>`
-  padding: 15px;
-  font-size: 18px;
-  margin-bottom: 10px;
-  border: none;
-  font-weight: 600;
-  border-bottom: solid 2px
-    ${(props) => (props.errorId ? 'red' : 'rgba(133,133,133,0.5)')};
-  transition: ${({ theme }) => theme.transitionOption};
-  border-radius: 10px 10px 0 0;
-  color: ${({ theme }) => theme.color};
-  background: transparent;
-  :focus {
-    outline: none;
-    border-bottom: solid 2px
-      ${(props) => (props.errorId ? 'red' : props.theme.color)};
-  }
-`;
