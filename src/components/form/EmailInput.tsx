@@ -1,5 +1,5 @@
 import { ReactHookInputDataProps } from 'types/';
-import { Input } from './Input';
+import styled from 'styled-components';
 
 export default function EmailInput({ data }: ReactHookInputDataProps) {
   const { type, register, errorMessage } = data;
@@ -27,3 +27,22 @@ export default function EmailInput({ data }: ReactHookInputDataProps) {
     />
   );
 }
+
+const Input = styled.input<{ errorId: boolean }>`
+  padding: 15px;
+  font-size: 18px;
+  margin-bottom: 10px;
+  border: none;
+  font-weight: 600;
+  border: solid 2px ${({ theme }) => theme.loginDisable};
+  border-radius: 5px;
+  ${(props) =>
+    props.errorId ? props.theme.pointColor : 'rgba(133,133,133,0.5)'};
+  transition: ${({ theme }) => theme.transitionOption};
+  color: ${({ theme }) => theme.color};
+  background: transparent;
+  :focus {
+    outline: none;
+    border: solid 2px ${({ theme }) => theme.pointColor};
+  }
+`;
