@@ -9,8 +9,10 @@ import { useDispatch } from 'react-redux';
 import { setUserData } from 'redux/modules/userData';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ReactHookInput } from 'components/form';
+import { motion } from 'framer-motion';
 
-function Login() {
+export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
@@ -21,7 +23,7 @@ function Login() {
     mode: 'onChange',
   });
 
-  const { mutate, isLoading } = useMutation(logIn, {
+  const { mutate } = useMutation(logIn, {
     onSuccess: (res) => {
       const { data: userData } = res;
       localStorage.setItem('userInfo', JSON.stringify({ userData }));
@@ -42,68 +44,33 @@ function Login() {
   const onValid = async (userInput: LogInForm) => mutate(userInput);
 
   return (
-    <>
+    <Wrapper>
       <ToastContainer />
-      {isLoading ? (
-        'loading'
-      ) : (
-        <Wrapper>
+      <Container>
+        <TopWrapper>
+          <Title>Log in</Title>
           <Form onSubmit={handleSubmit(onValid)}>
-            <h1>Login</h1>
-            <Label>email</Label>
-            <div>
-              <Input
-                type="email"
-                placeholder="Enter your email address"
-                {...register('email', {
-                  required: 'Please enter your email!',
-                  validate: {
-                    isAlphabet: (value) => {
-                      const isAlphabet = value.match(/[a-zA-Z]/g);
-                      return isAlphabet ? true : 'must be include Alphabet';
-                    },
-                    isEmail: (value) => {
-                      const isEmail = value.match(
-                        /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/g
-                      );
-                      return isEmail ? true : 'not email format';
-                    },
-                  },
-                })}
-              />
-              {errors.email && <Errorspan>{errors.email.message}</Errorspan>}
-            </div>
-            <div>
-              <Label>password</Label>
-              <Input
-                type="password"
-                placeholder="Enter your password"
-                {...register('password', {
-                  required: 'Please enter your password!',
-                  minLength: {
-                    value: 8,
-                    message: 'Requires longer than 8',
-                  },
-                  pattern: {
-                    value:
-                      /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,15}$/,
-                    message: 'must be include Alphabet & number',
-                  },
-                })}
-              />
-              {errors.password && (
-                <Errorspan>{errors.password.message}</Errorspan>
-              )}
-            </div>
-            <Submit type="submit">Signup</Submit>
+            <ReactHookInput
+              type="Email"
+              register={register}
+              errorMessage={errors.email?.message}
+            />
+            <ReactHookInput
+              type="Password"
+              register={register}
+              errorMessage={errors.password?.message}
+            />
+            <Submit>Login</Submit>
           </Form>
-        </Wrapper>
-      )}
-    </>
+        </TopWrapper>
+        <BottomWrapper>
+          <SocialText>If you already have account?</SocialText>
+          <a href="/signin">Sign in</a>
+        </BottomWrapper>
+      </Container>
+    </Wrapper>
   );
 }
-
-export default Login;
 
 const Wrapper = styled.div`
   height: ${CONTENT.HEIGHT};
@@ -112,39 +79,101 @@ const Wrapper = styled.div`
   justify-content: center;
 `;
 
-const Form = styled.form`
-  width: 500px;
-  border: 1px solid #ddd;
-  background: rgba(222, 222, 222, 0.1);
-  border: none;
-  backdrop-filter: blur(1px);
-  border-radius: 10px;
-  margin: 0 auto;
-  padding: 50px;
-
-  & > h1 {
-    font: revert;
-  }
+const BottomWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 5px;
+  gap: 5px;
+  align-items: center;
+  height: 100px;
+  width: 100%;
 `;
 
-const Label = styled.label``;
-
-const Input = styled.input`
-  outline: none;
-  padding: 10px 0px;
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid #ddd;
+const SocialText = styled.div`
   margin-bottom: 5px;
+  font-weight: 500;
+  opacity: 0.7;
+`;
+
+const TopWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+`;
+
+const Container = styled(motion.div)`
+  backdrop-filter: blur(3px);
+  background: ${({ theme }) => theme.transparentBackground};
+`;
+
+const Title = styled.div`
+  font-size: 30px;
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+`;
+
+const Form = styled.form`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 50px;
+  margin-bottom: 20px;
 `;
 
 const Submit = styled.button`
   margin: 30px 0 30px 0;
   padding: 10px;
   border-radius: 5px;
-  font-size: 15px;
+  background: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.color};
+  border: 2px solid ${({ theme }) => theme.color};
+  font-size: 20px;
+  transition: ${({ theme }) => theme.transitionOption};
+  :hover {
+    cursor: pointer;
+    background: ${({ theme }) => theme.color};
+    color: ${({ theme }) => theme.background};
+  }
 `;
 
-const Errorspan = styled.span`
-  color: red;
-`;
+// const Form = styled.form`
+//   width: 500px;
+//   border: 1px solid #ddd;
+//   background: rgba(222, 222, 222, 0.1);
+//   border: none;
+//   backdrop-filter: blur(1px);
+//   border-radius: 10px;
+//   margin: 0 auto;
+//   padding: 50px;
+
+//   & > h1 {
+//     font: revert;
+//   }
+// `;
+
+// const Label = styled.label``;
+
+// const Input = styled.input`
+//   outline: none;
+//   padding: 10px 0px;
+//   width: 100%;
+//   border: none;
+//   border-bottom: 1px solid #ddd;
+//   margin-bottom: 5px;
+// `;
+
+// const Submit = styled.button`
+//   margin: 30px 0 30px 0;
+//   padding: 10px;
+//   border-radius: 5px;
+//   font-size: 15px;
+// `;
+
+// const Errorspan = styled.span`
+//   color: red;
