@@ -4,9 +4,14 @@ import { useForm } from 'react-hook-form';
 import { LogInForm } from 'types/';
 import { CONTENT } from 'constants/';
 import { logIn } from 'api';
+import { useMutation } from 'react-query';
+// import { useDispatch } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
   const navigate = useNavigate();
+  // const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -15,63 +20,86 @@ function Login() {
     mode: 'onChange',
   });
 
-  const onValid = async (data: LogInForm) => {
-    const response = await logIn(data);
-    if (response.status === 200) return navigate('/');
-    return alert('Login failed.');
-  };
+  const { mutate, isLoading } = useMutation(logIn, {
+    onSuccess: (res) => {
+      const { data: userData } = res;
+      localStorage.setItem('userInfo', JSON.stringify({ userData }));
+      // dispatch(setLogin(true));
+      navigate('/');
+    },
+    onError: () => {
+      toast.error('ID 또는 PW가 잘못되었습니다!', {
+        autoClose: 3000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    },
+  });
+
+  const onValid = async (userInput: LogInForm) => mutate(userInput);
 
   return (
-    <Wrapper>
-      <Form onSubmit={handleSubmit(onValid)}>
-        <h1>Login</h1>
-        <Label>email</Label>
-        <div>
-          <Input
-            type="email"
-            placeholder="Enter your email address"
-            {...register('email', {
-              required: 'Please enter your email!',
-              // 커스텀 validation
-              validate: {
-                isAlphabet: (value) => {
-                  const isAlphabet = value.match(/[a-zA-Z]/g);
-                  return isAlphabet ? true : 'must be include Alphabet';
-                },
-                isEmail: (value) => {
-                  const isEmail = value.match(
-                    /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/g
-                  );
-                  return isEmail ? true : 'not email format';
-                },
-              },
-            })}
-          />
-          {errors.email && <Errorspan>{errors.email.message}</Errorspan>}
-        </div>
-        <div>
-          <Label>password</Label>
-          <Input
-            type="password"
-            placeholder="Enter your password"
-            {...register('password', {
-              required: 'Please enter your password!',
-              minLength: {
-                value: 8,
-                message: 'Requires longer than 8',
-              },
-              pattern: {
-                value:
-                  /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,15}$/,
-                message: 'must be include Alphabet & number',
-              },
-            })}
-          />
-          {errors.password && <Errorspan>{errors.password.message}</Errorspan>}
-        </div>
-        <Submit type="submit">Signup</Submit>
-      </Form>
-    </Wrapper>
+    <>
+      <ToastContainer />
+      {isLoading ? (
+        'loading'
+      ) : (
+        <Wrapper>
+          <Form onSubmit={handleSubmit(onValid)}>
+            <h1>Login</h1>
+            <Label>email</Label>
+            <div>
+              <Input
+                type="email"
+                placeholder="Enter your email address"
+                {...register('email', {
+                  required: 'Please enter your email!',
+                  // 커스텀 validation
+                  validate: {
+                    isAlphabet: (value) => {
+                      const isAlphabet = value.match(/[a-zA-Z]/g);
+                      return isAlphabet ? true : 'must be include Alphabet';
+                    },
+                    isEmail: (value) => {
+                      const isEmail = value.match(
+                        /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+                      );
+                      return isEmail ? true : 'not email format';
+                    },
+                  },
+                })}
+              />
+              {errors.email && <Errorspan>{errors.email.message}</Errorspan>}
+            </div>
+            <div>
+              <Label>password</Label>
+              <Input
+                type="password"
+                placeholder="Enter your password"
+                {...register('password', {
+                  required: 'Please enter your password!',
+                  minLength: {
+                    value: 8,
+                    message: 'Requires longer than 8',
+                  },
+                  pattern: {
+                    value:
+                      /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,15}$/,
+                    message: 'must be include Alphabet & number',
+                  },
+                })}
+              />
+              {errors.password && (
+                <Errorspan>{errors.password.message}</Errorspan>
+              )}
+            </div>
+            <Submit type="submit">Signup</Submit>
+          </Form>
+        </Wrapper>
+      )}
+    </>
   );
 }
 
