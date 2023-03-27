@@ -1,15 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-type ThemeToggleState = boolean;
-const initialState: ThemeToggleState = false;
+type ThemeToggleForm = boolean;
+const initialState: ThemeToggleForm = false;
 
-const themeToggle = createSlice({
-  name: 'themeToggle',
+const themeToggleSlicer = createSlice({
+  name: 'themeToggleSlicer',
   initialState,
   reducers: {
     toggle: (state) => !state,
   },
 });
 
-export default themeToggle.reducer;
-export const { toggle } = themeToggle.actions;
+export default themeToggleSlicer.reducer;
+export const { toggle } = themeToggleSlicer.actions;

@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { NAVLINK } from "constants/";
-import { Add } from "assets/icons";
-import AddProjectModal from "./Modal/AddProjectModal"
+import styled from 'styled-components';
+import { NAVLINK } from 'constants/';
+import { Add } from 'assets/icons';
+import AddProjectModal from './modal/AddProjectModal';
 import useModal from '../hooks/useModal';
 
 export default function AddProject() {

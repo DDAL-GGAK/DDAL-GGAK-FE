@@ -13,5 +13,8 @@ declare module 'styled-components' {
     navBackground: string;
     navLinkBackground: string;
     borderColor: string;
+
+    /* login */
+    loginDisable: string;
   }
 }
