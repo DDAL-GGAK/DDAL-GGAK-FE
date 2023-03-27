@@ -60,13 +60,11 @@ export default function Login() {
               register={register}
               errorMessage={errors.password?.message}
             />
-            <Submit>Login</Submit>
+            <Submit isValid={!Object.keys(errors)[0]}>Login</Submit>
+
+            <SignUp>Sign up</SignUp>
           </Form>
         </TopWrapper>
-        <BottomWrapper>
-          <SocialText>If you already have account?</SocialText>
-          <a href="/signin">Sign in</a>
-        </BottomWrapper>
       </Container>
     </Wrapper>
   );
@@ -77,23 +75,6 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-
-const BottomWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding-bottom: 5px;
-  gap: 5px;
-  align-items: center;
-  height: 100px;
-  width: 100%;
-`;
-
-const SocialText = styled.div`
-  margin-bottom: 5px;
-  font-weight: 500;
-  opacity: 0.7;
 `;
 
 const TopWrapper = styled.div`
@@ -122,58 +103,44 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-top: 50px;
+  margin-top: 30px;
   margin-bottom: 20px;
 `;
 
-const Submit = styled.button`
-  margin: 30px 0 30px 0;
+const Submit = styled.button<{ isValid: boolean }>`
+  margin: 70px 0 0px 0;
   padding: 10px;
   border-radius: 5px;
-  background: ${({ theme }) => theme.background};
-  color: ${({ theme }) => theme.color};
-  border: 2px solid ${({ theme }) => theme.color};
+  background: ${(props) =>
+    props.isValid ? props.theme.pointColor : props.theme.loginDisable};
+  color: ${({ theme }) => theme.background};
+  font-weight: 600;
+  border: none;
   font-size: 20px;
+  height: 50px;
   transition: ${({ theme }) => theme.transitionOption};
   :hover {
     cursor: pointer;
-    background: ${({ theme }) => theme.color};
+    background: ${({ theme }) => theme.pointColor};
     color: ${({ theme }) => theme.background};
   }
 `;
 
-// const Form = styled.form`
-//   width: 500px;
-//   border: 1px solid #ddd;
-//   background: rgba(222, 222, 222, 0.1);
-//   border: none;
-//   backdrop-filter: blur(1px);
-//   border-radius: 10px;
-//   margin: 0 auto;
-//   padding: 50px;
-
-//   & > h1 {
-//     font: revert;
-//   }
-// `;
-
-// const Label = styled.label``;
-
-// const Input = styled.input`
-//   outline: none;
-//   padding: 10px 0px;
-//   width: 100%;
-//   border: none;
-//   border-bottom: 1px solid #ddd;
-//   margin-bottom: 5px;
-// `;
-
-// const Submit = styled.button`
-//   margin: 30px 0 30px 0;
-//   padding: 10px;
-//   border-radius: 5px;
-//   font-size: 15px;
-// `;
-
-// const Errorspan = styled.span`
-//   color: red;
+const SignUp = styled.button`
+  box-sizing: border-box;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  background: transparent;
+  color: ${({ theme }) => theme.pointColor};
+  font-weight: 600;
+  border: ${({ theme }) => theme.pointColor} solid 2px;
+  font-size: 20px;
+  height: 50px;
+  transition: ${({ theme }) => theme.transitionOption};
+  :hover {
+    cursor: pointer;
+    background: ${({ theme }) => theme.background};
+    color: ${({ theme }) => theme.background};
+  }
+`;
