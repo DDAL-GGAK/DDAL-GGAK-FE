@@ -16,3 +16,8 @@ export interface InputProps {
   type: string;
   placeholder: string;
 }
+
+export interface LabelProps {
+  value: string;
+  errorMessage: string | undefined;
+}

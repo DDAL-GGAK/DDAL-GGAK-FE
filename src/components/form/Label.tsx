@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { LabelProps } from 'types';
 
-export default function Label({ value, errorMessage }: any) {
+export default function Label({ value, errorMessage }: LabelProps) {
   return (
     <Wrapper>
       <Title>{value}</Title>
