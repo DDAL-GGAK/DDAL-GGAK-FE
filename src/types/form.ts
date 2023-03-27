@@ -6,3 +6,13 @@ export interface ReactHookInputProps {
   register: UseFormRegister<LogInForm>;
   errorMessage: string | undefined;
 }
+
+export interface ReactHookInputDataProps {
+  data: ReactHookInputProps;
+}
+
+export interface InputProps {
+  errorId: boolean;
+  type: string;
+  placeholder: string;
+}
