@@ -12,6 +12,9 @@ export const darkTheme: DefaultTheme = {
   navBackground: '#181922',
   navLinkBackground: '#D9D9D9',
   borderColor: 'rgba(222,222,222,0.2)',
+
+  /* login */
+  loginDisable: '#C9D5DB',
 };
 
 export const lightTheme: DefaultTheme = {
@@ -26,4 +29,7 @@ export const lightTheme: DefaultTheme = {
   navBackground: '#D9D9D9',
   navLinkBackground: '#666666',
   borderColor: '#000000',
+
+  /* login */
+  loginDisable: '#C9D5DB',
 };
