@@ -5,13 +5,14 @@ import { LogInForm } from 'types/';
 import { CONTENT } from 'constants/';
 import { logIn } from 'api';
 import { useMutation } from 'react-query';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { setUserData } from 'redux/modules/userData';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -24,7 +25,7 @@ function Login() {
     onSuccess: (res) => {
       const { data: userData } = res;
       localStorage.setItem('userInfo', JSON.stringify({ userData }));
-      // dispatch(setLogin(true));
+      dispatch(setUserData(userData));
       navigate('/');
     },
     onError: () => {
@@ -56,7 +57,6 @@ function Login() {
                 placeholder="Enter your email address"
                 {...register('email', {
                   required: 'Please enter your email!',
-                  // 커스텀 validation
                   validate: {
                     isAlphabet: (value) => {
                       const isAlphabet = value.match(/[a-zA-Z]/g);

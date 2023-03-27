@@ -7,9 +7,9 @@ const userDataSlicer = createSlice({
   name: 'userDataSlicer',
   initialState,
   reducers: {
-    setLoginData: (state) => state,
+    setUserData: (state) => state,
   },
 });
 
 export default userDataSlicer.reducer;
-export const { setLoginData } = userDataSlicer.actions;
+export const { setUserData } = userDataSlicer.actions;
