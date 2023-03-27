@@ -1,8 +1,5 @@
 import styled from 'styled-components';
-
-interface InputProps {
-  errorId: boolean;
-}
+import { InputProps } from 'types';
 
 export function Input({ errorId }: InputProps) {
   return <InputComponent errorId={errorId} />;

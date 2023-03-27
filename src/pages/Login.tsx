@@ -105,7 +105,7 @@ const TopWrapper = styled.div`
 
 const Container = styled(motion.div)`
   backdrop-filter: blur(3px);
-  background: ${({ theme }) => theme.transparentBackground};
+  width: 400px;
 `;
 
 const Title = styled.div`
