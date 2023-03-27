@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { themeToggle } from './modules';
+import { themeToggleSlicer, userDataSlicer } from './modules';
 
-const reducer = combineReducers({ themeToggle });
+const reducer = combineReducers({ themeToggleSlicer, userDataSlicer });
 const store = configureStore({ reducer });
 
 export type RootState = ReturnType<typeof store.getState>;
