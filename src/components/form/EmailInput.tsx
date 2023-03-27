@@ -34,8 +34,7 @@ const Input = styled.input<{ errorId: boolean }>`
   border: none;
   font-weight: 600;
   border-bottom: solid 2px
-    ${(props) =>
-      props.errorId ? props.theme.pointColor : 'rgba(133,133,133,0.5)'};
+    ${(props) => (props.errorId ? 'red' : 'rgba(133,133,133,0.5)')};
   transition: ${({ theme }) => theme.transitionOption};
   border-radius: 10px 10px 0 0;
   color: ${({ theme }) => theme.color};
@@ -43,6 +42,6 @@ const Input = styled.input<{ errorId: boolean }>`
   :focus {
     outline: none;
     border-bottom: solid 2px
-      ${(props) => (props.errorId ? props.theme.pointColor : props.theme.color)};
+      ${(props) => (props.errorId ? 'red' : props.theme.color)};
   }
 `;
