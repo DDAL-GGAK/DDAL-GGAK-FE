@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { AddModal, JoinModal } from 'components/Modal';
+import { AddModal, JoinModal } from 'components/modal';
 
 export default function AddProjectModal() {
   const [page, setPage] = useState(1);
