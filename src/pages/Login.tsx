@@ -61,7 +61,8 @@ export default function Login() {
               errorMessage={errors.password?.message}
             />
             <Submit isValid={!Object.keys(errors)[0]}>Login</Submit>
-
+            <Hr />
+            <Text>If you need an account?</Text>
             <SignUp>Sign up</SignUp>
           </Form>
         </TopWrapper>
@@ -99,17 +100,17 @@ const Title = styled.div`
 const Form = styled.form`
   width: 100%;
   display: flex;
-  flex-direction: column;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   margin-top: 30px;
   margin-bottom: 20px;
 `;
 
 const Submit = styled.button<{ isValid: boolean }>`
-  margin: 70px 0 0px 0;
   padding: 10px;
+  margin-top: 10px;
   border-radius: 5px;
   background: ${(props) =>
     props.isValid ? props.theme.pointColor : props.theme.loginDisable};
@@ -118,6 +119,7 @@ const Submit = styled.button<{ isValid: boolean }>`
   border: none;
   font-size: 20px;
   height: 50px;
+  width: 100%;
   transition: ${({ theme }) => theme.transitionOption};
   :hover {
     cursor: pointer;
@@ -130,6 +132,7 @@ const Submit = styled.button<{ isValid: boolean }>`
 const SignUp = styled.button`
   box-sizing: border-box;
   margin-top: 12px;
+  width: 100%;
   padding: 10px;
   border-radius: 5px;
   background: transparent;
@@ -144,4 +147,15 @@ const SignUp = styled.button`
     cursor: pointer;
     background: white;
   }
+`;
+
+const Hr = styled.div`
+  border-bottom: solid 1px rgba(122, 122, 122, 0.5);
+  margin: 25px 0 15px 0;
+  width: 100%;
+`;
+
+const Text = styled.div`
+  text-align: center;
+  color: rgba(122, 122, 122, 0.8);
 `;
