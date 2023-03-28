@@ -13,7 +13,7 @@ export default function PasswordCofirmInput({ data }: ReactHookInputDataProps) {
         validate: {
           match: (value) => {
             if (!watch) return '';
-            const pwd = watch(REGISTER_TYPE.PASSWORD_CONFIRM);
+            const pwd = watch(REGISTER_TYPE.PASSWORD);
 
             return value === pwd || ERROR_MESSAGE.PASSWORD_CONFIRM.NOT_MATCH;
           },
