@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { CONTENT, INPUT_TYPE } from 'constants/';
 import { signUp } from 'api';
-import { SignUpForm } from 'types';
+import { RegisterField } from 'types';
 import { ReactHookInput } from 'components/form';
 
 export function Signup() {
@@ -14,7 +14,7 @@ export function Signup() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<SignUpForm>({
+  } = useForm<RegisterField>({
     mode: 'onChange',
   });
 
@@ -28,7 +28,7 @@ export function Signup() {
     },
   });
 
-  const onValid = async (data: SignUpForm) => mutate(data);
+  const onValid = async (data: RegisterField) => mutate(data);
 
   return (
     <Wrapper>

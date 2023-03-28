@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { LogInForm } from 'types/';
+import { RegisterField } from 'types/';
 import { CONTENT, INPUT_TYPE } from 'constants/';
 import { logIn } from 'api';
 import { useMutation } from 'react-query';
@@ -19,7 +19,7 @@ export function Login() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LogInForm>({
+  } = useForm<RegisterField>({
     mode: 'onChange',
   });
 
@@ -42,7 +42,7 @@ export function Login() {
     },
   });
 
-  const onValid = async (userInput: LogInForm) => mutate(userInput);
+  const onValid = async (userInput: RegisterField) => mutate(userInput);
 
   return (
     <Wrapper>
