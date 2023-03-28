@@ -15,7 +15,7 @@ export default function PasswordInput({ data }: ReactHookInputDataProps) {
         },
         pattern: {
           value:
-            /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,15}$/,
+            /^(?=.*[A-Za-z]+)(?=.*[~!@#$%^&*()_+=]+)(?=.*[0-9]+)[A-Za-z\d~!@#$%^&*()_+=]{8,15}$/,
           message: 'must be include Alphabet & number',
         },
       })}
