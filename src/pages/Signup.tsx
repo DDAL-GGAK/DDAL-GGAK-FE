@@ -6,6 +6,7 @@ import { CONTENT, INPUT_TYPE } from 'constants/';
 import { signUp } from 'api';
 import { RegisterField } from 'types';
 import { ReactHookInput } from 'components/form';
+import { sendToast } from 'libs';
 
 export function Signup() {
   const navigate = useNavigate();
@@ -20,8 +21,8 @@ export function Signup() {
 
   const { mutate } = useMutation(signUp, {
     onSuccess: () => {
-      alert('Signup success!');
-      navigate('/');
+      sendToast.success('ID가 생성되었습니다!');
+      navigate('/login');
     },
     onError: () => {
       alert('axios error');
