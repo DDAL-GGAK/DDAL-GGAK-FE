@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-function Search() {
+export function Search() {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
@@ -18,8 +18,6 @@ function Search() {
     </Svg>
   );
 }
-
-export default Search;
 
 const Svg = styled.svg`
   position: absolute;

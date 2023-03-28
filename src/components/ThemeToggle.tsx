@@ -3,7 +3,7 @@ import { toggle } from 'redux/modules/themeToggle';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 
-function ThemeToggle() {
+export function ThemeToggle() {
   const isDark = useSelector((state: RootState) => state.themeToggleSlicer);
   const dispatch = useDispatch();
   const onClickHandler = () => dispatch(toggle());
@@ -14,8 +14,6 @@ function ThemeToggle() {
     </Wrapper>
   );
 }
-
-export default ThemeToggle;
 
 const Wrapper = styled.div`
   position: relative;

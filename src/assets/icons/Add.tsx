@@ -4,7 +4,7 @@ interface AddProps {
   width: number;
 }
 
-export default function Add({ width }: AddProps) {
+export function Add({ width }: AddProps) {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"

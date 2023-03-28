@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-function Logo() {
+export function Logo() {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
@@ -18,8 +18,6 @@ function Logo() {
     </Svg>
   );
 }
-
-export default Logo;
 
 const Svg = styled.svg`
   width: 30px;

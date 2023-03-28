@@ -7,7 +7,7 @@ interface TitleForm {
   projectTitle: string;
 }
 
-export default function AddModal() {
+export function AddModal() {
   const navigate = useNavigate();
   const {
     register,

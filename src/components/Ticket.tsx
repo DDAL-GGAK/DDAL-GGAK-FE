@@ -4,7 +4,7 @@ interface TicketProps {
   data: string;
 }
 
-export default function Ticket({ data }: TicketProps) {
+export function Ticket({ data }: TicketProps) {
   return <Wrapper>{data}</Wrapper>;
 }
 

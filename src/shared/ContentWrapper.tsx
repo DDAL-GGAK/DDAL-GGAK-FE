@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { SIDE_NAV, TOP_NAV } from 'constants/';
 import { DEVICES } from 'styles';
-import useMediaQuery from 'hooks/useMediaquery';
+import { useMediaQuery } from 'hooks';
 
 function ContentWrapper({ children }: { children: React.ReactNode }) {
   const isNotSmallDevice = useMediaQuery(DEVICES.MOBILES);

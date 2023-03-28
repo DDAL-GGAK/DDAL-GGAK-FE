@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ReactHookInput } from 'components/form';
 import { motion } from 'framer-motion';
 
-export default function Login() {
+export function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {

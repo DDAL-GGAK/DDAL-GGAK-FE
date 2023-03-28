@@ -7,7 +7,7 @@ interface NavLinkProps {
   navData: ProjectsLink;
 }
 
-function NavLink({ navData }: NavLinkProps) {
+export function NavLink({ navData }: NavLinkProps) {
   const { id } = navData;
 
   return (
@@ -16,8 +16,6 @@ function NavLink({ navData }: NavLinkProps) {
     </Link>
   );
 }
-
-export default NavLink;
 
 const Wrapper = styled.div`
   width: ${NAVLINK.WIDTH}px;

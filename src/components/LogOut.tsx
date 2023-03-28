@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { logOut } from 'api';
 
-export default function LogOut() {
+export function LogOut() {
   return <Wrapper onClick={logOut}>Logout</Wrapper>;
 }
 

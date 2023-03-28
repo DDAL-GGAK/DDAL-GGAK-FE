@@ -4,7 +4,7 @@ interface TaskCardProps {
   children: React.ReactNode;
 }
 
-export default function TaskCard({ children }: TaskCardProps) {
+export function TaskCard({ children }: TaskCardProps) {
   return <Wrapper>{children}</Wrapper>;
 }
 

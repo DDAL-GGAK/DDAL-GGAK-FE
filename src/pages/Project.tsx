@@ -7,7 +7,7 @@ import { CONTENT } from 'constants/';
 import { AddTask } from 'components';
 import { TaskCard } from 'components/project';
 
-export default function Project() {
+export function Project() {
   const [projectData, setProjectData] = useState<ProjectDataForm>();
   const { id: param } = useParams();
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export default function Menu() {
+export function Menu() {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
