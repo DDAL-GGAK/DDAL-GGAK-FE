@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import { CONTENT, INPUT_TYPE } from 'constants/';
+import { CONTENT, INPUT_TYPE, TOASTIFY, ROUTE } from 'constants/';
 import { signUp } from 'api';
 import { RegisterField } from 'types';
 import { ReactHookInput } from 'components/form';
@@ -20,11 +20,11 @@ export function Signup() {
 
   const { mutate } = useMutation(signUp, {
     onSuccess: () => {
-      sendToast.success('ID가 생성되었습니다!');
-      navigate('/login');
+      sendToast.success(TOASTIFY.SUCCESS.SIGN_UP);
+      navigate(ROUTE.LOGIN);
     },
     onError: () => {
-      alert('axios error');
+      sendToast.error(TOASTIFY.ERROR.SIGN_UP);
     },
   });
 
