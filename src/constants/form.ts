@@ -13,6 +13,8 @@ export const REGISTER_TYPE = Object.freeze({
 export const ERROR_MESSAGE = Object.freeze({
   EMAIL: Object.freeze({
     REQUIRED: 'is required',
+    HAS_ALPHA: 'must be include alpha',
+    IS_EMAIL: 'Is not Email Form',
   }),
   PASSWORD: Object.freeze({
     REQUIRED: 'is required',
