@@ -7,7 +7,7 @@ import { logIn } from 'api';
 import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { setUserData } from 'redux/modules/userData';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ReactHookInput } from 'components/form';
 import { motion } from 'framer-motion';
@@ -32,7 +32,8 @@ export default function Login() {
     },
     onError: () => {
       toast.error('ID 또는 PW가 잘못되었습니다!', {
-        autoClose: 3000,
+        position: 'bottom-right',
+        autoClose: 1500,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
@@ -45,7 +46,6 @@ export default function Login() {
 
   return (
     <Wrapper>
-      <ToastContainer />
       <Container>
         <TopWrapper>
           <Title>Log in</Title>
@@ -121,7 +121,8 @@ const Submit = styled.button<{ isValid: boolean }>`
   transition: ${({ theme }) => theme.transitionOption};
   :hover {
     cursor: pointer;
-    background: rgb(68, 197, 172);
+    background: ${(props) =>
+      props.isValid ? props.theme.pointColorLight : ''};
     color: ${({ theme }) => theme.background};
   }
 `;
@@ -138,6 +139,7 @@ const SignUp = styled.button`
   font-size: 20px;
   height: 50px;
   transition: ${({ theme }) => theme.transitionOption};
+  background: ${({ theme }) => theme.loginBackground};
   :hover {
     cursor: pointer;
     background: white;

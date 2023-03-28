@@ -35,8 +35,7 @@ const Input = styled.input<{ errorId: boolean }>`
       props.errorId ? props.theme.pointColor : props.theme.loginDisable};
   border-radius: 5px;
   transition: ${({ theme }) => theme.transitionOption};
-  color: ${({ theme }) => theme.color};
-  background: transparent;
+  background: ${({ theme }) => theme.loginBackground};
   :focus {
     outline: none;
   }
