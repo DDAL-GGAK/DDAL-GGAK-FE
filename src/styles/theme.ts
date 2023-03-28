@@ -1,7 +1,7 @@
 import { DefaultTheme } from 'styled-components';
 
 export const darkTheme: DefaultTheme = {
-  background: '#181922',
+  background: '#111',
   transparentBackground: 'rgba(43, 43, 43, 0.65)',
   color: '#F5F6F7',
   transparentColor: 'rgba(245, 246, 247, 0.65)',
@@ -10,12 +10,13 @@ export const darkTheme: DefaultTheme = {
   transitionOption: 'ease-in-out 0.15s',
 
   /* nav */
-  navBackground: '#181922',
+  navBackground: '#222222',
   navLinkBackground: '#D9D9D9',
   borderColor: 'rgba(222,222,222,0.2)',
 
   /* login */
   loginDisable: '#C9D5DB',
+  loginBackground: '#F8FAFB',
 };
 
 export const lightTheme: DefaultTheme = {
@@ -34,4 +35,5 @@ export const lightTheme: DefaultTheme = {
 
   /* login */
   loginDisable: '#C9D5DB',
+  loginBackground: '#F8FAFB',
 };

@@ -17,5 +17,6 @@ declare module 'styled-components' {
 
     /* login */
     loginDisable: string;
+    loginBackground: string;
   }
 }
