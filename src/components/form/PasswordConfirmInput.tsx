@@ -1,6 +1,6 @@
-import { ReactHookInputDataProps, RegisterTypes } from 'types';
+import { ReactHookInputDataProps } from 'types';
 import styled from 'styled-components';
-import { INPUT_TYPE, ERROR_MESSAGE } from 'constants/';
+import { ERROR_MESSAGE, REGISTER_TYPE } from 'constants/';
 
 export default function PasswordCofirmInput({ data }: ReactHookInputDataProps) {
   const { type, register, errorMessage, watch } = data;
@@ -8,14 +8,12 @@ export default function PasswordCofirmInput({ data }: ReactHookInputDataProps) {
   return (
     <Input
       errorId={!!errorMessage}
-      {...register(INPUT_TYPE.PASSWORD_CONFIRM.toLowerCase() as RegisterTypes, {
+      {...register(REGISTER_TYPE.PASSWORD_CONFIRM, {
         required: ERROR_MESSAGE.PASSWORD_CONFIRM.REQUIRED,
         validate: {
           match: (value) => {
             if (!watch) return '';
-            const pwd = watch(
-              INPUT_TYPE.PASSWORD.toLowerCase() as RegisterTypes
-            );
+            const pwd = watch(REGISTER_TYPE.PASSWORD_CONFIRM);
 
             return value === pwd || ERROR_MESSAGE.PASSWORD_CONFIRM.NOT_MATCH;
           },
