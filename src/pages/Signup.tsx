@@ -13,7 +13,6 @@ export function Signup() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<RegisterField>({
     mode: 'onChange',
@@ -50,7 +49,6 @@ export function Signup() {
             <ReactHookInput
               type={INPUT_TYPE.PASSWORD_CONFIRM}
               register={register}
-              watch={watch}
               errorMessage={errors.passwordConfirm?.message}
             />
             <Submit isValid={!Object.keys(errors)[0]}>SignUp</Submit>

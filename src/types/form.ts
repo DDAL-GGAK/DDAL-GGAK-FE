@@ -1,4 +1,4 @@
-import { UseFormRegister, UseFormWatch } from 'react-hook-form';
+import { UseFormRegister } from 'react-hook-form';
 import { INPUT_TYPE } from 'constants/';
 
 export type InputTypes = (typeof INPUT_TYPE)[keyof typeof INPUT_TYPE];
@@ -12,7 +12,6 @@ export interface ReactHookInputProps {
   type: InputTypes;
   register: RegisterForm;
   errorMessage: ErrorMessageState;
-  watch?: UseFormWatch<RegisterField>;
 }
 
 export interface ReactHookInputDataProps {
