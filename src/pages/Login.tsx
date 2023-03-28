@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { LogInForm } from 'types/';
-import { CONTENT } from 'constants/';
+import { CONTENT, INPUT_TYPE } from 'constants/';
 import { logIn } from 'api';
 import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
@@ -51,12 +51,12 @@ export function Login() {
           <Title>Log in</Title>
           <Form onSubmit={handleSubmit(onValid)}>
             <ReactHookInput
-              type="Email"
+              type={INPUT_TYPE.EMAIL}
               register={register}
               errorMessage={errors.email?.message}
             />
             <ReactHookInput
-              type="Password"
+              type={INPUT_TYPE.PASSWORD}
               register={register}
               errorMessage={errors.password?.message}
             />

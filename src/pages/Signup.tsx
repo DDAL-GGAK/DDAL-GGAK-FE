@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import { CONTENT } from 'constants/';
+import { CONTENT, INPUT_TYPE } from 'constants/';
 import { signUp } from 'api';
 import { SignUpForm } from 'types';
 import { ReactHookInput } from 'components/form';
@@ -28,10 +28,7 @@ export function Signup() {
     },
   });
 
-  const onValid = async (data: SignUpForm) => {
-    const { email, password } = data;
-    mutate({ email, password });
-  };
+  const onValid = async (data: SignUpForm) => mutate(data);
 
   return (
     <Wrapper>
@@ -40,17 +37,17 @@ export function Signup() {
           <Title>Sign up</Title>
           <Form onSubmit={handleSubmit(onValid)}>
             <ReactHookInput
-              type="Email"
+              type={INPUT_TYPE.EMAIL}
               register={register}
               errorMessage={errors.email?.message}
             />
             <ReactHookInput
-              type="Password"
+              type={INPUT_TYPE.PASSWORD}
               register={register}
               errorMessage={errors.password?.message}
             />
             <ReactHookInput
-              type="PasswordConfirm"
+              type={INPUT_TYPE.PASSWORD_CONFIRM}
               register={register}
               watch={watch}
               errorMessage={errors.passwordConfirm?.message}
