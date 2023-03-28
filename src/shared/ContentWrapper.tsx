@@ -24,7 +24,6 @@ const Wrapper = styled.div<{ isNotSmall: boolean }>`
       ? `calc(100% - ${SIDE_NAV.WIDTH}px - ${TOP_NAV.PADDING * 2}px)`
       : `calc(100% - ${TOP_NAV.PADDING * 2}px)`};
   height: calc(100% - ${TOP_NAV.HEIGHT}px - ${TOP_NAV.PADDING * 2}px);
-  background: rgba(255, 255, 255, 0.1);
   padding: ${TOP_NAV.PADDING}px;
 `;
 

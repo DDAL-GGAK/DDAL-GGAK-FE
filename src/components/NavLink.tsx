@@ -27,7 +27,7 @@ const Wrapper = styled.div`
   order: 0;
   flex-grow: 0;
   transition: ${({ theme }) => theme.transitionOption};
-  background: ${({ theme }) => theme.transparentColor};
+  background: ${({ theme }) => theme.navLinkBackground};
   color: ${({ theme }) => theme.background};
 
   :hover {
