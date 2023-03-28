@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { Modal } from 'components/modal';
 
 // `useBlur` props로 모달 외부를 클릭하면 모달을 닫을지 선택하도록 했다.
-const useModal = ({ useBlur = true } = {}) => {
+export const useModal = ({ useBlur = true } = {}) => {
   // 모달의 렌더링 여부를 설정할 상태 값
   const [isOpen, setIsOpen] = useState(false);
 
@@ -28,5 +28,3 @@ const useModal = ({ useBlur = true } = {}) => {
     isOpen,
   };
 };
-
-export default useModal;

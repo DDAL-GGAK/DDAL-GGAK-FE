@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { UserDataForm } from 'types';
 import { UploadProfile } from 'components/user';
 
-export default function User() {
+export function User() {
   const [userData, setUserData] = useState<UserDataForm>();
   const [nicknameValue, setNicknameValue] = useState(userData?.nickname);
   const onMountHandler = async () => {

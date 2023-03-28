@@ -7,7 +7,7 @@ interface UploadProfileProps {
   imageSrc: ProfileState;
 }
 
-export default function UploadProfile({ imageSrc }: UploadProfileProps) {
+export function UploadProfile({ imageSrc }: UploadProfileProps) {
   const [profile, setProfile] = useState<ProfileState>();
   const loadImage = async (e: React.ChangeEvent) => {
     const target = e.currentTarget as HTMLInputElement;

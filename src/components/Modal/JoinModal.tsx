@@ -7,7 +7,7 @@ interface JoinForm {
   JoinCode: string;
 }
 
-function JoinModal() {
+export function JoinModal() {
   const navigate = useNavigate();
   const {
     register,
@@ -47,8 +47,6 @@ function JoinModal() {
     </ModalContainer>
   );
 }
-
-export default JoinModal;
 
 const ModalContainer = styled.div`
   cursor: auto;

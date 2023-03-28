@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { ModalPortal } from 'components/modal';
 
-export default function Modal({ onClose, children }: any) {
+export function Modal({ onClose, children }: any) {
   return (
     <ModalPortal>
       <ModalBackdrop onClick={onClose}>

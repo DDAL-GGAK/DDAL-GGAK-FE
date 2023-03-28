@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getTaskData } from 'api';
 
-export default function TicketBoard() {
+export function TicketBoard() {
   const [ticketData, setTicketData] = useState();
   const { pathname } = useLocation();
   const endpoint = pathname.substring(1, pathname.length);

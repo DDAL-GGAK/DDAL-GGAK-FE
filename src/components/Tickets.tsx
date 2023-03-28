@@ -12,7 +12,7 @@ interface TicketsProps {
   children: React.ReactNode;
 }
 
-export default function Tickets({ data, children }: TicketsProps) {
+export function Tickets({ data, children }: TicketsProps) {
   return (
     <Wrapper>
       <BoardTitle>{children}</BoardTitle>

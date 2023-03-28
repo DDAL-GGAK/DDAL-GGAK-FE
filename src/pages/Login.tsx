@@ -4,9 +4,17 @@ import { useForm } from 'react-hook-form';
 import { LogInForm } from 'types/';
 import { CONTENT } from 'constants/';
 import { logIn } from 'api';
+import { useMutation } from 'react-query';
+import { useDispatch } from 'react-redux';
+import { setUserData } from 'redux/modules/userData';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ReactHookInput } from 'components/form';
+import { motion } from 'framer-motion';
 
-function Login() {
+export function Login() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -15,67 +23,53 @@ function Login() {
     mode: 'onChange',
   });
 
-  const onValid = async (data: LogInForm) => {
-    const response = await logIn(data);
-    if (response.status === 200) return navigate('/');
-    return alert('Login failed.');
-  };
+  const { mutate } = useMutation(logIn, {
+    onSuccess: (res) => {
+      const { data: userData } = res;
+      localStorage.setItem('userInfo', JSON.stringify({ userData }));
+      dispatch(setUserData(userData));
+      navigate('/');
+    },
+    onError: () => {
+      toast.error('ID 또는 PW가 잘못되었습니다!', {
+        position: 'bottom-right',
+        autoClose: 1500,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    },
+  });
+
+  const onValid = async (userInput: LogInForm) => mutate(userInput);
 
   return (
     <Wrapper>
-      <Form onSubmit={handleSubmit(onValid)}>
-        <h1>Login</h1>
-        <Label>email</Label>
-        <div>
-          <Input
-            type="email"
-            placeholder="Enter your email address"
-            {...register('email', {
-              required: 'Please enter your email!',
-              // 커스텀 validation
-              validate: {
-                isAlphabet: (value) => {
-                  const isAlphabet = value.match(/[a-zA-Z]/g);
-                  return isAlphabet ? true : 'must be include Alphabet';
-                },
-                isEmail: (value) => {
-                  const isEmail = value.match(
-                    /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/g
-                  );
-                  return isEmail ? true : 'not email format';
-                },
-              },
-            })}
-          />
-          {errors.email && <Errorspan>{errors.email.message}</Errorspan>}
-        </div>
-        <div>
-          <Label>password</Label>
-          <Input
-            type="password"
-            placeholder="Enter your password"
-            {...register('password', {
-              required: 'Please enter your password!',
-              minLength: {
-                value: 8,
-                message: 'Requires longer than 8',
-              },
-              pattern: {
-                value:
-                  /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,15}$/,
-                message: 'must be include Alphabet & number',
-              },
-            })}
-          />
-          {errors.password && <Errorspan>{errors.password.message}</Errorspan>}
-        </div>
-        <Submit type="submit">Signup</Submit>
-      </Form>
+      <Container>
+        <TopWrapper>
+          <Title>Log in</Title>
+          <Form onSubmit={handleSubmit(onValid)}>
+            <ReactHookInput
+              type="Email"
+              register={register}
+              errorMessage={errors.email?.message}
+            />
+            <ReactHookInput
+              type="Password"
+              register={register}
+              errorMessage={errors.password?.message}
+            />
+            <Submit isValid={!Object.keys(errors)[0]}>Login</Submit>
+            <Hr />
+            <Text>If you need an account?</Text>
+            <SignUp>Sign up</SignUp>
+          </Form>
+        </TopWrapper>
+      </Container>
     </Wrapper>
   );
 }
-
-export default Login;
 
 const Wrapper = styled.div`
   height: ${CONTENT.HEIGHT};
@@ -84,39 +78,84 @@ const Wrapper = styled.div`
   justify-content: center;
 `;
 
-const Form = styled.form`
-  width: 500px;
-  border: 1px solid #ddd;
-  background: rgba(222, 222, 222, 0.1);
-  border: none;
-  backdrop-filter: blur(1px);
-  border-radius: 10px;
-  margin: 0 auto;
-  padding: 50px;
+const TopWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+`;
 
-  & > h1 {
-    font: revert;
+const Container = styled(motion.div)`
+  backdrop-filter: blur(3px);
+  width: 400px;
+`;
+
+const Title = styled.div`
+  font-size: 30px;
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+`;
+
+const Form = styled.form`
+  width: 100%;
+  display: flex;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+`;
+
+const Submit = styled.button<{ isValid: boolean }>`
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  background: ${(props) =>
+    props.isValid ? props.theme.pointColor : props.theme.loginDisable};
+  color: ${({ theme }) => theme.background};
+  font-weight: 600;
+  border: none;
+  font-size: 20px;
+  height: 50px;
+  width: 100%;
+  transition: ${({ theme }) => theme.transitionOption};
+  :hover {
+    cursor: pointer;
+    background: ${(props) =>
+      props.isValid ? props.theme.pointColorLight : ''};
+    color: ${({ theme }) => theme.background};
   }
 `;
 
-const Label = styled.label``;
-
-const Input = styled.input`
-  outline: none;
-  padding: 10px 0px;
+const SignUp = styled.button`
+  box-sizing: border-box;
+  margin-top: 12px;
   width: 100%;
-  border: none;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 5px;
-`;
-
-const Submit = styled.button`
-  margin: 30px 0 30px 0;
   padding: 10px;
   border-radius: 5px;
-  font-size: 15px;
+  background: transparent;
+  color: ${({ theme }) => theme.pointColor};
+  font-weight: 600;
+  border: ${({ theme }) => theme.pointColor} solid 2px;
+  font-size: 20px;
+  height: 50px;
+  transition: ${({ theme }) => theme.transitionOption};
+  background: ${({ theme }) => theme.loginBackground};
+  :hover {
+    cursor: pointer;
+    background: white;
+  }
 `;
 
-const Errorspan = styled.span`
-  color: red;
+const Hr = styled.div`
+  border-bottom: solid 1px rgba(122, 122, 122, 0.5);
+  margin: 25px 0 15px 0;
+  width: 100%;
+`;
+
+const Text = styled.div`
+  text-align: center;
+  color: rgba(122, 122, 122, 0.8);
 `;

@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import { NAVLINK } from "constants/";
-import { Add } from "assets/icons";
+import styled from 'styled-components';
+import { NAVLINK } from 'constants/';
+import { Add } from 'assets/icons';
 import { useModal } from 'hooks';
-import { AddProjectModal } from 'components/modal';
+import { AddProjectModal } from './modal';
 
-export default function AddProject() {
+export function AddProject() {
   const { Modal, open } = useModal();
 
   return (

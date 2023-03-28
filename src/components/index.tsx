@@ -1,9 +1,9 @@
-export { default as NavLink } from './NavLink';
-export { default as ThemeToggle } from './ThemeToggle';
-export { default as AddProject } from './AddProject';
-export { default as Config } from './Config';
-export { default as LogOut } from './LogOut';
-export { default as TicketBoard } from './TicketBoard';
-export { default as Tickets } from './Tickets';
-export { default as Ticket } from './Ticket';
-export { default as AddTask } from './project/AddTask';
+export * from './NavLink';
+export * from './ThemeToggle';
+export * from './AddProject';
+export * from './Config';
+export * from './LogOut';
+export * from './TicketBoard';
+export * from './Tickets';
+export * from './Ticket';
+export * from './project/AddTask';

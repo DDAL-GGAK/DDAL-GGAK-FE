@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Add } from 'assets/icons';
 
-export default function AddTask() {
+export function AddTask() {
   return (
     <Wrapper>
       <Add width={50} />

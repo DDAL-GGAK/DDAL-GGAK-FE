@@ -1,11 +1,9 @@
 import styled from 'styled-components';
 import { CONTENT } from 'constants/';
 
-function Home() {
+export function Home() {
   return <Wrapper>Home</Wrapper>;
 }
-
-export default Home;
 
 const Wrapper = styled.div`
   height: ${CONTENT.HEIGHT};
