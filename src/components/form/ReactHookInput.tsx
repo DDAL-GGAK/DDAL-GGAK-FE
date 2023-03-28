@@ -6,6 +6,7 @@ import {
   PasswordInput,
 } from 'components/form';
 import { ReactHookInputProps } from 'types';
+import { INPUT_TYPE } from 'constants/';
 
 export default function ReactHookInput({
   type,
@@ -15,11 +16,11 @@ export default function ReactHookInput({
 }: ReactHookInputProps) {
   const content = (inputType: string) => {
     switch (inputType) {
-      case 'Email':
+      case INPUT_TYPE.EMAIL:
         return <EmailInput data={{ type, register, errorMessage }} />;
-      case 'Password':
+      case INPUT_TYPE.PASSWORD:
         return <PasswordInput data={{ type, register, errorMessage }} />;
-      case 'PasswordConfirm':
+      case INPUT_TYPE.PASSWORD_CONFIRM:
         return (
           <PasswordConfirmInput
             data={{ type, register, errorMessage, watch }}
