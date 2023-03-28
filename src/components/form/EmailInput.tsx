@@ -1,5 +1,6 @@
-import { ReactHookInputDataProps } from 'types/';
+import { ReactHookInputDataProps, RegisterTypes } from 'types/';
 import styled from 'styled-components';
+import { INPUT_TYPE } from 'constants/';
 
 export default function EmailInput({ data }: ReactHookInputDataProps) {
   const { type, register, errorMessage } = data;
@@ -7,7 +8,7 @@ export default function EmailInput({ data }: ReactHookInputDataProps) {
   return (
     <Input
       errorId={!!errorMessage}
-      {...register('email', {
+      {...register(INPUT_TYPE.EMAIL.toLowerCase() as RegisterTypes, {
         required: 'is required',
         validate: {
           hasAlpha: (value: string) => {
