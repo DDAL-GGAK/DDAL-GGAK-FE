@@ -9,7 +9,7 @@ export default function PasswordCofirmInput({ data }: ReactHookInputDataProps) {
     <Input
       errorId={!!errorMessage}
       {...register(INPUT_TYPE.PASSWORD_CONFIRM.toLowerCase() as RegisterTypes, {
-        required: 'Please enter your password!',
+        required: ERROR_MESSAGE.PASSWORD_CONFIRM.REQUIRED,
         validate: {
           match: (value) => {
             if (!watch) return '';
@@ -17,7 +17,7 @@ export default function PasswordCofirmInput({ data }: ReactHookInputDataProps) {
               INPUT_TYPE.PASSWORD.toLowerCase() as RegisterTypes
             );
 
-            return value === pwd || ERROR_MESSAGE.PASSWORD.NOT_MATCH;
+            return value === pwd || ERROR_MESSAGE.PASSWORD_CONFIRM.NOT_MATCH;
           },
         },
       })}
