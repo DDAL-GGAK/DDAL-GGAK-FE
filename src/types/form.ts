@@ -1,10 +1,15 @@
 import { UseFormRegister } from 'react-hook-form';
 import { LogInForm } from 'types/';
 
+type InputState = 'Email' | 'Password' | 'PasswordConfirm';
+type RegisterForm = UseFormRegister<LogInForm>;
+type ErrorMessageState = string | undefined;
+type ErrorId = boolean;
+
 export interface ReactHookInputProps {
-  type: string;
-  register: UseFormRegister<LogInForm>;
-  errorMessage: string | undefined;
+  type: InputState;
+  register: RegisterForm;
+  errorMessage: ErrorMessageState;
 }
 
 export interface ReactHookInputDataProps {
@@ -12,12 +17,18 @@ export interface ReactHookInputDataProps {
 }
 
 export interface InputProps {
-  errorId: boolean;
-  type: string;
+  errorId: ErrorId;
+  type: InputState;
   placeholder: string;
 }
 
 export interface LabelProps {
   value: string;
-  errorMessage: string | undefined;
+  errorMessage: ErrorMessageState;
+}
+
+export interface SignUpForm {
+  email: string;
+  password: string;
+  passwordConfirm: string;
 }
