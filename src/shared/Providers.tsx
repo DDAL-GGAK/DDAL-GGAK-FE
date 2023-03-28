@@ -9,7 +9,7 @@ import { ToastContainer } from 'react-toastify';
 
 const queryClient = new QueryClient();
 
-function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({ children }: { children: React.ReactNode }) {
   const isDark = useSelector((state: RootState) => state.themeToggleSlicer);
 
   return (
@@ -23,5 +23,3 @@ function Providers({ children }: { children: React.ReactNode }) {
     </QueryClientProvider>
   );
 }
-
-export default Providers;

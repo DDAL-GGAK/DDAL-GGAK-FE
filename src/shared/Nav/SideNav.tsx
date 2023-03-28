@@ -3,7 +3,7 @@ import { SIDE_NAV, TOP_NAV } from 'constants/layout';
 import { NavLink, AddProject, Config } from 'components';
 import { ProjectsLink } from 'types';
 
-function SideNav() {
+export function SideNav() {
   const dummyLink: ProjectsLink[] = [
     { id: '1', title: 'title1' },
     { id: '2', title: 'title2' },
