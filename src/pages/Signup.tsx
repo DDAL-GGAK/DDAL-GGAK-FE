@@ -3,18 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { CONTENT } from 'constants/';
-import { signUp } from '../api/auth';
-
-export interface SignUpForm {
-  email: string;
-  password: string;
-  passwordConfirm: string;
-}
+import { signUp } from 'api';
+import { SignUpForm } from 'types';
+import { ReactHookInput } from 'components/form';
 
 export function Signup() {
   const navigate = useNavigate();
-
-  // react-hook-form 사용
   const {
     register,
     handleSubmit,
@@ -24,7 +18,7 @@ export function Signup() {
     mode: 'onChange',
   });
 
-  const { mutate, isLoading } = useMutation(signUp, {
+  const { mutate } = useMutation(signUp, {
     onSuccess: () => {
       alert('Signup success!');
       navigate('/');
@@ -34,7 +28,7 @@ export function Signup() {
     },
   });
 
-  const onSubmit = async (data: SignUpForm) => {
+  const onValid = async (data: SignUpForm) => {
     const { email, password } = data;
     mutate({ email, password });
   };
@@ -42,79 +36,31 @@ export function Signup() {
   return (
     <Wrapper>
       <Container>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <h1>SignUp</h1>
-          <div>
-            <Label>email</Label>
-            <Input
-              type="email"
-              placeholder="Enter your email address"
-              {...register('email', {
-                required: 'Please enter your email!',
-                validate: {
-                  isAlphabet: (value) => {
-                    const isAlphabet = value.match(/[a-zA-Z]/g);
-                    return isAlphabet ? true : 'must be include Alphabet';
-                  },
-                  isEmail: (value) => {
-                    const isEmail = value.match(
-                      /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/g
-                    );
-                    return isEmail ? true : 'not email format';
-                  },
-                },
-              })}
+        <TopWrapper>
+          <Title>Sign up</Title>
+          <Form onSubmit={handleSubmit(onValid)}>
+            <ReactHookInput
+              type="Email"
+              register={register}
+              errorMessage={errors.email?.message}
             />
-            {errors.email && <Errorspan>{errors.email.message}</Errorspan>}
-          </div>
-          {/* <Label>verify</Label>
-          <Input /> */}
-          <div>
-            <Label>password</Label>
-            <Input
-              type="password"
-              placeholder="Enter your password"
-              {...register('password', {
-                required: 'Please enter your password!',
-                minLength: {
-                  value: 8,
-                  message: 'Requires longer than 8',
-                },
-                pattern: {
-                  value:
-                    /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,}$/,
-                  message: 'must be include Alphabet & number',
-                },
-              })}
+            <ReactHookInput
+              type="Password"
+              register={register}
+              errorMessage={errors.password?.message}
             />
-            {errors.password && (
-              <Errorspan>{errors.password.message}</Errorspan>
-            )}
-          </div>
-          <div>
-            <Label>passwordConfirm</Label>
-            <Input
-              type="password"
-              placeholder="Enter your password"
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...register('passwordConfirm', {
-                required: 'Please enter your password!',
-                validate: {
-                  matchesPrevios: (value) => {
-                    const pwd = watch('password');
-                    return value === pwd || 'Password not match';
-                  },
-                },
-              })}
+            <ReactHookInput
+              type="PasswordConfirm"
+              register={register}
+              watch={watch}
+              errorMessage={errors.passwordConfirm?.message}
             />
-            {errors.passwordConfirm && (
-              <Errorspan>{errors.passwordConfirm.message}</Errorspan>
-            )}
-          </div>
-          <Submit type="submit" disabled={isLoading}>
-            Signup
-          </Submit>
-        </Form>
+            <Submit isValid={!Object.keys(errors)[0]}>SignUp</Submit>
+            <Hr />
+            <Text>If you already have account?</Text>
+            <Login>Login</Login>
+          </Form>
+        </TopWrapper>
       </Container>
     </Wrapper>
   );
@@ -122,42 +68,89 @@ export function Signup() {
 
 const Wrapper = styled.div`
   height: ${CONTENT.HEIGHT};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const TopWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 `;
 
 const Container = styled.div`
-  padding-top: 200px;
+  backdrop-filter: blur(3px);
+  width: 400px;
 `;
-const Form = styled.form`
-  width: 500px;
-  border: 1px solid #ddd;
-  background: #fff;
-  border-radius: 10px;
-  margin: 0 auto;
-  padding: 50px;
 
-  & > h1 {
-    font: revert;
+const Title = styled.div`
+  font-size: 30px;
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+`;
+
+const Form = styled.form`
+  width: 100%;
+  display: flex;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+`;
+
+const Submit = styled.button<{ isValid: boolean }>`
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  background: ${(props) =>
+    props.isValid ? props.theme.pointColor : props.theme.loginDisable};
+  color: ${({ theme }) => theme.background};
+  font-weight: 600;
+  border: none;
+  font-size: 20px;
+  height: 50px;
+  width: 100%;
+  transition: ${({ theme }) => theme.transitionOption};
+  :hover {
+    cursor: pointer;
+    background: ${(props) =>
+      props.isValid ? props.theme.pointColorLight : ''};
+    color: ${({ theme }) => theme.background};
   }
 `;
 
-const Label = styled.label``;
-
-const Input = styled.input`
-  outline: none;
-  padding: 10px 0px;
+const Login = styled.button`
+  box-sizing: border-box;
+  margin-top: 12px;
   width: 100%;
-  border: none;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 5px;
-`;
-
-const Submit = styled.button`
-  margin: 30px 0 30px 0;
   padding: 10px;
   border-radius: 5px;
-  font-size: 15px;
+  background: transparent;
+  color: ${({ theme }) => theme.pointColor};
+  font-weight: 600;
+  border: ${({ theme }) => theme.pointColor} solid 2px;
+  font-size: 20px;
+  height: 50px;
+  transition: ${({ theme }) => theme.transitionOption};
+  background: ${({ theme }) => theme.loginBackground};
+  :hover {
+    cursor: pointer;
+    background: white;
+  }
 `;
 
-const Errorspan = styled.span`
-  color: red;
+const Hr = styled.div`
+  border-bottom: solid 1px rgba(122, 122, 122, 0.5);
+  margin: 25px 0 15px 0;
+  width: 100%;
+`;
+
+const Text = styled.div`
+  text-align: center;
+  color: rgba(122, 122, 122, 0.8);
 `;
