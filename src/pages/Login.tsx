@@ -7,8 +7,7 @@ import { logIn } from 'api';
 import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { setUserData } from 'redux/modules/userData';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { sendToast } from 'libs';
 import { ReactHookInput } from 'components/form';
 import { motion } from 'framer-motion';
 
@@ -31,14 +30,7 @@ export function Login() {
       navigate('/');
     },
     onError: () => {
-      toast.error('ID 또는 PW가 잘못되었습니다!', {
-        position: 'bottom-right',
-        autoClose: 1500,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      sendToast.error('ID 또는 PW가 잘못되었습니다!');
     },
   });
 
