@@ -8,6 +8,7 @@ declare module 'styled-components' {
     transparentColor: string;
     pointColor: string;
     transitionOption: string;
+    pointColorLight: string;
 
     /* nav */
     navBackground: string;
@@ -16,5 +17,6 @@ declare module 'styled-components' {
 
     /* login */
     loginDisable: string;
+    loginBackground: string;
   }
 }
