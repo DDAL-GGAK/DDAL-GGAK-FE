@@ -6,7 +6,7 @@ import { ThemeToggle, LogOut } from 'components';
 import { useMediaQuery } from 'hooks';
 import { Link } from 'react-router-dom';
 
-function TopNav() {
+export function TopNav() {
   const isNotSmallDevice = useMediaQuery(DEVICES.MOBILES);
 
   return (

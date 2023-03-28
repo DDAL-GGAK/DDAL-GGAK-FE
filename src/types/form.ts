@@ -1,23 +1,35 @@
-import { UseFormRegister } from 'react-hook-form';
-import { LogInForm } from 'types/';
+import { UseFormRegister, UseFormWatch } from 'react-hook-form';
+import { INPUT_TYPE } from 'constants/';
 
+export type InputTypes = (typeof INPUT_TYPE)[keyof typeof INPUT_TYPE];
+export type RegisterTypes = 'email' | 'password' | 'passwordConfirm';
+type RegisterForm = UseFormRegister<RegisterField>;
+type ErrorMessageState = string | undefined;
+type ErrorId = boolean;
+
+/* ReactHookInput */
 export interface ReactHookInputProps {
-  type: string;
-  register: UseFormRegister<LogInForm>;
-  errorMessage: string | undefined;
+  type: InputTypes;
+  register: RegisterForm;
+  errorMessage: ErrorMessageState;
+  watch?: UseFormWatch<RegisterField>;
 }
 
 export interface ReactHookInputDataProps {
   data: ReactHookInputProps;
 }
 
+/* Input */
 export interface InputProps {
-  errorId: boolean;
-  type: string;
+  errorId: ErrorId;
+  type: InputTypes;
   placeholder: string;
 }
 
 export interface LabelProps {
   value: string;
-  errorMessage: string | undefined;
+  errorMessage: ErrorMessageState;
 }
+
+/* auth */
+export type RegisterField = Record<RegisterTypes, string>;

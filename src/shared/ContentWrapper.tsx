@@ -3,7 +3,7 @@ import { SIDE_NAV, TOP_NAV } from 'constants/';
 import { DEVICES } from 'styles';
 import { useMediaQuery } from 'hooks';
 
-function ContentWrapper({ children }: { children: React.ReactNode }) {
+export function ContentWrapper({ children }: { children: React.ReactNode }) {
   const isNotSmallDevice = useMediaQuery(DEVICES.MOBILES);
 
   return (
@@ -12,8 +12,6 @@ function ContentWrapper({ children }: { children: React.ReactNode }) {
     </Wrapper>
   );
 }
-
-export default ContentWrapper;
 
 const Wrapper = styled.div<{ isNotSmall: boolean }>`
   position: fixed;

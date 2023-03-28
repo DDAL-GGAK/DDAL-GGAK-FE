@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { Home, Signup, Login, Task, Project, User } from 'pages';
 import { ContentWrapper } from 'shared';
 
-function Router() {
+export function Router() {
   return (
     <Routes>
       <Route
@@ -56,5 +56,3 @@ function Router() {
     </Routes>
   );
 }
-
-export default Router;

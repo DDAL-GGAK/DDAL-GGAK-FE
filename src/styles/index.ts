@@ -1,2 +1,2 @@
-export { default as DEVICES } from './mediaQuery';
+export * from './mediaQuery';
 export * from './theme';

@@ -1,20 +1,31 @@
 import styled from 'styled-components';
 import Label from 'components/form/Label';
-import { EmailInput, PasswordInput } from 'components/form';
+import {
+  EmailInput,
+  PasswordConfirmInput,
+  PasswordInput,
+} from 'components/form';
 import { ReactHookInputProps } from 'types';
+import { INPUT_TYPE } from 'constants/';
 
 export default function ReactHookInput({
   type,
   register,
   errorMessage,
+  watch,
 }: ReactHookInputProps) {
   const content = (inputType: string) => {
     switch (inputType) {
-      case 'Email':
+      case INPUT_TYPE.EMAIL:
         return <EmailInput data={{ type, register, errorMessage }} />;
-      case 'Password':
+      case INPUT_TYPE.PASSWORD:
         return <PasswordInput data={{ type, register, errorMessage }} />;
-
+      case INPUT_TYPE.PASSWORD_CONFIRM:
+        return (
+          <PasswordConfirmInput
+            data={{ type, register, errorMessage, watch }}
+          />
+        );
       default:
         return null;
     }
