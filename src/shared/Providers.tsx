@@ -5,6 +5,7 @@ import { darkTheme, lightTheme } from 'styles/theme';
 import { useSelector } from 'react-redux';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { RootState } from 'redux/store';
+import { ToastContainer } from 'react-toastify';
 
 const queryClient = new QueryClient();
 
@@ -15,6 +16,7 @@ function Providers({ children }: { children: React.ReactNode }) {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+          <ToastContainer />
           {children}
         </ThemeProvider>
       </BrowserRouter>
