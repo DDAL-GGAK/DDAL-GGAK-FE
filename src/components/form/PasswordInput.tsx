@@ -1,6 +1,6 @@
 import { ReactHookInputDataProps, RegisterTypes } from 'types';
 import styled from 'styled-components';
-import { INPUT_TYPE } from 'constants/';
+import { INPUT_TYPE, ERROR_MESSAGE, CONFIG } from 'constants/';
 
 export default function PasswordInput({ data }: ReactHookInputDataProps) {
   const { type, register, errorMessage } = data;
@@ -9,15 +9,14 @@ export default function PasswordInput({ data }: ReactHookInputDataProps) {
     <Input
       errorId={!!errorMessage}
       {...register(INPUT_TYPE.PASSWORD.toLowerCase() as RegisterTypes, {
-        required: 'is required',
+        required: ERROR_MESSAGE.PASSWORD.REQUIRED,
         minLength: {
-          value: 4,
-          message: 'longer more than 4',
+          value: CONFIG.PASSWORD.MIN_LENGTH,
+          message: ERROR_MESSAGE.PASSWORD.MIN_LENGTH,
         },
         pattern: {
-          value:
-            /^(?=.*[A-Za-z]+)(?=.*[~!@#$%^&*()_+=]+)(?=.*[0-9]+)[A-Za-z\d~!@#$%^&*()_+=]{8,15}$/,
-          message: 'must be include Alphabet & number',
+          value: CONFIG.PASSWORD.REGEX,
+          message: ERROR_MESSAGE.PASSWORD.INVALIDATE,
         },
       })}
       type="password"
