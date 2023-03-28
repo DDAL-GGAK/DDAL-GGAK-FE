@@ -6,6 +6,7 @@ export const darkTheme: DefaultTheme = {
   color: '#F5F6F7',
   transparentColor: 'rgba(245, 246, 247, 0.65)',
   pointColor: '#30B198',
+  pointColorLight: 'rgb(68, 197, 172)',
   transitionOption: 'ease-in-out 0.15s',
 
   /* nav */
@@ -23,6 +24,7 @@ export const lightTheme: DefaultTheme = {
   color: '#2b2b2b',
   transparentColor: 'rgba(43, 43, 43, 0.65)',
   pointColor: '#30B198',
+  pointColorLight: 'rgb(68, 197, 172)',
   transitionOption: 'ease-in-out 0.15s',
 
   /* nav */

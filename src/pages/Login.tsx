@@ -121,14 +121,14 @@ const Submit = styled.button<{ isValid: boolean }>`
   transition: ${({ theme }) => theme.transitionOption};
   :hover {
     cursor: pointer;
-    background: ${({ theme }) => theme.pointColor};
+    background: rgb(68, 197, 172);
     color: ${({ theme }) => theme.background};
   }
 `;
 
 const SignUp = styled.button`
   box-sizing: border-box;
-  margin-top: 20px;
+  margin-top: 12px;
   padding: 10px;
   border-radius: 5px;
   background: transparent;
@@ -140,7 +140,6 @@ const SignUp = styled.button`
   transition: ${({ theme }) => theme.transitionOption};
   :hover {
     cursor: pointer;
-    background: ${({ theme }) => theme.background};
-    color: ${({ theme }) => theme.background};
+    background: white;
   }
 `;
