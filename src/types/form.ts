@@ -1,4 +1,4 @@
-import { UseFormRegister } from 'react-hook-form';
+import { UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { LogInForm } from 'types/';
 
 type InputState = 'Email' | 'Password' | 'PasswordConfirm';
@@ -10,6 +10,7 @@ export interface ReactHookInputProps {
   type: InputState;
   register: RegisterForm;
   errorMessage: ErrorMessageState;
+  watch?: UseFormWatch<SignUpForm>;
 }
 
 export interface ReactHookInputDataProps {
