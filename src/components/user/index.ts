@@ -1,1 +1,1 @@
-export { default as UploadProfile } from './UploadProfile';
+export * from './UploadProfile';

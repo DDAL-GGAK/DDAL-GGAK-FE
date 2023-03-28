@@ -7,7 +7,7 @@ interface NavLinkProps {
   navData: ProjectsLink;
 }
 
-function NavLink({ navData }: NavLinkProps) {
+export function NavLink({ navData }: NavLinkProps) {
   const { id } = navData;
 
   return (
@@ -17,8 +17,6 @@ function NavLink({ navData }: NavLinkProps) {
   );
 }
 
-export default NavLink;
-
 const Wrapper = styled.div`
   width: ${NAVLINK.WIDTH}px;
   height: ${NAVLINK.HEIGHT}px;
@@ -27,7 +25,7 @@ const Wrapper = styled.div`
   order: 0;
   flex-grow: 0;
   transition: ${({ theme }) => theme.transitionOption};
-  background: ${({ theme }) => theme.transparentColor};
+  background: ${({ theme }) => theme.navLinkBackground};
   color: ${({ theme }) => theme.background};
 
   :hover {

@@ -11,7 +11,7 @@ export interface SignUpForm {
   passwordConfirm: string;
 }
 
-function Signup() {
+export function Signup() {
   const navigate = useNavigate();
 
   // react-hook-form 사용
@@ -119,8 +119,6 @@ function Signup() {
     </Wrapper>
   );
 }
-
-export default Signup;
 
 const Wrapper = styled.div`
   height: ${CONTENT.HEIGHT};

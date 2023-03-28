@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { CONTENT } from 'constants/';
 import { TicketBoard } from 'components';
 
-export default function Task() {
+export function Task() {
   const teams = [
     { id: 1, name: 'FE' },
     { id: 2, name: 'BE' },

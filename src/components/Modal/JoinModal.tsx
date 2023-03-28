@@ -7,7 +7,7 @@ interface JoinForm {
   JoinCode: string;
 }
 
-export default function InviteModal() {
+export function JoinModal() {
   const navigate = useNavigate();
   const {
     register,

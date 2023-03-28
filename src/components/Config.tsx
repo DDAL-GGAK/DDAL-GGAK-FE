@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { NAVLINK } from 'constants/';
 import { ConfigSvg } from 'assets/icons';
 
-export default function Config() {
+export function Config() {
   return (
     <Wrapper>
       <ConfigSvg />
