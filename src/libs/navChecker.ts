@@ -6,7 +6,7 @@ export const navChecker = (pathname: string) => {
     .map(([path]) => path);
 
   const result = navRouteArr.some((path: string) => {
-    const pathRegex = new RegExp(`^${path.replace(/:\w+/g, '\\w+')}$`);
+    const pathRegex = new RegExp(`^${path.replace(/:\w+/g, '\\d+')}$`);
 
     return pathRegex.test(pathname);
   });
