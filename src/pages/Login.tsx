@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { RegisterField } from 'types/';
-import { CONTENT, INPUT_TYPE } from 'constants/';
+import { CONTENT, INPUT_TYPE, ROUTE } from 'constants/';
 import { logIn } from 'api';
 import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
@@ -28,7 +28,7 @@ export function Login() {
       const { data: userData } = res;
       localStorage.setItem('userInfo', JSON.stringify({ userData }));
       dispatch(setUserData(userData));
-      navigate('/');
+      navigate(ROUTE.HOME);
     },
     onError: (error: ErrorMessage) => {
       const { message } = error.response.data;
