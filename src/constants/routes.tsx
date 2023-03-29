@@ -1,10 +1,29 @@
 import { Home, Signup, Login, Task, Project, User } from 'pages';
+import { RouteMap } from 'types';
 
-export const routeMap = Object.freeze({
-  '/': <Home />,
-  '/signup': <Signup />,
-  '/login': <Login />,
-  '/project/:id': <Project />,
-  '/task/:id': <Task />,
-  '/user': <User />,
+export const ROUTE_MAP: RouteMap = Object.freeze({
+  '/': {
+    COMPONENT: <Home />,
+    AUTH: false,
+  },
+  '/signup': {
+    COMPONENT: <Signup />,
+    AUTH: false,
+  },
+  '/login': {
+    COMPONENT: <Login />,
+    AUTH: false,
+  },
+  '/project/:id': {
+    COMPONENT: <Project />,
+    AUTH: true,
+  },
+  '/task/:id': {
+    COMPONENT: <Task />,
+    AUTH: true,
+  },
+  '/user': {
+    COMPONENT: <User />,
+    AUTH: true,
+  },
 });
