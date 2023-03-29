@@ -28,8 +28,6 @@ export function SideNav() {
   );
 }
 
-export default SideNav;
-
 const Wrapper = styled.div`
   gap: 10px;
   position: fixed;

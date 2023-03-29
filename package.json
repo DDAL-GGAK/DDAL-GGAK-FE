@@ -35,7 +35,8 @@
     "postinstall": "husky install",
     "lint": "eslint ./src/**/*.{ts,tsx,js,jsx}",
     "lint:fix": "eslint --fix ./src/**/*.{ts,tsx,js,jsx}",
-    "prettier": "prettier --write ./src/**/*.{ts,tsx}"
+    "prettier": "prettier --write ./src/**/*.{ts,tsx,js,jsx,json,css,scss,md}",
+    "lint-staged": "eslint --fix ."
   },
   "eslintConfig": {
     "extends": [
@@ -72,6 +73,19 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "husky": "^8.0.3",
     "prettier": "^2.8.4",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "lint-staged": "^13.2.0"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "npx --no-install commitlint --edit"
+    }
   }
 }
