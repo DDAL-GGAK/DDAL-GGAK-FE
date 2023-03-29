@@ -7,7 +7,7 @@ const userDataSlicer = createSlice({
   name: 'userDataSlicer',
   initialState,
   reducers: {
-    setUserData: (state) => state,
+    setUserData: (state) => state || null,
   },
 });
 
