@@ -3,7 +3,7 @@ import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logOut } from 'api';
-import { setUserData } from 'redux/modules/userData';
+import { removeUserData } from 'redux/modules/userData';
 import { ErrorMessage } from 'types';
 import { sendToast } from 'libs';
 
@@ -13,7 +13,7 @@ export function LogOut() {
   const { mutate } = useMutation(logOut, {
     onSuccess: () => {
       localStorage.removeItem('userInfo');
-      dispatch(setUserData());
+      dispatch(removeUserData());
       navigate('/');
     },
     onError: (error: ErrorMessage) => {
