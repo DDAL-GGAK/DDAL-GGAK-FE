@@ -1,3 +1,5 @@
+import { ProjectPreviewForm } from 'types';
+
 export interface Participants {
   id: number;
   email: string;
@@ -10,4 +12,5 @@ export interface UserDataForm {
   email: string;
   nickname: string;
   profile: string;
+  projects: ProjectPreviewForm[];
 }
