@@ -2,17 +2,17 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import { CONTENT, INPUT_TYPE } from 'constants/';
+import { CONTENT, INPUT_TYPE, TOASTIFY, ROUTE } from 'constants/';
 import { signUp } from 'api';
-import { RegisterField } from 'types';
+import { RegisterField, ErrorMessage } from 'types';
 import { ReactHookInput } from 'components/form';
+import { sendToast } from 'libs';
 
 export function Signup() {
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<RegisterField>({
     mode: 'onChange',
@@ -20,11 +20,12 @@ export function Signup() {
 
   const { mutate } = useMutation(signUp, {
     onSuccess: () => {
-      alert('Signup success!');
-      navigate('/');
+      sendToast.success(TOASTIFY.SUCCESS.SIGN_UP);
+      navigate(ROUTE.LOGIN);
     },
-    onError: () => {
-      alert('axios error');
+    onError: (error: ErrorMessage) => {
+      const { message } = error.response.data;
+      sendToast.error(message);
     },
   });
 
@@ -49,7 +50,6 @@ export function Signup() {
             <ReactHookInput
               type={INPUT_TYPE.PASSWORD_CONFIRM}
               register={register}
-              watch={watch}
               errorMessage={errors.passwordConfirm?.message}
             />
             <Submit isValid={!Object.keys(errors)[0]}>SignUp</Submit>

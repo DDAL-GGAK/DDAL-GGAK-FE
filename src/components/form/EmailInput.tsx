@@ -36,7 +36,7 @@ const Input = styled.input<{ errorId: boolean }>`
   font-weight: 600;
   border: solid 2px
     ${(props) =>
-      props.errorId ? props.theme.pointColor : props.theme.loginDisable};
+      props.errorId ? props.theme.errorColor : props.theme.validColor};
   border-radius: 5px;
   transition: ${({ theme }) => theme.transitionOption};
   background: ${({ theme }) => theme.loginBackground};

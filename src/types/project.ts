@@ -12,6 +12,12 @@ export interface ProjectDataForm {
   thumbnail: string | null;
 }
 
+export interface ProjectPreviewForm {
+  projectId: string;
+  thumbnail: string;
+  projectTitle: string;
+}
+
 export interface TaskDataForm {
   id: number;
   participants: Participants[];

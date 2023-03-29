@@ -12,7 +12,6 @@ export default function ReactHookInput({
   type,
   register,
   errorMessage,
-  watch,
 }: ReactHookInputProps) {
   const content = (inputType: string) => {
     switch (inputType) {
@@ -21,11 +20,7 @@ export default function ReactHookInput({
       case INPUT_TYPE.PASSWORD:
         return <PasswordInput data={{ type, register, errorMessage }} />;
       case INPUT_TYPE.PASSWORD_CONFIRM:
-        return (
-          <PasswordConfirmInput
-            data={{ type, register, errorMessage, watch }}
-          />
-        );
+        return <PasswordConfirmInput data={{ type, register, errorMessage }} />;
       default:
         return null;
     }
