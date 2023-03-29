@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { CONTENT, INPUT_TYPE, TOASTIFY, ROUTE } from 'constants/';
 import { signUp } from 'api';
-import { RegisterField } from 'types';
+import { RegisterField, ErrorMessage } from 'types';
 import { ReactHookInput } from 'components/form';
 import { sendToast } from 'libs';
 
@@ -23,8 +23,9 @@ export function Signup() {
       sendToast.success(TOASTIFY.SUCCESS.SIGN_UP);
       navigate(ROUTE.LOGIN);
     },
-    onError: () => {
-      sendToast.error(TOASTIFY.ERROR.SIGN_UP);
+    onError: (error: ErrorMessage) => {
+      const { message } = error.response.data;
+      sendToast.error(message);
     },
   });
 
