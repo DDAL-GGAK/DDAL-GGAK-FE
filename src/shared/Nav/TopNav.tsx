@@ -46,8 +46,6 @@ export function TopNav() {
   );
 }
 
-export default TopNav;
-
 const NavWrapper = styled.div`
   font-weight: 600;
   padding: 5px;
