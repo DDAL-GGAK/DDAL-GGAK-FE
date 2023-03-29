@@ -1,11 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
-import { routeMap } from 'constants/';
+import { ROUTE_MAP } from 'constants/';
 
 export function Router() {
   return (
     <Routes>
-      {Object.entries(routeMap).map(([key, value]) => (
-        <Route key={key} path={key} element={value} />
+      {Object.entries(ROUTE_MAP).map(([ROUTE, DATA]) => (
+        <Route key={ROUTE} path={ROUTE} element={DATA.COMPONENT} />
       ))}
     </Routes>
   );
