@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { setUserData } from 'redux/modules/userData';
 import { sendToast } from 'libs';
 import { ReactHookInput } from 'components/form';
+import { ErrorMessage } from 'types';
 import { motion } from 'framer-motion';
 
 export function Login() {
@@ -29,8 +30,9 @@ export function Login() {
       dispatch(setUserData(userData));
       navigate('/');
     },
-    onError: () => {
-      sendToast.error('ID 또는 PW가 잘못되었습니다!');
+    onError: (error: ErrorMessage) => {
+      const { message } = error.response.data;
+      sendToast.error(message);
     },
   });
 
