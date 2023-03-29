@@ -1,10 +1,12 @@
-import { Nav, Router } from 'shared';
+import { ContentWrapper, Nav, Router } from 'shared';
 
 function App() {
   return (
     <>
       <Nav />
-      <Router />
+      <ContentWrapper>
+        <Router />
+      </ContentWrapper>
     </>
   );
 }

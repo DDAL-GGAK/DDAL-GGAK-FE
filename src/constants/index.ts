@@ -5,3 +5,4 @@ export * from './api';
 export * from './form';
 export * from './toastify';
 export * from './route';
+export * from './routes';
