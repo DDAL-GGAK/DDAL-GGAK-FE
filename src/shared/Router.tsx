@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { Home, Signup, Login, Task, Project, User } from 'pages';
+import { Home, Signup, Login, Task, Project, Settings, User, ProjectMember, ProjectSetting } from 'pages';
 import { ContentWrapper } from 'shared';
 
 function Router() {
@@ -46,13 +46,17 @@ function Router() {
         }
       />
       <Route
-        path="/user"
+        path="/settings"
         element={
           <ContentWrapper>
-            <User />
+            <Settings />
           </ContentWrapper>
         }
-      />
+      >
+        <Route path="user" element={<User />} />
+        <Route path="projectSetting" element={<ProjectSetting />} />
+        <Route path="projectMember" element={<ProjectMember />} />
+      </Route>
     </Routes>
   );
 }
