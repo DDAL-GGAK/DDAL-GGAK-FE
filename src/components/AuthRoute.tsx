@@ -1,13 +1,9 @@
 import { checkAuth } from 'utils';
 import { useState, useEffect } from 'react';
-import { Route, Navigate, NavigateProps } from 'react-router-dom';
+import { Navigate, NavigateProps } from 'react-router-dom';
+import { AuthRouteProps } from 'types';
 
-type AuthRouteProps = {
-  component: React.ComponentType<any>;
-  [key: string]: any;
-} & React.ComponentProps<typeof Route>;
-
-export function AuthRoute({ component: Component, ...rest }: AuthRouteProps) {
+export function AuthRoute({ element: Component, ...rest }: AuthRouteProps) {
   const [loading, setLoading] = useState(true);
   const [isAuth, setIsAuth] = useState(false);
 
@@ -22,24 +18,17 @@ export function AuthRoute({ component: Component, ...rest }: AuthRouteProps) {
 
   if (loading) return <div>Loading...</div>;
 
-  return (
-    <Route
-      {...rest}
-      element={
-        isAuth ? (
-          <Component />
-        ) : (
-          <Navigate
-            to={
-              {
-                pathname: '/login',
-                state: { from: rest.location },
-              } as NavigateProps['to']
-            }
-            replace
-          />
-        )
+  return isAuth ? (
+    <Component />
+  ) : (
+    <Navigate
+      to={
+        {
+          pathname: '/login',
+          state: { from: rest.location },
+        } as NavigateProps['to']
       }
+      replace
     />
   );
 }
