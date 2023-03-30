@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { CONTENT } from 'constants/';
 import { getUserData, setUserNickname } from 'api';
 import { useEffect, useState } from 'react';
 import { UserDataForm } from 'types';
@@ -29,15 +28,7 @@ export function User() {
   };
 
   return (
-    <Wrapper>
-      <LeftWrapper>
-        <div>{userData?.email}</div>
-        <div>myAccount</div>
-        <div>nav1</div>
-        <div>nav2</div>
-        <div>nav3</div>
-      </LeftWrapper>
-      <RightWrapper>
+    <div>
         <Container>
           <TextL>Account</TextL>
           <div>{userData?.email}</div>
@@ -58,34 +49,9 @@ export function User() {
             Save
           </button>
         </Form>
-      </RightWrapper>
-    </Wrapper>
+        </div>
   );
 }
-
-const Wrapper = styled.div`
-  height: ${CONTENT.HEIGHT};
-  display: flex;
-  justify-content: space-between;
-  transition: ${({ theme }) => theme.transitionOption};
-  border-radius: 10px;
-`;
-
-const LeftWrapper = styled.div`
-  width: 200px;
-  border-right: solid 1px ${({ theme }) => theme.borderColor};
-  box-sizing: border-box;
-  transition: ${({ theme }) => theme.transitionOption};
-`;
-
-const RightWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 35px;
-  width: calc(100% - 200px);
-  background: rgba(0, 0, 0, 0.1);
-`;
 
 const Container = styled.div``;
 
