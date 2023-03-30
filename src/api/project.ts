@@ -9,6 +9,15 @@ export const getProjectData = async (param: string) => {
   return res;
 };
 
+export const setProjectThumbnail = async (data: FormData) => {
+  await api.putFormData(API_ROUTE.PROJECT.SET_Thumbnail, data);
+};
+
+export const setProjectTitle = async (data: string | undefined) => {
+  if (!data) return;
+  await api.put(API_ROUTE.PROJECT.SET_Title, { title: data });
+};
+
 /* Task */
 export const getTaskData = async (param: string) => {
   const res = await api.getByParams(API_ROUTE.TASK.GET_DATA, param);
