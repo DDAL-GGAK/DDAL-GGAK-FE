@@ -19,7 +19,7 @@ export function AuthRoute({ element: Component, ...rest }: AuthRouteProps) {
   if (loading) return <div>Loading...</div>;
 
   return isAuth ? (
-    <Component />
+    Component
   ) : (
     <Navigate
       to={

@@ -9,6 +9,6 @@ export interface RouteConfig {
 export type RouteMap = Record<string, Readonly<RouteConfig>>;
 
 export type AuthRouteProps = {
-  element: React.ComponentType<any>;
+  element: JSX.Element;
   [key: string]: any;
 } & RouteProps;
