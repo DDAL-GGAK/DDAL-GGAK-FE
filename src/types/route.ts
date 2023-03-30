@@ -1,4 +1,4 @@
-interface RouteConfig {
+export interface RouteConfig {
   COMPONENT: React.ReactNode;
   AUTH: boolean;
   HAS_NAV: boolean;
