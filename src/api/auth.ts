@@ -27,3 +27,9 @@ export const logIn = async ({ email, password }: RegisterField) => {
 };
 
 export const logOut = async () => authAPI.post(API_ROUTE.AUTH.LOG_OUT, {});
+
+export const validateToken = async () => {
+  const res = await authAPI.get(API_ROUTE.AUTH.VALIDATE_TOKEN);
+
+  return res;
+};

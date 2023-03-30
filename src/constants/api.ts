@@ -3,6 +3,7 @@ const AUTH = Object.freeze({
   CHECK_EMAIL: '/api/auth/email',
   LOG_IN: '/api/auth/login',
   LOG_OUT: '/api/auth/logout',
+  VALIDATE_TOKEN: 'api/auth/validToken',
 });
 
 const PROJECT = Object.freeze({
