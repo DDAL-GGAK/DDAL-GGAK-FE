@@ -1,7 +1,7 @@
 import { RouteProps } from 'react-router-dom';
 
 export interface RouteConfig {
-  COMPONENT: any;
+  COMPONENT: () => JSX.Element;
   AUTH: boolean;
   HAS_NAV: boolean;
 }

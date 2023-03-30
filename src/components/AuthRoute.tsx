@@ -2,8 +2,9 @@ import { checkAuth } from 'utils';
 import { useState, useEffect } from 'react';
 import { Navigate, NavigateProps } from 'react-router-dom';
 import { AuthRouteProps } from 'types';
+import { ROUTE } from 'constants/';
 
-export function AuthRoute({ element: Component, ...rest }: AuthRouteProps) {
+export function AuthRoute({ element, ...rest }: AuthRouteProps) {
   const [loading, setLoading] = useState(true);
   const [isAuth, setIsAuth] = useState(false);
 
@@ -19,12 +20,12 @@ export function AuthRoute({ element: Component, ...rest }: AuthRouteProps) {
   if (loading) return <div>Loading...</div>;
 
   return isAuth ? (
-    Component
+    element
   ) : (
     <Navigate
       to={
         {
-          pathname: '/login',
+          pathname: ROUTE.LOGIN,
           state: { from: rest.location },
         } as NavigateProps['to']
       }
