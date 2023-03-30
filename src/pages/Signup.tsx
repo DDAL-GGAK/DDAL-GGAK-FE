@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { CONTENT, INPUT_TYPE, TOASTIFY, ROUTE } from 'constants/';
@@ -55,7 +55,9 @@ export function Signup() {
             <Submit isValid={!Object.keys(errors)[0]}>SignUp</Submit>
             <Hr />
             <Text>If you already have account?</Text>
-            <Login>Login</Login>
+            <Link to="/login" style={{ width: '100%' }}>
+              <Login>Login</Login>
+            </Link>
           </Form>
         </TopWrapper>
       </Container>

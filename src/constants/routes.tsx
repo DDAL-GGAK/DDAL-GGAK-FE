@@ -3,32 +3,32 @@ import { RouteMap } from 'types';
 
 export const ROUTE_MAP: RouteMap = Object.freeze({
   '/': {
-    COMPONENT: <Home />,
+    COMPONENT: Home,
     AUTH: false,
     HAS_NAV: false,
   },
   '/signup': {
-    COMPONENT: <Signup />,
+    COMPONENT: Signup,
     AUTH: false,
     HAS_NAV: false,
   },
   '/login': {
-    COMPONENT: <Login />,
+    COMPONENT: Login,
     AUTH: false,
     HAS_NAV: false,
   },
   '/project/:id': {
-    COMPONENT: <Project />,
+    COMPONENT: Project,
     AUTH: true,
     HAS_NAV: true,
   },
   '/task/:id': {
-    COMPONENT: <Task />,
+    COMPONENT: Task,
     AUTH: true,
     HAS_NAV: true,
   },
   '/user': {
-    COMPONENT: <User />,
+    COMPONENT: User,
     AUTH: true,
     HAS_NAV: true,
   },

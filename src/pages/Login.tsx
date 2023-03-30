@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { RegisterField } from 'types/';
 import { CONTENT, INPUT_TYPE, ROUTE } from 'constants/';
@@ -57,7 +57,10 @@ export function Login() {
             <Submit isValid={!Object.keys(errors)[0]}>Login</Submit>
             <Hr />
             <Text>If you need an account?</Text>
-            <SignUp>Sign up</SignUp>
+
+            <Link to="/signup" style={{ width: '100%' }}>
+              <SignUp>Sign up</SignUp>
+            </Link>
           </Form>
         </TopWrapper>
       </Container>
