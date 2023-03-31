@@ -1,8 +1,10 @@
 import { Participants } from 'types';
 
+type Thumbnail = string | null | undefined;
+
 export interface ProjectsLink {
   id: string;
-  thumbnail: string;
+  thumbnail: Thumbnail;
   projectTitle: string;
 }
 
@@ -10,7 +12,7 @@ export interface ProjectDataForm {
   projectLeader: string;
   projectTitle: string;
   tasks: TaskDataForm[];
-  thumbnail: string | null;
+  thumbnail: Thumbnail;
 }
 
 export interface TaskDataForm {
