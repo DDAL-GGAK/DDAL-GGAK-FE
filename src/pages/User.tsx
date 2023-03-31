@@ -29,27 +29,27 @@ export function User() {
 
   return (
     <div>
-        <Container>
-          <TextL>Account</TextL>
-          <div>{userData?.email}</div>
-        </Container>
-        <ProfileWrapper>
-          <TextM>Profile</TextM>
-          <UploadProfile imageSrc={userData?.profile} />
-        </ProfileWrapper>
-        <Hr />
-        <Form>
-          <TextL>Privacy</TextL>
-          <TextM>email</TextM>
-          <div>{userData?.email}</div>
+      <Container>
+        <TextL>Account</TextL>
+        <div>{userData?.email}</div>
+      </Container>
+      <ProfileWrapper>
+        <TextM>Profile</TextM>
+        <UploadProfile imageSrc={userData?.profile} />
+      </ProfileWrapper>
+      <Hr />
+      <Form>
+        <TextL>Privacy</TextL>
+        <TextM>email</TextM>
+        <div>{userData?.email}</div>
 
-          <TextM>nickname</TextM>
-          <NicknameInput value={nicknameValue} onChange={changeHandler} />
-          <button type="button" onClick={saveNickname}>
-            Save
-          </button>
-        </Form>
-        </div>
+        <TextM>nickname</TextM>
+        <NicknameInput value={nicknameValue} onChange={changeHandler} />
+        <button type="button" onClick={saveNickname}>
+          Save
+        </button>
+      </Form>
+    </div>
   );
 }
 

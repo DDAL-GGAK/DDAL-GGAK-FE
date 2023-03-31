@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import { getUserData, setProjectTitle } from "api";
-import { useEffect, useState } from "react";
-import { UploadProfile } from "components/user";
-import { ProjectDataForm } from "types";
+import styled from 'styled-components';
+import { getUserData, setProjectTitle } from 'api';
+import { useEffect, useState } from 'react';
+import { UploadProfile } from 'components/user';
+import { ProjectDataForm } from 'types';
 
 export function ProjectSetting() {
   const [projectData, setProjectData] = useState<ProjectDataForm>();

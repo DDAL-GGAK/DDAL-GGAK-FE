@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import { useEffect, useState } from "react";
-import { UserDataForm } from "types";
-import { CONTENT } from "constants/";
-import { getUserData } from "api";
+import styled from 'styled-components';
+import { useEffect, useState } from 'react';
+import { UserDataForm } from 'types';
+import { CONTENT } from 'constants/';
+import { getUserData } from 'api';
 import { Link, Outlet } from 'react-router-dom';
 
 export function Settings() {
