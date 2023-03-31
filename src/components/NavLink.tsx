@@ -13,7 +13,7 @@ export function NavLink({ data }: NavLinkProps) {
   return (
     <Link to={`/project/${id}`}>
       <Wrapper>
-        {!thumbnail ? <Image src={thumbnail} /> : projectTitle.toUpperCase()[0]}
+        {thumbnail ? <Image src={thumbnail} /> : projectTitle.toUpperCase()[0]}
       </Wrapper>
     </Link>
   );
