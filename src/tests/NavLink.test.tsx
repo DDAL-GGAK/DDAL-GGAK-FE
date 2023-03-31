@@ -2,7 +2,6 @@ import { render, screen } from '@testing-library/react';
 import { NavLink } from 'components';
 import { ProjectsLink } from 'types';
 import { BrowserRouter } from 'react-router-dom';
-// import { getUserProjects } from 'api';
 
 const mockProps: ProjectsLink = {
   id: 'mockID',
