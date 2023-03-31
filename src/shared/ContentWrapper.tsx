@@ -4,14 +4,21 @@ import { DEVICES } from 'styles';
 import { useLocation } from 'react-router-dom';
 import { useMediaQuery } from 'hooks';
 import { navChecker } from 'libs';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
 
 export function ContentWrapper({ children }: { children: React.ReactNode }) {
   const isNotSmallDevice = useMediaQuery(DEVICES.MOBILES);
   const { pathname } = useLocation();
   const hasNav = navChecker(pathname);
+  const isLoading = useSelector((state: RootState) => state.authLoadingSlicer);
 
   return (
-    <Wrapper isNotSmall={isNotSmallDevice} hasNav={hasNav}>
+    <Wrapper
+      isNotSmall={isNotSmallDevice}
+      hasNav={hasNav}
+      isLoading={isLoading}
+    >
       <GridBox>{children}</GridBox>
     </Wrapper>
   );
@@ -20,15 +27,18 @@ export function ContentWrapper({ children }: { children: React.ReactNode }) {
 interface WrapperProps {
   isNotSmall: boolean;
   hasNav: boolean;
+  isLoading: boolean;
 }
 
 const Wrapper = styled.div<WrapperProps>`
   position: fixed;
   top: ${(props) => (props.hasNav ? TOP_NAV.HEIGHT : 0)}px;
   left: ${(props) =>
-    props.isNotSmall && props.hasNav ? `${SIDE_NAV.WIDTH}px` : '0px'};
+    props.isNotSmall && props.hasNav && !props.isLoading
+      ? `${SIDE_NAV.WIDTH}px`
+      : '0px'};
   width: ${(props) =>
-    props.isNotSmall && props.hasNav
+    props.isNotSmall && props.hasNav && !props.isLoading
       ? `calc(100% - ${SIDE_NAV.WIDTH}px - ${TOP_NAV.PADDING * 2}px)`
       : `calc(100% - ${TOP_NAV.PADDING * 2}px)`};
   height: ${(props) =>
