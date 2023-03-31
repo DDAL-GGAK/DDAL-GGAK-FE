@@ -12,13 +12,14 @@ export function AuthRoute({ element, ...rest }: AuthRouteProps) {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(setAuthLoading(true));
     const checkValidation = async () => {
-      dispatch(setAuthLoading(true));
       const auth = await checkAuth();
       setIsAuth(auth);
       setLoading(false);
       dispatch(setAuthLoading(false));
     };
+
     checkValidation();
   }, []);
 
