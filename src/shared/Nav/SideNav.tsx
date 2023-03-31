@@ -2,23 +2,28 @@ import styled from 'styled-components';
 import { SIDE_NAV, TOP_NAV } from 'constants/layout';
 import { NavLink, AddProject, Config } from 'components';
 import { ProjectsLink } from 'types';
+import { getUserProjects } from 'api';
+import { useEffect, useState } from 'react';
 
 export function SideNav() {
-  const dummyLink: ProjectsLink[] = [
-    { id: '1', title: 'title1' },
-    { id: '2', title: 'title2' },
-    { id: '3', title: 'title3' },
-    { id: '4', title: 'title4' },
-    { id: '5', title: 'title5' },
-    { id: '6', title: 'title6' },
-  ];
+  const [projects, setProjects] = useState<ProjectsLink[]>();
+  const setUserProjects = async () => {
+    const { data } = await getUserProjects();
+    setProjects(data);
+  };
+
+  useEffect(() => {
+    setUserProjects();
+  }, []);
 
   return (
     <Wrapper>
       <TopWrapper>
-        {dummyLink.map((v) => (
-          <NavLink key={`${v.id}`} navData={v} />
-        ))}
+        {projects?.map((project: ProjectsLink) => {
+          const { id } = project;
+
+          return <NavLink key={id} data={project} />;
+        })}
       </TopWrapper>
       <BottomWrapper>
         <AddProject />
