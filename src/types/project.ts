@@ -2,7 +2,8 @@ import { Participants } from 'types';
 
 export interface ProjectsLink {
   id: string;
-  title: string;
+  thumbnail: string;
+  projectTitle: string;
 }
 
 export interface ProjectDataForm {
@@ -10,12 +11,6 @@ export interface ProjectDataForm {
   projectTitle: string;
   tasks: TaskDataForm[];
   thumbnail: string | null;
-}
-
-export interface ProjectPreviewForm {
-  projectId: string;
-  thumbnail: string;
-  projectTitle: string;
 }
 
 export interface TaskDataForm {
