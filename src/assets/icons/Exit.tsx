@@ -1,4 +1,6 @@
-export function Exit(size: number) {
+import { SVGProps } from 'types';
+
+export function Exit({ size }: SVGProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

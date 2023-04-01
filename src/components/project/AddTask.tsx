@@ -4,7 +4,7 @@ import { Add } from 'assets/icons';
 export function AddTask() {
   return (
     <Wrapper>
-      <Add width={50} />
+      <Add size={50} />
     </Wrapper>
   );
 }

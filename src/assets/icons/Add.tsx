@@ -1,12 +1,8 @@
-import styled from 'styled-components';
+import { SVGProps } from 'types';
 
-interface AddProps {
-  size: number;
-}
-
-export function Add({ size }: AddProps) {
+export function Add({ size }: SVGProps) {
   return (
-    <Svg
+    <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
@@ -20,8 +16,6 @@ export function Add({ size }: AddProps) {
         strokeLinejoin="round"
         d="M12 4.5v15m7.5-7.5h-15"
       />
-    </Svg>
+    </svg>
   );
 }
-
-const Svg = styled.svg``;
