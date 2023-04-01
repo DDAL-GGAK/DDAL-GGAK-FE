@@ -36,6 +36,7 @@ export function SideNav() {
 const Wrapper = styled.div`
   gap: 10px;
   position: fixed;
+  z-index: 1;
   left: 0;
   top: ${TOP_NAV.HEIGHT}px;
   background: ${({ theme }) => theme.navBackground};

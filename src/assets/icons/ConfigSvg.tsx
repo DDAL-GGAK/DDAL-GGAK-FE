@@ -1,14 +1,15 @@
-import styled from 'styled-components';
+import { SVGProps } from 'types';
 
-export function ConfigSvg() {
+export function Config({ size }: SVGProps) {
   return (
-    <Svg
+    <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
       className="w-6 h-6"
+      width={size}
     >
       <path
         strokeLinecap="round"
@@ -20,10 +21,6 @@ export function ConfigSvg() {
         strokeLinejoin="round"
         d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
       />
-    </Svg>
+    </svg>
   );
 }
-
-const Svg = styled.svg`
-  width: 20px;
-`;
