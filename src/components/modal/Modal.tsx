@@ -28,7 +28,6 @@ export function Modal({ children, isOpen, closeModal }: ModalProps) {
             variants={modalCardVariants}
             onClick={(e) => e.stopPropagation()}
           >
-            <ModalClose onClick={closeHandler}>&times;</ModalClose>
             {children}
           </Wrapper>
         </Overlay>
@@ -57,17 +56,9 @@ const Wrapper = styled(motion.div)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: ${({ theme }) => theme.transparentColor};
+  background: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.color};
   border-radius: 5px;
   padding: 20px;
   position: relative;
-  color: black;
-`;
-
-const ModalClose = styled.div`
-  position: absolute;
-  top: 2px;
-  right: 7px;
-  user-select: auto;
-  cursor: pointer;
 `;
