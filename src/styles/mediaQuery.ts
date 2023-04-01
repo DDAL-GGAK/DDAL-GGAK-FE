@@ -16,7 +16,7 @@ const SIZES: SizesForm = Object.freeze({
   DESKTOP: '1700px' as const,
 });
 
-const DEVICES = Object.freeze({
+export const DEVICES = Object.freeze({
   MOBILES: `(min-width: ${SIZES.MOBILES})` as const,
   MOBILEM: `(min-width: ${SIZES.MOBILEM})` as const,
   TABLET: `(min-width: ${SIZES.TABLET})` as const,
@@ -24,5 +24,3 @@ const DEVICES = Object.freeze({
   LAPTOPL: `(min-width: ${SIZES.LAPTOPL})` as const,
   DESKTOP: `(min-width: ${SIZES.DESKTOP})` as const,
 });
-
-export default DEVICES;

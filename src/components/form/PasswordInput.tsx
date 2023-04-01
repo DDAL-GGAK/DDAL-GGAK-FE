@@ -1,5 +1,6 @@
 import { ReactHookInputDataProps } from 'types';
 import styled from 'styled-components';
+import { REGISTER_TYPE, ERROR_MESSAGE, CONFIG } from 'constants/';
 
 export default function PasswordInput({ data }: ReactHookInputDataProps) {
   const { type, register, errorMessage } = data;
@@ -7,16 +8,19 @@ export default function PasswordInput({ data }: ReactHookInputDataProps) {
   return (
     <Input
       errorId={!!errorMessage}
-      {...register('password', {
-        required: 'is required',
+      {...register(REGISTER_TYPE.PASSWORD, {
+        required: ERROR_MESSAGE.PASSWORD.REQUIRED,
         minLength: {
-          value: 4,
-          message: 'longer more than 4',
+          value: CONFIG.PASSWORD.MIN_LENGTH,
+          message: ERROR_MESSAGE.PASSWORD.MIN_LENGTH,
+        },
+        maxLength: {
+          value: CONFIG.PASSWORD.MAX_LENGTH,
+          message: ERROR_MESSAGE.PASSWORD.MAX_LENGTH,
         },
         pattern: {
-          value:
-            /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,15}$/,
-          message: 'must be include Alphabet & number',
+          value: CONFIG.PASSWORD.REGEX,
+          message: ERROR_MESSAGE.PASSWORD.INVALIDATE,
         },
       })}
       type="password"
@@ -32,7 +36,7 @@ const Input = styled.input<{ errorId: boolean }>`
   font-weight: 600;
   border: solid 2px
     ${(props) =>
-      props.errorId ? props.theme.pointColor : props.theme.loginDisable};
+      props.errorId ? props.theme.errorColor : props.theme.validColor};
   border-radius: 5px;
   transition: ${({ theme }) => theme.transitionOption};
   background: ${({ theme }) => theme.loginBackground};

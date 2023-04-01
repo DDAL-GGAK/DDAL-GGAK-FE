@@ -1,15 +1,15 @@
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { LogInForm } from 'types/';
-import { CONTENT } from 'constants/';
+import { RegisterField } from 'types/';
+import { CONTENT, INPUT_TYPE, ROUTE } from 'constants/';
 import { logIn } from 'api';
 import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { setUserData } from 'redux/modules/userData';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { sendToast } from 'libs';
 import { ReactHookInput } from 'components/form';
+import { ErrorMessage } from 'types';
 import { motion } from 'framer-motion';
 
 export function Login() {
@@ -19,7 +19,7 @@ export function Login() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LogInForm>({
+  } = useForm<RegisterField>({
     mode: 'onChange',
   });
 
@@ -28,21 +28,15 @@ export function Login() {
       const { data: userData } = res;
       localStorage.setItem('userInfo', JSON.stringify({ userData }));
       dispatch(setUserData(userData));
-      navigate('/');
+      navigate(ROUTE.HOME);
     },
-    onError: () => {
-      toast.error('ID 또는 PW가 잘못되었습니다!', {
-        position: 'bottom-right',
-        autoClose: 1500,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+    onError: (error: ErrorMessage) => {
+      const { message } = error.response.data;
+      sendToast.error(message);
     },
   });
 
-  const onValid = async (userInput: LogInForm) => mutate(userInput);
+  const onValid = async (userInput: RegisterField) => mutate(userInput);
 
   return (
     <Wrapper>
@@ -51,19 +45,22 @@ export function Login() {
           <Title>Log in</Title>
           <Form onSubmit={handleSubmit(onValid)}>
             <ReactHookInput
-              type="Email"
+              type={INPUT_TYPE.EMAIL}
               register={register}
               errorMessage={errors.email?.message}
             />
             <ReactHookInput
-              type="Password"
+              type={INPUT_TYPE.PASSWORD}
               register={register}
               errorMessage={errors.password?.message}
             />
             <Submit isValid={!Object.keys(errors)[0]}>Login</Submit>
             <Hr />
             <Text>If you need an account?</Text>
-            <SignUp>Sign up</SignUp>
+
+            <Link to="/signup" style={{ width: '100%' }}>
+              <SignUp>Sign up</SignUp>
+            </Link>
           </Form>
         </TopWrapper>
       </Container>

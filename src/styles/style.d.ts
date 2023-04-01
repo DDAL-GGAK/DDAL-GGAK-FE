@@ -20,5 +20,7 @@ declare module 'styled-components' {
     /* login */
     loginDisable: string;
     loginBackground: string;
+    validColor: string;
+    errorColor: string;
   }
 }

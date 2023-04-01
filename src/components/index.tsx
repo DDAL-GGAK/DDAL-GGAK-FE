@@ -7,3 +7,4 @@ export * from './TicketBoard';
 export * from './Tickets';
 export * from './Ticket';
 export * from './project/AddTask';
+export * from './AuthRoute';
