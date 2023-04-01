@@ -8,8 +8,8 @@ const AUTH = Object.freeze({
 
 const PROJECT = Object.freeze({
   GET_DATA: '/api/project',
-  SET_Thumbnail: '/api/project/thumbnail',
-  SET_Title: '/api/project/title',
+  SET_THUMBNAIL: '/api/project/thumbnail',
+  SET_TITLE: '/api/project/title',
   GET_USER_PROJECTS: '/api/projects',
 });
 

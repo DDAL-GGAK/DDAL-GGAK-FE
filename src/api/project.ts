@@ -16,12 +16,12 @@ export const getProjectData = async (param: string) => {
 };
 
 export const setProjectThumbnail = async (data: FormData) => {
-  await api.putFormData(API_ROUTE.PROJECT.SET_Thumbnail, data);
+  await api.putFormData(API_ROUTE.PROJECT.SET_THUMBNAIL, data);
 };
 
 export const setProjectTitle = async (data: string | undefined) => {
   if (!data) return;
-  await api.put(API_ROUTE.PROJECT.SET_Title, { title: data });
+  await api.put(API_ROUTE.PROJECT.SET_TITLE, { title: data });
 };
 
 /* Task */
