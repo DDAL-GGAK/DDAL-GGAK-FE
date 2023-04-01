@@ -1,48 +1,57 @@
 import styled from 'styled-components';
 
-export function Modal({ onClose, children }: any) {
+interface ModalProps {
+  children: React.ReactNode;
+  isOpen: boolean;
+  closeModal: () => void;
+}
+
+export function Modal({ children, isOpen, closeModal }: ModalProps) {
+  if (!isOpen) return null;
+
+  const closeHandler = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    closeModal();
+  };
+
   return (
-    <ModalBackdrop onClick={onClose}>
-      <ModalView onClick={(e) => e.stopPropagation()}>
-        <ModalClose onClick={onClose}>&times;</ModalClose>
+    <Overlay onClick={closeHandler}>
+      <Wrapper onClick={(e) => e.stopPropagation()}>
+        <ModalClose onClick={closeHandler}>&times;</ModalClose>
         {children}
-      </ModalView>
-    </ModalBackdrop>
+      </Wrapper>
+    </Overlay>
   );
 }
 
-const ModalBackdrop = styled.div`
+const Overlay = styled.div`
   position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
-  top: 0;
+  top: 0px;
   left: 0;
   right: 0;
   bottom: 0;
-  margin: auto;
+  z-index: 1000;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 2;
-  cursor: auto;
   :hover {
     background: teal;
   }
 `;
 
-const ModalView = styled.div`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: white;
-  width: 720px;
-  height: 450px;
-  border-radius: 1rem;
+  border-radius: 10px;
+  padding: 20px;
   position: relative;
   color: black;
-  cursor: auto;
 `;
 
 const ModalClose = styled.div`
