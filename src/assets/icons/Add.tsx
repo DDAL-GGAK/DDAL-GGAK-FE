@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 interface AddProps {
-  width: number;
+  size: number;
 }
 
-export function Add({ width }: AddProps) {
+export function Add({ size }: AddProps) {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
@@ -13,7 +13,7 @@ export function Add({ width }: AddProps) {
       strokeWidth={2}
       stroke="currentColor"
       className="w-6 h-6"
-      width={width}
+      width={size}
     >
       <path
         strokeLinecap="round"

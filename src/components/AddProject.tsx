@@ -13,7 +13,7 @@ export function AddProject() {
         <CreateProject />
       </Modal>
       <Wrapper onClick={openModal}>
-        <Add width={20} />
+        <Add size={20} />
       </Wrapper>
     </>
   );
