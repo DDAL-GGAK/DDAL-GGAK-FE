@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { AnimatePresence, motion } from 'framer-motion';
+import { mountVariants } from 'libs';
 
 interface ModalProps {
   children: React.ReactNode;
@@ -7,24 +9,32 @@ interface ModalProps {
 }
 
 export function Modal({ children, isOpen, closeModal }: ModalProps) {
-  if (!isOpen) return null;
-
   const closeHandler = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     closeModal();
   };
 
   return (
-    <Overlay onClick={closeHandler}>
-      <Wrapper onClick={(e) => e.stopPropagation()}>
-        <ModalClose onClick={closeHandler}>&times;</ModalClose>
-        {children}
-      </Wrapper>
-    </Overlay>
+    <AnimatePresence>
+      {isOpen ? (
+        <Overlay
+          onClick={closeHandler}
+          variants={mountVariants}
+          initial="from"
+          animate="to"
+          exit="exit"
+        >
+          <Wrapper onClick={(e) => e.stopPropagation()}>
+            <ModalClose onClick={closeHandler}>&times;</ModalClose>
+            {children}
+          </Wrapper>
+        </Overlay>
+      ) : null}
+    </AnimatePresence>
   );
 }
 
-const Overlay = styled.div`
+const Overlay = styled(motion.div)`
   position: fixed;
   display: flex;
   justify-content: center;
@@ -37,9 +47,6 @@ const Overlay = styled.div`
   bottom: 0;
   z-index: 1000;
   background-color: rgba(0, 0, 0, 0.5);
-  :hover {
-    background: teal;
-  }
 `;
 
 const Wrapper = styled.div`
