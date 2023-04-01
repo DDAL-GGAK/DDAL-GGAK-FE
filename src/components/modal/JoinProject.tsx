@@ -7,7 +7,7 @@ interface JoinForm {
   JoinCode: string;
 }
 
-export function JoinModal() {
+export function JoinProject() {
   const navigate = useNavigate();
   const {
     register,

@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import { NAVLINK } from 'constants/';
 import { Add } from 'assets/icons';
 import { useModal } from 'hooks';
-import { Modal } from 'components/modal';
+import { Modal, CreateProject } from 'components/modal';
 
 export function AddProject() {
   const { isOpen, openModal, closeModal } = useModal();
   return (
     <>
       <Modal closeModal={closeModal} isOpen={isOpen}>
-        <Content>123</Content>
+        <CreateProject />
       </Modal>
       <Wrapper onClick={openModal}>
         <Add width={20} />
@@ -34,9 +34,4 @@ const Wrapper = styled.div`
     background: ${({ theme }) => theme.color};
     border-radius: ${NAVLINK.HOVER_BORDER_RADIUS}px;
   }
-`;
-
-const Content = styled.div`
-  background: bisque;
-  padding: 100px;
 `;

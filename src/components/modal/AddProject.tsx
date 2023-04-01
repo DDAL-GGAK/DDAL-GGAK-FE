@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { AddModal, JoinModal } from 'components/modal';
+import { CreateProject, JoinProject } from 'components/modal';
 
-export function AddProjectModal() {
+export function AddProject() {
   const [page, setPage] = useState(1);
   const handlePrevClick = () => {
     setPage(page - 1); // 이전 버튼을 클릭하면 페이지를 1 감소시킵니다.
@@ -12,9 +12,9 @@ export function AddProjectModal() {
   };
   let content;
   if (page === 1) {
-    content = <AddModal />;
+    content = <CreateProject />;
   } else if (page === 2) {
-    content = <JoinModal />;
+    content = <JoinProject />;
   }
 
   return (

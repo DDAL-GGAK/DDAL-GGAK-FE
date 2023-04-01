@@ -7,7 +7,7 @@ interface TitleForm {
   projectTitle: string;
 }
 
-export function AddModal() {
+export function CreateProject() {
   const {
     register,
     handleSubmit,
