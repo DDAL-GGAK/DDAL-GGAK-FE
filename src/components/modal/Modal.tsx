@@ -49,7 +49,7 @@ const Overlay = styled(motion.div)`
   right: 0;
   bottom: 0;
   z-index: 1000;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
 `;
 
 const Wrapper = styled(motion.div)`
@@ -57,8 +57,8 @@ const Wrapper = styled(motion.div)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: white;
-  border-radius: 10px;
+  background: ${({ theme }) => theme.transparentColor};
+  border-radius: 5px;
   padding: 20px;
   position: relative;
   color: black;
