@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { SVGProps } from 'types';
 
-export function Menu() {
+export function Menu({ size }: SVGProps) {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
@@ -9,6 +10,7 @@ export function Menu() {
       strokeWidth={1.5}
       stroke="currentColor"
       className="w-6 h-6"
+      width={size}
     >
       <path
         strokeLinecap="round"
@@ -20,8 +22,6 @@ export function Menu() {
 }
 
 const Svg = styled.svg`
-  width: 30px;
-
   :hover {
     cursor: pointer;
   }

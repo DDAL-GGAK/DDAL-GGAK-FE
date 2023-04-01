@@ -2,18 +2,20 @@ import styled from 'styled-components';
 import { NAVLINK } from 'constants/';
 import { Add } from 'assets/icons';
 import { useModal } from 'hooks';
-import { AddProjectModal } from './modal';
+import { Modal, CreateProject } from 'components/modal';
 
 export function AddProject() {
-  const { Modal, open } = useModal();
+  const { isOpen, openModal, closeModal } = useModal();
 
   return (
-    <Wrapper onClick={open}>
-      <Add width={20} />
-      <Modal>
-        <AddProjectModal />
+    <>
+      <Modal closeModal={closeModal} isOpen={isOpen}>
+        <CreateProject />
       </Modal>
-    </Wrapper>
+      <Wrapper onClick={openModal}>
+        <Add size={20} />
+      </Wrapper>
+    </>
   );
 }
 
@@ -21,9 +23,6 @@ const Wrapper = styled.div`
   width: ${NAVLINK.WIDTH}px;
   height: ${NAVLINK.HEIGHT}px;
   border-radius: ${NAVLINK.BORDER_RADIUS}px;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
   display: flex;
   align-items: center;
   justify-content: center;

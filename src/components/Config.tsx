@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { NAVLINK } from 'constants/';
-import { ConfigSvg } from 'assets/icons';
+import { Config as ConfigSVG } from 'assets/icons';
 
 export function Config() {
   return (
     <Wrapper>
-      <ConfigSvg />
+      <ConfigSVG size={20} />
     </Wrapper>
   );
 }
