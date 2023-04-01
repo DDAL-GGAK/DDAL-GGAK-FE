@@ -7,6 +7,7 @@ const AUTH = Object.freeze({
 });
 
 const PROJECT = Object.freeze({
+  CREATE_PROJECT: '/api/project',
   GET_DATA: '/api/project',
   SET_THUMBNAIL: '/api/project/thumbnail',
   SET_TITLE: '/api/project/title',

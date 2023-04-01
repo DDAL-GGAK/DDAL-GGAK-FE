@@ -12,11 +12,11 @@ export function TopNav() {
   return (
     <Wrapper>
       <NavToggle>
-        <Menu />
+        <Menu size={30} />
       </NavToggle>
       <MainNav isNotSmall={isNotSmallDevice}>
         <LeftWrapper>
-          <Logo />
+          <Logo size={30} />
           <ProjectTitle>Project name</ProjectTitle>
         </LeftWrapper>
         {isNotSmallDevice ? (

@@ -7,7 +7,7 @@ interface JoinForm {
   JoinCode: string;
 }
 
-export function JoinModal() {
+export function JoinProject() {
   const navigate = useNavigate();
   const {
     register,
@@ -16,7 +16,7 @@ export function JoinModal() {
   } = useForm<JoinForm>({
     mode: 'onChange',
   });
-  const api = new Axios();
+  const api = new Axios(true);
 
   const onValid = async (data: JoinForm) => {
     const res = await api.post('api/project/{projectId}/join', data);

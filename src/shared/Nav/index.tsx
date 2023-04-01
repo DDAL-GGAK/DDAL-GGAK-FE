@@ -10,8 +10,8 @@ export function Nav() {
 
   return (
     <Wrapper variants={mountVariants} initial="from" animate="to" exit="exit">
-      {isNotSmallDevice && <SideNav />}
       <TopNav />
+      {isNotSmallDevice && <SideNav />}
     </Wrapper>
   );
 }
