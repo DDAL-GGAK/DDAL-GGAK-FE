@@ -1,14 +1,13 @@
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Axios } from 'libs';
+import { API_ROUTE } from 'constants/';
 
 interface TitleForm {
   projectTitle: string;
 }
 
 export function AddModal() {
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -16,11 +15,11 @@ export function AddModal() {
   } = useForm<TitleForm>({
     mode: 'onChange',
   });
-  const api = new Axios();
 
+  const api = new Axios(true);
   const onValid = async (data: TitleForm) => {
-    const response = await api.post('api/project', data);
-    if (response.status === 200) return navigate('/');
+    const response = await api.post(API_ROUTE.PROJECT.CREATE_PROJECT, data);
+    if (response.status === 201) return console.log('create done!');
     return alert('Create failed.');
   };
 

@@ -1,16 +1,13 @@
 import styled from 'styled-components';
-import { ModalPortal } from 'components/modal';
 
 export function Modal({ onClose, children }: any) {
   return (
-    <ModalPortal>
-      <ModalBackdrop onClick={onClose}>
-        <ModalView onClick={(e) => e.stopPropagation()}>
-          <ModalClose onClick={onClose}>&times;</ModalClose>
-          {children}
-        </ModalView>
-      </ModalBackdrop>
-    </ModalPortal>
+    <ModalBackdrop onClick={onClose}>
+      <ModalView onClick={(e) => e.stopPropagation()}>
+        <ModalClose onClick={onClose}>&times;</ModalClose>
+        {children}
+      </ModalView>
+    </ModalBackdrop>
   );
 }
 
@@ -29,6 +26,9 @@ const ModalBackdrop = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 2;
   cursor: auto;
+  :hover {
+    background: teal;
+  }
 `;
 
 const ModalView = styled.div`

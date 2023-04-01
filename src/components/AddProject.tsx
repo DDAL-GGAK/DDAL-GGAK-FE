@@ -21,9 +21,6 @@ const Wrapper = styled.div`
   width: ${NAVLINK.WIDTH}px;
   height: ${NAVLINK.HEIGHT}px;
   border-radius: ${NAVLINK.BORDER_RADIUS}px;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
   display: flex;
   align-items: center;
   justify-content: center;
