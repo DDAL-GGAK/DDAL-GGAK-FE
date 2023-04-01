@@ -57,7 +57,9 @@ export class Axios {
       ...config,
       headers: {
         ...headers,
-        Authorization: `${this.#cookie.get(KEY.ACCESS_TOKEN)}`,
+        Authorization: `${this.#cookie
+          .get(KEY.ACCESS_TOKEN)
+          ?.replace('%', ' ')}`,
       },
     };
 

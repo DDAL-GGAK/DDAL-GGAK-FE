@@ -3,12 +3,14 @@ const AUTH = Object.freeze({
   CHECK_EMAIL: '/api/auth/email',
   LOG_IN: '/api/auth/login',
   LOG_OUT: '/api/auth/logout',
+  VALIDATE_TOKEN: 'api/auth/validToken',
 });
 
 const PROJECT = Object.freeze({
   GET_DATA: '/api/project',
   SET_Thumbnail: '/api/project/thumbnail',
   SET_Title: '/api/project/title',
+  GET_USER_PROJECTS: '/api/projects',
 });
 
 const TASK = Object.freeze({

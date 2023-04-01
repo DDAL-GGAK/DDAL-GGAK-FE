@@ -8,8 +8,10 @@ import { RootState } from 'redux/store';
 import { ToastContainer } from 'react-toastify';
 
 const queryClient = new QueryClient();
-
-function Providers({ children }: { children: React.ReactNode }) {
+interface ProviderProps {
+  children: React.ReactNode;
+}
+export function Providers({ children }: ProviderProps) {
   const isDark = useSelector((state: RootState) => state.themeToggleSlicer);
 
   return (
@@ -23,5 +25,3 @@ function Providers({ children }: { children: React.ReactNode }) {
     </QueryClientProvider>
   );
 }
-
-export default Providers;

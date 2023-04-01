@@ -3,6 +3,12 @@ import { API_ROUTE } from 'constants/';
 
 const api = new Axios(true);
 /* Project */
+export const getUserProjects = async () => {
+  const res = await api.get(API_ROUTE.PROJECT.GET_USER_PROJECTS);
+
+  return res;
+};
+
 export const getProjectData = async (param: string) => {
   const res = await api.getByParams(API_ROUTE.PROJECT.GET_DATA, param);
 

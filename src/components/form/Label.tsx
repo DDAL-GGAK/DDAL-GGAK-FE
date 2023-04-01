@@ -21,7 +21,7 @@ const Title = styled.div`
 `;
 
 const ErrorMessage = styled.div`
-  color: ${({ theme }) => theme.pointColor};
+  color: ${({ theme }) => theme.errorColor};
   font-weight: 600;
   font-size: 0.9rem;
 `;
