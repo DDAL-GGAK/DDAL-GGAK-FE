@@ -6,6 +6,7 @@ import { Modal, CreateProject } from 'components/modal';
 
 export function AddProject() {
   const { isOpen, openModal, closeModal } = useModal();
+
   return (
     <>
       <Modal closeModal={closeModal} isOpen={isOpen}>
