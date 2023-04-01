@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { mountVariants } from 'libs';
+import { mountVariants, modalCardVariants } from 'libs';
 
 interface ModalProps {
   children: React.ReactNode;
@@ -24,7 +24,10 @@ export function Modal({ children, isOpen, closeModal }: ModalProps) {
           animate="to"
           exit="exit"
         >
-          <Wrapper onClick={(e) => e.stopPropagation()}>
+          <Wrapper
+            variants={modalCardVariants}
+            onClick={(e) => e.stopPropagation()}
+          >
             <ModalClose onClick={closeHandler}>&times;</ModalClose>
             {children}
           </Wrapper>
@@ -49,7 +52,7 @@ const Overlay = styled(motion.div)`
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled(motion.div)`
   display: flex;
   flex-direction: column;
   justify-content: center;
