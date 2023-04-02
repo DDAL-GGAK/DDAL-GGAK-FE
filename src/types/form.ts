@@ -47,3 +47,11 @@ export interface ErrorMessage {
     };
   };
 }
+
+export interface TitleForm {
+  projectTitle: string;
+}
+
+export interface ProjectTitleInputProps {
+  register: UseFormRegister<TitleForm>;
+}

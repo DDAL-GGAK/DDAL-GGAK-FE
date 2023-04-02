@@ -6,10 +6,7 @@ import { createProject } from 'api';
 import { useMutation } from 'react-query';
 import { sendToast } from 'libs';
 import { ProjectTitleInput } from 'components/form';
-
-interface TitleForm {
-  projectTitle: string;
-}
+import { TitleForm } from 'types';
 
 interface CreateProjectProps {
   closeModal: () => void;

@@ -1,6 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+import { ProjectTitleInputProps } from 'types';
 
-export function ProjectTitleInput({register}:any) {
+export function ProjectTitleInput({ register }: ProjectTitleInputProps) {
   return (
     <Input
       type="text"
