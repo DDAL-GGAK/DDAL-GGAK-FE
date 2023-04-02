@@ -38,7 +38,7 @@ const Wrapper = styled.div`
   position: fixed;
   z-index: 1;
   left: 0;
-  top: ${TOP_NAV.HEIGHT}px;
+  top: ${TOP_NAV.HEIGHT + 1}px;
   background: ${({ theme }) => theme.navBackground};
   box-sizing: border-box;
   border-right: 1px solid ${({ theme }) => theme.borderColor};
