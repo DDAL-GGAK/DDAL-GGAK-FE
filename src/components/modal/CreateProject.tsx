@@ -3,8 +3,9 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { Add } from 'assets/icons';
 import { createProject } from 'api';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation } from 'react-query';
 import { sendToast } from 'libs';
+import { ProjectTitleInput } from 'components/form';
 
 interface TitleForm {
   projectTitle: string;
@@ -16,7 +17,6 @@ interface CreateProjectProps {
 
 export function CreateProject({ closeModal }: CreateProjectProps) {
   const [thumbnail, setThumbnail] = useState<File | null>(null);
-  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
@@ -27,7 +27,6 @@ export function CreateProject({ closeModal }: CreateProjectProps) {
 
   const { mutate } = useMutation(createProject, {
     onSuccess: () => {
-      queryClient.invalidateQueries('userProjects');
       closeModal();
       sendToast.success('create the project!');
     },
@@ -75,22 +74,8 @@ export function CreateProject({ closeModal }: CreateProjectProps) {
               <Errorspan>{errors.projectTitle.message}</Errorspan>
             )}
           </TextWrapper>
-          <InputContainer>
-            <Input
-              type="text"
-              placeholder="Enter your ProjectName"
-              {...register('projectTitle', {
-                required: 'Please enter your projectTitle!',
-                maxLength: {
-                  value: 20,
-                  message: 'Requires shorter than 20',
-                },
-              })}
-            />
-            <Button>Create</Button>
-          </InputContainer>
+          <ProjectTitleInput register={register} />
         </BottomWrapper>
-        <Hr />
         {thumbnail ? (
           <ThumbnailLabel htmlFor="imgInput">
             <ThumbnailPreview src={URL.createObjectURL(thumbnail)} />
@@ -100,9 +85,13 @@ export function CreateProject({ closeModal }: CreateProjectProps) {
             <Add size={50} />
           </ThumbnailLabel>
         )}
+        <Button>Create</Button>
       </CreateForm>
-      <Text>If you have invite code?</Text>
-      <InviteCodeButton>Enter invite code</InviteCodeButton>
+      <Hr />
+      <InviteWrapper>
+        <Text>If you have invite code?</Text>
+        <InviteCodeButton>Enter invite code</InviteCodeButton>
+      </InviteWrapper>
     </ModalContainer>
   );
 }
@@ -128,18 +117,6 @@ const CreateForm = styled.form`
 const Content = styled.label`
   font-weight: 600;
   color: ${({ theme }) => theme.transparentColor};
-`;
-
-const InputContainer = styled.div`
-  display: flex;
-  gap: 16px;
-`;
-
-const Input = styled.input`
-  padding: 0.5rem;
-  font-size: 14px;
-  border: 1px solid teal;
-  border-radius: 4px;
 `;
 
 const Button = styled.button`
@@ -218,6 +195,7 @@ const TextWrapper = styled.div`
 const Text = styled.div`
   font-size: 14px;
   color #454545;
+  text-align: center;
 `;
 
 const InviteCodeButton = styled.button`
@@ -234,4 +212,10 @@ const InviteCodeButton = styled.button`
     background: ${({ theme }) => theme.pointColor};
     cursor: pointer;
   }
+`;
+
+const InviteWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 `;

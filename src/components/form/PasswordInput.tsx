@@ -2,7 +2,7 @@ import { ReactHookInputDataProps } from 'types';
 import styled from 'styled-components';
 import { REGISTER_TYPE, ERROR_MESSAGE, CONFIG } from 'constants/';
 
-export default function PasswordInput({ data }: ReactHookInputDataProps) {
+export function PasswordInput({ data }: ReactHookInputDataProps) {
   const { type, register, errorMessage } = data;
 
   return (

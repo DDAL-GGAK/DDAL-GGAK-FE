@@ -2,7 +2,7 @@ import { ReactHookInputDataProps } from 'types/';
 import styled from 'styled-components';
 import { REGISTER_TYPE, ERROR_MESSAGE, CONFIG } from 'constants/';
 
-export default function EmailInput({ data }: ReactHookInputDataProps) {
+export function EmailInput({ data }: ReactHookInputDataProps) {
   const { type, register, errorMessage } = data;
 
   return (
