@@ -1,15 +1,22 @@
 import styled from 'styled-components';
 import { ModalPortal } from 'components/modal';
 import { AnimatePresence, motion } from 'framer-motion';
-import { mountVariants, modalCardVariants } from 'libs';
+import { defaultVariants } from 'constants/';
+import { Variants } from 'types';
 
 interface ModalProps {
   children: React.ReactNode;
   isOpen: boolean;
   closeModal: () => void;
+  variants?: Variants;
 }
 
-export function Modal({ children, isOpen, closeModal }: ModalProps) {
+export function Modal({
+  children,
+  isOpen,
+  closeModal,
+  variants = defaultVariants,
+}: ModalProps) {
   const closeHandler = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     closeModal();
@@ -21,15 +28,12 @@ export function Modal({ children, isOpen, closeModal }: ModalProps) {
         {isOpen ? (
           <Overlay
             onClick={closeHandler}
-            variants={mountVariants}
+            variants={defaultVariants}
             initial="from"
             animate="to"
             exit="exit"
           >
-            <Wrapper
-              variants={modalCardVariants}
-              onClick={(e) => e.stopPropagation()}
-            >
+            <Wrapper variants={variants} onClick={(e) => e.stopPropagation()}>
               {children}
             </Wrapper>
           </Overlay>
