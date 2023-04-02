@@ -1,5 +1,7 @@
+import { Variants } from 'types';
+
 /* Component Mount motion */
-export const mountVariants = {
+export const defaultVariants: Variants = {
   from: { opacity: 0 },
   to: {
     opacity: 1,
@@ -18,7 +20,7 @@ export const mountVariants = {
 /* Modal motion */
 const MODAL_EASE = 'easeInOut';
 
-export const modalCardVariants = {
+export const modalCardVariants: Variants = {
   from: {
     opacity: 0,
     y: 20,

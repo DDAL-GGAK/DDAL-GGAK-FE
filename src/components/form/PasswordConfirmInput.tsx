@@ -2,7 +2,7 @@ import { ReactHookInputDataProps, RegisterField } from 'types';
 import styled from 'styled-components';
 import { ERROR_MESSAGE, REGISTER_TYPE } from 'constants/';
 
-export default function PasswordCofirmInput({ data }: ReactHookInputDataProps) {
+export function PasswordConfirmInput({ data }: ReactHookInputDataProps) {
   const { type, register, errorMessage } = data;
 
   const validatePasswordConfirm = (input: string, values: RegisterField) => {
