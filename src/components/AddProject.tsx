@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { NAVLINK } from 'constants/';
+import { NAVLINK, modalCardVariants } from 'constants/';
 import { Add } from 'assets/icons';
 import { useModal } from 'hooks';
 import { CreateProject } from 'components/modal';
@@ -9,7 +9,11 @@ export function AddProject() {
 
   return (
     <>
-      <Modal isOpen={isOpen} closeModal={closeModal}>
+      <Modal
+        isOpen={isOpen}
+        closeModal={closeModal}
+        variants={modalCardVariants}
+      >
         <CreateProject closeModal={closeModal} />
       </Modal>
       <Wrapper onClick={openModal}>
