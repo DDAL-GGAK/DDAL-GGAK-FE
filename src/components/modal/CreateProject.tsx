@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { Add } from 'assets/icons';
 import { createProject } from 'api';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { sendToast } from 'libs';
 import { ProjectTitleInput } from 'components/form';
 import { TitleForm } from 'types';
@@ -14,6 +14,7 @@ interface CreateProjectProps {
 
 export function CreateProject({ closeModal }: CreateProjectProps) {
   const [thumbnail, setThumbnail] = useState<File | null>(null);
+  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
@@ -24,6 +25,7 @@ export function CreateProject({ closeModal }: CreateProjectProps) {
 
   const { mutate } = useMutation(createProject, {
     onSuccess: () => {
+      queryClient.invalidateQueries('userProjects');
       closeModal();
       sendToast.success('create the project!');
     },
