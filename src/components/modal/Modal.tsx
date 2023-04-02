@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { ModalPortal } from 'components/modal';
 import { AnimatePresence, motion } from 'framer-motion';
 import { mountVariants, modalCardVariants } from 'libs';
 
@@ -15,24 +16,26 @@ export function Modal({ children, isOpen, closeModal }: ModalProps) {
   };
 
   return (
-    <AnimatePresence>
-      {isOpen ? (
-        <Overlay
-          onClick={closeHandler}
-          variants={mountVariants}
-          initial="from"
-          animate="to"
-          exit="exit"
-        >
-          <Wrapper
-            variants={modalCardVariants}
-            onClick={(e) => e.stopPropagation()}
+    <ModalPortal>
+      <AnimatePresence>
+        {isOpen ? (
+          <Overlay
+            onClick={closeHandler}
+            variants={mountVariants}
+            initial="from"
+            animate="to"
+            exit="exit"
           >
-            {children}
-          </Wrapper>
-        </Overlay>
-      ) : null}
-    </AnimatePresence>
+            <Wrapper
+              variants={modalCardVariants}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {children}
+            </Wrapper>
+          </Overlay>
+        ) : null}
+      </AnimatePresence>
+    </ModalPortal>
   );
 }
 
@@ -47,7 +50,7 @@ const Overlay = styled(motion.div)`
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1000;
+  z-index: 1;
   background-color: rgba(0, 0, 0, 0.6);
 `;
 
