@@ -1,15 +1,20 @@
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { Axios } from 'libs';
-import { API_ROUTE } from 'constants/';
 import { useState } from 'react';
 import { Add } from 'assets/icons';
+import { createProject } from 'api';
+import { useMutation } from 'react-query';
+import { sendToast } from 'libs';
 
 interface TitleForm {
   projectTitle: string;
 }
 
-export function CreateProject() {
+interface CreateProjectProps {
+  closeModal: () => void;
+}
+
+export function CreateProject({ closeModal }: CreateProjectProps) {
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const {
     register,
@@ -19,43 +24,50 @@ export function CreateProject() {
     mode: 'onChange',
   });
 
+  const { mutate } = useMutation(createProject, {
+    onSuccess: () => {
+      // queryInvalidation 적용
+      closeModal();
+      sendToast.success('create the project!');
+    },
+    onError: () => {
+      sendToast.success('failed to create project!');
+    },
+  });
+
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
     if (files && files[0]) setThumbnail(files[0]);
   };
 
-  const api = new Axios(true);
   const onValid = async (data: TitleForm) => {
     const formData = new FormData();
-    formData.append('thumbnail', data.projectTitle);
+    const dataField = {
+      projectTitle: data.projectTitle,
+    };
+    const jsonDataField = JSON.stringify(dataField);
+    const blobDataField = new Blob([jsonDataField], {
+      type: 'application/json',
+    });
+
+    formData.append('data', blobDataField);
     if (thumbnail) formData.append('thumbnail', thumbnail);
 
-    const response = await api.post(API_ROUTE.PROJECT.CREATE_PROJECT, formData);
-    if (response.status === 201) return window.location.reload();
-    return alert('Create failed.');
+    mutate(formData);
   };
 
   return (
     <ModalContainer>
       <Title>Create Project</Title>
       <CreateForm onSubmit={handleSubmit(onValid)}>
-        {thumbnail ? (
-          <ThumbnailLabel htmlFor="imgInput">
-            <ThumbnailPreview src={URL.createObjectURL(thumbnail)} />
-          </ThumbnailLabel>
-        ) : (
-          <ThumbnailLabel htmlFor="imgInput">
-            <Add size={50} />
-          </ThumbnailLabel>
-        )}
         <FileInput
           hidden
           id="imgInput"
           type="file"
+          accept="image/png, image/gif, image/jpeg, image/webp"
           onChange={handleThumbnailChange}
         />
         <BottomWrapper>
-          <Hr />
           <TextWrapper>
             <Content>Project name</Content>
             {errors.projectTitle && (
@@ -77,7 +89,19 @@ export function CreateProject() {
             <Button>Create</Button>
           </InputContainer>
         </BottomWrapper>
+        <Hr />
+        {thumbnail ? (
+          <ThumbnailLabel htmlFor="imgInput">
+            <ThumbnailPreview src={URL.createObjectURL(thumbnail)} />
+          </ThumbnailLabel>
+        ) : (
+          <ThumbnailLabel htmlFor="imgInput">
+            <Add size={50} />
+          </ThumbnailLabel>
+        )}
       </CreateForm>
+      <Text>If you have invite code?</Text>
+      <InviteCodeButton>Enter invite code</InviteCodeButton>
     </ModalContainer>
   );
 }
@@ -124,10 +148,12 @@ const Button = styled.button`
   background: ${({ theme }) => theme.pointColor};
   border: none;
   border-radius: 4px;
-  cursor: pointer;
+  transition: ${({ theme }) => theme.transitionOption};
+  color: whitesmoke;
 
-  &:hover {
-    background: ${({ theme }) => theme.subColor};
+  :hover {
+    cursor: pointer;
+    background: #454545;
   }
 `;
 
@@ -156,10 +182,11 @@ const ThumbnailPreview = styled.img`
   height: 100%;
   object-fit: cover;
   border-radius: 5px;
+  width: 100%;
 `;
 
 const ThumbnailLabel = styled.label`
-  width: 100%;
+  width: 280px;
   height: 200px;
   display: flex;
   align-items: center;
@@ -169,9 +196,14 @@ const ThumbnailLabel = styled.label`
   border: solid 2px rgba(122, 122, 122, 0.5);
   box-sizing: border-box;
   transition: ${({ theme }) => theme.transitionOption};
+  color: ${({ theme }) => theme.transparentColor};
   :hover {
     cursor: pointer;
     background: rgba(0, 0, 0, 0.5);
+    * {
+      transition: ${({ theme }) => theme.transitionOption};
+      color: white;
+    }
   }
 `;
 
@@ -180,4 +212,25 @@ const TextWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: -8px;
+`;
+
+const Text = styled.div`
+  font-size: 14px;
+  color #454545;
+`;
+
+const InviteCodeButton = styled.button`
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  transition: ${({ theme }) => theme.transitionOption};
+  color: whitesmoke;
+  background: #454545;
+
+  :hover {
+    background: ${({ theme }) => theme.pointColor};
+    cursor: pointer;
+  }
 `;

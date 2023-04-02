@@ -10,7 +10,7 @@ export function AddProject() {
   return (
     <>
       <Modal closeModal={closeModal} isOpen={isOpen}>
-        <CreateProject />
+        <CreateProject closeModal={closeModal} />
       </Modal>
       <Wrapper onClick={openModal}>
         <Add size={20} />
