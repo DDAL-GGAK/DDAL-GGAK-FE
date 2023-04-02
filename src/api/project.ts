@@ -9,7 +9,7 @@ export const getUserProjects = async () => {
   return res;
 };
 
-export const createProject = async (data: any) => {
+export const createProject = async (data: FormData) => {
   const res = await api.postMultipartFormData(
     API_ROUTE.PROJECT.CREATE_PROJECT,
     data
