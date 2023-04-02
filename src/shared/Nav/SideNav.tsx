@@ -3,23 +3,18 @@ import { SIDE_NAV, TOP_NAV } from 'constants/layout';
 import { NavLink, AddProject, Config } from 'components';
 import { ProjectsLink } from 'types';
 import { getUserProjects } from 'api';
-import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 
 export function SideNav() {
-  const [projects, setProjects] = useState<ProjectsLink[]>();
-  const setUserProjects = async () => {
-    const { data } = await getUserProjects();
-    setProjects(data);
-  };
-
-  useEffect(() => {
-    setUserProjects();
-  }, []);
+  const { data: fetchData } = useQuery('userProjects', getUserProjects, {
+    staleTime: Infinity,
+    cacheTime: Infinity,
+  });
 
   return (
     <Wrapper>
       <TopWrapper>
-        {projects?.map((project: ProjectsLink) => {
+        {fetchData?.data?.map((project: ProjectsLink) => {
           const { id } = project;
 
           return <NavLink key={id} data={project} />;
