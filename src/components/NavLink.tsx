@@ -2,20 +2,29 @@ import { Link } from 'react-router-dom';
 import { NAVLINK } from 'constants/layout';
 import styled from 'styled-components';
 import { ProjectsLink, Thumbnail } from 'types';
+import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
 
 interface NavLinkProps {
   data: ProjectsLink;
   isCurrent: boolean;
 }
 
-export function NavLink({ data, isCurrent }: NavLinkProps) {
+export const NavLink = React.memo(({ data, isCurrent }: NavLinkProps) => {
   const { id, projectTitle, thumbnail } = data;
-
-  console.log(isCurrent);
 
   return (
     <Link to={`/project/${id}`}>
-      {isCurrent && <Current />}
+      <AnimatePresence>
+        {isCurrent ? (
+          <Current
+            initial="from"
+            animate="to"
+            exit="exit"
+            variants={linkVariants}
+          />
+        ) : null}
+      </AnimatePresence>
       {thumbnail ? (
         <Wrapper thumbnail={thumbnail} />
       ) : (
@@ -25,7 +34,13 @@ export function NavLink({ data, isCurrent }: NavLinkProps) {
       )}
     </Link>
   );
-}
+});
+
+const linkVariants = {
+  from: { opacity: 0 },
+  to: { opacity: 1, transition: { duration: 0.15 } },
+  exit: { opacity: 0, transition: { duration: 0.15 } },
+};
 
 const Wrapper = styled.div<{ thumbnail?: Thumbnail }>`
   position: relative;
@@ -58,12 +73,12 @@ const Text = styled.div`
   color: teal;
 `;
 
-const Current = styled.div`
+const Current = styled(motion.div)`
   position: absolute;
   left: 0px;
   width: 5px;
   border-radius: 0 10px 10px 0;
   height: ${NAVLINK.HEIGHT}px;
   transition: ${({ theme }) => theme.transitionOption};
-  background: ${({ theme }) => theme.pointColor};
+  background: ${({ theme }) => theme.color};
 `;
