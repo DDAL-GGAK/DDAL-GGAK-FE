@@ -46,3 +46,10 @@ export const modalCardVariants: Variants = {
     },
   },
 };
+
+/* Nav */
+export const linkVariants = {
+  from: { opacity: 0 },
+  to: { opacity: 1, transition: { duration: 0.15 } },
+  exit: { opacity: 0, transition: { duration: 0.15 } },
+};

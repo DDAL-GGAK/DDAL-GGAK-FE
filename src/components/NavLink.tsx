@@ -3,6 +3,7 @@ import { NAVLINK } from 'constants/layout';
 import styled from 'styled-components';
 import { ProjectsLink, Thumbnail } from 'types';
 import { motion, AnimatePresence } from 'framer-motion';
+import { linkVariants } from 'constants/';
 import React from 'react';
 
 interface NavLinkProps {
@@ -35,12 +36,6 @@ export const NavLink = React.memo(({ data, isCurrent }: NavLinkProps) => {
     </Link>
   );
 });
-
-const linkVariants = {
-  from: { opacity: 0 },
-  to: { opacity: 1, transition: { duration: 0.15 } },
-  exit: { opacity: 0, transition: { duration: 0.15 } },
-};
 
 const Wrapper = styled.div<{ thumbnail?: Thumbnail }>`
   position: relative;
