@@ -4,13 +4,13 @@ import { ProjectsLink } from 'types';
 import { BrowserRouter } from 'react-router-dom';
 
 const mockProps: ProjectsLink = {
-  id: 'mockID',
+  id: 1,
   projectTitle: 'mockTitle',
   thumbnail: 'mockImage',
 };
 
 const mockPropsWithoutThumbnail: ProjectsLink = {
-  id: 'mockID',
+  id: 1,
   projectTitle: 'mockTitle',
   thumbnail: null,
 };

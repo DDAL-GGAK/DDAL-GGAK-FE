@@ -3,7 +3,7 @@ import { Participants } from 'types';
 export type Thumbnail = string | null | undefined;
 
 export interface ProjectsLink {
-  id: string;
+  id: number;
   thumbnail: Thumbnail;
   projectTitle: string;
 }
