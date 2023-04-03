@@ -4,3 +4,4 @@ export * from './Add';
 export * from './ConfigSvg';
 export * from './Exit';
 export * from './AddFile';
+export * from './Back';

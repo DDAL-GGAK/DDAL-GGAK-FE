@@ -18,6 +18,12 @@ export const createProject = async (data: FormData) => {
   return res;
 };
 
+export const joinProject = async (projectId: string | number) => {
+  const res = await api.post(API_ROUTE.PROJECT.JOIN_PROJECT(projectId), {});
+
+  return res;
+};
+
 export const getProjectData = async (param: string) => {
   const res = await api.getByParams(API_ROUTE.PROJECT.GET_DATA, param);
 

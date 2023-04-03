@@ -1,9 +1,9 @@
 import { Participants } from 'types';
 
-type Thumbnail = string | null | undefined;
+export type Thumbnail = string | null | undefined;
 
 export interface ProjectsLink {
-  id: string;
+  id: number;
   thumbnail: Thumbnail;
   projectTitle: string;
 }

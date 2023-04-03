@@ -2,10 +2,12 @@ import styled from 'styled-components';
 import { NAVLINK, modalCardVariants } from 'constants/';
 import { Add } from 'assets/icons';
 import { useModal } from 'hooks';
-import { CreateProject } from 'components/modal';
+import { CreateProject, JoinProject } from 'components/modal';
+import { useState } from 'react';
 
 export function AddProject() {
   const { Modal, isOpen, openModal, closeModal } = useModal();
+  const [hasInviteCode, setHasInviteCode] = useState<boolean>(false);
 
   return (
     <>
@@ -14,7 +16,17 @@ export function AddProject() {
         closeModal={closeModal}
         variants={modalCardVariants}
       >
-        <CreateProject closeModal={closeModal} />
+        {hasInviteCode ? (
+          <JoinProject
+            closeModal={closeModal}
+            setHasInviteCode={setHasInviteCode}
+          />
+        ) : (
+          <CreateProject
+            closeModal={closeModal}
+            setHasInviteCode={setHasInviteCode}
+          />
+        )}
       </Modal>
       <Wrapper onClick={openModal}>
         <Add size={20} />

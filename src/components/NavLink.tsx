@@ -1,45 +1,79 @@
 import { Link } from 'react-router-dom';
 import { NAVLINK } from 'constants/layout';
 import styled from 'styled-components';
-import { ProjectsLink } from 'types';
+import { ProjectsLink, Thumbnail } from 'types';
+import { motion, AnimatePresence } from 'framer-motion';
+import { linkVariants } from 'constants/';
+import React from 'react';
 
 interface NavLinkProps {
   data: ProjectsLink;
+  isCurrent: boolean;
 }
 
-export function NavLink({ data }: NavLinkProps) {
+export const NavLink = React.memo(({ data, isCurrent }: NavLinkProps) => {
   const { id, projectTitle, thumbnail } = data;
 
   return (
     <Link to={`/project/${id}`}>
-      <Wrapper>
-        {thumbnail ? <Image src={thumbnail} /> : projectTitle.toUpperCase()[0]}
-      </Wrapper>
+      <AnimatePresence>
+        {isCurrent ? (
+          <Current
+            initial="from"
+            animate="to"
+            exit="exit"
+            variants={linkVariants}
+          />
+        ) : null}
+      </AnimatePresence>
+      {thumbnail ? (
+        <Wrapper thumbnail={thumbnail} />
+      ) : (
+        <Wrapper>
+          <Text>{projectTitle.toUpperCase()[0]}</Text>
+        </Wrapper>
+      )}
     </Link>
   );
-}
+});
 
-const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  border-radius: ${NAVLINK.BORDER_RADIUS}px;
-`;
-
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ thumbnail?: Thumbnail }>`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
   width: ${NAVLINK.WIDTH}px;
   height: ${NAVLINK.HEIGHT}px;
   border-radius: ${NAVLINK.BORDER_RADIUS}px;
   transition: ${({ theme }) => theme.transitionOption};
-  background: ${({ theme }) => theme.navLinkBackground};
   color: ${({ theme }) => theme.background};
+  background: ${(props) =>
+    props.thumbnail
+      ? `url(${props.thumbnail}) center / cover`
+      : props.theme.navLinkBackground};
 
   :hover {
     cursor: pointer;
-    background: ${({ theme }) => theme.color};
+    background: ${(props) =>
+      props.thumbnail
+        ? `url(${props.thumbnail}) center / cover`
+        : props.theme.color};
+
     border-radius: ${NAVLINK.HOVER_BORDER_RADIUS}px;
   }
+`;
+
+const Text = styled.div`
+  font-weight: 600;
+  color: teal;
+`;
+
+const Current = styled(motion.div)`
+  position: absolute;
+  left: 0px;
+  width: 5px;
+  border-radius: 0 10px 10px 0;
+  height: ${NAVLINK.HEIGHT}px;
+  transition: ${({ theme }) => theme.transitionOption};
+  background: ${({ theme }) => theme.color};
 `;

@@ -4,13 +4,13 @@ import { ProjectsLink } from 'types';
 import { BrowserRouter } from 'react-router-dom';
 
 const mockProps: ProjectsLink = {
-  id: 'mockID',
+  id: 1,
   projectTitle: 'mockTitle',
   thumbnail: 'mockImage',
 };
 
 const mockPropsWithoutThumbnail: ProjectsLink = {
-  id: 'mockID',
+  id: 1,
   projectTitle: 'mockTitle',
   thumbnail: null,
 };
@@ -21,7 +21,7 @@ describe('NavLink Component', () => {
   test('클릭 시, 동적라우팅 된 page로 이동한다', () => {
     render(
       <BrowserRouter>
-        <NavLink data={mockProps} />
+        <NavLink data={mockProps} isCurrent={false} />
       </BrowserRouter>
     );
     const navLink = screen.getByRole('link');
@@ -31,7 +31,7 @@ describe('NavLink Component', () => {
   test('thumbnail이 없는 경우, projectTitle의 첫 문자를 대문자로 렌더링한다.', () => {
     render(
       <BrowserRouter>
-        <NavLink data={mockPropsWithoutThumbnail} />
+        <NavLink data={mockPropsWithoutThumbnail} isCurrent={false} />
       </BrowserRouter>
     );
     const navTitle = screen.getByText(projectTitle.toUpperCase()[0]);
@@ -41,7 +41,7 @@ describe('NavLink Component', () => {
   test('thumbnail이 있는 경우, thumbnail 컴포넌트를 렌더링한다.', () => {
     render(
       <BrowserRouter>
-        <NavLink data={mockProps} />
+        <NavLink data={mockProps} isCurrent={false} />
       </BrowserRouter>
     );
     const navThumnail = screen.getByRole('img');
