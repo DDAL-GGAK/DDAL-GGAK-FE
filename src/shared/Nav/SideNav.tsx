@@ -38,14 +38,18 @@ const Wrapper = styled.div`
   box-sizing: border-box;
   border-right: 1px solid ${({ theme }) => theme.borderColor};
   width: ${SIDE_NAV.WIDTH}px;
-  height: calc(100vh - ${TOP_NAV.HEIGHT}px + 1000px);
+  height: calc(100% - ${TOP_NAV.HEIGHT}px);
   padding: ${TOP_NAV.PADDING}px 0;
-  padding-bottom: 1020px;
   transition: ${({ theme }) => theme.transitionOption};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  overflow: auto;
+
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
 `;
 
 const TopWrapper = styled.div`
