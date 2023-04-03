@@ -10,9 +10,13 @@ import { TitleForm } from 'types';
 
 interface CreateProjectProps {
   closeModal: () => void;
+  setHasInviteCode: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function CreateProject({ closeModal }: CreateProjectProps) {
+export function CreateProject({
+  closeModal,
+  setHasInviteCode,
+}: CreateProjectProps) {
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const queryClient = useQueryClient();
   const {
@@ -55,6 +59,8 @@ export function CreateProject({ closeModal }: CreateProjectProps) {
     mutate(formData);
   };
 
+  const inviteHandler = () => setHasInviteCode(true);
+
   return (
     <ModalContainer>
       <Title>Create Project</Title>
@@ -89,7 +95,9 @@ export function CreateProject({ closeModal }: CreateProjectProps) {
       <Hr />
       <InviteWrapper>
         <Text>If you have invite code?</Text>
-        <InviteCodeButton>Enter invite code</InviteCodeButton>
+        <InviteCodeButton onClick={inviteHandler}>
+          Enter invite code
+        </InviteCodeButton>
       </InviteWrapper>
     </ModalContainer>
   );
