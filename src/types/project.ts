@@ -13,6 +13,7 @@ export interface ProjectDataForm {
   projectTitle: string;
   tasks: TaskDataForm[];
   thumbnail: Thumbnail;
+  participants: Participants[];
 }
 
 export interface TaskDataForm {

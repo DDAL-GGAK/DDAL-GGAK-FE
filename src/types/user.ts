@@ -5,6 +5,7 @@ export interface Participants {
   email: string;
   nickname: string;
   thumbnail: string;
+  role: string;
 }
 
 export interface UserDataForm {
