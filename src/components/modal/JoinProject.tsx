@@ -5,6 +5,8 @@ import { sendToast } from 'libs';
 import { joinProject } from 'api';
 import { Team } from 'assets/svg';
 import { Back } from 'assets/icons';
+import { motion } from 'framer-motion';
+import { defaultVariants } from 'constants/';
 
 interface EnterProjectProps {
   closeModal: () => void;
@@ -42,10 +44,16 @@ export function JoinProject({
   const backHandler = () => setHasInviteCode(false);
 
   return (
-    <ModalContainer>
+    <ModalContainer
+      variants={defaultVariants}
+      initial="from"
+      animate="to"
+      exit="exit"
+    >
       <TitleWrapper>
         <Back size={20} onClick={backHandler} />
         <Title>Enter Invite Code</Title>
+        <div />
       </TitleWrapper>
       <Form onSubmit={handleSubmit(onValid)}>
         <SVGWrapper>
@@ -75,7 +83,7 @@ export function JoinProject({
   );
 }
 
-const ModalContainer = styled.div`
+const ModalContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 16px;

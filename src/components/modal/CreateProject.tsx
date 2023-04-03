@@ -7,6 +7,8 @@ import { useMutation, useQueryClient } from 'react-query';
 import { sendToast } from 'libs';
 import { ProjectTitleInput } from 'components/form';
 import { TitleForm } from 'types';
+import { motion } from 'framer-motion';
+import { defaultVariants } from 'constants/';
 
 interface CreateProjectProps {
   closeModal: () => void;
@@ -62,7 +64,12 @@ export function CreateProject({
   const inviteHandler = () => setHasInviteCode(true);
 
   return (
-    <ModalContainer>
+    <ModalContainer
+      variants={defaultVariants}
+      initial="from"
+      animate="to"
+      exit="exit"
+    >
       <Title>Create Project</Title>
       <CreateForm onSubmit={handleSubmit(onValid)}>
         <FileInput
@@ -103,7 +110,7 @@ export function CreateProject({
   );
 }
 
-const ModalContainer = styled.div`
+const ModalContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 16px;
