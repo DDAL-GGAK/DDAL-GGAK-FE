@@ -153,6 +153,21 @@ export class Axios {
 
   /**
    * @param {string} endPoint
+   * @param {any} data
+   */
+  postMultipartFormData(endPoint: EndPoint, data: FormData) {
+    return this.#instance({
+      method: 'POST',
+      url: `${endPoint}`,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      data,
+    });
+  }
+
+  /**
+   * @param {string} endPoint
    * @param {number} id
    * @param {object} data
    */

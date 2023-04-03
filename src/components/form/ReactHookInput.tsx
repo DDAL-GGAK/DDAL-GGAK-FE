@@ -1,14 +1,15 @@
 import styled from 'styled-components';
-import Label from 'components/form/Label';
 import {
+  Label,
   EmailInput,
   PasswordConfirmInput,
   PasswordInput,
 } from 'components/form';
+
 import { ReactHookInputProps } from 'types';
 import { INPUT_TYPE } from 'constants/';
 
-export default function ReactHookInput({
+export function ReactHookInput({
   type,
   register,
   errorMessage,
