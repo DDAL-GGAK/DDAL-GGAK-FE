@@ -4,6 +4,7 @@ import { useMutation } from 'react-query';
 import { sendToast } from 'libs';
 import { joinProject } from 'api';
 import { Team } from 'assets/svg';
+import { Back } from 'assets/icons';
 
 interface EnterProjectProps {
   closeModal: () => void;
@@ -31,18 +32,24 @@ export function JoinProject({
       sendToast.success('Joined the project!');
     },
     onError: () => {
-      sendToast.success('Failed to join the project!');
+      sendToast.error('Failed to join the project!');
+      closeModal();
+      setHasInviteCode(false);
     },
   });
 
   const onValid = async (data: InviteCodeForm) => mutate(data.inviteCode);
+  const backHandler = () => setHasInviteCode(false);
 
   return (
     <ModalContainer>
-      <Title>Enter Invite Code</Title>
+      <TitleWrapper>
+        <Back size={20} onClick={backHandler} />
+        <Title>Enter Invite Code</Title>
+      </TitleWrapper>
       <Form onSubmit={handleSubmit(onValid)}>
         <SVGWrapper>
-          <Team size={250} />
+          {isLoading ? <>Loading</> : <Team size={280} />}
         </SVGWrapper>
         <TextWrapper>
           <ErrorMessage>
@@ -72,6 +79,13 @@ const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  width: 280px;
+`;
+
+const TitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const Title = styled.h2`
