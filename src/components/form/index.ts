@@ -1,5 +1,6 @@
-export { default as ReactHookInput } from './ReactHookInput';
-export { default as Label } from './Label';
-export { default as EmailInput } from './EmailInput';
-export { default as PasswordInput } from './PasswordInput';
-export { default as PasswordConfirmInput } from './PasswordConfirmInput';
+export * from './ReactHookInput';
+export * from './Label';
+export * from './EmailInput';
+export * from './PasswordInput';
+export * from './PasswordConfirmInput';
+export * from './ProjectTitleInput';

@@ -9,6 +9,15 @@ export const getUserProjects = async () => {
   return res;
 };
 
+export const createProject = async (data: FormData) => {
+  const res = await api.postMultipartFormData(
+    API_ROUTE.PROJECT.CREATE_PROJECT,
+    data
+  );
+
+  return res;
+};
+
 export const getProjectData = async (param: string) => {
   const res = await api.getByParams(API_ROUTE.PROJECT.GET_DATA, param);
 

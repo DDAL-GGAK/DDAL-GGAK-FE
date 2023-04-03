@@ -1,16 +1,20 @@
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { Axios } from 'libs';
-import { API_ROUTE } from 'constants/';
 import { useState } from 'react';
 import { Add } from 'assets/icons';
+import { createProject } from 'api';
+import { useMutation, useQueryClient } from 'react-query';
+import { sendToast } from 'libs';
+import { ProjectTitleInput } from 'components/form';
+import { TitleForm } from 'types';
 
-interface TitleForm {
-  projectTitle: string;
+interface CreateProjectProps {
+  closeModal: () => void;
 }
 
-export function CreateProject() {
+export function CreateProject({ closeModal }: CreateProjectProps) {
   const [thumbnail, setThumbnail] = useState<File | null>(null);
+  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
@@ -19,26 +23,58 @@ export function CreateProject() {
     mode: 'onChange',
   });
 
+  const { mutate } = useMutation(createProject, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('userProjects');
+      closeModal();
+      sendToast.success('create the project!');
+    },
+    onError: () => {
+      sendToast.success('failed to create project!');
+    },
+  });
+
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
     if (files && files[0]) setThumbnail(files[0]);
   };
 
-  const api = new Axios(true);
   const onValid = async (data: TitleForm) => {
     const formData = new FormData();
-    formData.append('thumbnail', data.projectTitle);
+    const dataField = {
+      projectTitle: data.projectTitle,
+    };
+    const jsonDataField = JSON.stringify(dataField);
+    const blobDataField = new Blob([jsonDataField], {
+      type: 'application/json',
+    });
+
+    formData.append('data', blobDataField);
     if (thumbnail) formData.append('thumbnail', thumbnail);
 
-    const response = await api.post(API_ROUTE.PROJECT.CREATE_PROJECT, formData);
-    if (response.status === 201) return window.location.reload();
-    return alert('Create failed.');
+    mutate(formData);
   };
 
   return (
     <ModalContainer>
       <Title>Create Project</Title>
       <CreateForm onSubmit={handleSubmit(onValid)}>
+        <FileInput
+          hidden
+          id="imgInput"
+          type="file"
+          accept="image/png, image/gif, image/jpeg, image/webp"
+          onChange={handleThumbnailChange}
+        />
+        <BottomWrapper>
+          <TextWrapper>
+            <Content>Project name</Content>
+            {errors.projectTitle && (
+              <Errorspan>{errors.projectTitle.message}</Errorspan>
+            )}
+          </TextWrapper>
+          <ProjectTitleInput register={register} />
+        </BottomWrapper>
         {thumbnail ? (
           <ThumbnailLabel htmlFor="imgInput">
             <ThumbnailPreview src={URL.createObjectURL(thumbnail)} />
@@ -48,36 +84,13 @@ export function CreateProject() {
             <Add size={50} />
           </ThumbnailLabel>
         )}
-        <FileInput
-          hidden
-          id="imgInput"
-          type="file"
-          onChange={handleThumbnailChange}
-        />
-        <BottomWrapper>
-          <Hr />
-          <TextWrapper>
-            <Content>Project name</Content>
-            {errors.projectTitle && (
-              <Errorspan>{errors.projectTitle.message}</Errorspan>
-            )}
-          </TextWrapper>
-          <InputContainer>
-            <Input
-              type="text"
-              placeholder="Enter your ProjectName"
-              {...register('projectTitle', {
-                required: 'Please enter your projectTitle!',
-                maxLength: {
-                  value: 20,
-                  message: 'Requires shorter than 20',
-                },
-              })}
-            />
-            <Button>Create</Button>
-          </InputContainer>
-        </BottomWrapper>
+        <Button>Create</Button>
       </CreateForm>
+      <Hr />
+      <InviteWrapper>
+        <Text>If you have invite code?</Text>
+        <InviteCodeButton>Enter invite code</InviteCodeButton>
+      </InviteWrapper>
     </ModalContainer>
   );
 }
@@ -105,18 +118,6 @@ const Content = styled.label`
   color: ${({ theme }) => theme.transparentColor};
 `;
 
-const InputContainer = styled.div`
-  display: flex;
-  gap: 16px;
-`;
-
-const Input = styled.input`
-  padding: 0.5rem;
-  font-size: 14px;
-  border: 1px solid teal;
-  border-radius: 4px;
-`;
-
 const Button = styled.button`
   padding: 0.5rem 16px;
   font-size: 14px;
@@ -124,10 +125,12 @@ const Button = styled.button`
   background: ${({ theme }) => theme.pointColor};
   border: none;
   border-radius: 4px;
-  cursor: pointer;
+  transition: ${({ theme }) => theme.transitionOption};
+  color: whitesmoke;
 
-  &:hover {
-    background: ${({ theme }) => theme.subColor};
+  :hover {
+    cursor: pointer;
+    background: #454545;
   }
 `;
 
@@ -156,10 +159,11 @@ const ThumbnailPreview = styled.img`
   height: 100%;
   object-fit: cover;
   border-radius: 5px;
+  width: 100%;
 `;
 
 const ThumbnailLabel = styled.label`
-  width: 100%;
+  width: 280px;
   height: 200px;
   display: flex;
   align-items: center;
@@ -169,9 +173,14 @@ const ThumbnailLabel = styled.label`
   border: solid 2px rgba(122, 122, 122, 0.5);
   box-sizing: border-box;
   transition: ${({ theme }) => theme.transitionOption};
+  color: ${({ theme }) => theme.transparentColor};
   :hover {
     cursor: pointer;
     background: rgba(0, 0, 0, 0.5);
+    * {
+      transition: ${({ theme }) => theme.transitionOption};
+      color: white;
+    }
   }
 `;
 
@@ -180,4 +189,32 @@ const TextWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: -8px;
+`;
+
+const Text = styled.div`
+  font-size: 14px;
+  color #454545;
+  text-align: center;
+`;
+
+const InviteCodeButton = styled.button`
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  transition: ${({ theme }) => theme.transitionOption};
+  color: whitesmoke;
+  background: #454545;
+
+  :hover {
+    background: ${({ theme }) => theme.pointColor};
+    cursor: pointer;
+  }
+`;
+
+const InviteWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 `;
