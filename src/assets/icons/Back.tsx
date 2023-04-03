@@ -2,11 +2,16 @@ import styled from 'styled-components';
 
 interface BackProps {
   size: number;
+  onClick?: () => void;
 }
 
-export function Back({ size }: BackProps) {
+export function Back({ size, onClick }: BackProps) {
+  const defaultCallback = () => {};
+  const onClickHandler = onClick || defaultCallback;
+
   return (
     <Svg
+      onClick={onClickHandler}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
