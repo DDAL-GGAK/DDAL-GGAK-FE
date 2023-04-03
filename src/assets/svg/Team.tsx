@@ -6,4 +6,6 @@ export function Team({ size }: SVGProps) {
   return <Img src={TeamSvg} alt="TeamSvg" size={size} />;
 }
 
-const Img = styled.img<SVGProps>``;
+const Img = styled.img<SVGProps>`
+  width: ${({ size }) => size}px;
+`;
