@@ -4,9 +4,9 @@ import { useMutation } from 'react-query';
 import { sendToast } from 'libs';
 import { createTask } from 'api';
 import { motion } from 'framer-motion';
-import { defaultVariants, SVG_SIZE } from 'constants/';
+import { defaultVariants, SVG_SIZE, REGEX } from 'constants/';
 import { TaskCreateForm } from 'types';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Task } from 'assets/svg';
 
 interface CreateTaskProps {
@@ -14,7 +14,8 @@ interface CreateTaskProps {
 }
 
 export function CreateTask({ closeModal }: CreateTaskProps) {
-  const { params } = useParams();
+  const { pathname } = useLocation();
+  const projectId = Number(pathname.match(REGEX.PROJECT_ID)?.[1]) || null;
   const {
     register,
     handleSubmit,
@@ -32,8 +33,14 @@ export function CreateTask({ closeModal }: CreateTaskProps) {
     },
   });
 
-  const onValid = async (data: TaskCreateForm) =>
-    mutate({ ...data, projectId: Number(params) });
+  const onValid = async (data: TaskCreateForm) => {
+    const { expiredAt: expiredString } = data;
+    const expiredAt = expiredString.match(REGEX.EXPIRE)?.[1];
+    if (!expiredAt) return sendToast.error('No date input provided!');
+
+    const payload = { ...data, expiredAt, projectId: Number(projectId) };
+    return mutate(payload);
+  };
 
   return (
     <ModalContainer
