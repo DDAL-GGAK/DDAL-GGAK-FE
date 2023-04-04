@@ -7,13 +7,15 @@ const AUTH = Object.freeze({
 });
 
 const PROJECT = Object.freeze({
-  CREATE_PROJECT: '/api/project',
-  JOIN_PROJECT: (projectId: string|number) => `/api/project/${projectId}/join`,
+  CREATE: '/api/project',
+  JOIN_PROJECT: (projectId: string | number) =>
+    `/api/project/${projectId}/join`,
   GET_DATA: '/api/project',
   GET_USER_PROJECTS: '/api/projects',
 });
 
 const TASK = Object.freeze({
+  CREATE: '/api/task',
   GET_DATA: '/api/task',
 });
 
