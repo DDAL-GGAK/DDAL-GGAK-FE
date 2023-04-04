@@ -4,9 +4,10 @@ import { useMutation } from 'react-query';
 import { sendToast } from 'libs';
 import { createTask } from 'api';
 import { motion } from 'framer-motion';
-import { defaultVariants } from 'constants/';
+import { defaultVariants, SVG_SIZE } from 'constants/';
 import { TaskCreateForm } from 'types';
 import { useParams } from 'react-router-dom';
+import { Task } from 'assets/svg';
 
 interface CreateTaskProps {
   closeModal: () => void;
@@ -44,6 +45,7 @@ export function CreateTask({ closeModal }: CreateTaskProps) {
       <TitleWrapper>
         <Title>Create Task</Title>
       </TitleWrapper>
+      <Task size={SVG_SIZE.MODAL} />
       <Form onSubmit={handleSubmit(onValid)}>
         <LabelWrapper>
           <Label>Task Title:</Label>

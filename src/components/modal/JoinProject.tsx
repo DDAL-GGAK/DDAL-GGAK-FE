@@ -6,7 +6,7 @@ import { joinProject } from 'api';
 import { Team } from 'assets/svg';
 import { Back } from 'assets/icons';
 import { motion } from 'framer-motion';
-import { defaultVariants } from 'constants/';
+import { defaultVariants, SVG_SIZE } from 'constants/';
 
 interface EnterProjectProps {
   closeModal: () => void;
@@ -57,7 +57,7 @@ export function JoinProject({
       </TitleWrapper>
       <Form onSubmit={handleSubmit(onValid)}>
         <SVGWrapper>
-          {isLoading ? <>Loading</> : <Team size={280} />}
+          {isLoading ? <>Loading</> : <Team size={SVG_SIZE.MODAL} />}
         </SVGWrapper>
         <TextWrapper>
           <ErrorMessage>
