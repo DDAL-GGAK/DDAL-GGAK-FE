@@ -1,6 +1,6 @@
 import { ProjectsLink } from 'types';
 
-export interface Participants {
+export interface Participant {
   id: number;
   email: string;
   nickname: string;
