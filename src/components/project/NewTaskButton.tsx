@@ -1,16 +1,26 @@
 import styled from 'styled-components';
 import { Add } from 'assets/icons';
+import { modalCardVariants } from 'constants/';
+import { useModal } from 'hooks';
+import { CreateTask } from 'components/modal';
 // import { createTask } from 'api';
 
 export function AddTask() {
-  const onClickHandler = () => {
-    // createTask(data)
-  };
+  const { Modal, isOpen, openModal, closeModal } = useModal();
 
   return (
-    <Wrapper onClick={onClickHandler}>
-      <Add size={50} />
-    </Wrapper>
+    <>
+      <Modal
+        isOpen={isOpen}
+        closeModal={closeModal}
+        variants={modalCardVariants}
+      >
+        <CreateTask closeModal={closeModal} />
+      </Modal>
+      <Wrapper onClick={openModal}>
+        <Add size={50} />
+      </Wrapper>
+    </>
   );
 }
 
