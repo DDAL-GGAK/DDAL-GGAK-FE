@@ -30,7 +30,7 @@ export function TaskCard({ taskData }: TaskCardProps) {
         </Info>
         <BottomWrapper>
           <ProgressBar>
-            <ProgressFiller percentage={progressPercentage} />
+            <ProgressFiller progress={progressPercentage} />
           </ProgressBar>
           <Tickets>{`${completedTickets} / ${totalTickets}`} Tickets</Tickets>
         </BottomWrapper>
@@ -44,14 +44,15 @@ const MyLink = styled(Link)<{ isExpired: boolean }>`
   box-sizing: border-box;
   padding: 20px;
   border-radius: 5px;
-  color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.color};
   background: ${({ isExpired, theme }) =>
-    isExpired ? theme.subColor : theme.color};
+    isExpired ? theme.subColor : theme.background};
   transition: ${({ theme }) => theme.transitionOption};
-  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 5px 0px ${({ theme }) => theme.transparentColor};
+
   :hover {
-    color: ${({ theme }) => theme.color};
-    background: ${({ theme }) => theme.background};
+    color: ${({ theme }) => theme.background};
+    background: ${({ theme }) => theme.color};
   }
 `;
 
@@ -88,8 +89,8 @@ const ProgressBar = styled.div`
   margin: 0.5rem 0;
 `;
 
-const ProgressFiller = styled.div<{ percentage: number }>`
-  width: ${({ percentage }) => percentage}%;
+const ProgressFiller = styled.div<{ progress: number }>`
+  width: ${({ progress }) => progress}%;
   height: 100%;
   background-color: ${({ theme }) => theme.pointColor};
   border-radius: 5px;

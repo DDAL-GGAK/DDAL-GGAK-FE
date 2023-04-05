@@ -24,6 +24,8 @@ export function AddTask() {
 }
 
 const Wrapper = styled.div`
+  border: 1px solid ${({ theme }) => theme.borderColor};
+  box-sizing: border-box;
   color: ${({ theme }) => theme.navBackground};
   background: ${({ theme }) => theme.color};
   width: 100%;
@@ -32,6 +34,8 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0px 5px 0px ${({ theme }) => theme.transparentColor};
+  transition: ${({ theme }) => theme.transitionOption};
   :hover {
     color: ${({ theme }) => theme.color};
     background: ${({ theme }) => theme.background};
