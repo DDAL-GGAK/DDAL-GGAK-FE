@@ -29,6 +29,7 @@ const Wrapper = styled.div`
   padding: 20px;
   display: flex;
   width: 300px;
+  min-width: 300px;
   flex-direction: column;
   gap: 10px;
   transition: ${({ theme }) => theme.transitionOption};

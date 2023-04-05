@@ -23,9 +23,10 @@ export function CreateTask({ closeModal }: CreateTaskProps) {
   } = useForm<TaskCreateForm>({ mode: 'onChange' });
 
   const { mutate, isLoading } = useMutation(createTask, {
-    onSuccess: () => {
+    onSuccess: (data: any) => {
       closeModal();
       sendToast.success('Create Task!');
+      console.log(data);
     },
     onError: () => {
       sendToast.error('Failed to create task!');

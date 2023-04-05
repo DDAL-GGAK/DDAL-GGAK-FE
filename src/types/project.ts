@@ -22,6 +22,6 @@ export interface TaskDataForm {
   participantsCount: number;
   taskTitle: string;
   totalTickets: number;
-  completedTickets: string;
+  completedTickets: number;
   expiredAt: string;
 }
