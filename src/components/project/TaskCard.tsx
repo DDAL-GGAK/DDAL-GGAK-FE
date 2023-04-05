@@ -1,11 +1,31 @@
 import styled from 'styled-components';
+import { TaskDataForm } from 'types';
+import { Link } from 'react-router-dom';
 
 interface TaskCardProps {
-  children: React.ReactNode;
+  taskData: TaskDataForm;
 }
 
-export function TaskCard({ children }: TaskCardProps) {
-  return <Wrapper>{children}</Wrapper>;
+export function TaskCard({ taskData }: TaskCardProps) {
+  const {
+    id,
+    participantsCount,
+    taskTitle,
+    completedTickets,
+    totalTickets,
+    expiredAt,
+  } = taskData;
+
+  return (
+    <Link to={`/task/${id}`} key={id}>
+      <Wrapper>
+        <Title>Title: {taskTitle}</Title>
+        <div>participantsCount : {participantsCount}</div>
+        <div>{`${completedTickets} / ${totalTickets}`}</div>
+        <div>{expiredAt}</div>
+      </Wrapper>
+    </Link>
+  );
 }
 
 const Wrapper = styled.div`
@@ -25,3 +45,5 @@ const Wrapper = styled.div`
     cursor: pointer;
   }
 `;
+
+const Title = styled.div``;
