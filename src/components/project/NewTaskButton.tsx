@@ -3,7 +3,6 @@ import { Add } from 'assets/icons';
 import { modalCardVariants } from 'constants/';
 import { useModal } from 'hooks';
 import { CreateTask } from 'components/modal';
-// import { createTask } from 'api';
 
 export function AddTask() {
   const { Modal, isOpen, openModal, closeModal } = useModal();
@@ -26,14 +25,16 @@ export function AddTask() {
 
 const Wrapper = styled.div`
   color: ${({ theme }) => theme.navBackground};
-  transition: ${({ theme }) => theme.transitionOption};
+  background: ${({ theme }) => theme.color};
   width: 100%;
   height: 100%;
-  border-radius: 10px;
+  border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   :hover {
+    color: ${({ theme }) => theme.color};
+    background: ${({ theme }) => theme.background};
     cursor: pointer;
   }
 `;
