@@ -22,7 +22,7 @@ export const ROUTE_MAP: RouteMap = Object.freeze({
     AUTH: true,
     HAS_NAV: true,
   },
-  '/task/:id': {
+  '/project/:id/task/:id': {
     COMPONENT: Task,
     AUTH: true,
     HAS_NAV: true,

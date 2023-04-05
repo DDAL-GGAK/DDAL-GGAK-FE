@@ -22,7 +22,7 @@ export function TaskCard({ taskData }: TaskCardProps) {
 
   return (
     <Wrapper data-expired={expired} key={id}>
-      <MyLink to={`/task/${id}`}>
+      <MyLink to={`./task/${id}`}>
         <Title>{taskTitle}</Title>
         <Hr />
         <Info>
