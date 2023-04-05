@@ -9,3 +9,4 @@ export * from './routes';
 export * from './variants';
 export * from './svg';
 export * from './regex';
+export * from './mediaQuery';
