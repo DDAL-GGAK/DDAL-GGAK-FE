@@ -8,13 +8,6 @@ export interface ProjectsLink {
   projectTitle: string;
 }
 
-export interface ProjectInfo {
-  thumbnail: string;
-  projectTitle: string;
-  projectLeader: string;
-  participants: Participant[];
-}
-
 export interface ProjectDataForm {
   projectLeader: string;
   projectTitle: string;
