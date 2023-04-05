@@ -1,8 +1,28 @@
 import styled from 'styled-components';
-import { CONTENT } from 'constants/';
+import { CONTENT, REGEX } from 'constants/';
 import { TicketBoard } from 'components';
+import { getTaskData } from 'api';
+import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 export function Task() {
+  const [ticketData, setTicketData] = useState();
+  const { pathname } = useLocation();
+  const projectId = pathname.match(REGEX.PROJECT_ID)?.[1];
+  const taskId = pathname.match(REGEX.TASK_ID)?.[1];
+
+  const getData = async () => {
+    if (!taskId || !projectId) return;
+    const { data } = await getTaskData({ param: taskId, query: { projectId } });
+    setTicketData(data);
+  };
+
+  console.log(ticketData);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   const teams = [
     { id: 1, name: 'FE' },
     { id: 2, name: 'BE' },
