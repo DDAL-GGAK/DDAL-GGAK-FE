@@ -1,5 +1,5 @@
 import { Axios } from 'libs';
-import { TaskCreateForm } from 'types';
+import { TaskCreateForm, Query } from 'types';
 import { API_ROUTE } from 'constants/';
 
 const api = new Axios(true);
@@ -10,8 +10,14 @@ export const createTask = async (data: TaskCreateForm) => {
   return res;
 };
 
-export const getTaskData = async (id: string) => {
-  const res = await api.getByParams(API_ROUTE.TASK.GET_DATA, id);
+export const getTaskData = async ({
+  param,
+  query,
+}: {
+  param: string;
+  query: Query;
+}) => {
+  const res = await api.getByQuery(API_ROUTE.TASK.GET_DATA(param), query);
 
   return res;
 };
