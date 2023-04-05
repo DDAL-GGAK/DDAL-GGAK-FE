@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { ProjectDataForm, TaskDataForm } from 'types';
 import { CONTENT } from 'constants/';
 import { AddTask } from 'components';
-import { TaskCard } from 'components/project';
+import { TaskCard, ProjectInformation } from 'components/project';
 
 export function Project() {
   const [projectData, setProjectData] = useState<ProjectDataForm>();
@@ -30,7 +30,6 @@ export function Project() {
         {projectData?.tasks.map((task: TaskDataForm) => {
           const {
             id,
-            // participants,
             participantsCount,
             taskTitle,
             completedTickets,
@@ -50,6 +49,7 @@ export function Project() {
           );
         })}
       </ProjectBoard>
+      {projectData && <ProjectInformation projectData={projectData} />}
     </Wrapper>
   );
 }
@@ -61,7 +61,7 @@ const Wrapper = styled.div`
   align-items: center;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 10px;
+  gap: 20px;
 `;
 
 const ProjectBoard = styled.div`

@@ -7,3 +7,5 @@ export * from './toastify';
 export * from './route';
 export * from './routes';
 export * from './variants';
+export * from './svg';
+export * from './regex';
