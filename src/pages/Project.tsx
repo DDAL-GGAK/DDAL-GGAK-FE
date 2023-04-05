@@ -27,7 +27,7 @@ export function Project() {
       <ProjectBoard>
         <AddTask />
         {projectData?.tasks.map((taskData: TaskDataForm) => (
-          <TaskCard taskData={taskData} />
+          <TaskCard taskData={taskData} key={taskData.id} />
         ))}
       </ProjectBoard>
       {projectData && <ProjectInformation projectData={projectData} />}
