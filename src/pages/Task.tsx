@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { CONTENT, REGEX } from 'constants/';
+import { CONTENT, REGEX, QUERY } from 'constants/';
 import { Tickets } from 'components';
 import { getTaskData } from 'api';
 import { useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useQuery } from 'react-query';
 
 interface TaskData {
   expiredAt: string;
@@ -17,23 +17,18 @@ interface TaskData {
 }
 
 export function Task() {
-  const [taskData, setTaskData] = useState<TaskData>();
   const { pathname } = useLocation();
   const projectId = pathname.match(REGEX.PROJECT_ID)?.[1];
   const taskId = pathname.match(REGEX.TASK_ID)?.[1];
 
-  const getData = async () => {
-    if (!taskId || !projectId) return;
-    const { data } = await getTaskData({ param: taskId, query: { projectId } });
-    setTaskData(data);
-  };
+  const { data: taskData } = useQuery<TaskData>(
+    [QUERY.TASK_DATA, projectId, taskId],
+    () => getTaskData({ param: taskId || '', query: { projectId } }),
+    { enabled: !!taskId && !!projectId }
+  );
 
-  console.log(taskData);
+  console.log('taskData:', taskData);
   const addTeam = () => console.log(1);
-
-  useEffect(() => {
-    getData();
-  }, []);
 
   return (
     <Wrapper>

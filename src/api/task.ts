@@ -17,7 +17,10 @@ export const getTaskData = async ({
   param: string;
   query: Query;
 }) => {
-  const res = await api.getByQuery(API_ROUTE.TASK.GET_DATA(param), query);
+  const { data: res } = await api.getByQuery(
+    API_ROUTE.TASK.GET_DATA(param),
+    query
+  );
 
   return res;
 };
