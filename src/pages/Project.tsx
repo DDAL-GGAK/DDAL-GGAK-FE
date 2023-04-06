@@ -1,26 +1,22 @@
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { getProjectData } from 'api';
-import { useEffect, useState } from 'react';
 import { ProjectDataForm, TaskDataForm } from 'types';
-import { CONTENT } from 'constants/';
-// import { TASKS } from 'constants/mediaQuery';
+import { CONTENT, QUERY } from 'constants/';
 import { AddTask } from 'components';
 import { TaskCard, ProjectInformation } from 'components/project';
+import { useQuery } from 'react-query';
 
 export function Project() {
-  const [projectData, setProjectData] = useState<ProjectDataForm>();
   const { id: param } = useParams();
 
-  const getData = async () => {
-    if (!param) return;
-    const { data } = await getProjectData(param);
-    setProjectData(data);
-  };
+  const { data: projectData, isLoading } = useQuery<ProjectDataForm>(
+    [QUERY.PROJECT_DATA, param],
+    () => getProjectData(param as string).then((res) => res.data),
+    { enabled: !!param }
+  );
 
-  useEffect(() => {
-    getData();
-  }, [param]);
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <Wrapper>

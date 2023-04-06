@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { sendToast } from 'libs';
 import { joinProject } from 'api';
 import { Team } from 'assets/svg';
 import { Back } from 'assets/icons';
 import { motion } from 'framer-motion';
-import { defaultVariants, SVG_SIZE } from 'constants/';
+import { defaultVariants, SVG_SIZE, QUERY } from 'constants/';
 
 interface EnterProjectProps {
   closeModal: () => void;
@@ -26,9 +26,11 @@ export function JoinProject({
     handleSubmit,
     formState: { errors },
   } = useForm<InviteCodeForm>({ mode: 'onChange' });
+  const queryClient = useQueryClient();
 
   const { mutate, isLoading } = useMutation(joinProject, {
     onSuccess: () => {
+      queryClient.invalidateQueries(QUERY.USER_PROJECTS);
       closeModal();
       setHasInviteCode(false);
       sendToast.success('Joined the project!');

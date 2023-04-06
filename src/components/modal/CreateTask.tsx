@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { sendToast } from 'libs';
 import { createTask } from 'api';
 import { motion } from 'framer-motion';
-import { defaultVariants, SVG_SIZE, REGEX } from 'constants/';
+import { defaultVariants, SVG_SIZE, REGEX, QUERY } from 'constants/';
 import { TaskCreateForm } from 'types';
 import { useLocation } from 'react-router-dom';
 import { Task } from 'assets/svg';
@@ -21,9 +21,10 @@ export function CreateTask({ closeModal }: CreateTaskProps) {
     handleSubmit,
     formState: { errors },
   } = useForm<TaskCreateForm>({ mode: 'onChange' });
-
+  const queryClient = useQueryClient();
   const { mutate, isLoading } = useMutation(createTask, {
     onSuccess: (data: any) => {
+      queryClient.invalidateQueries(QUERY.PROJECT_DATA);
       closeModal();
       sendToast.success('Create Task!');
       console.log(data);
