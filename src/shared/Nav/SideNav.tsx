@@ -1,21 +1,27 @@
 import styled from 'styled-components';
 import { SIDE_NAV, TOP_NAV } from 'constants/layout';
-import { NavLink, AddProject, Config } from 'components';
+import { NavLink, AddProject, Config, Loading } from 'components';
 import { ProjectsLink } from 'types';
 import { getUserProjects } from 'api';
 import { useQuery } from 'react-query';
 import { useLocation } from 'react-router-dom';
 import { REGEX, QUERY } from 'constants/';
-import { useErrorHandler } from 'hooks';
+import { useNavigateBack, useErrorHandler } from 'hooks';
 
 export function SideNav() {
   const { pathname } = useLocation();
+  const navigateBack = useNavigateBack();
   const { errorHandler } = useErrorHandler();
   const projectId = Number(pathname.match(REGEX.PROJECT_ID)?.[1]) || null;
   const { data: fetchData } = useQuery(QUERY.USER_PROJECTS, getUserProjects, {
     ...QUERY.DEFAULT_CONFIG,
     onError: (error: unknown) => errorHandler(error),
   });
+
+  if (typeof fetchData?.data === 'string') {
+    navigateBack();
+    return <Loading />;
+  }
 
   return (
     <Wrapper>
