@@ -25,7 +25,7 @@ export function Task() {
     taskQueryKey,
     fetchTaskData,
     {
-      retry: false,
+      ...QUERY.DEFAULT_CONFIG,
       onError: (error: unknown) => errorHandler(error),
     }
   );
