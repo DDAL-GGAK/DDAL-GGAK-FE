@@ -6,18 +6,16 @@ import { getUserProjects } from 'api';
 import { useQuery } from 'react-query';
 import { useLocation } from 'react-router-dom';
 import { REGEX, QUERY } from 'constants/';
-import { useNavigateBack } from 'hooks';
+import { useErrorHandler } from 'hooks';
 
 export function SideNav() {
   const { pathname } = useLocation();
-  const navigateBack = useNavigateBack();
+  const { errorHandler } = useErrorHandler();
   const projectId = Number(pathname.match(REGEX.PROJECT_ID)?.[1]) || null;
-  const { data: fetchData } = useQuery(QUERY.USER_PROJECTS, getUserProjects);
-
-  if (typeof fetchData?.data === 'string') {
-    navigateBack();
-    return <>Loading</>;
-  }
+  const { data: fetchData } = useQuery(QUERY.USER_PROJECTS, getUserProjects, {
+    ...QUERY.DEFAULT_CONFIG,
+    onError: (error: unknown) => errorHandler(error),
+  });
 
   return (
     <Wrapper>
