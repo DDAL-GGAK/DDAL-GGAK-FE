@@ -38,6 +38,7 @@
       { "namedcomponents": "arrow-function" }
     ],
     "react-hooks/exhaustive-deps": 0,
-    "react/require-default-props": 0
+    "react/require-default-props": 0,
+    "consistent-return": 0
   }
 }
