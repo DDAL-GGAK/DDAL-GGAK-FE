@@ -4,39 +4,39 @@ import { Tickets } from 'components';
 import { getTaskData } from 'api';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
-
-interface TaskData {
-  expiredAt: string;
-  id: number;
-  labels: any[];
-  taskLeader: string;
-  taskTitle: string;
-  tickets: any;
-  totalDifficulty: number;
-  totalPriority: number;
-}
+import { TaskDetailDataForm } from 'types';
 
 export function Task() {
   const { pathname } = useLocation();
   const projectId = pathname.match(REGEX.PROJECT_ID)?.[1];
   const taskId = pathname.match(REGEX.TASK_ID)?.[1];
 
-  const { data: taskData } = useQuery<TaskData>(
-    [QUERY.TASK_DATA, projectId, taskId],
-    () => getTaskData({ param: taskId || '', query: { projectId } }),
-    { enabled: !!taskId && !!projectId }
+  const taskQueryKey = [QUERY.TASK_DATA, projectId, taskId];
+  const fetchTaskData = async () => {
+    if (!taskId || !projectId) return;
+    const { data } = await getTaskData({ param: taskId, query: { projectId } });
+
+    return data;
+  };
+
+  const { data: taskData } = useQuery<TaskDetailDataForm>(
+    taskQueryKey,
+    fetchTaskData,
+    {
+      enabled: !!taskId && !!projectId,
+      onError: (err: any) => {},
+    }
   );
 
-  console.log('taskData:', taskData);
-  const addTeam = () => console.log(1);
+  const addTeam = () => console.log('addTeam');
 
   return (
     <Wrapper>
       <TopWrapper>
         <Teams>
           {taskData?.labels?.map((team) => {
-            const { id, name } = team;
-            return <Team key={id}>{name}</Team>;
+            const { labelId, labelTitle } = team;
+            return <Team key={labelId}>{labelTitle}</Team>;
           })}
           <Team onClick={addTeam}>+</Team>
         </Teams>
