@@ -5,9 +5,11 @@ import { getTaskData } from 'api';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { TaskDetailDataForm } from 'types';
+import { useErrorHandler } from 'hooks';
 
 export function Task() {
   const { pathname } = useLocation();
+  const { errorHandler } = useErrorHandler();
   const projectId = pathname.match(REGEX.PROJECT_ID)?.[1];
   const taskId = pathname.match(REGEX.TASK_ID)?.[1];
 
@@ -24,7 +26,7 @@ export function Task() {
     fetchTaskData,
     {
       enabled: !!taskId && !!projectId,
-      onError: (err: any) => {},
+      onError: (error: unknown) => errorHandler(error),
     }
   );
 
@@ -44,7 +46,7 @@ export function Task() {
       <BottomWrapper>
         <BottomHeader>Ticket</BottomHeader>
         <TicketWrapper>
-          {Object.entries(taskData?.tickets).map(([key, data]: any) => {
+          {Object.entries(taskData?.tickets || {}).map(([key, data]: any) => {
             return (
               <Tickets data={data} key={key}>
                 {key}

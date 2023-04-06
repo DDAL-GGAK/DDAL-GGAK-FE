@@ -1,22 +1,23 @@
 import styled from 'styled-components';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getProjectData } from 'api';
 import { ProjectDataForm, TaskDataForm } from 'types';
 import { CONTENT, QUERY } from 'constants/';
 import { AddTask } from 'components';
 import { TaskCard, ProjectInformation } from 'components/project';
 import { useQuery } from 'react-query';
+import { useErrorHandler } from 'hooks';
 
 export function Project() {
   const { id: param } = useParams();
-  const navigator = useNavigate();
+  const { errorHandler } = useErrorHandler();
 
   const { data: projectData, isLoading } = useQuery<ProjectDataForm>(
     [QUERY.PROJECT_DATA, param],
     () => getProjectData(param as string),
     {
       retry: false,
-      onError: () => navigator('/'),
+      onError: (error: unknown) => errorHandler(error),
     }
   );
 
