@@ -10,9 +10,9 @@ import { useErrorHandler } from 'hooks';
 export function Task() {
   const { pathname } = useLocation();
   const { errorHandler } = useErrorHandler();
+
   const projectId = pathname.match(REGEX.PROJECT_ID)?.[1];
   const taskId = pathname.match(REGEX.TASK_ID)?.[1];
-
   const taskQueryKey = [QUERY.TASK_DATA, projectId, taskId];
   const fetchTaskData = async () => {
     if (!taskId || !projectId) return;

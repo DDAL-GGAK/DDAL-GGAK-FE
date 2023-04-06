@@ -16,7 +16,7 @@ export function Project() {
     [QUERY.PROJECT_DATA, param],
     () => getProjectData(param as string),
     {
-      retry: false,
+      ...QUERY.DEFAULT_CONFIG,
       onError: (error: unknown) => errorHandler(error),
     }
   );
