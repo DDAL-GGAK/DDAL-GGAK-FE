@@ -1,12 +1,23 @@
 import styled from 'styled-components';
 import { CONTENT, REGEX } from 'constants/';
-import { TicketBoard } from 'components';
+import { Tickets } from 'components';
 import { getTaskData } from 'api';
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
+interface TaskData {
+  expiredAt: string;
+  id: number;
+  labels: any[];
+  taskLeader: string;
+  taskTitle: string;
+  tickets: any;
+  totalDifficulty: number;
+  totalPriority: number;
+}
+
 export function Task() {
-  const [ticketData, setTicketData] = useState();
+  const [taskData, setTaskData] = useState<TaskData>();
   const { pathname } = useLocation();
   const projectId = pathname.match(REGEX.PROJECT_ID)?.[1];
   const taskId = pathname.match(REGEX.TASK_ID)?.[1];
@@ -14,29 +25,21 @@ export function Task() {
   const getData = async () => {
     if (!taskId || !projectId) return;
     const { data } = await getTaskData({ param: taskId, query: { projectId } });
-    setTicketData(data);
+    setTaskData(data);
   };
 
-  console.log(ticketData);
+  console.log(taskData);
+  const addTeam = () => console.log(1);
 
   useEffect(() => {
     getData();
   }, []);
 
-  const teams = [
-    { id: 1, name: 'FE' },
-    { id: 2, name: 'BE' },
-    { id: 3, name: 'UI/UX' },
-    { id: 4, name: 'Marketing' },
-  ];
-
-  const addTeam = () => console.log('addTeam');
-
   return (
     <Wrapper>
       <TopWrapper>
         <Teams>
-          {teams.map((team) => {
+          {taskData?.labels?.map((team) => {
             const { id, name } = team;
             return <Team key={id}>{name}</Team>;
           })}
@@ -45,7 +48,15 @@ export function Task() {
       </TopWrapper>
       <BottomWrapper>
         <BottomHeader>Ticket</BottomHeader>
-        <TicketBoard />
+        <TicketWrapper>
+          {Object.entries(taskData?.tickets).map(([key, data]: any) => {
+            return (
+              <Tickets data={data} key={key}>
+                {key}
+              </Tickets>
+            );
+          })}
+        </TicketWrapper>
       </BottomWrapper>
     </Wrapper>
   );
@@ -54,6 +65,7 @@ export function Task() {
 const Wrapper = styled.div`
   height: ${CONTENT.HEIGHT};
   border-radius: 10px;
+  background: rgba(0, 0, 0, 0.3);
 `;
 
 const TopWrapper = styled.div`
@@ -99,4 +111,8 @@ const BottomHeader = styled.div`
   padding: 18px 22px;
   font-weight: 600;
   font-size: 20px;
+`;
+
+const TicketWrapper = styled.div`
+  background: ${({ theme }) => theme.navBackground};
 `;
