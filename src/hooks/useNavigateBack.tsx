@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ROUTE } from 'constants/';
 
 export function useNavigateBack() {
   const navigate = useNavigate();
@@ -8,7 +9,7 @@ export function useNavigateBack() {
     const from = location.state?.from;
     if (from) return navigate(from);
 
-    return navigate('/');
+    return navigate(ROUTE.HOME);
   };
 
   return navigateBack;
