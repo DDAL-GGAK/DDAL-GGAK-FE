@@ -6,3 +6,4 @@ export * from './route';
 export * from './svg';
 export * from './variants';
 export * from './task';
+export * from './ticket';
