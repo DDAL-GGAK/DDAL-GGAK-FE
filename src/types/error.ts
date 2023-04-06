@@ -10,7 +10,7 @@ const {
   INTERNAL_SERVER_ERROR,
 } = ERROR;
 
-type ErrorCodes =
+export type ErrorCodes =
   | (typeof BAD_REQUEST)[keyof typeof BAD_REQUEST]
   | (typeof UNAUTHORIZED)[keyof typeof UNAUTHORIZED]
   | (typeof FORBIDDEN)[keyof typeof FORBIDDEN]
