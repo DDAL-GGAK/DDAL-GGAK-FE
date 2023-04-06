@@ -5,15 +5,12 @@ import { ProjectsLink } from 'types';
 import { getUserProjects } from 'api';
 import { useQuery } from 'react-query';
 import { useLocation } from 'react-router-dom';
-import { REGEX } from 'constants/';
+import { REGEX, QUERY } from 'constants/';
 
 export function SideNav() {
   const { pathname } = useLocation();
   const projectId = Number(pathname.match(REGEX.PROJECT_ID)?.[1]) || null;
-  const { data: fetchData } = useQuery('userProjects', getUserProjects, {
-    staleTime: Infinity,
-    cacheTime: Infinity,
-  });
+  const { data: fetchData } = useQuery(QUERY.USER_PROJECTS, getUserProjects);
 
   return (
     <Wrapper>
