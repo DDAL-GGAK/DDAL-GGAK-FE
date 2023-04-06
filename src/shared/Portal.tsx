@@ -15,10 +15,10 @@ export function Portal() {
         <Link to="/signup">SignUp</Link>
       </NavWrapper>
       <NavWrapper>
-        <Link to="/project/111">Project</Link>
+        <Link to="/project/">Project</Link>
       </NavWrapper>
       <NavWrapper>
-        <Link to="/task/111">Task</Link>
+        <Link to="/project/111/task/111">Task</Link>
       </NavWrapper>
       <NavWrapper>
         <LogOut />
