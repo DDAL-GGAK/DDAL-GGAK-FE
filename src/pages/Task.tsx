@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { TaskDetailDataForm } from 'types';
 import { useErrorHandler } from 'hooks';
+import { NewLabelButton } from 'components/project';
 
 export function Task() {
   const { pathname } = useLocation();
@@ -30,8 +31,6 @@ export function Task() {
     }
   );
 
-  const addTeam = () => console.log('addTeam');
-
   return (
     <Wrapper>
       <TopWrapper>
@@ -40,7 +39,7 @@ export function Task() {
             const { labelId, labelTitle } = team;
             return <Team key={labelId}>{labelTitle}</Team>;
           })}
-          <Team onClick={addTeam}>+</Team>
+          <NewLabelButton />
         </Teams>
       </TopWrapper>
       <BottomWrapper>
