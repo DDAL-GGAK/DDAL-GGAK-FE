@@ -25,7 +25,7 @@ export function Task() {
     taskQueryKey,
     fetchTaskData,
     {
-      enabled: !!taskId && !!projectId,
+      retry: false,
       onError: (error: unknown) => errorHandler(error),
     }
   );
