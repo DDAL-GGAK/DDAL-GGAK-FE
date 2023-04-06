@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getProjectData } from 'api';
 import { ProjectDataForm, TaskDataForm } from 'types';
 import { CONTENT, QUERY } from 'constants/';
@@ -9,11 +9,15 @@ import { useQuery } from 'react-query';
 
 export function Project() {
   const { id: param } = useParams();
+  const navigator = useNavigate();
 
   const { data: projectData, isLoading } = useQuery<ProjectDataForm>(
     [QUERY.PROJECT_DATA, param],
-    () => getProjectData(param as string).then((res) => res.data),
-    { enabled: !!param }
+    () => getProjectData(param as string),
+    {
+      retry: false,
+      onError: () => navigator('/'),
+    }
   );
 
   if (isLoading) return <div>Loading...</div>;

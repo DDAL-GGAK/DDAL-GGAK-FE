@@ -22,7 +22,10 @@ export const joinProject = async (projectId: string | number) => {
 };
 
 export const getProjectData = async (param: string) => {
-  const res = await api.getByParams(API_ROUTE.PROJECT.GET_DATA, param);
+  const { data: res } = await api.getByParams(
+    API_ROUTE.PROJECT.GET_DATA,
+    param
+  );
 
   return res;
 };
