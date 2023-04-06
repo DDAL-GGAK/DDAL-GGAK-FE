@@ -23,11 +23,10 @@ export function CreateTask({ closeModal }: CreateTaskProps) {
   } = useForm<TaskCreateForm>({ mode: 'onChange' });
   const queryClient = useQueryClient();
   const { mutate, isLoading } = useMutation(createTask, {
-    onSuccess: (data: any) => {
+    onSuccess: () => {
       queryClient.invalidateQueries(QUERY.PROJECT_DATA);
-      closeModal();
       sendToast.success('Create Task!');
-      console.log(data);
+      closeModal();
     },
     onError: () => {
       sendToast.error('Failed to create task!');
