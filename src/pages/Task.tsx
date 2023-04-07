@@ -31,27 +31,66 @@ export function Task() {
     }
   );
 
+  console.log(taskData?.tickets);
+
+  const teams = [
+    { labelId: 1, labelTitle: 'FE' },
+    { labelId: 2, labelTitle: 'BE' },
+    { labelId: 3, labelTitle: 'UI/UX' },
+    { labelId: 4, labelTitle: 'Marketing' },
+  ];
+
+  const dummyTickets = {
+    Pending: [
+      { id: 1, name: 1 },
+      { id: 1, name: 1 },
+      { id: 1, name: 1 },
+      { id: 1, name: 1 },
+      { id: 1, name: 1 },
+    ],
+    InProgress: [
+      { id: 2, name: 2 },
+      { id: 2, name: 2 },
+      { id: 2, name: 2 },
+      { id: 2, name: 2 },
+      { id: 2, name: 2 },
+    ],
+    Done: [
+      { id: 3, name: 3 },
+      { id: 3, name: 3 },
+      { id: 3, name: 3 },
+      { id: 3, name: 3 },
+      { id: 3, name: 3 },
+    ],
+  };
+
   return (
     <Wrapper>
       <TopWrapper>
         <Teams>
-          {taskData?.labels?.map((team) => {
+          {teams.map((team) => {
             const { labelId, labelTitle } = team;
             return <Team key={labelId}>{labelTitle}</Team>;
           })}
           <NewLabelButton />
         </Teams>
+        <SortMethods>
+          <SortButton>Column</SortButton>
+          <SortButton>Row</SortButton>
+        </SortMethods>
       </TopWrapper>
       <BottomWrapper>
         <BottomHeader>Ticket</BottomHeader>
         <TicketWrapper>
-          {Object.entries(taskData?.tickets || {}).map(([key, data]: any) => {
-            return (
-              <Tickets data={data} key={key}>
-                {key}
-              </Tickets>
-            );
-          })}
+          {Object.entries(taskData?.tickets || { ...dummyTickets }).map(
+            ([key, data]: any) => {
+              return (
+                <Tickets data={data} key={key}>
+                  {key}
+                </Tickets>
+              );
+            }
+          )}
         </TicketWrapper>
       </BottomWrapper>
     </Wrapper>
@@ -60,55 +99,101 @@ export function Task() {
 
 const Wrapper = styled.div`
   height: ${CONTENT.HEIGHT};
-  border-radius: 10px;
-  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  background: ${({ theme }) => theme.background};
+  box-shadow: 0 4px 8px
+    rgba(
+      0,
+      0,
+      0,
+      ${({ theme }) => (theme.background === '#F2F2F2' ? '0.1' : '0.3')}
+    );
+  display: flex;
+  flex-direction: column;
 `;
 
 const TopWrapper = styled.div`
-  border-bottom: solid 1px ${({ theme }) => theme.borderColor};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: ${({ theme }) => theme.pointColor};
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
 `;
 
 const Teams = styled.div`
   display: flex;
   gap: 10px;
-  padding: 10px 10px;
-  background: ${({ theme }) => theme.navBackground};
-  border-radius: 10px 10px 0 0;
 `;
 
 const Team = styled.div`
-  background: ${({ theme }) => theme.transparentColor};
-  color: ${({ theme }) => theme.background};
+  background: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.pointColor};
   font-weight: 600;
   border-radius: 5px;
   padding: 5px 10px;
-  min-width: 50px;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  box-shadow: 0 2px 4px
+    rgba(
+      0,
+      0,
+      0,
+      ${({ theme }) => (theme.background === '#F2F2F2' ? '0.1' : '0.3')}
+    );
 
-  height: 25px;
-  width: 100px;
   :hover {
     cursor: pointer;
-    background-color: ${({ theme }) => theme.color};
+    background-color: ${({ theme }) => theme.subColor};
+    color: ${({ theme }) => theme.background};
+  }
+`;
+
+const SortMethods = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+const SortButton = styled.button`
+  background: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.pointColor};
+  font-weight: 600;
+  border-radius: 5px;
+  padding: 5px 10px;
+  border: none;
+  box-shadow: 0 2px 4px
+    rgba(
+      0,
+      0,
+      0,
+      ${({ theme }) => (theme.background === '#F2F2F2' ? '0.1' : '0.3')}
+    );
+
+  :hover {
+    cursor: pointer;
+    background-color: ${({ theme }) => theme.subColor};
+    color: ${({ theme }) => theme.background};
   }
 `;
 
 const BottomWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 16px;
+  overflow-y: auto;
+  height: 100%;
+  background: rgba(122, 122, 122, 0.5);
+  border-radius: 0 0 10px 10px;
 `;
 
 const BottomHeader = styled.div`
-  border-bottom: 1px solid ${({ theme }) => theme.borderColor};
-  background: ${({ theme }) => theme.navBackground};
-  padding: 18px 22px;
   font-weight: 600;
   font-size: 20px;
+  color: ${({ theme }) => theme.pointColor};
+  margin-bottom: 16px;
 `;
 
 const TicketWrapper = styled.div`
-  background: ${({ theme }) => theme.navBackground};
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
 `;
