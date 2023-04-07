@@ -1,9 +1,10 @@
+import { User, ProjectSetting, ProjectMember } from 'pages';
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,  } from 'react';
 import { UserDataForm } from 'types';
-import { CONTENT } from 'constants/';
+import { CONTENT,  } from 'constants/';
 import { getUserData } from 'api';
-import { Link, Outlet } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 
 export function Settings() {
   const [userData, setUserData] = useState<UserDataForm>();
@@ -17,24 +18,27 @@ export function Settings() {
   }, []);
 
   return (
-    <Wrapper>
-      <LeftWrapper>
-        <div>{userData?.email}</div>
-        <Link to="/settings/user">myAccount</Link>
-        <div>nav1</div>
-        <div>nav2</div>
-        <div>nav3</div>
-        <div>Project</div>
-        <Link to="/settings/projectSetting">Project setting</Link>
-        <br />
-        <Link to="/settings/projectMember">Project member</Link>
-      </LeftWrapper>
-      <RightWrapper>
-        <Outlet />
-      </RightWrapper>
-    </Wrapper>
-  );
-}
+      <Wrapper>
+        <LeftWrapper>
+          <div>{userData?.email}</div>
+          <Link to="user">myAccount</Link>
+          <div>nav1</div>
+          <div>nav2</div>
+          <div>nav3</div>
+          <div>Project</div>
+          <Link to="projectSetting">Project setting</Link>
+          <br />
+          <Link to="projectMember">Project member</Link>
+        </LeftWrapper>
+        <RightWrapper>
+          <Routes>
+            <Route path="user" element={<User />} />
+            <Route path="projectSetting" element={<ProjectSetting />} />
+            <Route path="projectMember" element={<ProjectMember />} />
+          </Routes>
+        </RightWrapper>
+      </Wrapper>
+)}
 
 const Wrapper = styled.div`
   height: ${CONTENT.HEIGHT};

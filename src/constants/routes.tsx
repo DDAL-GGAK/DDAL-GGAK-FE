@@ -1,4 +1,4 @@
-import { Home, Signup, Login, Task, Project, User } from 'pages';
+import { Home, Signup, Login, Task, Project, Settings, } from 'pages';
 import { RouteMap } from 'types';
 
 export const ROUTE_MAP: RouteMap = Object.freeze({
@@ -27,8 +27,8 @@ export const ROUTE_MAP: RouteMap = Object.freeze({
     AUTH: true,
     HAS_NAV: true,
   },
-  '/user': {
-    COMPONENT: User,
+  '/project/:id/settings/*': {
+    COMPONENT: Settings,
     AUTH: true,
     HAS_NAV: true,
   },

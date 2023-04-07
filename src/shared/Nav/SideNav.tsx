@@ -4,12 +4,16 @@ import { NavLink, AddProject, Config } from 'components';
 import { ProjectsLink } from 'types';
 import { getUserProjects } from 'api';
 import { useQuery } from 'react-query';
+import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { ActivePageContext } from 'constants/';
 
 export function SideNav() {
   const { data: fetchData } = useQuery('userProjects', getUserProjects, {
     staleTime: Infinity,
     cacheTime: Infinity,
   });
+  const activePage = useContext(ActivePageContext);
 
   return (
     <Wrapper>
@@ -22,7 +26,9 @@ export function SideNav() {
       </TopWrapper>
       <BottomWrapper>
         <AddProject />
-        <Config />
+        <Link to={ `project/${activePage}/settings/projectSetting` }>
+          <Config />
+        </Link>
       </BottomWrapper>
     </Wrapper>
   );

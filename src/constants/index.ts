@@ -7,3 +7,4 @@ export * from './toastify';
 export * from './route';
 export * from './routes';
 export * from './variants';
+export * from './activePageContext';
