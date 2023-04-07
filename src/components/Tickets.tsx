@@ -16,13 +16,12 @@ export function Tickets({ data, children }: TicketsProps) {
   return (
     <Wrapper>
       <BoardTitle>{children}</BoardTitle>
-
       <TicketWrapper>
         {data.map((v) => {
           const { id, name } = v;
 
           return (
-            <Link key={id} to="./ticket/1">
+            <Link key={id} to={`./ticket/${id}`}>
               <Ticket data={name} />
             </Link>
           );
@@ -32,16 +31,32 @@ export function Tickets({ data, children }: TicketsProps) {
   );
 }
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  width: 100%;
+  background: ${({ theme }) => theme.transparentBackground};
+  border-radius: 8px;
+  box-shadow: 0 2px 4px
+    rgba(
+      0,
+      0,
+      0,
+      ${({ theme }) => (theme.background === '#F2F2F2' ? '0.1' : '0.3')}
+    );
+  margin-bottom: 16px;
+`;
 
 const BoardTitle = styled.div`
   padding: 10px 22px;
   font-weight: 600;
-  background: ${({ theme }) => theme.transparentBackground};
-  color: ${({ theme }) => theme.pointColor};
+  background: ${({ theme }) => theme.pointColor};
+  color: ${({ theme }) => theme.background};
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 `;
 
 const TicketWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 10px;
+  padding: 10px 22px;
 `;

@@ -9,14 +9,19 @@ export function Ticket({ data }: TicketProps) {
 }
 
 const Wrapper = styled.div`
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.7);
-  color: #111;
-  border-bottom: #111 solid 1px;
-  box-sizing: border-box;
-  transition: ${({ theme }) => theme.transitionOption};
-  :hover {
-    cursor: pointer;
-    background: rgba(255, 255, 255, 1);
-  }
+  background: ${({ theme }) => theme.transparentBackground};
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px
+    rgba(
+      0,
+      0,
+      0,
+      ${({ theme }) => (theme.background === '#F2F2F2' ? '0.1' : '0.3')}
+    );
+  flex-grow: 1;
+  min-width: 200px;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.pointColor};
 `;

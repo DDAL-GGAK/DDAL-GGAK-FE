@@ -8,7 +8,7 @@ import { sendToast } from 'libs';
 import { ProjectTitleInput } from 'components/form';
 import { TitleForm } from 'types';
 import { motion } from 'framer-motion';
-import { defaultVariants } from 'constants/';
+import { defaultVariants, QUERY } from 'constants/';
 
 interface CreateProjectProps {
   closeModal: () => void;
@@ -31,10 +31,11 @@ export function CreateProject({
 
   const { mutate } = useMutation(createProject, {
     onSuccess: () => {
-      queryClient.invalidateQueries('userProjects');
+      queryClient.invalidateQueries(QUERY.USER_PROJECTS);
       closeModal();
-      sendToast.success('create the project!');
+      sendToast.success('successfully created!');
     },
+
     onError: () => {
       sendToast.success('failed to create project!');
     },

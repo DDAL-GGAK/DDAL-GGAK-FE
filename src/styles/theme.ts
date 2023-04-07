@@ -4,7 +4,7 @@ export const lightTheme: DefaultTheme = {
   pointColor: '#30B198',
   subColor: '#FFC857',
   accentColor: '#EF476F',
-  background: '#F2F2F2',
+  background: '#FFFFFF',
   transparentBackground: 'rgba(245, 246, 247, 0.65)',
   color: '#333333',
   transparentColor: 'rgba(43, 43, 43, 0.65)',
@@ -12,7 +12,7 @@ export const lightTheme: DefaultTheme = {
   pointColorLight: 'rgb(68, 197, 172)',
 
   /* nav */
-  navBackground: '#FFFFFF',
+  navBackground: '#F2F2F2',
   navLinkBackground: '#D9D9D9',
   borderColor: '#000000',
 
