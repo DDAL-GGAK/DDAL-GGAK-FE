@@ -6,7 +6,7 @@ export const SIDE_NAV = Object.freeze({
 
 export const TOP_NAV = Object.freeze({
   HEIGHT: 60,
-  PADDING: 20,
+  PADDING: 15,
   BORDER_WIDTH: 1,
 });
 

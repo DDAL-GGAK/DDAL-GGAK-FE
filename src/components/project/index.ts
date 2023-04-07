@@ -1,3 +1,3 @@
-export * from './AddTask';
+export * from './NewTaskButton';
 export * from './TaskCard';
-export * from './UploadThumbnail';
+export * from './ProjectInformation';

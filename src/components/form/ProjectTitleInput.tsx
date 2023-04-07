@@ -20,6 +20,13 @@ export function ProjectTitleInput({ register }: ProjectTitleInputProps) {
 const Input = styled.input`
   padding: 0.5rem;
   font-size: 14px;
-  border: 1px solid teal;
   border-radius: 4px;
+  color: #111;
+  border: 1px solid ${({ theme }) => theme.borderColor};
+  transition: ${({ theme }) => theme.transitionOption};
+  :focus {
+    outline: none;
+    border-color: ${({ theme }) => theme.pointColor};
+  }
+  :
 `;

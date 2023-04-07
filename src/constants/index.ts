@@ -7,4 +7,6 @@ export * from './toastify';
 export * from './route';
 export * from './routes';
 export * from './variants';
-export * from './activePageContext';
+export * from './svg';
+export * from './regex';
+export * from './mediaQuery';
