@@ -13,7 +13,7 @@ export function Project() {
   const { errorHandler } = useErrorHandler();
 
   const { data: projectData, isLoading } = useQuery<ProjectDataForm>(
-    [QUERY.PROJECT_DATA, param],
+    [QUERY.KEY.PROJECT_DATA, param],
     () => getProjectData(param as string),
     {
       ...QUERY.DEFAULT_CONFIG,

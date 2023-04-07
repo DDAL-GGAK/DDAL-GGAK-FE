@@ -11,7 +11,7 @@ export function ProejectHome() {
   const { errorHandler } = useErrorHandler();
   const navigate = useNavigate();
   const { data: fetchData, isLoading } = useQuery(
-    QUERY.USER_PROJECTS,
+    QUERY.KEY.USER_PROJECTS,
     getUserProjects,
     {
       ...QUERY.DEFAULT_CONFIG,
