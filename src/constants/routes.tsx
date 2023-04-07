@@ -1,4 +1,12 @@
-import { Home, Signup, Login, Task, Project, Settings, ProejectHome } from 'pages';
+import {
+  Home,
+  Signup,
+  Login,
+  Task,
+  Project,
+  Settings,
+  ProejectHome,
+} from 'pages';
 import { RouteMap } from 'types';
 
 export const ROUTE_MAP: RouteMap = Object.freeze({
