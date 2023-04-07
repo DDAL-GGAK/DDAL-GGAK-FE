@@ -11,6 +11,8 @@ const PROJECT = Object.freeze({
   JOIN_PROJECT: (projectId: string | number) =>
     `/api/project/${projectId}/join`,
   GET_DATA: '/api/project',
+  SET_THUMBNAIL: '/api/project/thumbnail',
+  SET_TITLE: '/api/project/title',
   GET_USER_PROJECTS: '/api/projects',
 });
 

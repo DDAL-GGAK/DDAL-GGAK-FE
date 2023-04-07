@@ -3,5 +3,8 @@ export * from './Project';
 export * from './Login';
 export * from './Signup';
 export * from './Task';
+export * from './Settings';
 export * from './User';
+export * from './ProjectSetting';
+export * from './ProjectMember';
 export * from './ProjectHome';

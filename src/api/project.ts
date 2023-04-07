@@ -29,3 +29,13 @@ export const getProjectData = async (param: string) => {
 
   return res;
 };
+
+
+export const setProjectThumbnail = async (data: FormData) => {
+  await api.putFormData(API_ROUTE.PROJECT.SET_THUMBNAIL, data);
+};
+
+export const setProjectTitle = async (data: string | undefined) => {
+  if (!data) return;
+  await api.put(API_ROUTE.PROJECT.SET_TITLE, { title: data });
+};

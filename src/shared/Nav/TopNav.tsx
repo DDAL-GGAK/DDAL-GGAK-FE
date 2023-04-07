@@ -22,7 +22,7 @@ export function TopNav() {
         {isNotSmallDevice ? (
           <RightWrapper>
             <ThemeToggle />
-            <Link to="/user">
+            <Link to="/settings/user">
               <ProfileImage />
             </Link>
           </RightWrapper>

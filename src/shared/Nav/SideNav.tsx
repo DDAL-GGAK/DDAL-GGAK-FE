@@ -4,7 +4,7 @@ import { NavLink, AddProject, Config, Loading } from 'components';
 import { ProjectsLink } from 'types';
 import { getUserProjects } from 'api';
 import { useQuery } from 'react-query';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { REGEX, QUERY } from 'constants/';
 import { useNavigateBack, useErrorHandler } from 'hooks';
 
@@ -36,7 +36,9 @@ export function SideNav() {
       </TopWrapper>
       <BottomWrapper>
         <AddProject />
-        <Config />
+        <Link to={ `/project/${projectId}/settings/projectSetting` }>
+          <Config />
+        </Link>
       </BottomWrapper>
     </Wrapper>
   );
