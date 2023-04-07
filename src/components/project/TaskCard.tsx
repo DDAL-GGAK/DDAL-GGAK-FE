@@ -17,6 +17,7 @@ export function TaskCard({ taskData }: TaskCardProps) {
     expiredAt,
   } = taskData;
 
+  console.log(taskData);
   const progressPercentage = (completedTickets / totalTickets) * 100;
   const expired = new Date(expiredAt) < new Date();
 

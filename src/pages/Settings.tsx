@@ -13,7 +13,6 @@ export function Settings() {
     setUserData(data);
   };
 
-  console.log(123);
   useEffect(() => {
     onMountHandler();
   }, []);

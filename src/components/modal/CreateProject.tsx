@@ -8,7 +8,8 @@ import { sendToast } from 'libs';
 import { ProjectTitleInput } from 'components/form';
 import { TitleForm } from 'types';
 import { motion } from 'framer-motion';
-import { defaultVariants, QUERY } from 'constants/';
+import { defaultVariants, QUERY, TOASTIFY } from 'constants/';
+import { useErrorHandler } from 'hooks';
 
 interface CreateProjectProps {
   closeModal: () => void;
@@ -19,6 +20,7 @@ export function CreateProject({
   closeModal,
   setHasInviteCode,
 }: CreateProjectProps) {
+  const { errorHandler } = useErrorHandler();
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const queryClient = useQueryClient();
   const {
@@ -30,15 +32,13 @@ export function CreateProject({
   });
 
   const { mutate } = useMutation(createProject, {
+    ...QUERY.DEFAULT_CONFIG,
     onSuccess: () => {
-      queryClient.invalidateQueries(QUERY.USER_PROJECTS);
+      queryClient.invalidateQueries(QUERY.KEY.USER_PROJECTS);
       closeModal();
-      sendToast.success('successfully created!');
+      sendToast.success(TOASTIFY.SUCCESS.CREATE_PROJECT);
     },
-
-    onError: () => {
-      sendToast.success('failed to create project!');
-    },
+    onError: (error: unknown) => errorHandler(error),
   });
 
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -209,7 +209,7 @@ const TextWrapper = styled.div`
 
 const Text = styled.div`
   font-size: 14px;
-  color #454545;
+  color: #454545;
   text-align: center;
 `;
 

@@ -48,5 +48,4 @@ const Wrapper = styled.div<WrapperProps>`
 const GridBox = styled.div`
   display: grid;
   height: 100%;
-  border-radius: 10px;
 `;

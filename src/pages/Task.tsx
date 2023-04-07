@@ -14,7 +14,7 @@ export function Task() {
 
   const projectId = pathname.match(REGEX.PROJECT_ID)?.[1];
   const taskId = pathname.match(REGEX.TASK_ID)?.[1];
-  const taskQueryKey = [QUERY.TASK_DATA, projectId, taskId];
+  const taskQueryKey = [QUERY.KEY.TASK_DATA, projectId, taskId];
   const fetchTaskData = async () => {
     if (!taskId || !projectId) return;
     const { data } = await getTaskData({ param: taskId, query: { projectId } });
