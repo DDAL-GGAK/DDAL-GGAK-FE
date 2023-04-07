@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { JoinProjectInputProps } from 'types';
-import { REGISTER_TYPE } from 'constants/';
+import { REGISTER_TYPE, ERROR_MESSAGE } from 'constants/';
 
 export function JoinProjectInput({ register }: JoinProjectInputProps) {
   return (
@@ -8,10 +8,10 @@ export function JoinProjectInput({ register }: JoinProjectInputProps) {
       type="text"
       placeholder="Enter invite code"
       {...register(REGISTER_TYPE.INVITE_CODE, {
-        required: 'This field is required!',
+        required: ERROR_MESSAGE.INVITE_CODE.REQUIRED,
         maxLength: {
           value: 20,
-          message: 'Requires shoter than 20',
+          message: ERROR_MESSAGE.INVITE_CODE.MAX_LENGTH,
         },
       })}
     />

@@ -27,6 +27,10 @@ export const ERROR_MESSAGE = Object.freeze({
     REQUIRED: 'Please enter your password!',
     NOT_MATCH: 'Password not match',
   }),
+  INVITE_CODE: Object.freeze({
+    REQUIRED: 'This field is required!',
+    MAX_LENGTH: 'Requires shoter than 20',
+  }),
 });
 
 export const CONFIG = Object.freeze({
