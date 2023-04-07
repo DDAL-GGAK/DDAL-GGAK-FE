@@ -31,8 +31,6 @@ export function Task() {
     }
   );
 
-  console.log(taskData?.tickets);
-
   const teams = [
     { labelId: 1, labelTitle: 'FE' },
     { labelId: 2, labelTitle: 'BE' },
