@@ -24,8 +24,8 @@ export function TaskCard({ taskData }: TaskCardProps) {
   const currentDate = new Date();
   const expiredDate = new Date(expiredAt);
   const remainingTime = expiredDate.getTime() - currentDate.getTime();
-  const totalTime = expiredDate.getTime() - taskData.createdAt.getTime();
-  const deadLinePercentage = (remainingTime / totalTime) * 100;
+  // const totalTime = expiredDate.getTime() - taskData.createdAt.getTime();
+  const deadLinePercentage = (remainingTime / 11) * 100;
   console.log(deadLinePercentage);
 
   return (

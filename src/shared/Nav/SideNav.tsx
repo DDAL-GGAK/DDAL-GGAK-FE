@@ -36,7 +36,7 @@ export function SideNav() {
       </TopWrapper>
       <BottomWrapper>
         <AddProject />
-        <Link to={ `./settings/projectSetting` }>
+        <Link to={ `/project/${projectId}/settings/projectSetting` }>
           <Config />
         </Link>
       </BottomWrapper>

@@ -22,10 +22,14 @@ export const joinProject = async (projectId: string | number) => {
 };
 
 export const getProjectData = async (param: string) => {
-  const res = await api.getByParams(API_ROUTE.PROJECT.GET_DATA, param);
+  const { data: res } = await api.getByParams(
+    API_ROUTE.PROJECT.GET_DATA,
+    param
+  );
 
   return res;
 };
+
 
 export const setProjectThumbnail = async (data: FormData) => {
   await api.putFormData(API_ROUTE.PROJECT.SET_THUMBNAIL, data);
