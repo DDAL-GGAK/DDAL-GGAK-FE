@@ -44,6 +44,9 @@ const Wrapper = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
   gap: 20px;
+  margin: 10px;
+  border: solid 1px ${({ theme }) => theme.borderColor};
+  border-radius: 5px;
 `;
 
 const ProjectBoard = styled.div`

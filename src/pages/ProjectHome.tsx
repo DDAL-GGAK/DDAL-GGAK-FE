@@ -29,7 +29,7 @@ export function ProejectHome() {
 
   if (isLoading) return <Loading />;
 
-  return <Wrapper>Project Content</Wrapper>;
+  return <Wrapper>Create your own Project!</Wrapper>;
 }
 
 const Wrapper = styled.div``;
