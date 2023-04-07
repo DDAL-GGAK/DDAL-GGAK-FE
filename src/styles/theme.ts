@@ -12,7 +12,7 @@ export const lightTheme: DefaultTheme = {
   pointColorLight: 'rgb(68, 197, 172)',
 
   /* nav */
-  navBackground: '#FAFBFC', // F2F2F2
+  navBackground: '#F2F2F2',
   navLinkBackground: '#D9D9D9',
   borderColor: '#000000',
 

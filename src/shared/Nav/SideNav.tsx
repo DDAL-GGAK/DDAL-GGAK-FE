@@ -50,7 +50,7 @@ const Wrapper = styled.div`
   top: ${TOP_NAV.HEIGHT}px;
   background: ${({ theme }) => theme.navBackground};
   box-sizing: border-box;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0px 5px rgba(0, 0, 0, 0.3);
   width: ${SIDE_NAV.WIDTH}px;
   height: calc(100% - ${TOP_NAV.HEIGHT}px);
   padding: ${TOP_NAV.PADDING}px 0;
