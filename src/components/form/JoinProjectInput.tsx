@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { JoinProjectInputProps } from 'types';
-import { REGISTER_TYPE, ERROR_MESSAGE } from 'constants/';
+import { REGISTER_TYPE, ERROR_MESSAGE, CONFIG } from 'constants/';
 
 export function JoinProjectInput({ register }: JoinProjectInputProps) {
   return (
@@ -10,7 +10,7 @@ export function JoinProjectInput({ register }: JoinProjectInputProps) {
       {...register(REGISTER_TYPE.INVITE_CODE, {
         required: ERROR_MESSAGE.INVITE_CODE.REQUIRED,
         maxLength: {
-          value: 20,
+          value: CONFIG.INVITE_CODE.MAX_LENGTH,
           message: ERROR_MESSAGE.INVITE_CODE.MAX_LENGTH,
         },
       })}

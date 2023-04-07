@@ -49,6 +49,9 @@ export const CONFIG = Object.freeze({
     REGEX:
       /^(?=.*[A-Za-z]+)(?=.*[~!@#$%^&*()_+=]+)(?=.*[0-9]+)[A-Za-z\d~!@#$%^&*()_+=]{8,15}$/g,
   }),
+  INVITE_CODE: Object.freeze({
+    MAX_LENGTH: 20,
+  }),
   PROJECT_TITLE: Object.freeze({
     MAX_LENGTH: 20,
   }),
