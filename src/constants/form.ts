@@ -9,6 +9,7 @@ export const REGISTER_TYPE = Object.freeze({
   PASSWORD: 'password',
   PASSWORD_CONFIRM: 'passwordConfirm',
   INVITE_CODE: 'inviteCode',
+  PROJECT_TITLE: 'projectTitle',
 });
 
 export const ERROR_MESSAGE = Object.freeze({
@@ -31,6 +32,10 @@ export const ERROR_MESSAGE = Object.freeze({
     REQUIRED: 'This field is required!',
     MAX_LENGTH: 'Requires shoter than 20',
   }),
+  PROJECT_TITLE: Object.freeze({
+    REQUIRED: 'Please enter your projectTitle!',
+    MAX_LENGTH: 'Requires shorter than 20',
+  }),
 });
 
 export const CONFIG = Object.freeze({
@@ -43,5 +48,8 @@ export const CONFIG = Object.freeze({
     MAX_LENGTH: 15,
     REGEX:
       /^(?=.*[A-Za-z]+)(?=.*[~!@#$%^&*()_+=]+)(?=.*[0-9]+)[A-Za-z\d~!@#$%^&*()_+=]{8,15}$/g,
+  }),
+  PROJECT_TITLE: Object.freeze({
+    MAX_LENGTH: 20,
   }),
 });
