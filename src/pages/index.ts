@@ -4,3 +4,4 @@ export * from './Login';
 export * from './Signup';
 export * from './Task';
 export * from './User';
+export * from './ProjectHome';

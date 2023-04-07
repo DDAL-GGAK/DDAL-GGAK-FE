@@ -53,3 +53,9 @@ export const linkVariants = {
   to: { opacity: 1, transition: { duration: 0.15 } },
   exit: { opacity: 0, transition: { duration: 0.15 } },
 };
+
+export const mountVariants = {
+  from: { opacity: 0, transition: { duration: 0.5 } },
+  to: { opacity: 1, transition: { duration: 0.5 } },
+  exit: { opacity: 0 },
+};

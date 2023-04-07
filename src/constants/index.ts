@@ -10,3 +10,5 @@ export * from './variants';
 export * from './svg';
 export * from './regex';
 export * from './mediaQuery';
+export * from './query';
+export * from './error';

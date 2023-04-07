@@ -16,7 +16,7 @@ const PROJECT = Object.freeze({
 
 const TASK = Object.freeze({
   CREATE: '/api/task',
-  GET_DATA: '/api/task',
+  GET_DATA: (id: string) => `/api/task/${id}`,
 });
 
 const USER = Object.freeze({
