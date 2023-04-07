@@ -1,18 +1,9 @@
 import styled from 'styled-components';
 import { Tickets } from 'components';
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { getTaskData } from 'api';
+import { useEffect } from 'react';
 
 export function TicketBoard() {
-  const [ticketData, setTicketData] = useState();
-  const { pathname } = useLocation();
-  const endpoint = pathname.substring(1, pathname.length);
-  const getData = async () => {
-    const { data } = await getTaskData(endpoint);
-    setTicketData(data);
-  };
-  console.log(ticketData);
+  const getData = async () => {};
 
   useEffect(() => {
     getData();

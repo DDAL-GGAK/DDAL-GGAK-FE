@@ -54,7 +54,7 @@ const Wrapper = styled.div`
   background: ${({ theme }) => theme.navBackground};
   width: 100%;
   transition: ${({ theme }) => theme.transitionOption};
-  border-bottom: 1px solid ${({ theme }) => theme.borderColor};
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
   transition: ${({ theme }) => theme.transitionOption};
   min-width: 400px;

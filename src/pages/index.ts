@@ -7,3 +7,4 @@ export * from './Settings';
 export * from './User';
 export * from './ProjectSetting';
 export * from './ProjectMember';
+export * from './ProjectHome';

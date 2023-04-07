@@ -35,10 +35,3 @@ export const setProjectTitle = async (data: string | undefined) => {
   if (!data) return;
   await api.put(API_ROUTE.PROJECT.SET_TITLE, { title: data });
 };
-
-/* Task */
-export const getTaskData = async (param: string) => {
-  const res = await api.getByParams(API_ROUTE.TASK.GET_DATA, param);
-
-  return res;
-};
