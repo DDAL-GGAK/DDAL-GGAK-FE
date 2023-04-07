@@ -24,4 +24,5 @@ export interface TaskDataForm {
   totalTickets: number;
   completedTickets: number;
   expiredAt: string;
+  createdAt: string;
 }
