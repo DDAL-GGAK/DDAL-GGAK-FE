@@ -4,16 +4,18 @@ import { useMutation, useQueryClient } from 'react-query';
 import { sendToast } from 'libs';
 import { createTask } from 'api';
 import { motion } from 'framer-motion';
-import { defaultVariants, SVG_SIZE, REGEX, QUERY } from 'constants/';
+import { defaultVariants, SVG_SIZE, REGEX, QUERY, TOASTIFY } from 'constants/';
 import { TaskCreateForm } from 'types';
 import { useLocation } from 'react-router-dom';
 import { Task } from 'assets/svg';
+import { useErrorHandler } from 'hooks';
 
 interface CreateTaskProps {
   closeModal: () => void;
 }
 
 export function CreateTask({ closeModal }: CreateTaskProps) {
+  const { errorHandler } = useErrorHandler();
   const { pathname } = useLocation();
   const projectId = Number(pathname.match(REGEX.PROJECT_ID)?.[1]) || null;
   const {
@@ -23,21 +25,19 @@ export function CreateTask({ closeModal }: CreateTaskProps) {
   } = useForm<TaskCreateForm>({ mode: 'onChange' });
   const queryClient = useQueryClient();
   const { mutate, isLoading } = useMutation(createTask, {
+    ...QUERY.DEFAULT_CONFIG,
     onSuccess: () => {
       queryClient.invalidateQueries(QUERY.KEY.PROJECT_DATA);
-      sendToast.success('Create Task!');
+      sendToast.success(TOASTIFY.SUCCESS.CREATE_TASK);
       closeModal();
     },
-    onError: () => {
-      sendToast.error('Failed to create task!');
-      closeModal();
-    },
+    onError: (error: unknown) => errorHandler(error),
   });
 
   const onValid = async (data: TaskCreateForm) => {
     const { expiredAt: expiredString } = data;
     const expiredAt = expiredString.match(REGEX.EXPIRE)?.[1];
-    if (!expiredAt) return sendToast.error('No date input provided!');
+    if (!expiredAt) return sendToast.error(TOASTIFY.ERROR.INVALID_DATE_INPUT);
 
     const payload = { ...data, expiredAt, projectId: Number(projectId) };
     return mutate(payload);
