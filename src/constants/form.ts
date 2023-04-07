@@ -8,6 +8,7 @@ export const REGISTER_TYPE = Object.freeze({
   EMAIL: 'email',
   PASSWORD: 'password',
   PASSWORD_CONFIRM: 'passwordConfirm',
+  INVITE_CODE: 'inviteCode',
 });
 
 export const ERROR_MESSAGE = Object.freeze({
