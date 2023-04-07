@@ -24,7 +24,7 @@ export function CreateTask({ closeModal }: CreateTaskProps) {
   const queryClient = useQueryClient();
   const { mutate, isLoading } = useMutation(createTask, {
     onSuccess: () => {
-      queryClient.invalidateQueries(QUERY.PROJECT_DATA);
+      queryClient.invalidateQueries(QUERY.KEY.PROJECT_DATA);
       sendToast.success('Create Task!');
       closeModal();
     },

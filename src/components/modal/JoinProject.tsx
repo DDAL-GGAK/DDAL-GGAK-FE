@@ -30,7 +30,7 @@ export function JoinProject({
 
   const { mutate, isLoading } = useMutation(joinProject, {
     onSuccess: () => {
-      queryClient.invalidateQueries(QUERY.USER_PROJECTS);
+      queryClient.invalidateQueries(QUERY.KEY.USER_PROJECTS);
       closeModal();
       setHasInviteCode(false);
       sendToast.success('Joined the project!');
