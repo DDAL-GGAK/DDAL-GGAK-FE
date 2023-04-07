@@ -40,14 +40,6 @@ export interface LabelProps {
 export type RegisterField = Record<RegisterTypes, string>;
 
 /* Error */
-export interface ErrorMessage {
-  response: {
-    data: {
-      message: string;
-    };
-  };
-}
-
 export interface TitleForm {
   projectTitle: string;
 }
