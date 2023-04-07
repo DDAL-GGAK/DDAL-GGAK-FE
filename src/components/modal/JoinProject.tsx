@@ -1,80 +1,159 @@
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { Axios } from 'libs';
+import { useMutation } from 'react-query';
+import { sendToast } from 'libs';
+import { joinProject } from 'api';
+import { Team } from 'assets/svg';
+import { Back } from 'assets/icons';
+import { motion } from 'framer-motion';
+import { defaultVariants, SVG_SIZE } from 'constants/';
 
-interface JoinForm {
-  JoinCode: string;
+interface EnterProjectProps {
+  closeModal: () => void;
+  setHasInviteCode: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function JoinProject() {
-  const navigate = useNavigate();
+export interface InviteCodeForm {
+  inviteCode: string;
+}
+
+export function JoinProject({
+  closeModal,
+  setHasInviteCode,
+}: EnterProjectProps) {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<JoinForm>({
-    mode: 'onChange',
-  });
-  const api = new Axios(true);
+  } = useForm<InviteCodeForm>({ mode: 'onChange' });
 
-  const onValid = async (data: JoinForm) => {
-    const res = await api.post('api/project/{projectId}/join', data);
-    if (res.status === 200) return navigate('/');
-    return alert('Join failed.');
-  };
+  const { mutate, isLoading } = useMutation(joinProject, {
+    onSuccess: () => {
+      closeModal();
+      setHasInviteCode(false);
+      sendToast.success('Joined the project!');
+    },
+    onError: () => {
+      sendToast.error('Failed to join the project!');
+      closeModal();
+      setHasInviteCode(false);
+    },
+  });
+
+  const onValid = async (data: InviteCodeForm) => mutate(data.inviteCode);
+  const backHandler = () => setHasInviteCode(false);
 
   return (
-    <ModalContainer>
-      <Title>Join Project</Title>
-
+    <ModalContainer
+      variants={defaultVariants}
+      initial="from"
+      animate="to"
+      exit="exit"
+    >
+      <TitleWrapper>
+        <Back size={20} onClick={backHandler} />
+        <Title>Enter Invite Code</Title>
+        <div />
+      </TitleWrapper>
       <Form onSubmit={handleSubmit(onValid)}>
-        <JLabel>please enter invite code</JLabel>
-        <Input
-          type="JoinCode"
-          placeholder="Enter your invite code"
-          {...register('JoinCode', {
-            required: 'Please enter invite code!',
-            maxLength: {
-              value: 20,
-              message: 'Requires shoter than 20',
-            },
-          })}
-        />
-        {errors.JoinCode && <Errorspan>{errors.JoinCode.message}</Errorspan>}
-        <Button>Join Project</Button>
+        <SVGWrapper>
+          {isLoading ? <>Loading</> : <Team size={SVG_SIZE.MODAL} />}
+        </SVGWrapper>
+        <TextWrapper>
+          <ErrorMessage>
+            {errors?.inviteCode ? errors.inviteCode.message : ''}
+          </ErrorMessage>
+          <TextInput
+            type="text"
+            placeholder="Enter invite code"
+            {...register('inviteCode', {
+              required: 'This field is required!',
+              maxLength: {
+                value: 20,
+                message: 'Requires shoter than 20',
+              },
+            })}
+          />
+        </TextWrapper>
+        <Button type="submit" disabled={isLoading}>
+          {isLoading ? 'Loading...' : 'Join'}
+        </Button>
       </Form>
     </ModalContainer>
   );
 }
 
-const ModalContainer = styled.div`
-  cursor: auto;
-  user-select: auto;
+const ModalContainer = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 280px;
+`;
+
+const TitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const Title = styled.h2`
+  font-size: 24px;
+  font-weight: 600;
   text-align: center;
 `;
 
-const Title = styled.div`
-  font-size: 2.5em;
-  padding: 50px;
-`;
-const Input = styled.input`
-  outline: none;
-  padding: 10px 0px;
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 5px;
-`;
-const Button = styled.button``;
 const Form = styled.form`
-  padding: 50px;
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 `;
-const JLabel = styled.label`
-  color: rgb(217, 217, 217);
-  font-size: 0.8em;
+
+const SVGWrapper = styled.div`
+  padding: 5px 10px 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
-const Errorspan = styled.span`
-  color: red;
+
+const TextWrapper = styled.div`
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const TextInput = styled.input`
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid ${({ theme }) => theme.borderColor};
+  border-radius: 4px;
+  outline: none;
+  transition: ${({ theme }) => theme.transitionOption};
+  color: #111;
+  :focus {
+    border-color: ${({ theme }) => theme.pointColor};
+  }
+`;
+
+const ErrorMessage = styled.div`
+  text-align: center;
+  color: ${({ theme }) => theme.accentColor};
+  font-size: 12px;
+  height: 16px;
+`;
+
+const Button = styled.button`
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  background: ${({ theme }) => theme.pointColor};
+  border: none;
+  border-radius: 4px;
+  transition: ${({ theme }) => theme.transitionOption};
+  color: whitesmoke;
+
+  :hover {
+    cursor: pointer;
+    background: #454545;
+  }
 `;

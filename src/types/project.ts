@@ -1,9 +1,9 @@
-import { Participants } from 'types';
+import { Participant } from 'types';
 
-type Thumbnail = string | null | undefined;
+export type Thumbnail = string | null | undefined;
 
 export interface ProjectsLink {
-  id: string;
+  id: number;
   thumbnail: Thumbnail;
   projectTitle: string;
 }
@@ -13,14 +13,15 @@ export interface ProjectDataForm {
   projectTitle: string;
   tasks: TaskDataForm[];
   thumbnail: Thumbnail;
+  participants: Participant[];
 }
 
 export interface TaskDataForm {
   id: number;
-  participants: Participants[];
+  participants: Participant[];
   participantsCount: number;
   taskTitle: string;
   totalTickets: number;
-  completedTickets: string;
+  completedTickets: number;
   expiredAt: string;
 }

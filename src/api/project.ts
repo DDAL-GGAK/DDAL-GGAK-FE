@@ -10,10 +10,13 @@ export const getUserProjects = async () => {
 };
 
 export const createProject = async (data: FormData) => {
-  const res = await api.postMultipartFormData(
-    API_ROUTE.PROJECT.CREATE_PROJECT,
-    data
-  );
+  const res = await api.postMultipartFormData(API_ROUTE.PROJECT.CREATE, data);
+
+  return res;
+};
+
+export const joinProject = async (projectId: string | number) => {
+  const res = await api.post(API_ROUTE.PROJECT.JOIN_PROJECT(projectId), {});
 
   return res;
 };

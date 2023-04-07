@@ -1,11 +1,12 @@
 import styled from 'styled-components';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getProjectData } from 'api';
 import { useEffect, useState } from 'react';
 import { ProjectDataForm, TaskDataForm } from 'types';
 import { CONTENT } from 'constants/';
+// import { TASKS } from 'constants/mediaQuery';
 import { AddTask } from 'components';
-import { TaskCard } from 'components/project';
+import { TaskCard, ProjectInformation } from 'components/project';
 
 export function Project() {
   const [projectData, setProjectData] = useState<ProjectDataForm>();
@@ -24,32 +25,12 @@ export function Project() {
   return (
     <Wrapper>
       <ProjectBoard>
-        <TaskCard>
-          <AddTask />
-        </TaskCard>
-        {projectData?.tasks.map((task: TaskDataForm) => {
-          const {
-            id,
-            // participants,
-            participantsCount,
-            taskTitle,
-            completedTickets,
-            totalTickets,
-            expiredAt,
-          } = task;
-
-          return (
-            <Link to={`/task/${id}`} key={id}>
-              <TaskCard>
-                <Title>Title: {taskTitle}</Title>
-                <div>participantsCount : {participantsCount}</div>
-                <div>{`${completedTickets} / ${totalTickets}`}</div>
-                <div>{expiredAt}</div>
-              </TaskCard>
-            </Link>
-          );
-        })}
+        <AddTask />
+        {projectData?.tasks.map((taskData: TaskDataForm) => (
+          <TaskCard taskData={taskData} key={taskData.id} />
+        ))}
       </ProjectBoard>
+      {projectData && <ProjectInformation projectData={projectData} />}
     </Wrapper>
   );
 }
@@ -61,15 +42,16 @@ const Wrapper = styled.div`
   align-items: center;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 10px;
+  gap: 20px;
 `;
 
 const ProjectBoard = styled.div`
   width: 100%;
   height: 100%;
+  overflow: auto;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 170px);
+  flex-direction: column;
   gap: 10px;
 `;
-
-const Title = styled.div``;
