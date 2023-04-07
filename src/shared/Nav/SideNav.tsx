@@ -45,12 +45,12 @@ export function SideNav() {
 const Wrapper = styled.div`
   gap: 10px;
   position: fixed;
-  z-index: 1;
+  z-index: 0;
   left: 0;
-  top: ${TOP_NAV.HEIGHT + 1}px;
+  top: ${TOP_NAV.HEIGHT}px;
   background: ${({ theme }) => theme.navBackground};
   box-sizing: border-box;
-  border-right: 1px solid ${({ theme }) => theme.borderColor};
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
   width: ${SIDE_NAV.WIDTH}px;
   height: calc(100% - ${TOP_NAV.HEIGHT}px);
   padding: ${TOP_NAV.PADDING}px 0;
