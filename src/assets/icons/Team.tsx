@@ -1,9 +1,9 @@
-import TaskSvg from 'assets/svg/Task.svg';
 import { SVGProps } from 'types';
 import styled from 'styled-components';
+import { TeamWebp } from 'assets/wepb';
 
-export function Task({ size }: SVGProps) {
-  return <Img src={TaskSvg} alt="TaskSvg" size={size} />;
+export function Team({ size }: SVGProps) {
+  return <Img src={TeamWebp} alt="TeamSvg" size={size} />;
 }
 
 const Img = styled.img<SVGProps>`
