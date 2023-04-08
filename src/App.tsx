@@ -3,11 +3,17 @@ import { useLocation } from 'react-router-dom';
 import { navChecker } from 'libs/';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
+import { preload } from 'utils';
+import { useEffect } from 'react';
 
 function App() {
   const { pathname } = useLocation();
   const hasNav = navChecker(pathname);
   const isLoading = useSelector((state: RootState) => state.authLoadingSlicer);
+
+  useEffect(() => {
+    preload();
+  }, []);
 
   return (
     <>
