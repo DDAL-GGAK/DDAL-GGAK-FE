@@ -1,16 +1,17 @@
 import styled from 'styled-components';
 import { ProjectTitleInputProps } from 'types';
+import { REGISTER_TYPE, CONFIG, ERROR_MESSAGE } from 'constants/';
 
 export function ProjectTitleInput({ register }: ProjectTitleInputProps) {
   return (
     <Input
       type="text"
       placeholder="Enter your ProjectName"
-      {...register('projectTitle', {
-        required: 'Please enter your projectTitle!',
+      {...register(REGISTER_TYPE.PROJECT_TITLE, {
+        required: ERROR_MESSAGE.PROJECT_TITLE.REQUIRED,
         maxLength: {
-          value: 20,
-          message: 'Requires shorter than 20',
+          value: CONFIG.PROJECT_TITLE.MAX_LENGTH,
+          message: ERROR_MESSAGE.PROJECT_TITLE.MAX_LENGTH,
         },
       })}
     />
@@ -28,5 +29,4 @@ const Input = styled.input`
     outline: none;
     border-color: ${({ theme }) => theme.pointColor};
   }
-  :
 `;

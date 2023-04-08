@@ -13,10 +13,14 @@ export function SideNav() {
   const navigateBack = useNavigateBack();
   const { errorHandler } = useErrorHandler();
   const projectId = Number(pathname.match(REGEX.PROJECT_ID)?.[1]) || null;
-  const { data: fetchData } = useQuery(QUERY.USER_PROJECTS, getUserProjects, {
-    ...QUERY.DEFAULT_CONFIG,
-    onError: (error: unknown) => errorHandler(error),
-  });
+  const { data: fetchData } = useQuery(
+    QUERY.KEY.USER_PROJECTS,
+    getUserProjects,
+    {
+      ...QUERY.DEFAULT_CONFIG,
+      onError: (error: unknown) => errorHandler(error),
+    }
+  );
 
   if (typeof fetchData?.data === 'string') {
     navigateBack();
@@ -36,7 +40,7 @@ export function SideNav() {
       </TopWrapper>
       <BottomWrapper>
         <AddProject />
-        <Link to={ `/project/${projectId}/settings/projectSetting` }>
+        <Link to={`/project/${projectId}/settings/projectSetting`}>
           <Config />
         </Link>
       </BottomWrapper>

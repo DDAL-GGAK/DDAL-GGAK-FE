@@ -13,7 +13,7 @@ export function Project() {
   const { errorHandler } = useErrorHandler();
 
   const { data: projectData, isLoading } = useQuery<ProjectDataForm>(
-    [QUERY.PROJECT_DATA, param],
+    [QUERY.KEY.PROJECT_DATA, param],
     () => getProjectData(param as string),
     {
       ...QUERY.DEFAULT_CONFIG,
@@ -44,6 +44,9 @@ const Wrapper = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
   gap: 20px;
+  margin: 10px;
+  border: solid 1px ${({ theme }) => theme.borderColor};
+  border-radius: 5px;
 `;
 
 const ProjectBoard = styled.div`

@@ -2,17 +2,17 @@ import styled from 'styled-components';
 import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { RegisterField } from 'types/';
-import { CONTENT, INPUT_TYPE, ROUTE } from 'constants/';
+import { CONTENT, INPUT_TYPE, ROUTE, QUERY } from 'constants/';
 import { logIn } from 'api';
 import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { setUserData } from 'redux/modules/userData';
-import { sendToast } from 'libs';
 import { ReactHookInput } from 'components/form';
-import { ErrorMessage } from 'types';
 import { motion } from 'framer-motion';
+import { useErrorHandler } from 'hooks';
 
 export function Login() {
+  const { errorHandler } = useErrorHandler();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
@@ -24,16 +24,17 @@ export function Login() {
   });
 
   const { mutate } = useMutation(logIn, {
+    ...QUERY.DEFAULT_CONFIG,
     onSuccess: (res) => {
       const { data: userData } = res;
-      localStorage.setItem('userInfo', JSON.stringify({ userData }));
+      localStorage.setItem(
+        QUERY.KEY.USER_INFORMATION,
+        JSON.stringify({ userData })
+      );
       dispatch(setUserData(userData));
       navigate(ROUTE.HOME);
     },
-    onError: (error: ErrorMessage) => {
-      const { message } = error.response.data;
-      sendToast.error(message);
-    },
+    onError: (error: unknown) => errorHandler(error),
   });
 
   const onValid = async (userInput: RegisterField) => mutate(userInput);

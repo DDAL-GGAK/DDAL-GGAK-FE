@@ -39,17 +39,13 @@ const Wrapper = styled.div<WrapperProps>`
       : '0px'};
   width: ${(props) =>
     props.isNotSmall && props.hasNav && !props.isLoading
-      ? `calc(100% - ${SIDE_NAV.WIDTH}px - ${TOP_NAV.PADDING * 2}px)`
-      : `calc(100% - ${TOP_NAV.PADDING * 2}px)`};
+      ? `calc(100% - ${SIDE_NAV.WIDTH}px)`
+      : '100%'};
   height: ${(props) =>
-    props.hasNav
-      ? `calc(100% - ${TOP_NAV.HEIGHT}px - ${TOP_NAV.PADDING * 2}px)`
-      : `calc(100% - ${TOP_NAV.PADDING * 2}px)`};
-  padding: ${TOP_NAV.PADDING}px;
+    props.hasNav ? `calc(100% - ${TOP_NAV.HEIGHT}px)` : '100%;'};
 `;
 
 const GridBox = styled.div`
   display: grid;
   height: 100%;
-  border-radius: 10px;
 `;

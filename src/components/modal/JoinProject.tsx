@@ -6,21 +6,21 @@ import { joinProject } from 'api';
 import { Team } from 'assets/svg';
 import { Back } from 'assets/icons';
 import { motion } from 'framer-motion';
-import { defaultVariants, SVG_SIZE, QUERY } from 'constants/';
+import { defaultVariants, SVG_SIZE, QUERY, TOASTIFY } from 'constants/';
+import { useErrorHandler } from 'hooks';
+import { JoinProjectInput } from 'components/form';
+import { InviteCodeForm } from 'types';
 
 interface EnterProjectProps {
   closeModal: () => void;
   setHasInviteCode: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export interface InviteCodeForm {
-  inviteCode: string;
-}
-
 export function JoinProject({
   closeModal,
   setHasInviteCode,
 }: EnterProjectProps) {
+  const { errorHandler } = useErrorHandler();
   const {
     register,
     handleSubmit,
@@ -29,16 +29,17 @@ export function JoinProject({
   const queryClient = useQueryClient();
 
   const { mutate, isLoading } = useMutation(joinProject, {
+    ...QUERY.DEFAULT_CONFIG,
     onSuccess: () => {
-      queryClient.invalidateQueries(QUERY.USER_PROJECTS);
+      queryClient.invalidateQueries(QUERY.KEY.USER_PROJECTS);
       closeModal();
       setHasInviteCode(false);
-      sendToast.success('Joined the project!');
+      sendToast.success(TOASTIFY.SUCCESS.JOIN_PROJECT);
     },
-    onError: () => {
-      sendToast.error('Failed to join the project!');
+    onError: (error: unknown) => {
       closeModal();
       setHasInviteCode(false);
+      errorHandler(error);
     },
   });
 
@@ -65,17 +66,7 @@ export function JoinProject({
           <ErrorMessage>
             {errors?.inviteCode ? errors.inviteCode.message : ''}
           </ErrorMessage>
-          <TextInput
-            type="text"
-            placeholder="Enter invite code"
-            {...register('inviteCode', {
-              required: 'This field is required!',
-              maxLength: {
-                value: 20,
-                message: 'Requires shoter than 20',
-              },
-            })}
-          />
+          <JoinProjectInput register={register} />
         </TextWrapper>
         <Button type="submit" disabled={isLoading}>
           {isLoading ? 'Loading...' : 'Join'}
@@ -122,19 +113,6 @@ const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-`;
-
-const TextInput = styled.input`
-  padding: 8px;
-  font-size: 14px;
-  border: 1px solid ${({ theme }) => theme.borderColor};
-  border-radius: 4px;
-  outline: none;
-  transition: ${({ theme }) => theme.transitionOption};
-  color: #111;
-  :focus {
-    border-color: ${({ theme }) => theme.pointColor};
-  }
 `;
 
 const ErrorMessage = styled.div`

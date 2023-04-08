@@ -9,7 +9,7 @@ type RegisterSchema = typeof REGISTER_TYPE;
 type RegisterKeys = keyof typeof REGISTER_TYPE;
 export type RegisterTypes = RegisterSchema[RegisterKeys];
 
-type RegisterForm = UseFormRegister<RegisterField>;
+export type RegisterForm = UseFormRegister<RegisterField>;
 type ErrorMessageState = string | undefined;
 type ErrorId = boolean;
 
@@ -40,14 +40,6 @@ export interface LabelProps {
 export type RegisterField = Record<RegisterTypes, string>;
 
 /* Error */
-export interface ErrorMessage {
-  response: {
-    data: {
-      message: string;
-    };
-  };
-}
-
 export interface TitleForm {
   projectTitle: string;
 }
@@ -56,6 +48,16 @@ export interface ProjectTitleInputProps {
   register: UseFormRegister<TitleForm>;
 }
 
+/* JoinProject */
+export interface InviteCodeForm {
+  inviteCode: string;
+}
+
+export interface JoinProjectInputProps {
+  register: UseFormRegister<InviteCodeForm>;
+}
+
+/* userSetting */
 export interface NicknameForm {
   nickname: string;
 }
