@@ -44,7 +44,6 @@ const Wrapper = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
   gap: 20px;
-  margin: 10px;
   border: solid 1px ${({ theme }) => theme.borderColor};
   border-radius: 5px;
 `;
@@ -53,9 +52,8 @@ const ProjectBoard = styled.div`
   width: 100%;
   height: 100%;
   overflow: auto;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 170px);
+  display: flex;
   flex-direction: column;
   gap: 10px;
+  background: tomato;
 `;

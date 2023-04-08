@@ -29,7 +29,7 @@ const Wrapper = styled.div`
   color: ${({ theme }) => theme.navBackground};
   background: ${({ theme }) => theme.color};
   width: 100%;
-  height: 100%;
+  height: 100px;
   border-radius: 5px;
   display: flex;
   align-items: center;
