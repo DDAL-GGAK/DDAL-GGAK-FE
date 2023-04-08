@@ -55,3 +55,11 @@ export interface TitleForm {
 export interface ProjectTitleInputProps {
   register: UseFormRegister<TitleForm>;
 }
+
+export interface NicknameForm {
+  nickname: string;
+}
+
+export interface NicknameInputProps {
+  register: UseFormRegister<NicknameForm>;
+}
