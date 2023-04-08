@@ -1,12 +1,30 @@
 import styled from 'styled-components';
-import { getUserData, setUserNickname } from 'api';
+import { useForm } from 'react-hook-form';
+import { Add } from 'assets/icons';
+import { getUserData, setUserNickname, setUserProfile } from 'api';
 import { useEffect, useState } from 'react';
-import { UserDataForm } from 'types';
-import { UploadProfile } from 'components/user';
+import { useMutation, useQueryClient } from 'react-query';
+import { UserNicknameInput } from 'components/form';
+import { sendToast } from 'libs';
+import { QUERY, TOASTIFY } from 'constants/';
+import { UserDataForm, NicknameForm } from 'types';
+import { useErrorHandler } from 'hooks';
 
 export function User() {
+  const { errorHandler } = useErrorHandler();
   const [userData, setUserData] = useState<UserDataForm>();
-  const [nicknameValue, setNicknameValue] = useState(userData?.nickname);
+  const [profile, setProfile] = useState<File | null>(null);
+  const queryClient = useQueryClient();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<NicknameForm>({
+    mode: 'onChange',
+  });
+
+  console.log(userData);
+
   const onMountHandler = async () => {
     const { data } = await getUserData();
     setUserData(data);
@@ -16,46 +34,88 @@ export function User() {
     onMountHandler();
   }, []);
 
-  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      currentTarget: { value },
-    } = e;
-    setNicknameValue(value);
+  const { mutate: mutateProfile } = useMutation(setUserProfile, {
+    ...QUERY.DEFAULT_CONFIG,
+    onSuccess: () => {
+      queryClient.invalidateQueries(QUERY.KEY.USER_PROFILE);
+      sendToast.success(TOASTIFY.SUCCESS.USER_SETTING);
+    },
+    onError: (error: unknown) => errorHandler(error),
+  });
+
+  const { mutate: mutateNickname } = useMutation(setUserNickname, {
+    ...QUERY.DEFAULT_CONFIG,
+    onSuccess: () => {
+      queryClient.invalidateQueries(QUERY.KEY.USER_NICKNAME);
+      sendToast.success(TOASTIFY.SUCCESS.USER_SETTING);
+    },
+    onError: (error: unknown) => errorHandler(error),
+  });
+
+  const handleProfileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.target;
+    if (files && files[0]) setProfile(files[0]);
+
+    const formData = new FormData();
+    if (profile) formData.append('image', profile);
+    mutateProfile(formData);
   };
 
-  const saveNickname = async () => {
-    await setUserNickname(nicknameValue);
-  };
+  const onNickname = async (data: NicknameForm) => mutateNickname(data);
 
   return (
     <div>
       <Container>
         <TextL>Account</TextL>
-        <div>{userData?.email}</div>
+        <div>{userData?.nickname}</div>
       </Container>
       <ProfileWrapper>
         <TextM>Profile</TextM>
-        <UploadProfile imageSrc={userData?.profile} />
+        <FileInput
+          hidden
+          id="imgInput"
+          type="file"
+          accept="image/png, image/gif, image/jpeg, image/webp"
+          onChange={handleProfileChange}
+        />
+        {(() => {
+          if (userData?.profile) {
+            return (
+              <ImageLabel htmlFor="imgInput">
+                <Image src={userData.profile} />
+              </ImageLabel>
+            );
+          }
+          if (profile) {
+            return (
+              <ImageLabel htmlFor="imgInput">
+                <Image src={URL.createObjectURL(profile)} />
+              </ImageLabel>
+            );
+          }
+          return (
+            <ImageLabel htmlFor="imgInput">
+              <Add size={50} />
+            </ImageLabel>
+          );
+        })()}
       </ProfileWrapper>
       <Hr />
-      <Form>
+      <NickNameForm onSubmit={handleSubmit(onNickname)}>
         <TextL>Privacy</TextL>
         <TextM>email</TextM>
         <div>{userData?.email}</div>
-
         <TextM>nickname</TextM>
-        <NicknameInput value={nicknameValue} onChange={changeHandler} />
-        <button type="button" onClick={saveNickname}>
-          Save
-        </button>
-      </Form>
+        <UserNicknameInput register={register} />
+        <Button>Save</Button>
+        {errors.nickname && <Errorspan>{errors.nickname.message}</Errorspan>}
+      </NickNameForm>
     </div>
   );
 }
-
 const Container = styled.div``;
 
-const Form = styled.form``;
+const NickNameForm = styled.form``;
 
 const TextL = styled.div`
   font-size: 25px;
@@ -67,21 +127,54 @@ const TextM = styled.div`
   font-weight: 600;
 `;
 
+const Errorspan = styled.span`
+  color: ${({ theme }) => theme.accentColor};
+  font-size: 12px;
+`;
+
+/* File Input */
+const FileInput = styled.input`
+  font-size: 14px;
+`;
+
 const ProfileWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
 `;
 
+const ImageLabel = styled.label`
+  width: 125px;
+  height: 125px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  background-image: url(imageSrc);
+  :hover {
+    cursor: pointer;
+  }
+`;
+
+const Image = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+`;
+
 const Hr = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
 `;
 
-const NicknameInput = styled.input`
-  background: none;
+const Button = styled.button`
+  padding: 0.5rem 16px;
+  font-size: 14px;
+  font-weight: 600;
+  background: ${({ theme }) => theme.pointColor};
   border: none;
-  outline: none;
-  border-bottom: solid 1px ${({ theme }) => theme.color};
-  color: ${({ theme }) => theme.color};
-  padding: 10px;
+  border-radius: 4px;
+  transition: ${({ theme }) => theme.transitionOption};
+  color: whitesmoke;
+  :hover {
+    cursor: pointer;
+    background: #454545;
+  }
 `;

@@ -1,16 +1,17 @@
 import styled from 'styled-components';
 import { NicknameInputProps } from 'types';
+import { REGISTER_TYPE, CONFIG, ERROR_MESSAGE } from 'constants/';
 
 export function UserNicknameInput({ register }: NicknameInputProps) {
   return (
     <Input
       type="text"
       placeholder="Enter your nickname"
-      {...register('nickname', {
-        required: 'Please enter your nickname!',
+      {...register(REGISTER_TYPE.NICKNAME, {
+        required: ERROR_MESSAGE.NICKNAME.REQUIRED,
         maxLength: {
-          value: 20,
-          message: 'Requires shorter than 20',
+          value: CONFIG.NICKNAME.MAX_LENGTH,
+          message: ERROR_MESSAGE.NICKNAME.MAX_LENGTH,
         },
       })}
     />
@@ -20,6 +21,12 @@ export function UserNicknameInput({ register }: NicknameInputProps) {
 const Input = styled.input`
   padding: 0.5rem;
   font-size: 14px;
-  border: 1px solid teal;
   border-radius: 4px;
+  color: #111;
+  border: 1px solid ${({ theme }) => theme.borderColor};
+  transition: ${({ theme }) => theme.transitionOption};
+  :focus {
+    outline: none;
+    border-color: ${({ theme }) => theme.pointColor};
+  }
 `;
