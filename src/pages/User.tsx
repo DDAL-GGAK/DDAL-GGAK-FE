@@ -23,8 +23,6 @@ export function User() {
     mode: 'onChange',
   });
 
-  console.log(userData);
-
   const onMountHandler = async () => {
     const { data } = await getUserData();
     setUserData(data);
@@ -32,7 +30,11 @@ export function User() {
 
   useEffect(() => {
     onMountHandler();
-  }, []);
+  }, [userData]);
+
+  useEffect(() => {
+    handleProfileUpdate(profile);
+  }, [profile]);
 
   const { mutate: mutateProfile } = useMutation(setUserProfile, {
     ...QUERY.DEFAULT_CONFIG,
@@ -55,9 +57,13 @@ export function User() {
   const handleProfileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
     if (files && files[0]) setProfile(files[0]);
+  };
 
+  const handleProfileUpdate = (newProfile: File | null) => {
+    if (!newProfile) return;
+    
     const formData = new FormData();
-    if (profile) formData.append('image', profile);
+    formData.append('image', newProfile);
     mutateProfile(formData);
   };
 
@@ -71,30 +77,30 @@ export function User() {
       </Container>
       <ProfileWrapper>
         <TextM>Profile</TextM>
-        <FileInput
+        <ProfileInput
           hidden
-          id="imgInput"
+          id="profileInput"
           type="file"
           accept="image/png, image/gif, image/jpeg, image/webp"
           onChange={handleProfileChange}
         />
         {(() => {
-          if (userData?.profile) {
-            return (
-              <ImageLabel htmlFor="imgInput">
-                <Image src={userData.profile} />
-              </ImageLabel>
-            );
-          }
           if (profile) {
             return (
-              <ImageLabel htmlFor="imgInput">
+              <ImageLabel htmlFor="profileInput">
                 <Image src={URL.createObjectURL(profile)} />
               </ImageLabel>
             );
           }
+          if (userData?.profile) {
+            return (
+              <ImageLabel htmlFor="profileInput">
+                <Image src={userData.profile} />
+              </ImageLabel>
+            );
+          }
           return (
-            <ImageLabel htmlFor="imgInput">
+            <ImageLabel htmlFor="profileInput">
               <Add size={50} />
             </ImageLabel>
           );
@@ -133,7 +139,7 @@ const Errorspan = styled.span`
 `;
 
 /* File Input */
-const FileInput = styled.input`
+const ProfileInput = styled.input`
   font-size: 14px;
 `;
 
