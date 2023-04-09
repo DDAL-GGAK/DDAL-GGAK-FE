@@ -7,3 +7,4 @@ export * from './inputText/ProjectTitleInput';
 export * from './inputText/JoinProjectInput';
 export * from './inputText/UserNicknameInput';
 export * from './inputText/LabelTitleInput';
+export * from './inputText/TaskTitleInput';

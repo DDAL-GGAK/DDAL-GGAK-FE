@@ -1,4 +1,5 @@
 import { Tickets, LabelDataForm } from 'types';
+import { UseFormRegister } from 'react-hook-form';
 
 export interface TaskCreateForm {
   projectId: number;
@@ -16,4 +17,8 @@ export interface TaskDetailDataForm {
   tickets: Tickets;
   totalDifficulty: number;
   totalPriority: number;
+}
+
+export interface TaskTitleInputProps {
+  register: UseFormRegister<TaskCreateForm>;
 }

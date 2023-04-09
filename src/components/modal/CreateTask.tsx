@@ -9,7 +9,8 @@ import { TaskCreateForm, ModalViewProps } from 'types';
 import { useLocation } from 'react-router-dom';
 import { Task } from 'assets/svg';
 import { useErrorHandler } from 'hooks';
-import { Title, TextInput } from 'components/containers';
+import { Title } from 'components/containers';
+import { TaskTitleInput } from 'components/form';
 
 export function CreateTask({ closeModal }: ModalViewProps) {
   const { errorHandler } = useErrorHandler();
@@ -56,13 +57,7 @@ export function CreateTask({ closeModal }: ModalViewProps) {
             <ErrorMessage>{errors.taskTitle.message}</ErrorMessage>
           )}
         </LabelWrapper>
-        <TextInput
-          type="text"
-          {...register('taskTitle', {
-            required: 'Task title is required!',
-          })}
-        />
-
+        <TaskTitleInput register={register} />
         <LabelWrapper>
           <Label>Expiration Date:</Label>
 
