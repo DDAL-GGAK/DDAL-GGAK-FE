@@ -34,7 +34,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0px 5px 0px ${({ theme }) => theme.transparentColor};
+  box-shadow: ${({ theme }) => theme.boxShadow};
   transition: ${({ theme }) => theme.transitionOption};
   :hover {
     color: ${({ theme }) => theme.color};

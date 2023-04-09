@@ -15,7 +15,7 @@ const Wrapper = styled.button`
   border-radius: 5px;
   padding: 5px 10px;
   border: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: ${({ theme }) => theme.boxShadow};
   display: flex;
   align-items: center;
   justify-content: center;

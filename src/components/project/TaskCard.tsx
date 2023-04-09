@@ -62,7 +62,7 @@ const Wrapper = styled(motion.div)<{ 'data-expired': boolean }>`
   background: ${({ 'data-expired': expired, theme }) =>
     expired ? theme.transparentColor : theme.background};
   transition: ${({ theme }) => theme.transitionOption};
-  box-shadow: 0px 5px 0px ${({ theme }) => theme.transparentColor};
+  box-shadow: ${({ theme }) => theme.boxShadow};
   padding: 20px;
   :hover {
     color: ${({ theme }) => theme.background};
