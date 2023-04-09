@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { LabelProps } from 'types';
+import { InputLabelProps } from 'types';
 
-export function Label({ value, errorMessage }: LabelProps) {
+export function InputLabel({ value, errorMessage }: InputLabelProps) {
   return (
     <Wrapper>
       <Title>{value}</Title>

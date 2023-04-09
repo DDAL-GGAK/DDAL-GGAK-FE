@@ -1,5 +1,5 @@
 export * from './ReactHookInput';
-export * from './Label';
+export * from './InputLabel';
 export * from './EmailInput';
 export * from './PasswordInput';
 export * from './PasswordConfirmInput';
