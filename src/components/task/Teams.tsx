@@ -35,6 +35,7 @@ const Team = styled.div`
       0,
       ${({ theme }) => (theme.background === '#F2F2F2' ? '0.1' : '0.3')}
     );
+  transition: ${({ theme }) => theme.transitionOption};
 
   :hover {
     cursor: pointer;
