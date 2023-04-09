@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { DEFAULT_VARIANTS } from 'constants/';
 import { ConfigLabelProps, LabelDataForm } from 'types';
+import { Title } from 'components/containers';
 
 export function ConfigLabel({ closeModal, labels }: ConfigLabelProps) {
   console.log(closeModal);
@@ -28,7 +29,7 @@ export function ConfigLabel({ closeModal, labels }: ConfigLabelProps) {
       animate="to"
       exit="exit"
     >
-      <div>labelList</div>
+      <Title>labelList</Title>
       <LabelList>
         {(labels[0] ? labels : dummyLabel)?.map((label: LabelDataForm) => {
           const { labelId, labelTitle } = label;

@@ -7,8 +7,13 @@ import { useMutation, useQueryClient } from 'react-query';
 import { sendToast } from 'libs';
 import { ProjectTitleInput } from 'components/form';
 import { TitleForm, ProjectModalProps } from 'types';
-import { motion } from 'framer-motion';
-import { DEFAULT_VARIANTS, QUERY, TOASTIFY } from 'constants/';
+import {
+  ModalContainer,
+  Title,
+  ErrorMessage,
+  ContentText,
+} from 'components/containers';
+import { QUERY, TOASTIFY } from 'constants/';
 import { useErrorHandler } from 'hooks';
 
 export function CreateProject({
@@ -60,12 +65,7 @@ export function CreateProject({
   const inviteHandler = () => setHasInviteCode(true);
 
   return (
-    <ModalContainer
-      variants={DEFAULT_VARIANTS}
-      initial="from"
-      animate="to"
-      exit="exit"
-    >
+    <ModalContainer>
       <Title>Create Project</Title>
       <CreateForm onSubmit={handleSubmit(onValid)}>
         <FileInput
@@ -77,9 +77,9 @@ export function CreateProject({
         />
         <BottomWrapper>
           <TextWrapper>
-            <Content>Project name</Content>
+            <ContentText>Project name</ContentText>
             {errors.projectTitle && (
-              <Errorspan>{errors.projectTitle.message}</Errorspan>
+              <ErrorMessage>{errors.projectTitle.message}</ErrorMessage>
             )}
           </TextWrapper>
           <ProjectTitleInput register={register} />
@@ -106,27 +106,10 @@ export function CreateProject({
   );
 }
 
-const ModalContainer = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-`;
-
-const Title = styled.h2`
-  font-size: 24px;
-  font-weight: 600;
-  text-align: center;
-`;
-
 const CreateForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 16px;
-`;
-
-const Content = styled.label`
-  font-weight: 600;
-  color: ${({ theme }) => theme.transparentColor};
 `;
 
 const Button = styled.button`
@@ -143,11 +126,6 @@ const Button = styled.button`
     cursor: pointer;
     background: #454545;
   }
-`;
-
-const Errorspan = styled.span`
-  color: ${({ theme }) => theme.accentColor};
-  font-size: 12px;
 `;
 
 const Hr = styled.div`

@@ -9,6 +9,7 @@ import { TaskCreateForm, ModalViewProps } from 'types';
 import { useLocation } from 'react-router-dom';
 import { Task } from 'assets/svg';
 import { useErrorHandler } from 'hooks';
+import { Title } from 'components/containers';
 
 export function CreateTask({ closeModal }: ModalViewProps) {
   const { errorHandler } = useErrorHandler();
@@ -46,9 +47,7 @@ export function CreateTask({ closeModal }: ModalViewProps) {
       animate="to"
       exit="exit"
     >
-      <TitleWrapper>
-        <Title>Create Task</Title>
-      </TitleWrapper>
+      <Title>Create Task</Title>
       <Task size={SVG_SIZE.MODAL} />
       <Form onSubmit={handleSubmit(onValid)}>
         <LabelWrapper>
@@ -92,18 +91,6 @@ const ModalContainer = styled(motion.div)`
   gap: 16px;
   width: 280px;
   border-radius: 8px;
-`;
-
-const TitleWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const Title = styled.div`
-  font-size: 24px;
-  font-weight: 600;
-  text-align: center;
 `;
 
 const Form = styled.form`

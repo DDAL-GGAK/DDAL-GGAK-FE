@@ -10,6 +10,7 @@ import { DEFAULT_VARIANTS, SVG_SIZE, QUERY, TOASTIFY } from 'constants/';
 import { useErrorHandler } from 'hooks';
 import { JoinProjectInput } from 'components/form';
 import { InviteCodeForm, ProjectModalProps } from 'types';
+import { Title } from 'components/containers';
 
 export function JoinProject({
   closeModal,
@@ -51,7 +52,6 @@ export function JoinProject({
       <TitleWrapper>
         <Back size={20} onClick={backHandler} />
         <Title>Enter Invite Code</Title>
-        <div />
       </TitleWrapper>
       <Form onSubmit={handleSubmit(onValid)}>
         <SVGWrapper>
@@ -82,12 +82,6 @@ const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`;
-
-const Title = styled.h2`
-  font-size: 24px;
-  font-weight: 600;
-  text-align: center;
 `;
 
 const Form = styled.form`

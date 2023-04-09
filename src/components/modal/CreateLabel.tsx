@@ -8,6 +8,7 @@ import { createLabel } from 'api';
 import { LabelInputForm, ModalViewProps } from 'types';
 import { useLocation } from 'react-router-dom';
 import { useErrorHandler } from 'hooks';
+import { Title } from 'components/containers';
 
 export function CreateLabel({ closeModal }: ModalViewProps) {
   const { errorHandler } = useErrorHandler();
@@ -63,13 +64,6 @@ const ModalContainer = styled(motion.div)`
   border-radius: 4px;
   width: 300px;
   max-width: 100%;
-`;
-
-const Title = styled.h2`
-  font-size: 24px;
-  font-weight: 600;
-  text-align: center;
-  color: ${({ theme }) => theme.color};
 `;
 
 const CreateForm = styled.form`
