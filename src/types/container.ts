@@ -7,4 +7,5 @@ export interface InputContainer {
   props?: any;
   type?: string;
   placeholder?: string;
+  register?: any;
 }
