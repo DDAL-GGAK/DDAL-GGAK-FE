@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { TaskDetailDataForm } from 'types';
 import { useErrorHandler } from 'hooks';
-import { NewLabelButton } from 'components/project';
+import { Teams } from 'components/task';
 
 export function Task() {
   const { pathname } = useLocation();
@@ -17,7 +17,7 @@ export function Task() {
   const taskQueryKey = [QUERY.KEY.TASK_DATA, projectId, taskId];
   const fetchTaskData = async () => {
     if (!taskId || !projectId) return;
-    const { data } = await getTaskData({ param: taskId, query: { projectId } });
+    const data = await getTaskData({ param: taskId, query: { projectId } });
 
     return data;
   };
@@ -31,47 +31,12 @@ export function Task() {
     }
   );
 
-  const teams = [
-    { labelId: 1, labelTitle: 'FE' },
-    { labelId: 2, labelTitle: 'BE' },
-    { labelId: 3, labelTitle: 'UI/UX' },
-    { labelId: 4, labelTitle: 'Marketing' },
-  ];
-
-  const dummyTickets = {
-    Pending: [
-      { id: 1, name: 1 },
-      { id: 1, name: 1 },
-      { id: 1, name: 1 },
-      { id: 1, name: 1 },
-      { id: 1, name: 1 },
-    ],
-    InProgress: [
-      { id: 2, name: 2 },
-      { id: 2, name: 2 },
-      { id: 2, name: 2 },
-      { id: 2, name: 2 },
-      { id: 2, name: 2 },
-    ],
-    Done: [
-      { id: 3, name: 3 },
-      { id: 3, name: 3 },
-      { id: 3, name: 3 },
-      { id: 3, name: 3 },
-      { id: 3, name: 3 },
-    ],
-  };
+  console.log(taskData);
 
   return (
     <Wrapper>
       <TopWrapper>
-        <Teams>
-          {teams.map((team) => {
-            const { labelId, labelTitle } = team;
-            return <Team key={labelId}>{labelTitle}</Team>;
-          })}
-          <NewLabelButton />
-        </Teams>
+        <Teams labels={taskData?.labels || []} />
         <SortMethods>
           <SortButton>Column</SortButton>
           <SortButton>Row</SortButton>
@@ -80,15 +45,13 @@ export function Task() {
       <BottomWrapper>
         <BottomHeader>Ticket</BottomHeader>
         <TicketWrapper>
-          {Object.entries(taskData?.tickets || { ...dummyTickets }).map(
-            ([key, data]: any) => {
-              return (
-                <Tickets data={data} key={key}>
-                  {key}
-                </Tickets>
-              );
-            }
-          )}
+          {Object.entries(taskData?.tickets || {}).map(([key, data]: any) => {
+            return (
+              <Tickets data={data} key={key}>
+                {key}
+              </Tickets>
+            );
+          })}
         </TicketWrapper>
       </BottomWrapper>
     </Wrapper>
@@ -118,32 +81,6 @@ const TopWrapper = styled.div`
   background: ${({ theme }) => theme.pointColor};
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
-`;
-
-const Teams = styled.div`
-  display: flex;
-  gap: 10px;
-`;
-
-const Team = styled.div`
-  background: ${({ theme }) => theme.background};
-  color: ${({ theme }) => theme.pointColor};
-  font-weight: 600;
-  border-radius: 5px;
-  padding: 5px 10px;
-  box-shadow: 0 2px 4px
-    rgba(
-      0,
-      0,
-      0,
-      ${({ theme }) => (theme.background === '#F2F2F2' ? '0.1' : '0.3')}
-    );
-
-  :hover {
-    cursor: pointer;
-    background-color: ${({ theme }) => theme.subColor};
-    color: ${({ theme }) => theme.background};
-  }
 `;
 
 const SortMethods = styled.div`

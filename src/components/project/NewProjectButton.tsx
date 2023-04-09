@@ -3,11 +3,15 @@ import { NAVLINK, modalCardVariants } from 'constants/';
 import { Add } from 'assets/icons';
 import { useModal } from 'hooks';
 import { CreateProject, JoinProject } from 'components/modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export function AddProject() {
   const { Modal, isOpen, openModal, closeModal } = useModal();
   const [hasInviteCode, setHasInviteCode] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!isOpen) setHasInviteCode(false);
+  }, [isOpen]);
 
   return (
     <>

@@ -27,9 +27,14 @@ const USER = Object.freeze({
   SET_NICKNAME: '/api/user/nickname',
 });
 
+const LABEL = Object.freeze({
+  CREATE: (taskId: string | number) => `/api/label/${taskId}`,
+});
+
 export const API_ROUTE = Object.freeze({
   AUTH,
   PROJECT,
   TASK,
   USER,
+  LABEL,
 });

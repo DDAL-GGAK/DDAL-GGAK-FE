@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { TaskDataForm } from 'types';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { calcDeadlinePercentage } from 'utils';
 
 interface TaskCardProps {
   taskData: TaskDataForm;
@@ -14,19 +15,13 @@ export function TaskCard({ taskData }: TaskCardProps) {
     taskTitle,
     completedTickets,
     totalTickets,
+    createdAt,
     expiredAt,
   } = taskData;
 
-  console.log(taskData);
   const progressPercentage = (completedTickets / totalTickets) * 100;
   const expired = new Date(expiredAt) < new Date();
-
-  const currentDate = new Date();
-  const expiredDate = new Date(expiredAt);
-  const remainingTime = expiredDate.getTime() - currentDate.getTime();
-  // const totalTime = expiredDate.getTime() - taskData.createdAt.getTime();
-  // const deadLinePercentage = (remainingTime / totalTime) * 100;
-  const deadLinePercentage = remainingTime / 10000000;
+  const deadLinePercentage = calcDeadlinePercentage({ expiredAt, createdAt });
 
   return (
     <Wrapper data-expired={expired} key={id}>
@@ -35,16 +30,19 @@ export function TaskCard({ taskData }: TaskCardProps) {
         <Hr />
         <Info>
           <div>Participants: {participantsCount}</div>
-          <div>Due: {expiredAt}</div>
         </Info>
         <BottomWrapper>
           <ProgressBar>
             <ProgressFiller progress={progressPercentage} />
           </ProgressBar>
+          <Tickets>{`${completedTickets} / ${totalTickets}`} Tickets</Tickets>
           <DeadlineBar>
             <DeadlineFiller deadLine={deadLinePercentage} />
           </DeadlineBar>
-          <Tickets>{`${completedTickets} / ${totalTickets}`} Tickets</Tickets>
+          <div>
+            <div>Start: {createdAt}</div>
+            <div>Due: {expiredAt}</div>
+          </div>
         </BottomWrapper>
       </MyLink>
     </Wrapper>
@@ -65,18 +63,18 @@ const Wrapper = styled(motion.div)<{ 'data-expired': boolean }>`
     expired ? theme.transparentColor : theme.background};
   transition: ${({ theme }) => theme.transitionOption};
   box-shadow: 0px 5px 0px ${({ theme }) => theme.transparentColor};
-`;
-
-const MyLink = styled(Link)`
   padding: 20px;
-  border-radius: 5px;
-  width: calc(100% - 40px);
-  transition: ${({ theme }) => theme.transitionOption};
-  height: 100%;
   :hover {
     color: ${({ theme }) => theme.background};
     background: ${({ theme }) => theme.color};
   }
+`;
+
+const MyLink = styled(Link)`
+  border-radius: 5px;
+  width: calc(100% - 40px);
+  transition: ${({ theme }) => theme.transitionOption};
+  width: 100%;
 `;
 
 const Title = styled.div`
@@ -88,9 +86,11 @@ const Title = styled.div`
 
 const Info = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   font-size: 0.9rem;
   font-weight: 400;
+  gap: 0.5rem;
 `;
 
 const Hr = styled.div`

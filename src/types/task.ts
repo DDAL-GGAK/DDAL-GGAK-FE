@@ -7,6 +7,7 @@ export interface TaskCreateForm {
 }
 
 export interface TaskDetailDataForm {
+  createdAt: string;
   expiredAt: string;
   id: number;
   labels: LabelForm[];
