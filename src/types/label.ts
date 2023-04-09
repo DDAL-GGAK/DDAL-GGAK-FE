@@ -1,3 +1,5 @@
+import { UseFormRegister } from 'react-hook-form';
+
 export interface LabelCreateForm {
   taskId: number;
   labelTitle: string;
@@ -14,4 +16,8 @@ export interface LabelDataForm {
 
 export interface LabelsProps {
   labels: LabelDataForm[];
+}
+
+export interface LabelTitleInputProps {
+  register: UseFormRegister<LabelInputForm>;
 }
