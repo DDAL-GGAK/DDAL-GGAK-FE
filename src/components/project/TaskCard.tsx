@@ -15,13 +15,13 @@ export function TaskCard({ taskData }: TaskCardProps) {
     taskTitle,
     completedTickets,
     totalTickets,
-    createAt,
+    createdAt,
     expiredAt,
   } = taskData;
 
   const progressPercentage = (completedTickets / totalTickets) * 100;
   const expired = new Date(expiredAt) < new Date();
-  const deadLinePercentage = calcDeadlinePercentage({ expiredAt, createAt });
+  const deadLinePercentage = calcDeadlinePercentage({ expiredAt, createdAt });
 
   return (
     <Wrapper data-expired={expired} key={id}>
@@ -40,7 +40,7 @@ export function TaskCard({ taskData }: TaskCardProps) {
             <DeadlineFiller deadLine={deadLinePercentage} />
           </DeadlineBar>
           <div>
-            <div>Start: {createAt}</div>
+            <div>Start: {createdAt}</div>
             <div>Due: {expiredAt}</div>
           </div>
         </BottomWrapper>

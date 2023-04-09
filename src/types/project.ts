@@ -23,7 +23,6 @@ export interface TaskDataForm {
   taskTitle: string;
   totalTickets: number;
   completedTickets: number;
-  createAt: string;
   expiredAt: string;
   createdAt: string;
 }
