@@ -5,3 +5,4 @@ export * from './ModalContainer';
 export * from './Submit';
 export * from './Title';
 export * from './ContentText';
+export * from './TextInput';
