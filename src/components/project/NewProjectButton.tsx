@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { NAVLINK, modalCardVariants } from 'constants/';
+import { NAVLINK, MODAL_CARD_VARIANTS } from 'constants/';
 import { Add } from 'assets/icons';
 import { useModal } from 'hooks';
 import { CreateProject, JoinProject } from 'components/modal';
@@ -18,7 +18,7 @@ export function NewProjectButton() {
       <Modal
         isOpen={isOpen}
         closeModal={closeModal}
-        variants={modalCardVariants}
+        variants={MODAL_CARD_VARIANTS}
       >
         {hasInviteCode ? (
           <JoinProject

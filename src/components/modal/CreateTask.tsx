@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { sendToast } from 'libs';
 import { createTask } from 'api';
 import { motion } from 'framer-motion';
-import { defaultVariants, SVG_SIZE, REGEX, QUERY, TOASTIFY } from 'constants/';
+import { DEFAULT_VARIANTS, SVG_SIZE, REGEX, QUERY, TOASTIFY } from 'constants/';
 import { TaskCreateForm } from 'types';
 import { useLocation } from 'react-router-dom';
 import { Task } from 'assets/svg';
@@ -45,7 +45,7 @@ export function CreateTask({ closeModal }: CreateTaskProps) {
 
   return (
     <ModalContainer
-      variants={defaultVariants}
+      variants={DEFAULT_VARIANTS}
       initial="from"
       animate="to"
       exit="exit"

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Add } from 'assets/icons';
-import { modalCardVariants } from 'constants/';
+import { MODAL_CARD_VARIANTS } from 'constants/';
 import { useModal } from 'hooks';
 import { CreateTask } from 'components/modal';
 
@@ -12,7 +12,7 @@ export function NewTaskButton() {
       <Modal
         isOpen={isOpen}
         closeModal={closeModal}
-        variants={modalCardVariants}
+        variants={MODAL_CARD_VARIANTS}
       >
         <CreateTask closeModal={closeModal} />
       </Modal>

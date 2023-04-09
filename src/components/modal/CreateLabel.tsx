@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { defaultVariants, REGEX, QUERY, TOASTIFY } from 'constants/';
+import { DEFAULT_VARIANTS, REGEX, QUERY, TOASTIFY } from 'constants/';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
 import { sendToast } from 'libs';
@@ -40,7 +40,7 @@ export function CreateLabel({ closeModal }: CreateLabelProps) {
 
   return (
     <ModalContainer
-      variants={defaultVariants}
+      variants={DEFAULT_VARIANTS}
       initial="from"
       animate="to"
       exit="exit"

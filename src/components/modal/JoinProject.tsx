@@ -6,7 +6,7 @@ import { joinProject } from 'api';
 import { Team } from 'assets/svg';
 import { Back } from 'assets/icons';
 import { motion } from 'framer-motion';
-import { defaultVariants, SVG_SIZE, QUERY, TOASTIFY } from 'constants/';
+import { DEFAULT_VARIANTS, SVG_SIZE, QUERY, TOASTIFY } from 'constants/';
 import { useErrorHandler } from 'hooks';
 import { JoinProjectInput } from 'components/form';
 import { InviteCodeForm } from 'types';
@@ -48,7 +48,7 @@ export function JoinProject({
 
   return (
     <ModalContainer
-      variants={defaultVariants}
+      variants={DEFAULT_VARIANTS}
       initial="from"
       animate="to"
       exit="exit"

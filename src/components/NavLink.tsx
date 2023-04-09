@@ -3,7 +3,7 @@ import { NAVLINK } from 'constants/layout';
 import styled from 'styled-components';
 import { ProjectsLink, Thumbnail } from 'types';
 import { motion, AnimatePresence } from 'framer-motion';
-import { linkVariants } from 'constants/';
+import { LINK_VARIANTS } from 'constants/';
 import React from 'react';
 
 interface NavLinkProps {
@@ -22,7 +22,7 @@ export const NavLink = React.memo(({ data, isCurrent }: NavLinkProps) => {
             initial="from"
             animate="to"
             exit="exit"
-            variants={linkVariants}
+            variants={LINK_VARIANTS}
           />
         ) : null}
       </AnimatePresence>

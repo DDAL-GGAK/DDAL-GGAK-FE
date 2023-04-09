@@ -8,7 +8,7 @@ import { sendToast } from 'libs';
 import { ProjectTitleInput } from 'components/form';
 import { TitleForm } from 'types';
 import { motion } from 'framer-motion';
-import { defaultVariants, QUERY, TOASTIFY } from 'constants/';
+import { DEFAULT_VARIANTS, QUERY, TOASTIFY } from 'constants/';
 import { useErrorHandler } from 'hooks';
 
 interface CreateProjectProps {
@@ -66,7 +66,7 @@ export function CreateProject({
 
   return (
     <ModalContainer
-      variants={defaultVariants}
+      variants={DEFAULT_VARIANTS}
       initial="from"
       animate="to"
       exit="exit"

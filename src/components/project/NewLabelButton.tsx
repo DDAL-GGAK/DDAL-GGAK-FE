@@ -1,5 +1,5 @@
 import { useModal } from 'hooks';
-import { modalCardVariants } from 'constants/';
+import { MODAL_CARD_VARIANTS } from 'constants/';
 import { CreateLabel } from 'components/modal';
 import { Button } from 'components';
 import { Add } from 'assets/icons';
@@ -12,7 +12,7 @@ export function NewLabelButton() {
       <Modal
         isOpen={isOpen}
         closeModal={closeModal}
-        variants={modalCardVariants}
+        variants={MODAL_CARD_VARIANTS}
       >
         <CreateLabel closeModal={closeModal} />
       </Modal>
