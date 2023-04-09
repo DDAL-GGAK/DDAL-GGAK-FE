@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { SIDE_NAV, TOP_NAV } from 'constants/layout';
-import { NavLink, NewProjectButton, Config, Loading } from 'components';
+import { NavLink, Config, Loading } from 'components';
+import { NewProjectButton } from 'components/project';
 import { ProjectsLink } from 'types';
 import { getUserProjects } from 'api';
 import { useQuery } from 'react-query';
