@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { TaskDetailDataForm } from 'types';
 import { useErrorHandler } from 'hooks';
+import { Teams } from 'components/task';
 
 export function Task() {
   const { pathname } = useLocation();
@@ -16,7 +17,7 @@ export function Task() {
   const taskQueryKey = [QUERY.KEY.TASK_DATA, projectId, taskId];
   const fetchTaskData = async () => {
     if (!taskId || !projectId) return;
-    const { data } = await getTaskData({ param: taskId, query: { projectId } });
+    const data = await getTaskData({ param: taskId, query: { projectId } });
 
     return data;
   };
@@ -30,33 +31,12 @@ export function Task() {
     }
   );
 
-  const dummyTickets = {
-    Pending: [
-      { id: 1, name: 1 },
-      { id: 1, name: 1 },
-      { id: 1, name: 1 },
-      { id: 1, name: 1 },
-      { id: 1, name: 1 },
-    ],
-    InProgress: [
-      { id: 2, name: 2 },
-      { id: 2, name: 2 },
-      { id: 2, name: 2 },
-      { id: 2, name: 2 },
-      { id: 2, name: 2 },
-    ],
-    Done: [
-      { id: 3, name: 3 },
-      { id: 3, name: 3 },
-      { id: 3, name: 3 },
-      { id: 3, name: 3 },
-      { id: 3, name: 3 },
-    ],
-  };
+  console.log(taskData);
 
   return (
     <Wrapper>
       <TopWrapper>
+        <Teams labels={taskData?.labels || []} />
         <SortMethods>
           <SortButton>Column</SortButton>
           <SortButton>Row</SortButton>
@@ -65,15 +45,13 @@ export function Task() {
       <BottomWrapper>
         <BottomHeader>Ticket</BottomHeader>
         <TicketWrapper>
-          {Object.entries(taskData?.tickets || { ...dummyTickets }).map(
-            ([key, data]: any) => {
-              return (
-                <Tickets data={data} key={key}>
-                  {key}
-                </Tickets>
-              );
-            }
-          )}
+          {Object.entries(taskData?.tickets || {}).map(([key, data]: any) => {
+            return (
+              <Tickets data={data} key={key}>
+                {key}
+              </Tickets>
+            );
+          })}
         </TicketWrapper>
       </BottomWrapper>
     </Wrapper>

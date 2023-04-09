@@ -1,17 +1,14 @@
 import styled from 'styled-components';
 import { NewLabelButton } from 'components/project';
+import { LabelForm } from 'types';
 
-export function Label() {
-  const teams = [
-    { labelId: 1, labelTitle: 'FE' },
-    { labelId: 2, labelTitle: 'BE' },
-    { labelId: 3, labelTitle: 'UI/UX' },
-    { labelId: 4, labelTitle: 'Marketing' },
-  ];
-
+interface TeamsProps {
+  labels: LabelForm[];
+}
+export function Teams({ labels }: TeamsProps) {
   return (
     <Wrapper>
-      {teams.map((team) => {
+      {labels?.map((team) => {
         const { labelId, labelTitle } = team;
         return <Team key={labelId}>{labelTitle}</Team>;
       })}

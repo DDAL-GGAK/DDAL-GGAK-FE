@@ -1,1 +1,1 @@
-export * from './Labels';
+export * from './Teams';
