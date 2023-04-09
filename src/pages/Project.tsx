@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getProjectData } from 'api';
 import { ProjectDataForm, TaskDataForm } from 'types';
 import { CONTENT, QUERY } from 'constants/';
-import { AddTask, Loading } from 'components';
+import { NewTaskButton, Loading } from 'components';
 import { TaskCard, ProjectInformation } from 'components/project';
 import { useQuery } from 'react-query';
 import { useErrorHandler } from 'hooks';
@@ -26,7 +26,7 @@ export function Project() {
   return (
     <Wrapper>
       <ProjectBoard>
-        <AddTask />
+        <NewTaskButton />
         {projectData?.tasks.map((taskData: TaskDataForm) => (
           <TaskCard taskData={taskData} key={taskData.id} />
         ))}

@@ -5,7 +5,7 @@ import { useModal } from 'hooks';
 import { CreateProject, JoinProject } from 'components/modal';
 import { useEffect, useState } from 'react';
 
-export function AddProject() {
+export function NewProjectButton() {
   const { Modal, isOpen, openModal, closeModal } = useModal();
   const [hasInviteCode, setHasInviteCode] = useState<boolean>(false);
 

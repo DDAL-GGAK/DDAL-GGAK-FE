@@ -7,7 +7,6 @@ import { useQuery } from 'react-query';
 import { TaskDetailDataForm } from 'types';
 import { useErrorHandler } from 'hooks';
 import { Teams } from 'components/task';
-import { Config } from 'assets/icons';
 
 export function Task() {
   const { pathname } = useLocation();
@@ -39,9 +38,6 @@ export function Task() {
       <TopWrapper>
         <Teams labels={taskData?.labels || []} />
         <SortMethods>
-          <Button>
-            <Config size={20} />
-          </Button>
           <Button>Column</Button>
           <Button>Row</Button>
         </SortMethods>

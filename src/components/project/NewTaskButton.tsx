@@ -4,7 +4,7 @@ import { modalCardVariants } from 'constants/';
 import { useModal } from 'hooks';
 import { CreateTask } from 'components/modal';
 
-export function AddTask() {
+export function NewTaskButton() {
   const { Modal, isOpen, openModal, closeModal } = useModal();
 
   return (
