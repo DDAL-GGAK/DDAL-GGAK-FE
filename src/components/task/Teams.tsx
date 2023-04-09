@@ -1,11 +1,8 @@
 import styled from 'styled-components';
 import { NewLabelButton, LabelConfigButton } from 'components/project';
-import { LabelDataForm } from 'types';
+import { LabelsProps } from 'types';
 
-interface TeamsProps {
-  labels: LabelDataForm[];
-}
-export function Teams({ labels }: TeamsProps) {
+export function Teams({ labels }: LabelsProps) {
   return (
     <Wrapper>
       {labels?.map((team) => {
@@ -13,7 +10,7 @@ export function Teams({ labels }: TeamsProps) {
         return <Team key={labelId}>{labelTitle}</Team>;
       })}
       <NewLabelButton />
-      <LabelConfigButton />
+      <LabelConfigButton labels={labels} />
     </Wrapper>
   );
 }
