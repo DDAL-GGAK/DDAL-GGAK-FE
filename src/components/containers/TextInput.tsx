@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { InputContainer } from 'types';
 
-export function TextInput({ ...props }: InputContainer) {
-  return <Input type="text" {...props} />;
+export function TextInput({ register, ...props }: InputContainer) {
+  return <Input type="text" {...register} {...props} />;
 }
 
 const Input = styled.input`

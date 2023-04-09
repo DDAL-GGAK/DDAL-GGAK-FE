@@ -6,8 +6,8 @@ export function ProjectTitleInput({ register }: ProjectTitleInputProps) {
   return (
     <TextInput
       type="text"
-      placeholder="Enter your ProjectName"
-      {...register(REGISTER_TYPE.PROJECT_TITLE, {
+      placeholder="Your ProjectName"
+      register={register(REGISTER_TYPE.PROJECT_TITLE, {
         required: ERROR_MESSAGE.PROJECT_TITLE.REQUIRED,
         maxLength: {
           value: CONFIG.PROJECT_TITLE.MAX_LENGTH,

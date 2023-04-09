@@ -6,7 +6,7 @@ export function JoinProjectInput({ register }: JoinProjectInputProps) {
   return (
     <TextInput
       placeholder="Enter invite code"
-      {...register(REGISTER_TYPE.INVITE_CODE, {
+      register={register(REGISTER_TYPE.INVITE_CODE, {
         required: ERROR_MESSAGE.INVITE_CODE.REQUIRED,
         maxLength: {
           value: CONFIG.INVITE_CODE.MAX_LENGTH,
