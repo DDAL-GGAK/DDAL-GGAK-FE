@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 interface ButtonProps {
   children: React.ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export function Button({ children, ...props }: ButtonProps) {
