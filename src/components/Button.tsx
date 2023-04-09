@@ -2,10 +2,11 @@ import styled from 'styled-components';
 
 interface ButtonProps {
   children: React.ReactNode;
+  onClick: () => void;
 }
 
-export function Button({ children }: ButtonProps) {
-  return <Wrapper>{children}</Wrapper>;
+export function Button({ children, ...props }: ButtonProps) {
+  return <Wrapper {...props}>{children}</Wrapper>;
 }
 
 const Wrapper = styled.button`
