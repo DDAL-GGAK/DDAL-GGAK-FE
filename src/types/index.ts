@@ -9,3 +9,4 @@ export * from './task';
 export * from './ticket';
 export * from './error';
 export * from './label';
+export * from './modal';
