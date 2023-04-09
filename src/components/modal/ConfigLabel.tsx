@@ -1,8 +1,15 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { DEFAULT_VARIANTS } from 'constants/';
+import { LabelsProps } from 'types';
 
-export function ConfigLabel() {
+interface ConfigLabelProps extends LabelsProps {
+  closeModal: () => void;
+}
+
+export function ConfigLabel({ closeModal, labels }: ConfigLabelProps) {
+  console.log(closeModal);
+  console.log(labels);
   return (
     <ModalContainer
       variants={DEFAULT_VARIANTS}
