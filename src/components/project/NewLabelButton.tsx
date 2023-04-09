@@ -1,6 +1,7 @@
 import { useModal } from 'hooks';
 import { modalCardVariants } from 'constants/';
 import styled from 'styled-components';
+import { CreateLabel } from 'components/modal';
 
 export function NewLabelButton() {
   const { Modal, isOpen, openModal, closeModal } = useModal();
@@ -12,7 +13,7 @@ export function NewLabelButton() {
         closeModal={closeModal}
         variants={modalCardVariants}
       >
-        <div>123</div>
+        <CreateLabel closeModal={closeModal} />
       </Modal>
       <ButtonWrapper onClick={openModal}>+</ButtonWrapper>
     </>
