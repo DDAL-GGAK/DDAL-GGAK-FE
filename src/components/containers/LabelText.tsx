@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Container } from 'types';
 
-export function Label({ children, ...props }: Container) {
+export function LabelText({ children, ...props }: Container) {
   return <Wrapper {...props}>{children}</Wrapper>;
 }
 
