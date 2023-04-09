@@ -9,7 +9,7 @@ import { TaskCreateForm, ModalViewProps } from 'types';
 import { useLocation } from 'react-router-dom';
 import { Task } from 'assets/svg';
 import { useErrorHandler } from 'hooks';
-import { Title } from 'components/containers';
+import { Title, TextInput } from 'components/containers';
 
 export function CreateTask({ closeModal }: ModalViewProps) {
   const { errorHandler } = useErrorHandler();
@@ -56,7 +56,7 @@ export function CreateTask({ closeModal }: ModalViewProps) {
             <ErrorMessage>{errors.taskTitle.message}</ErrorMessage>
           )}
         </LabelWrapper>
-        <Input
+        <TextInput
           type="text"
           {...register('taskTitle', {
             required: 'Task title is required!',
@@ -70,7 +70,7 @@ export function CreateTask({ closeModal }: ModalViewProps) {
             <ErrorMessage>{errors.expiredAt.message}</ErrorMessage>
           )}
         </LabelWrapper>
-        <Input
+        <input
           type="datetime-local"
           {...register('expiredAt', {
             required: 'Expiration date is required!',
@@ -109,19 +109,6 @@ const Label = styled.label`
   font-size: 14px;
   font-weight: 500;
   margin-bottom: 4px;
-`;
-
-const Input = styled.input`
-  padding: 8px;
-  font-size: 14px;
-  border: 1px solid ${({ theme }) => theme.borderColor};
-  border-radius: 4px;
-  outline: none;
-  transition: ${({ theme }) => theme.transitionOption};
-  color: #111;
-  :focus {
-    border-color: ${({ theme }) => theme.pointColor};
-  }
 `;
 
 const ErrorMessage = styled.div`

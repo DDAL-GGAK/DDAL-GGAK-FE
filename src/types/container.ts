@@ -6,5 +6,5 @@ export interface Container {
 export interface InputContainer {
   props?: any;
   type?: string;
-  placeholder: string;
+  placeholder?: string;
 }

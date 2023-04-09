@@ -8,7 +8,7 @@ import { createLabel } from 'api';
 import { LabelInputForm, ModalViewProps } from 'types';
 import { useLocation } from 'react-router-dom';
 import { useErrorHandler } from 'hooks';
-import { Title } from 'components/containers';
+import { Title, TextInput } from 'components/containers';
 
 export function CreateLabel({ closeModal }: ModalViewProps) {
   const { errorHandler } = useErrorHandler();
@@ -48,7 +48,10 @@ export function CreateLabel({ closeModal }: ModalViewProps) {
           <Content>Label Name:</Content>
           {errors.labelTitle && <Errorspan>Name is required</Errorspan>}
         </TextWrapper>
-        <Input type="text" {...register('labelTitle', { required: true })} />
+        <TextInput
+          type="text"
+          {...register('labelTitle', { required: true })}
+        />
 
         <Button type="submit">Create Label</Button>
       </CreateForm>
@@ -102,17 +105,4 @@ const TextWrapper = styled.div`
 const Errorspan = styled.span`
   color: ${({ theme }) => theme.accentColor};
   font-size: 12px;
-`;
-
-const Input = styled.input`
-  padding: 8px;
-  font-size: 14px;
-  border: 1px solid ${({ theme }) => theme.borderColor};
-  border-radius: 4px;
-  outline: none;
-  transition: ${({ theme }) => theme.transitionOption};
-  color: #111;
-  :focus {
-    border-color: ${({ theme }) => theme.pointColor};
-  }
 `;
