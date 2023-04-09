@@ -28,7 +28,7 @@ const USER = Object.freeze({
 });
 
 const LABEL = Object.freeze({
-  CREATE: (taskId: string | number) => `/api/label/${taskId}`,
+  CREATE: '/api/label',
 });
 
 export const API_ROUTE = Object.freeze({
