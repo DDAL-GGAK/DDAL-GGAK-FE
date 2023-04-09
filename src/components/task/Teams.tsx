@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { NewLabelButton } from 'components/project';
-import { LabelForm } from 'types';
+import { LabelDataForm } from 'types';
 
 interface TeamsProps {
-  labels: LabelForm[];
+  labels: LabelDataForm[];
 }
 export function Teams({ labels }: TeamsProps) {
   return (

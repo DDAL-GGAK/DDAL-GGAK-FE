@@ -1,4 +1,4 @@
-import { Tickets } from 'types/index';
+import { Tickets, LabelDataForm } from 'types';
 
 export interface TaskCreateForm {
   projectId: number;
@@ -10,15 +10,10 @@ export interface TaskDetailDataForm {
   createdAt: string;
   expiredAt: string;
   id: number;
-  labels: LabelForm[];
+  labels: LabelDataForm[];
   taskLeader: string;
   taskTitle: string;
   tickets: Tickets;
   totalDifficulty: number;
   totalPriority: number;
-}
-
-export interface LabelForm {
-  labelId: number;
-  labelTitle: string;
 }
