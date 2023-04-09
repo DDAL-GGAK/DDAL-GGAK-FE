@@ -6,20 +6,15 @@ import { createProject } from 'api';
 import { useMutation, useQueryClient } from 'react-query';
 import { sendToast } from 'libs';
 import { ProjectTitleInput } from 'components/form';
-import { TitleForm } from 'types';
+import { TitleForm, ProjectModalProps } from 'types';
 import { motion } from 'framer-motion';
 import { DEFAULT_VARIANTS, QUERY, TOASTIFY } from 'constants/';
 import { useErrorHandler } from 'hooks';
 
-interface CreateProjectProps {
-  closeModal: () => void;
-  setHasInviteCode: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
 export function CreateProject({
   closeModal,
   setHasInviteCode,
-}: CreateProjectProps) {
+}: ProjectModalProps) {
   const { errorHandler } = useErrorHandler();
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const queryClient = useQueryClient();

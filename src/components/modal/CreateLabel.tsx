@@ -5,15 +5,11 @@ import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
 import { sendToast } from 'libs';
 import { createLabel } from 'api';
-import { LabelInputForm } from 'types';
+import { LabelInputForm, ModalViewProps } from 'types';
 import { useLocation } from 'react-router-dom';
 import { useErrorHandler } from 'hooks';
 
-interface CreateLabelProps {
-  closeModal: () => void;
-}
-
-export function CreateLabel({ closeModal }: CreateLabelProps) {
+export function CreateLabel({ closeModal }: ModalViewProps) {
   const { errorHandler } = useErrorHandler();
   const { pathname } = useLocation();
   const taskId = Number(pathname.match(REGEX.TASK_ID)?.[1]) || null;

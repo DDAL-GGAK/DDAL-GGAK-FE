@@ -2,14 +2,7 @@ import styled from 'styled-components';
 import { ModalPortal } from 'components/modal';
 import { AnimatePresence, motion } from 'framer-motion';
 import { DEFAULT_VARIANTS } from 'constants/';
-import { Variants } from 'types';
-
-interface ModalProps {
-  children: React.ReactNode;
-  isOpen: boolean;
-  closeModal: () => void;
-  variants?: Variants;
-}
+import { ModalProps } from 'types';
 
 export function Modal({
   children,

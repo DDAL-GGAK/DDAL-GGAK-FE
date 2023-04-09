@@ -5,16 +5,12 @@ import { sendToast } from 'libs';
 import { createTask } from 'api';
 import { motion } from 'framer-motion';
 import { DEFAULT_VARIANTS, SVG_SIZE, REGEX, QUERY, TOASTIFY } from 'constants/';
-import { TaskCreateForm } from 'types';
+import { TaskCreateForm, ModalViewProps } from 'types';
 import { useLocation } from 'react-router-dom';
 import { Task } from 'assets/svg';
 import { useErrorHandler } from 'hooks';
 
-interface CreateTaskProps {
-  closeModal: () => void;
-}
-
-export function CreateTask({ closeModal }: CreateTaskProps) {
+export function CreateTask({ closeModal }: ModalViewProps) {
   const { errorHandler } = useErrorHandler();
   const { pathname } = useLocation();
   const projectId = Number(pathname.match(REGEX.PROJECT_ID)?.[1]) || null;

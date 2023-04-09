@@ -9,17 +9,12 @@ import { motion } from 'framer-motion';
 import { DEFAULT_VARIANTS, SVG_SIZE, QUERY, TOASTIFY } from 'constants/';
 import { useErrorHandler } from 'hooks';
 import { JoinProjectInput } from 'components/form';
-import { InviteCodeForm } from 'types';
-
-interface EnterProjectProps {
-  closeModal: () => void;
-  setHasInviteCode: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import { InviteCodeForm, ProjectModalProps } from 'types';
 
 export function JoinProject({
   closeModal,
   setHasInviteCode,
-}: EnterProjectProps) {
+}: ProjectModalProps) {
   const { errorHandler } = useErrorHandler();
   const {
     register,

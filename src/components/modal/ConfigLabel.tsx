@@ -1,11 +1,7 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { DEFAULT_VARIANTS } from 'constants/';
-import { LabelsProps } from 'types';
-
-interface ConfigLabelProps extends LabelsProps {
-  closeModal: () => void;
-}
+import { ConfigLabelProps } from 'types';
 
 export function ConfigLabel({ closeModal, labels }: ConfigLabelProps) {
   console.log(closeModal);
