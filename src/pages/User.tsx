@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { Add } from 'assets/icons';
-import { getUserData, setUserNickname, setUserProfile } from 'api';
+import { getUserData, setUserNickname } from 'api';
 import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { UserNicknameInput } from 'components/form';
@@ -9,11 +8,11 @@ import { sendToast } from 'libs';
 import { QUERY, TOASTIFY } from 'constants/';
 import { UserDataForm, NicknameForm } from 'types';
 import { useErrorHandler } from 'hooks';
+import { UpdateProfile } from 'components/user';
 
 export function User() {
   const { errorHandler } = useErrorHandler();
   const [userData, setUserData] = useState<UserDataForm>();
-  const [profile, setProfile] = useState<File | null>(null);
   const queryClient = useQueryClient();
   const {
     register,
@@ -32,20 +31,7 @@ export function User() {
     onMountHandler();
   }, [userData]);
 
-  useEffect(() => {
-    handleProfileUpdate(profile);
-  }, [profile]);
-
-  const { mutate: mutateProfile } = useMutation(setUserProfile, {
-    ...QUERY.DEFAULT_CONFIG,
-    onSuccess: () => {
-      queryClient.invalidateQueries(QUERY.KEY.USER_PROFILE);
-      sendToast.success(TOASTIFY.SUCCESS.USER_SETTING);
-    },
-    onError: (error: unknown) => errorHandler(error),
-  });
-
-  const { mutate: mutateNickname } = useMutation(setUserNickname, {
+  const { mutate } = useMutation(setUserNickname, {
     ...QUERY.DEFAULT_CONFIG,
     onSuccess: () => {
       queryClient.invalidateQueries(QUERY.KEY.USER_NICKNAME);
@@ -54,20 +40,7 @@ export function User() {
     onError: (error: unknown) => errorHandler(error),
   });
 
-  const handleProfileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = e.target;
-    if (files && files[0]) setProfile(files[0]);
-  };
-
-  const handleProfileUpdate = (newProfile: File | null) => {
-    if (!newProfile) return;
-    
-    const formData = new FormData();
-    formData.append('image', newProfile);
-    mutateProfile(formData);
-  };
-
-  const onNickname = async (data: NicknameForm) => mutateNickname(data);
+  const onNickname = async (data: NicknameForm) => mutate(data);
 
   return (
     <div>
@@ -75,37 +48,7 @@ export function User() {
         <TextL>Account</TextL>
         <div>{userData?.nickname}</div>
       </Container>
-      <ProfileWrapper>
-        <TextM>Profile</TextM>
-        <ProfileInput
-          hidden
-          id="profileInput"
-          type="file"
-          accept="image/png, image/gif, image/jpeg, image/webp"
-          onChange={handleProfileChange}
-        />
-        {(() => {
-          if (profile) {
-            return (
-              <ImageLabel htmlFor="profileInput">
-                <Image src={URL.createObjectURL(profile)} />
-              </ImageLabel>
-            );
-          }
-          if (userData?.profile) {
-            return (
-              <ImageLabel htmlFor="profileInput">
-                <Image src={userData.profile} />
-              </ImageLabel>
-            );
-          }
-          return (
-            <ImageLabel htmlFor="profileInput">
-              <Add size={50} />
-            </ImageLabel>
-          );
-        })()}
-      </ProfileWrapper>
+      <UpdateProfile userData={userData} />
       <Hr />
       <NickNameForm onSubmit={handleSubmit(onNickname)}>
         <TextL>Privacy</TextL>
@@ -136,34 +79,6 @@ const TextM = styled.div`
 const Errorspan = styled.span`
   color: ${({ theme }) => theme.accentColor};
   font-size: 12px;
-`;
-
-/* File Input */
-const ProfileInput = styled.input`
-  font-size: 14px;
-`;
-
-const ProfileWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
-
-const ImageLabel = styled.label`
-  width: 125px;
-  height: 125px;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 50%;
-  background-image: url(imageSrc);
-  :hover {
-    cursor: pointer;
-  }
-`;
-
-const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
 `;
 
 const Hr = styled.div`
