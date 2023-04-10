@@ -28,16 +28,16 @@ export function Button({
 
 const Default = styled.button`
   background: ${({ theme }) => theme.background};
+  transition: ${({ theme }) => theme.transitionOption};
   color: ${({ theme }) => theme.pointColor};
-  font-weight: 600;
-  border-radius: 5px;
   padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
   border: none;
-  box-shadow: ${({ theme }) => theme.boxShadow};
+  border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: ${({ theme }) => theme.transitionOption};
 
   :hover {
     cursor: pointer;
@@ -47,14 +47,17 @@ const Default = styled.button`
 `;
 
 const Point = styled.button`
-  padding: 0.5rem 1rem;
-  font-size: 14px;
-  font-weight: 600;
   background: ${({ theme }) => theme.pointColor};
-  border: none;
-  border-radius: 4px;
   transition: ${({ theme }) => theme.transitionOption};
   color: whitesmoke;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   :hover {
     cursor: pointer;
@@ -63,14 +66,17 @@ const Point = styled.button`
 `;
 
 const Dark = styled.button`
+  background: #454545;
+  color: whitesmoke;
+  transition: ${({ theme }) => theme.transitionOption};
   padding: 0.5rem 1rem;
-  font-size: 14px;
+  font-size: 1rem;
   font-weight: 600;
   border: none;
-  border-radius: 4px;
-  transition: ${({ theme }) => theme.transitionOption};
-  color: whitesmoke;
-  background: #454545;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   :hover {
     background: ${({ theme }) => theme.pointColor};

@@ -7,6 +7,7 @@ import { useQuery } from 'react-query';
 import { TaskDetailDataForm } from 'types';
 import { useErrorHandler } from 'hooks';
 import { Teams } from 'components/task';
+import { ContentText } from 'components/containers';
 
 export function Task() {
   const { pathname } = useLocation();
@@ -43,7 +44,10 @@ export function Task() {
         </SortMethods>
       </TopWrapper>
       <BottomWrapper>
-        <BottomHeader>Ticket</BottomHeader>
+        <BottomHeader>
+          <ContentText>Ticket</ContentText>
+          <Button>+</Button>
+        </BottomHeader>
         <TicketWrapper>
           {Object.entries(taskData?.tickets || {}).map(([key, data]: any) => {
             return (
@@ -93,10 +97,12 @@ const BottomWrapper = styled.div`
 `;
 
 const BottomHeader = styled.div`
+  display: flex;
   font-weight: 600;
   font-size: 20px;
   color: ${({ theme }) => theme.pointColor};
   margin-bottom: 16px;
+  gap: 10px;
 `;
 
 const TicketWrapper = styled.div`
