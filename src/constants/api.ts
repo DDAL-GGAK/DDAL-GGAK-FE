@@ -29,6 +29,7 @@ const USER = Object.freeze({
 
 const LABEL = Object.freeze({
   CREATE: '/api/label',
+  DELETE: '/api/label',
 });
 
 export const API_ROUTE = Object.freeze({
