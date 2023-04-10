@@ -1,12 +1,15 @@
 import styled from 'styled-components';
-import { SIDE_NAV, TOP_NAV } from 'constants/';
+import { SIDE_NAV, TOP_NAV, REGEX } from 'constants/';
 import { Logo, Menu } from 'assets/icons';
 import { DEVICES } from 'styles';
 import { ThemeToggle } from 'components';
 import { useMediaQuery } from 'hooks';
-import { Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
+
 
 export function TopNav() {
+  const { pathname } = useLocation();
+  const projectId = Number(pathname.match(REGEX.PROJECT_ID)?.[1]) || null;
   const isNotSmallDevice = useMediaQuery(DEVICES.MOBILES);
 
   return (
@@ -22,7 +25,7 @@ export function TopNav() {
         {isNotSmallDevice ? (
           <RightWrapper>
             <ThemeToggle />
-            <Link to="/settings/user">
+            <Link to={`/project/${projectId}/settings/user`}>
               <ProfileImage />
             </Link>
           </RightWrapper>
