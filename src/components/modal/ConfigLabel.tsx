@@ -1,28 +1,20 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { DEFAULT_VARIANTS, QUERY, TOASTIFY } from 'constants/';
+import { DEFAULT_VARIANTS, MODAL_CARD_VARIANTS } from 'constants/';
 import { ConfigLabelProps, LabelDataForm } from 'types';
 import { Title } from 'components/containers';
-import { deleteLabel } from 'api';
-import { useMutation, useQueryClient } from 'react-query';
-import { useErrorHandler } from 'hooks';
-import { sendToast } from 'libs';
-import { useLocation } from 'react-router-dom';
+import { useModal } from 'hooks';
+import { useState } from 'react';
+import { ConfirmDelete } from './ConfigmDelete';
 
 export function ConfigLabel({ labels }: ConfigLabelProps) {
-  const queryClient = useQueryClient();
-  const { pathname } = useLocation();
-  const { errorHandler } = useErrorHandler({ route: pathname });
-  const { mutate } = useMutation(deleteLabel, {
-    ...QUERY.DEFAULT_CONFIG,
-    onSuccess: () => {
-      queryClient.invalidateQueries(QUERY.KEY.TASK_DATA);
-      sendToast.success(TOASTIFY.SUCCESS.CREATE_LABEL);
-    },
-    onError: (error: unknown) => errorHandler(error),
-  });
+  const { Modal, isOpen, openModal, closeModal } = useModal();
+  const [selectedId, setSelectedId] = useState<number | null>(null);
 
-  const deleteHandler = (labelId: number) => mutate(labelId);
+  const handleOpenModal = (labelId: number) => {
+    setSelectedId(labelId);
+    openModal();
+  };
 
   return (
     <ModalContainer
@@ -37,17 +29,28 @@ export function ConfigLabel({ labels }: ConfigLabelProps) {
           const { labelId, labelTitle } = label;
 
           return (
-            <Label
-              key={labelId}
-              onClick={() => {
-                deleteHandler(labelId);
-              }}
-            >
+            <Label key={labelId}>
               {labelId} : {labelTitle}
+              <DeleteButton
+                onClick={() => {
+                  handleOpenModal(labelId);
+                }}
+              >
+                Delete
+              </DeleteButton>
             </Label>
           );
         })}
       </LabelList>
+      {selectedId !== null && (
+        <Modal
+          isOpen={isOpen}
+          closeModal={closeModal}
+          variants={MODAL_CARD_VARIANTS}
+        >
+          <ConfirmDelete labelId={selectedId} closeModal={closeModal} />
+        </Modal>
+      )}
     </ModalContainer>
   );
 }
@@ -74,10 +77,28 @@ const Label = styled.div`
   background: rgba(0, 0, 0, 0.3);
   padding: 0.5rem 1rem;
   border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   transition: ${({ theme }) => theme.transitionOption};
   :hover {
     color: ${({ theme }) => theme.background};
     cursor: pointer;
     background: rgba(0, 0, 0, 0.5);
+  }
+`;
+
+const DeleteButton = styled.button<any>`
+  background: red;
+  color: ${({ theme }) => theme.background};
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: ${({ theme }) => theme.transitionOption};
+  :hover {
+    cursor: pointer;
+    background: #111;
   }
 `;
