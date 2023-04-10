@@ -11,7 +11,6 @@ export function useErrorHandler({ route }: RouteForm = { route: null }) {
   const navigate = useNavigate();
   const defaultRoute = ROUTE.HOME;
   const moveTo = route || defaultRoute;
-
   const errorHandler = (err: unknown) => {
     const error = err as AxiosError;
     sendToast.error(error.message);

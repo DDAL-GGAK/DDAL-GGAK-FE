@@ -17,8 +17,8 @@ import {
 import { LabelTitleInput } from 'components/form';
 
 export function CreateLabel({ closeModal }: ModalViewProps) {
-  const { errorHandler } = useErrorHandler();
   const { pathname } = useLocation();
+  const { errorHandler } = useErrorHandler({ route: pathname });
   const taskId = Number(pathname.match(REGEX.TASK_ID)?.[1]) || null;
   const {
     register,
