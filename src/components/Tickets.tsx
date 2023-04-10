@@ -35,13 +35,7 @@ const Wrapper = styled.div`
   width: 100%;
   background: ${({ theme }) => theme.transparentBackground};
   border-radius: 8px;
-  box-shadow: 0 2px 4px
-    rgba(
-      0,
-      0,
-      0,
-      ${({ theme }) => (theme.background === '#F2F2F2' ? '0.1' : '0.3')}
-    );
+  box-shadow: ${({ theme }) => theme.boxShadow};
   margin-bottom: 16px;
 `;
 

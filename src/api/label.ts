@@ -9,3 +9,9 @@ export const createLabel = async (data: LabelCreateForm) => {
 
   return res;
 };
+
+export const deleteLabel = async (labelId: number) => {
+  const res = await api.delete(API_ROUTE.LABEL.DELETE, labelId);
+
+  return res;
+};

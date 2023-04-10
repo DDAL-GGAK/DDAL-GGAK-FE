@@ -1,10 +1,11 @@
 import { useModal } from 'hooks';
 import { MODAL_CARD_VARIANTS } from 'constants/';
-import { CreateLabel } from 'components/modal';
 import { Button } from 'components';
-import { Add } from 'assets/icons';
+import { Config } from 'assets/icons';
+import { LabelsProps } from 'types';
+import { ConfigLabel } from 'components/modal/ConfigLabel';
 
-export function NewLabelButton() {
+export function LabelConfigButton({ labels }: LabelsProps) {
   const { Modal, isOpen, openModal, closeModal } = useModal();
 
   return (
@@ -14,10 +15,10 @@ export function NewLabelButton() {
         closeModal={closeModal}
         variants={MODAL_CARD_VARIANTS}
       >
-        <CreateLabel closeModal={closeModal} />
+        <ConfigLabel labels={labels} />
       </Modal>
       <Button onClick={openModal}>
-        <Add size={20} />
+        <Config size={20} />
       </Button>
     </>
   );

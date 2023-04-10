@@ -4,17 +4,15 @@ import { useMutation, useQueryClient } from 'react-query';
 import { sendToast } from 'libs';
 import { createTask } from 'api';
 import { motion } from 'framer-motion';
-import { defaultVariants, SVG_SIZE, REGEX, QUERY, TOASTIFY } from 'constants/';
-import { TaskCreateForm } from 'types';
+import { DEFAULT_VARIANTS, SVG_SIZE, REGEX, QUERY, TOASTIFY } from 'constants/';
+import { TaskCreateForm, ModalViewProps } from 'types';
 import { useLocation } from 'react-router-dom';
 import { Task } from 'assets/svg';
 import { useErrorHandler } from 'hooks';
+import { Button, Title, LabelText } from 'components/containers';
+import { TaskTitleInput } from 'components/form';
 
-interface CreateTaskProps {
-  closeModal: () => void;
-}
-
-export function CreateTask({ closeModal }: CreateTaskProps) {
+export function CreateTask({ closeModal }: ModalViewProps) {
   const { errorHandler } = useErrorHandler();
   const { pathname } = useLocation();
   const projectId = Number(pathname.match(REGEX.PROJECT_ID)?.[1]) || null;
@@ -45,46 +43,37 @@ export function CreateTask({ closeModal }: CreateTaskProps) {
 
   return (
     <ModalContainer
-      variants={defaultVariants}
+      variants={DEFAULT_VARIANTS}
       initial="from"
       animate="to"
       exit="exit"
     >
-      <TitleWrapper>
-        <Title>Create Task</Title>
-      </TitleWrapper>
+      <Title>Create Task</Title>
       <Task size={SVG_SIZE.MODAL} />
       <Form onSubmit={handleSubmit(onValid)}>
         <LabelWrapper>
-          <Label>Task Title:</Label>
+          <LabelText>Task Title:</LabelText>
           {errors.taskTitle && (
             <ErrorMessage>{errors.taskTitle.message}</ErrorMessage>
           )}
         </LabelWrapper>
-        <Input
-          type="text"
-          {...register('taskTitle', {
-            required: 'Task title is required!',
-          })}
-        />
-
+        <TaskTitleInput register={register} />
         <LabelWrapper>
-          <Label>Expiration Date:</Label>
-
+          <LabelText>Expiration Date:</LabelText>
           {errors.expiredAt && (
             <ErrorMessage>{errors.expiredAt.message}</ErrorMessage>
           )}
         </LabelWrapper>
-        <Input
+        <input
           type="datetime-local"
           {...register('expiredAt', {
             required: 'Expiration date is required!',
           })}
         />
 
-        <SubmitButton type="submit" disabled={isLoading}>
+        <Button buttonType="point">
           {isLoading ? 'Loading...' : 'Create Task'}
-        </SubmitButton>
+        </Button>
       </Form>
     </ModalContainer>
   );
@@ -96,18 +85,6 @@ const ModalContainer = styled(motion.div)`
   gap: 16px;
   width: 280px;
   border-radius: 8px;
-`;
-
-const TitleWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const Title = styled.div`
-  font-size: 24px;
-  font-weight: 600;
-  text-align: center;
 `;
 
 const Form = styled.form`
@@ -122,43 +99,9 @@ const LabelWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const Label = styled.label`
-  font-size: 14px;
-  font-weight: 500;
-  margin-bottom: 4px;
-`;
-
-const Input = styled.input`
-  padding: 8px;
-  font-size: 14px;
-  border: 1px solid ${({ theme }) => theme.borderColor};
-  border-radius: 4px;
-  outline: none;
-  transition: ${({ theme }) => theme.transitionOption};
-  color: #111;
-  :focus {
-    border-color: ${({ theme }) => theme.pointColor};
-  }
-`;
-
 const ErrorMessage = styled.div`
   text-align: center;
   color: ${({ theme }) => theme.accentColor};
   font-size: 12px;
   height: 16px;
-`;
-
-const SubmitButton = styled.button`
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: 600;
-  background: ${({ theme }) => theme.pointColor};
-  border: none;
-  border-radius: 4px;
-  transition: ${({ theme }) => theme.transitionOption};
-  color: whitesmoke;
-  :hover {
-    cursor: pointer;
-    background: #454545;
-  }
 `;

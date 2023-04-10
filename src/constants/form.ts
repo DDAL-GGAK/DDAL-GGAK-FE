@@ -11,6 +11,8 @@ export const REGISTER_TYPE = Object.freeze({
   INVITE_CODE: 'inviteCode',
   PROJECT_TITLE: 'projectTitle',
   NICKNAME: 'nickname',
+  LABEL_TITLE: 'labelTitle',
+  TASK_TITLE: 'taskTitle',
 });
 
 export const UPDATE_TYPE = Object.freeze({
@@ -45,6 +47,14 @@ export const ERROR_MESSAGE = Object.freeze({
     REQUIRED: 'Please enter your nickname!',
     MAX_LENGTH: 'Requires shorter than 10',
   }),
+  LABEL_TITLE: Object.freeze({
+    REQUIRED: 'Please enter team name!',
+    MAX_LENGTH: 'Requires shorter than 10',
+  }),
+  TASK_TITLE: Object.freeze({
+    REQUIRED: 'Task title is required!',
+    MAX_LENGTH: 'Requires shorter than 15',
+  }),
 });
 
 export const CONFIG = Object.freeze({
@@ -66,5 +76,11 @@ export const CONFIG = Object.freeze({
   }),
   NICKNAME: Object.freeze({
     MAX_LENGTH: 10,
+  }),
+  LABEL_TITLE: Object.freeze({
+    MAX_LENGTH: 10,
+  }),
+  TASK_TITLE: Object.freeze({
+    MAX_LENGTH: 15,
   }),
 });

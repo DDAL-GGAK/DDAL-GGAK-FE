@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { Add } from 'assets/icons';
-import { modalCardVariants } from 'constants/';
+import { MODAL_CARD_VARIANTS } from 'constants/';
 import { useModal } from 'hooks';
 import { CreateTask } from 'components/modal';
 
-export function AddTask() {
+export function NewTaskButton() {
   const { Modal, isOpen, openModal, closeModal } = useModal();
 
   return (
@@ -12,7 +12,7 @@ export function AddTask() {
       <Modal
         isOpen={isOpen}
         closeModal={closeModal}
-        variants={modalCardVariants}
+        variants={MODAL_CARD_VARIANTS}
       >
         <CreateTask closeModal={closeModal} />
       </Modal>
@@ -34,7 +34,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0px 5px 0px ${({ theme }) => theme.transparentColor};
+  box-shadow: ${({ theme }) => theme.boxShadow};
   transition: ${({ theme }) => theme.transitionOption};
   :hover {
     color: ${({ theme }) => theme.color};
