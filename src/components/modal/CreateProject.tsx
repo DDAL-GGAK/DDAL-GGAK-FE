@@ -12,7 +12,9 @@ import {
   Title,
   ErrorMessage,
   ContentText,
+  Button,
 } from 'components/containers';
+import { Hr } from 'components';
 import { QUERY, TOASTIFY } from 'constants/';
 import { useErrorHandler } from 'hooks';
 
@@ -93,14 +95,14 @@ export function CreateProject({
             <Add size={50} />
           </ThumbnailLabel>
         )}
-        <Button>Create</Button>
+        <Button buttonType="point">Create</Button>
       </CreateForm>
       <Hr />
       <InviteWrapper>
-        <Text>If you have invite code?</Text>
-        <InviteCodeButton onClick={inviteHandler}>
+        <ContentText>If you have invite code?</ContentText>
+        <Button buttonType="dark" onClick={inviteHandler}>
           Enter invite code
-        </InviteCodeButton>
+        </Button>
       </InviteWrapper>
     </ModalContainer>
   );
@@ -110,26 +112,6 @@ const CreateForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 16px;
-`;
-
-const Button = styled.button`
-  padding: 0.5rem 16px;
-  font-size: 14px;
-  font-weight: 600;
-  background: ${({ theme }) => theme.pointColor};
-  border: none;
-  border-radius: 4px;
-  transition: ${({ theme }) => theme.transitionOption};
-  color: whitesmoke;
-
-  :hover {
-    cursor: pointer;
-    background: #454545;
-  }
-`;
-
-const Hr = styled.div`
-  border-top: solid 1px ${({ theme }) => theme.borderColor};
 `;
 
 const BottomWrapper = styled.div`
@@ -178,28 +160,6 @@ const TextWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: -8px;
-`;
-
-const Text = styled.div`
-  font-size: 14px;
-  color: #454545;
-  text-align: center;
-`;
-
-const InviteCodeButton = styled.button`
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: 600;
-  border: none;
-  border-radius: 4px;
-  transition: ${({ theme }) => theme.transitionOption};
-  color: whitesmoke;
-  background: #454545;
-
-  :hover {
-    background: ${({ theme }) => theme.pointColor};
-    cursor: pointer;
-  }
 `;
 
 const InviteWrapper = styled.div`

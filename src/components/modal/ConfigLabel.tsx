@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { DEFAULT_VARIANTS } from 'constants/';
 import { ConfigLabelProps, LabelDataForm } from 'types';
-import { Title } from 'components/containers';
+import { Title, LabelText } from 'components/containers';
 
 export function ConfigLabel({ closeModal, labels }: ConfigLabelProps) {
   console.log(closeModal);
@@ -35,9 +35,9 @@ export function ConfigLabel({ closeModal, labels }: ConfigLabelProps) {
           const { labelId, labelTitle } = label;
 
           return (
-            <Label>
+            <LabelText>
               {labelId} : {labelTitle}
-            </Label>
+            </LabelText>
           );
         })}
       </LabelList>
@@ -61,9 +61,4 @@ const LabelList = styled.div`
   flex-direction: column;
   gap: 0.5rem;
   padding: 1rem;
-`;
-
-const Label = styled.div`
-  padding: 0.5rem;
-  background: rgba(0, 0, 0, 0.5);
 `;

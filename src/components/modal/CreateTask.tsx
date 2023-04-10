@@ -9,7 +9,7 @@ import { TaskCreateForm, ModalViewProps } from 'types';
 import { useLocation } from 'react-router-dom';
 import { Task } from 'assets/svg';
 import { useErrorHandler } from 'hooks';
-import { Title } from 'components/containers';
+import { Button, Title, LabelText } from 'components/containers';
 import { TaskTitleInput } from 'components/form';
 
 export function CreateTask({ closeModal }: ModalViewProps) {
@@ -52,15 +52,14 @@ export function CreateTask({ closeModal }: ModalViewProps) {
       <Task size={SVG_SIZE.MODAL} />
       <Form onSubmit={handleSubmit(onValid)}>
         <LabelWrapper>
-          <Label>Task Title:</Label>
+          <LabelText>Task Title:</LabelText>
           {errors.taskTitle && (
             <ErrorMessage>{errors.taskTitle.message}</ErrorMessage>
           )}
         </LabelWrapper>
         <TaskTitleInput register={register} />
         <LabelWrapper>
-          <Label>Expiration Date:</Label>
-
+          <LabelText>Expiration Date:</LabelText>
           {errors.expiredAt && (
             <ErrorMessage>{errors.expiredAt.message}</ErrorMessage>
           )}
@@ -72,9 +71,9 @@ export function CreateTask({ closeModal }: ModalViewProps) {
           })}
         />
 
-        <SubmitButton type="submit" disabled={isLoading}>
+        <Button buttonType="point">
           {isLoading ? 'Loading...' : 'Create Task'}
-        </SubmitButton>
+        </Button>
       </Form>
     </ModalContainer>
   );
@@ -100,30 +99,9 @@ const LabelWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const Label = styled.label`
-  font-size: 14px;
-  font-weight: 500;
-  margin-bottom: 4px;
-`;
-
 const ErrorMessage = styled.div`
   text-align: center;
   color: ${({ theme }) => theme.accentColor};
   font-size: 12px;
   height: 16px;
-`;
-
-const SubmitButton = styled.button`
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: 600;
-  background: ${({ theme }) => theme.pointColor};
-  border: none;
-  border-radius: 4px;
-  transition: ${({ theme }) => theme.transitionOption};
-  color: whitesmoke;
-  :hover {
-    cursor: pointer;
-    background: #454545;
-  }
 `;

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { InputLabelProps } from 'types';
+import { ErrorMessage } from 'components/containers';
 
 export function InputLabel({ value, errorMessage }: InputLabelProps) {
   return (
@@ -18,10 +19,4 @@ const Wrapper = styled.div`
 
 const Title = styled.div`
   font-weight: 600;
-`;
-
-const ErrorMessage = styled.div`
-  color: ${({ theme }) => theme.errorColor};
-  font-weight: 600;
-  font-size: 0.9rem;
 `;

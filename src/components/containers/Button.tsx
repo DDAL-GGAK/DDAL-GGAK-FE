@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface ButtonProps {
-  buttonType?: 'point' | 'default';
+  buttonType?: 'point' | 'dark' | 'default';
   children?: React.ReactNode;
   onClick?: () => void;
 }
@@ -17,6 +17,8 @@ export function Button({
         return <Point {...props}>{children}</Point>;
       case 'default':
         return <Default {...props}>{children}</Default>;
+      case 'dark':
+        return <Dark {...props}>{children}</Dark>;
       default:
         return <Default {...props}>{children}</Default>;
     }
@@ -29,7 +31,7 @@ const Default = styled.button`
   color: ${({ theme }) => theme.pointColor};
   font-weight: 600;
   border-radius: 5px;
-  padding: 5px 10px;
+  padding: 0.5rem 1rem;
   border: none;
   box-shadow: ${({ theme }) => theme.boxShadow};
   display: flex;
@@ -45,7 +47,7 @@ const Default = styled.button`
 `;
 
 const Point = styled.button`
-  padding: 0.5rem 16px;
+  padding: 0.5rem 1rem;
   font-size: 14px;
   font-weight: 600;
   background: ${({ theme }) => theme.pointColor};
@@ -57,5 +59,21 @@ const Point = styled.button`
   :hover {
     cursor: pointer;
     background: ${({ theme }) => theme.pointColorLight};
+  }
+`;
+
+const Dark = styled.button`
+  padding: 0.5rem 1rem;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  transition: ${({ theme }) => theme.transitionOption};
+  color: whitesmoke;
+  background: #454545;
+
+  :hover {
+    background: ${({ theme }) => theme.pointColor};
+    cursor: pointer;
   }
 `;

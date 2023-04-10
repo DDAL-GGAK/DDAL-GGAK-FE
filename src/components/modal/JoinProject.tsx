@@ -10,7 +10,7 @@ import { DEFAULT_VARIANTS, SVG_SIZE, QUERY, TOASTIFY } from 'constants/';
 import { useErrorHandler } from 'hooks';
 import { JoinProjectInput } from 'components/form';
 import { InviteCodeForm, ProjectModalProps } from 'types';
-import { Title } from 'components/containers';
+import { Title, ErrorMessage, Button } from 'components/containers';
 
 export function JoinProject({
   closeModal,
@@ -63,9 +63,7 @@ export function JoinProject({
           </ErrorMessage>
           <JoinProjectInput register={register} />
         </TextWrapper>
-        <Button type="submit" disabled={isLoading}>
-          {isLoading ? 'Loading...' : 'Join'}
-        </Button>
+        <Button buttonType="point">{isLoading ? 'Loading...' : 'Join'}</Button>
       </Form>
     </ModalContainer>
   );
@@ -102,27 +100,4 @@ const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-`;
-
-const ErrorMessage = styled.div`
-  text-align: center;
-  color: ${({ theme }) => theme.accentColor};
-  font-size: 12px;
-  height: 16px;
-`;
-
-const Button = styled.button`
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: 600;
-  background: ${({ theme }) => theme.pointColor};
-  border: none;
-  border-radius: 4px;
-  transition: ${({ theme }) => theme.transitionOption};
-  color: whitesmoke;
-
-  :hover {
-    cursor: pointer;
-    background: #454545;
-  }
 `;

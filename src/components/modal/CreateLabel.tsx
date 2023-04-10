@@ -8,7 +8,12 @@ import { createLabel } from 'api';
 import { LabelInputForm, ModalViewProps } from 'types';
 import { useLocation } from 'react-router-dom';
 import { useErrorHandler } from 'hooks';
-import { Title } from 'components/containers';
+import {
+  Title,
+  ContentText,
+  Button,
+  ErrorMessage,
+} from 'components/containers';
 import { LabelTitleInput } from 'components/form';
 
 export function CreateLabel({ closeModal }: ModalViewProps) {
@@ -46,11 +51,11 @@ export function CreateLabel({ closeModal }: ModalViewProps) {
       <Title>Create Label</Title>
       <CreateForm onSubmit={handleSubmit(onValid)}>
         <TextWrapper>
-          <Content>Label Name:</Content>
-          {errors.labelTitle && <Errorspan>Name is required</Errorspan>}
+          <ContentText>Label Name:</ContentText>
+          {errors.labelTitle && <ErrorMessage>Name is required</ErrorMessage>}
         </TextWrapper>
         <LabelTitleInput register={register} />
-        <Button type="submit">Create Label</Button>
+        <Button buttonType="point">Create Label</Button>
       </CreateForm>
     </ModalContainer>
   );
@@ -72,34 +77,8 @@ const CreateForm = styled.form`
   gap: 16px;
 `;
 
-const Content = styled.label`
-  font-weight: 600;
-  color: ${({ theme }) => theme.transparentColor};
-`;
-
-const Button = styled.button`
-  padding: 0.5rem 16px;
-  font-size: 14px;
-  font-weight: 600;
-  background: ${({ theme }) => theme.pointColor};
-  border: none;
-  border-radius: 4px;
-  transition: ${({ theme }) => theme.transitionOption};
-  color: whitesmoke;
-
-  :hover {
-    cursor: pointer;
-    background: ${({ theme }) => theme.pointColorLight};
-  }
-`;
-
 const TextWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: -8px;
-`;
-
-const Errorspan = styled.span`
-  color: ${({ theme }) => theme.accentColor};
-  font-size: 12px;
 `;

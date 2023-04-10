@@ -7,7 +7,7 @@ export function ErrorMessage({ children, ...props }: Container) {
 
 const Wrapper = styled.div`
   text-align: center;
-  color: ${({ theme }) => theme.accentColor};
+  color: ${({ theme }) => theme.errorColor};
   font-size: 12px;
   height: 16px;
 `;
