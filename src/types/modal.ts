@@ -9,7 +9,7 @@ export interface InviteCodeSetter {
 }
 
 export type ProjectModalProps = ModalViewProps & InviteCodeSetter;
-export type ConfigLabelProps = ModalViewProps & LabelsProps;
+export type ConfigLabelProps = LabelsProps;
 
 export interface ModalProps {
   children: React.ReactNode;

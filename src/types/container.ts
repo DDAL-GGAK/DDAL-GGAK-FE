@@ -1,6 +1,7 @@
 export interface Container {
   children?: React.ReactNode;
   props?: any;
+  onClick?: () => void;
 }
 
 export interface InputContainer {

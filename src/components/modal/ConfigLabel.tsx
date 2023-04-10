@@ -1,27 +1,29 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { DEFAULT_VARIANTS } from 'constants/';
+import { DEFAULT_VARIANTS, QUERY, TOASTIFY } from 'constants/';
 import { ConfigLabelProps, LabelDataForm } from 'types';
-import { Title, LabelText } from 'components/containers';
+import { Title } from 'components/containers';
+import { deleteLabel } from 'api';
+import { useMutation, useQueryClient } from 'react-query';
+import { useErrorHandler } from 'hooks';
+import { sendToast } from 'libs';
+import { useLocation } from 'react-router-dom';
 
-export function ConfigLabel({ closeModal, labels }: ConfigLabelProps) {
-  console.log(closeModal);
-  console.log(labels);
+export function ConfigLabel({ labels }: ConfigLabelProps) {
+  const queryClient = useQueryClient();
+  const { pathname } = useLocation();
+  const { errorHandler } = useErrorHandler({ route: pathname });
+  const { mutate } = useMutation(deleteLabel, {
+    ...QUERY.DEFAULT_CONFIG,
+    onSuccess: () => {
+      queryClient.invalidateQueries(QUERY.KEY.TASK_DATA);
+      sendToast.success(TOASTIFY.SUCCESS.CREATE_LABEL);
+    },
+    onError: (error: unknown) => errorHandler(error),
+  });
 
-  const dummyLabel = [
-    {
-      labelId: 1,
-      labelTitle: 'labelTitle1',
-    },
-    {
-      labelId: 2,
-      labelTitle: 'labelTitle2',
-    },
-    {
-      labelId: 3,
-      labelTitle: 'labelTitle3',
-    },
-  ];
+  const deleteHandler = (labelId: number) => mutate(labelId);
+
   return (
     <ModalContainer
       variants={DEFAULT_VARIANTS}
@@ -29,15 +31,20 @@ export function ConfigLabel({ closeModal, labels }: ConfigLabelProps) {
       animate="to"
       exit="exit"
     >
-      <Title>labelList</Title>
+      <Title>DeleteList</Title>
       <LabelList>
-        {(labels[0] ? labels : dummyLabel)?.map((label: LabelDataForm) => {
+        {labels?.map((label: LabelDataForm) => {
           const { labelId, labelTitle } = label;
 
           return (
-            <LabelText>
+            <Label
+              key={labelId}
+              onClick={() => {
+                deleteHandler(labelId);
+              }}
+            >
               {labelId} : {labelTitle}
-            </LabelText>
+            </Label>
           );
         })}
       </LabelList>
@@ -61,4 +68,16 @@ const LabelList = styled.div`
   flex-direction: column;
   gap: 0.5rem;
   padding: 1rem;
+`;
+
+const Label = styled.div`
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: ${({ theme }) => theme.transitionOption};
+  :hover {
+    color: ${({ theme }) => theme.background};
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.5);
+  }
 `;

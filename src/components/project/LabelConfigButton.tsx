@@ -15,7 +15,7 @@ export function LabelConfigButton({ labels }: LabelsProps) {
         closeModal={closeModal}
         variants={MODAL_CARD_VARIANTS}
       >
-        <ConfigLabel closeModal={closeModal} labels={labels} />
+        <ConfigLabel labels={labels} />
       </Modal>
       <Button onClick={openModal}>
         <Config size={20} />
