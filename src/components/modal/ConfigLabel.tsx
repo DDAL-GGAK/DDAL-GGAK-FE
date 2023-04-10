@@ -9,10 +9,12 @@ import { ConfirmDelete } from './ConfigmDelete';
 
 export function ConfigLabel({ labels }: ConfigLabelProps) {
   const { Modal, isOpen, openModal, closeModal } = useModal();
-  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [selectedLabel, setSelectedLabel] = useState<LabelDataForm | null>(
+    null
+  );
 
-  const handleOpenModal = (labelId: number) => {
-    setSelectedId(labelId);
+  const handleOpenModal = (label: LabelDataForm) => {
+    setSelectedLabel(label);
     openModal();
   };
 
@@ -33,7 +35,7 @@ export function ConfigLabel({ labels }: ConfigLabelProps) {
               {labelId} : {labelTitle}
               <DeleteButton
                 onClick={() => {
-                  handleOpenModal(labelId);
+                  handleOpenModal(label);
                 }}
               >
                 Delete
@@ -42,13 +44,13 @@ export function ConfigLabel({ labels }: ConfigLabelProps) {
           );
         })}
       </LabelList>
-      {selectedId !== null && (
+      {selectedLabel !== null && (
         <Modal
           isOpen={isOpen}
           closeModal={closeModal}
           variants={MODAL_CARD_VARIANTS}
         >
-          <ConfirmDelete labelId={selectedId} closeModal={closeModal} />
+          <ConfirmDelete label={selectedLabel} closeModal={closeModal} />
         </Modal>
       )}
     </ModalContainer>
@@ -82,15 +84,13 @@ const Label = styled.div`
   align-items: center;
   transition: ${({ theme }) => theme.transitionOption};
   :hover {
-    color: ${({ theme }) => theme.background};
     cursor: pointer;
     background: rgba(0, 0, 0, 0.5);
   }
 `;
 
-const DeleteButton = styled.button<any>`
-  background: red;
-  color: ${({ theme }) => theme.background};
+const DeleteButton = styled.button`
+  color: #111;
   border: none;
   border-radius: 4px;
   padding: 8px 16px;
@@ -98,7 +98,7 @@ const DeleteButton = styled.button<any>`
   font-weight: 600;
   transition: ${({ theme }) => theme.transitionOption};
   :hover {
+    background: ${({ theme }) => theme.accentColor};
     cursor: pointer;
-    background: #111;
   }
 `;
