@@ -7,12 +7,15 @@ import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { LabelDataForm } from 'types';
 
-interface CofirmDeleteProps {
+interface CofirmDeleteTaskProps {
   label: LabelDataForm;
   closeModal: () => void;
 }
 
-export function ConfirmDelete({ label, closeModal }: CofirmDeleteProps) {
+export function ConfirmDeleteTask({
+  label,
+  closeModal,
+}: CofirmDeleteTaskProps) {
   const { pathname } = useLocation();
   const { errorHandler } = useErrorHandler({ route: pathname });
   const queryClient = useQueryClient();
