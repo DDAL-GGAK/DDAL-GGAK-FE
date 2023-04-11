@@ -6,8 +6,9 @@ export function Teams({ labels }: LabelsProps) {
   return (
     <Wrapper>
       {labels?.map((team) => {
-        const { labelId, labelTitle } = team;
-        return <Team key={labelId}>{labelTitle}</Team>;
+        const { labelTitle } = team;
+
+        return <Team key={labelTitle}>{labelTitle}</Team>;
       })}
       <NewLabelButton />
       <LabelConfigButton labels={labels} />
