@@ -4,10 +4,9 @@ export interface Tickets {
   DONE: [];
 }
 
-export interface Ticket {
+export interface TicketCreateForm {
   ticketTitle: string;
   ticketDescription: string;
   priority: number;
   difficulty: number;
-  ticketExpiredAt: string;
 }

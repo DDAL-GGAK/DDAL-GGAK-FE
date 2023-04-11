@@ -5,3 +5,4 @@ export * from './ModalPortal';
 export * from './CreateTask';
 export * from './CreateLabel';
 export * from './ConfirmDelete';
+export * from './CreateTicket';

@@ -32,10 +32,15 @@ const LABEL = Object.freeze({
   DELETE: '/api/label',
 });
 
+const TICKET = Object.freeze({
+  CREATE: '/api/ticket',
+});
+
 export const API_ROUTE = Object.freeze({
   AUTH,
   PROJECT,
   TASK,
   USER,
   LABEL,
+  TICKET,
 });
