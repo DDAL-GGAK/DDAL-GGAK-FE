@@ -8,23 +8,27 @@ import { TaskDetailDataForm } from 'types';
 import { useErrorHandler, useModal } from 'hooks';
 import { Teams } from 'components/task';
 import { NewTicketButton } from 'components/project/NewTicketButton';
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+import { TicketDetail } from 'components/modal';
 
 export function Task() {
   const { pathname } = useLocation();
   const { errorHandler } = useErrorHandler();
   const { isOpen, openModal, closeModal, Modal } = useModal();
-  const [currTicketId, setCurrTicketId] = useState<string | number>();
+  const [currTicketId, setCurrTicketId] = useState<string>();
 
   const projectId = pathname.match(REGEX.PROJECT_ID)?.[1];
   const taskId = pathname.match(REGEX.TASK_ID)?.[1];
-  const taskQueryKey = [QUERY.KEY.TASK_DATA, projectId, taskId];
-  const fetchTaskData = async () => {
+  const taskQueryKey = useMemo(
+    () => [QUERY.KEY.TASK_DATA, projectId, taskId],
+    [projectId, taskId]
+  );
+  const fetchTaskData = useCallback(async () => {
     if (!taskId || !projectId) return;
     const data = await getTaskData({ param: taskId, query: { projectId } });
 
     return data;
-  };
+  }, [taskId, projectId]);
 
   const { data: taskData } = useQuery<TaskDetailDataForm>(
     taskQueryKey,
@@ -70,7 +74,7 @@ export function Task() {
         closeModal={closeModal}
         variants={MODAL_CARD_VARIANTS}
       >
-        <div>{currTicketId}</div>
+        <TicketDetail currTicketId={currTicketId || ''} />
       </Modal>
     </>
   );
