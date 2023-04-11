@@ -7,6 +7,10 @@ export const GlobalStyle = createGlobalStyle`
     transition: ${({ theme }) => theme.transitionOption};
   }
 
+  button {
+    border: none;
+  }
+
   /* Prevent Drag */
   * {
     -webkit-user-select: none;
