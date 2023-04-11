@@ -48,4 +48,5 @@ const Wrapper = styled.div<WrapperProps>`
 const GridBox = styled.div`
   display: grid;
   height: 100%;
+  overflow: auto;
 `;
