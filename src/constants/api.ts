@@ -18,7 +18,12 @@ const PROJECT = Object.freeze({
 
 const TASK = Object.freeze({
   CREATE: '/api/task',
-  GET_DATA: (id: string) => `/api/task/${id}`,
+  GET_DATA: (projectId: string) => `/api/task/${projectId}`,
+});
+
+const TICKET = Object.freeze({
+  CREATE: '/api/ticket',
+  GET_DATA: (taskId: string) => `/api/ticket/${taskId}`,
 });
 
 const USER = Object.freeze({
@@ -30,10 +35,6 @@ const USER = Object.freeze({
 const LABEL = Object.freeze({
   CREATE: '/api/label',
   DELETE: '/api/label',
-});
-
-const TICKET = Object.freeze({
-  CREATE: '/api/ticket',
 });
 
 export const API_ROUTE = Object.freeze({
