@@ -7,6 +7,7 @@ export const TOASTIFY = Object.freeze({
     JOIN_PROJECT: 'Joined the project!',
     USER_SETTING: 'successfully changed',
     CREATE_TICKET: 'successfully created!',
+    DELETE_TICKET: 'successfully deleted!',
   }),
   ERROR: Object.freeze({
     SIGN_UP: 'Account creation failed!',

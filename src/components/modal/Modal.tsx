@@ -57,6 +57,7 @@ const Wrapper = styled(motion.div)`
   justify-content: center;
   align-items: center;
   background: ${({ theme }) => theme.background};
+  box-shadow: ${({ theme }) => theme.boxShadow};
   color: ${({ theme }) => theme.color};
   border-radius: 5px;
   padding: 20px;

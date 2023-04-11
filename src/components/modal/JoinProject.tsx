@@ -52,6 +52,7 @@ export function JoinProject({
       <TitleWrapper>
         <Back size={20} onClick={backHandler} />
         <Title>Enter Invite Code</Title>
+        <div />
       </TitleWrapper>
       <Form onSubmit={handleSubmit(onValid)}>
         <SVGWrapper>

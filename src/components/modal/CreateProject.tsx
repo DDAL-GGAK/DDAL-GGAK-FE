@@ -13,6 +13,7 @@ import {
   ErrorMessage,
   ContentText,
   Button,
+  LabelText,
 } from 'components/containers';
 import { Hr } from 'components';
 import { QUERY, TOASTIFY } from 'constants/';
@@ -99,7 +100,7 @@ export function CreateProject({
       </CreateForm>
       <Hr />
       <InviteWrapper>
-        <ContentText>If you have invite code?</ContentText>
+        <LabelText>If you have invite code?</LabelText>
         <Button buttonType="dark" onClick={inviteHandler}>
           Enter invite code
         </Button>

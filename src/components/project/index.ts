@@ -5,3 +5,4 @@ export * from './NewLabelButton';
 export * from './LabelConfigButton';
 export * from './NewProjectButton';
 export * from './NewTaskButton';
+export * from './DeleteTicketButton';

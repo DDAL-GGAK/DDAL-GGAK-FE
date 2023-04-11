@@ -1,28 +1,33 @@
 import { QUERY, TOASTIFY } from 'constants/';
-import { deleteLabel } from 'api';
+import { deleteTicket } from 'api';
 import { useMutation, useQueryClient } from 'react-query';
 import { useErrorHandler } from 'hooks';
 import { sendToast } from 'libs';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import { LabelDataForm } from 'types';
+import { TicketDataForm } from 'types';
 
-interface CofirmDeleteProps {
-  label: LabelDataForm;
+interface CofirmDeleteTicketProps {
+  ticket: TicketDataForm;
   closeModal: () => void;
+  closeNestedModal: () => void;
 }
 
-export function ConfirmDelete({ label, closeModal }: CofirmDeleteProps) {
+export function ConfirmDeleteTicket({
+  ticket,
+  closeModal,
+  closeNestedModal,
+}: CofirmDeleteTicketProps) {
   const { pathname } = useLocation();
   const { errorHandler } = useErrorHandler({ route: pathname });
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation(deleteLabel, {
+  const { mutate } = useMutation(deleteTicket, {
     ...QUERY.DEFAULT_CONFIG,
     onSuccess: () => {
       queryClient.invalidateQueries(QUERY.KEY.TASK_DATA);
-      sendToast.success(TOASTIFY.SUCCESS.CREATE_LABEL);
-      closeModal();
+      sendToast.success(TOASTIFY.SUCCESS.DELETE_TICKET);
+      closeNestedModal();
     },
     onError: (error: unknown) => errorHandler(error),
   });
@@ -30,13 +35,14 @@ export function ConfirmDelete({ label, closeModal }: CofirmDeleteProps) {
   return (
     <ConfirmDeleteWrapper>
       <Heading>
-        Are you sure you want to <HighlightAccent>delete</HighlightAccent> label
-        <HighlightPoint> {label.labelTitle} </HighlightPoint>?
+        Are you sure you want to <HighlightAccent>delete</HighlightAccent>{' '}
+        ticket
+        <HighlightPoint> {ticket.title} </HighlightPoint>?
       </Heading>
       <ButtonWrapper>
         <DeleteButton
           onClick={() => {
-            mutate(label.labelId);
+            mutate(ticket.ticketId);
           }}
         >
           Yes

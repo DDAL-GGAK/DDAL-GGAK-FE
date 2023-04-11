@@ -5,7 +5,7 @@ import { ConfigLabelProps, LabelDataForm } from 'types';
 import { Title } from 'components/containers';
 import { useModal } from 'hooks';
 import { useState } from 'react';
-import { ConfirmDelete } from './ConfirmDelete';
+import { ConfirmDeleteLabel } from './ConfirmDeleteLabel';
 
 export function ConfigLabel({ labels }: ConfigLabelProps) {
   const { Modal, isOpen, openModal, closeModal } = useModal();
@@ -50,7 +50,7 @@ export function ConfigLabel({ labels }: ConfigLabelProps) {
           closeModal={closeModal}
           variants={MODAL_CARD_VARIANTS}
         >
-          <ConfirmDelete label={selectedLabel} closeModal={closeModal} />
+          <ConfirmDeleteLabel label={selectedLabel} closeModal={closeModal} />
         </Modal>
       )}
     </ModalContainer>

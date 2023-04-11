@@ -1,26 +1,30 @@
 import styled from 'styled-components';
 import { TicketDataForm } from 'types';
-import { Link } from 'react-router-dom';
 
 interface TicketProps {
   data: TicketDataForm;
+  openModal: () => void;
+  setCurrTicketId: React.Dispatch<React.SetStateAction<number | string>>;
 }
 
-export function Ticket({ data }: TicketProps) {
+export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
   const { ticketId, title, status, priority, difficulty, label } = data;
 
+  const openModalHandler = () => {
+    openModal();
+    setCurrTicketId(ticketId);
+  };
+
   return (
-    <Link to={`./ticket/${ticketId}`}>
-      <Wrapper>
-        <Title>{title}</Title>
-        <Details>
-          <DetailItem>status : {status}</DetailItem>
-          <DetailItem>priority : {priority}</DetailItem>
-          <DetailItem>difficulty : {difficulty}</DetailItem>
-          <DetailItem>label : {label || 'unAssigned'}</DetailItem>
-        </Details>
-      </Wrapper>
-    </Link>
+    <Wrapper onClick={openModalHandler}>
+      <Title>{title}</Title>
+      <Details>
+        <DetailItem>status : {status}</DetailItem>
+        <DetailItem>priority : {priority}</DetailItem>
+        <DetailItem>difficulty : {difficulty}</DetailItem>
+        <DetailItem>label : {label || 'unAssigned'}</DetailItem>
+      </Details>
+    </Wrapper>
   );
 }
 
@@ -35,6 +39,7 @@ const Wrapper = styled.div`
   transition: ${({ theme }) => theme.transitionOption};
   border-bottom: 1px solid lightgray;
   :hover {
+    cursor: pointer;
     background: lightgray;
     color: #111;
   }

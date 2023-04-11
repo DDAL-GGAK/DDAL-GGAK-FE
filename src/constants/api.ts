@@ -24,6 +24,7 @@ const TASK = Object.freeze({
 const TICKET = Object.freeze({
   CREATE: '/api/ticket',
   GET_DATA: (taskId: string) => `/api/ticket/${taskId}`,
+  DELETE: '/api/ticket',
 });
 
 const USER = Object.freeze({

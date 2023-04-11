@@ -35,7 +35,7 @@ const Team = styled.div`
 
   :hover {
     cursor: pointer;
-    background-color: ${({ theme }) => theme.subColor};
+    background-color: ${({ theme }) => theme.color};
     color: ${({ theme }) => theme.background};
   }
 `;

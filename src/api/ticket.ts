@@ -24,3 +24,9 @@ export const getTicketData = async ({
 
   return res;
 };
+
+export const deleteTicket = async (ticketId: string | number) => {
+  const res = await api.delete(API_ROUTE.TICKET.DELETE, ticketId);
+
+  return res;
+};
