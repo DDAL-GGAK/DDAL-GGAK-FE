@@ -74,24 +74,43 @@ export function CreateTicket({ closeModal }: ModalViewProps) {
             <ErrorMessage>{errors.priority.message}</ErrorMessage>
           )}
         </LabelWrapper>
-        <input
-          type="number"
-          {...register('priority', {
-            required: 'Priority is required!',
-          })}
-        />
+        <RadioGroup>
+          {Array.from({ length: 5 }, (_, i) => (
+            <RadioLabel key={`priority${i + 1}`}>
+              <RadioInput
+                type="radio"
+                id={`priority${i + 1}`}
+                value={i + 1}
+                {...register('priority', {
+                  required: 'Priority is required!',
+                })}
+              />
+              <label htmlFor={`priority${i + 1}`}>{i + 1}</label>
+            </RadioLabel>
+          ))}
+        </RadioGroup>
+
         <LabelWrapper>
           <LabelText>Difficulty:</LabelText>
           {errors.difficulty && (
             <ErrorMessage>{errors.difficulty.message}</ErrorMessage>
           )}
         </LabelWrapper>
-        <input
-          type="number"
-          {...register('difficulty', {
-            required: 'Difficulty is required!',
-          })}
-        />
+        <RadioGroup>
+          {Array.from({ length: 5 }, (_, i) => (
+            <RadioLabel key={`difficulty${i + 1}`}>
+              <RadioInput
+                type="radio"
+                id={`difficulty${i + 1}`}
+                value={i + 1}
+                {...register('difficulty', {
+                  required: 'Difficulty is required!',
+                })}
+              />
+              <label htmlFor={`difficulty${i + 1}`}>{i + 1}</label>
+            </RadioLabel>
+          ))}
+        </RadioGroup>
         <Button buttonType="point">
           {isLoading ? 'Loading...' : 'Create Ticket'}
         </Button>
@@ -118,4 +137,45 @@ const LabelWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
+
+const RadioGroup = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+const RadioLabel = styled.label`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: ${({ theme }) => theme.color};
+  font-size: 14px;
+`;
+
+const RadioInput = styled.input`
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background-color: ${({ theme }) => theme.transparentBackground};
+  border: 1px solid ${({ theme }) => theme.color};
+  border-radius: 50%;
+  outline: none;
+
+  &:checked {
+    background-color: ${({ theme }) => theme.pointColor};
+    border-color: ${({ theme }) => theme.pointColor};
+  }
+
+  &:checked::after {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    background-color: ${({ theme }) => theme.background};
+    border-radius: 50%;
+    position: relative;
+    left: 3px;
+    top: 3px;
+  }
 `;
