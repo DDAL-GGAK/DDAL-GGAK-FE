@@ -8,6 +8,7 @@ import { TaskDetailDataForm } from 'types';
 import { useErrorHandler } from 'hooks';
 import { Teams } from 'components/task';
 import { ContentText } from 'components/containers';
+import { NewTicketButton } from 'components/project/NewTicketButton';
 
 export function Task() {
   const { pathname } = useLocation();
@@ -46,7 +47,7 @@ export function Task() {
       <BottomWrapper>
         <BottomHeader>
           <ContentText>Ticket</ContentText>
-          <Button>+</Button>
+          <NewTicketButton />
         </BottomHeader>
         <TicketWrapper>
           {Object.entries(taskData?.tickets || {}).map(([key, data]: any) => {

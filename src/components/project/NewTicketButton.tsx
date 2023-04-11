@@ -17,7 +17,7 @@ export function NewTicketButton() {
         <CreateTicket closeModal={closeModal} />
       </Modal>
       <Wrapper onClick={openModal}>
-        <Add size={50} />
+        <Add size={20} />
       </Wrapper>
     </>
   );
@@ -28,8 +28,7 @@ const Wrapper = styled.div`
   box-sizing: border-box;
   color: ${({ theme }) => theme.navBackground};
   background: ${({ theme }) => theme.color};
-  width: 100%;
-  height: 100px;
+  padding: 5px;
   border-radius: 5px;
   display: flex;
   align-items: center;
