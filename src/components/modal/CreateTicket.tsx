@@ -24,7 +24,7 @@ export function CreateTicket({ closeModal }: ModalViewProps) {
   const { mutate, isLoading } = useMutation(createTicket, {
     ...QUERY.DEFAULT_CONFIG,
     onSuccess: () => {
-      queryClient.invalidateQueries(QUERY.KEY.PROJECT_DATA);
+      queryClient.invalidateQueries(QUERY.KEY.TASK_DATA);
       sendToast.success(TOASTIFY.SUCCESS.CREATE_TICKET);
       closeModal();
     },
