@@ -74,7 +74,10 @@ export function Task() {
         closeModal={closeModal}
         variants={MODAL_CARD_VARIANTS}
       >
-        <TicketDetail currTicketId={currTicketId || ''} />
+        <TicketDetail
+          currTicketId={currTicketId || ''}
+          closeModal={closeModal}
+        />
       </Modal>
     </>
   );
