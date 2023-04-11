@@ -5,15 +5,27 @@ import { TicketDataForm } from 'types';
 interface TicketsProps {
   data: TicketDataForm[];
   children: React.ReactNode;
+  openModal: () => void;
+  setCurrTicketId: React.Dispatch<React.SetStateAction<any>>;
 }
 
-export function Tickets({ data, children }: TicketsProps) {
+export function Tickets({
+  data,
+  children,
+  openModal,
+  setCurrTicketId,
+}: TicketsProps) {
   return (
     <Wrapper>
       <BoardTitle>{children}</BoardTitle>
       <TicketWrapper>
         {data.map((ticket: TicketDataForm) => (
-          <Ticket data={ticket} key={ticket.ticketId} />
+          <Ticket
+            data={ticket}
+            key={ticket.ticketId}
+            openModal={openModal}
+            setCurrTicketId={setCurrTicketId}
+          />
         ))}
       </TicketWrapper>
     </Wrapper>
