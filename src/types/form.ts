@@ -35,7 +35,7 @@ export interface InputProps {
   placeholder: string;
 }
 
-export interface LabelProps {
+export interface InputLabelProps {
   value: string;
   errorMessage: ErrorMessageState;
 }

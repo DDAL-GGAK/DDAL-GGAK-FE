@@ -1,21 +1,24 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { defaultVariants, REGEX, QUERY, TOASTIFY } from 'constants/';
+import { DEFAULT_VARIANTS, REGEX, QUERY, TOASTIFY } from 'constants/';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
 import { sendToast } from 'libs';
 import { createLabel } from 'api';
-import { LabelInputForm } from 'types';
+import { LabelInputForm, ModalViewProps } from 'types';
 import { useLocation } from 'react-router-dom';
 import { useErrorHandler } from 'hooks';
+import {
+  Title,
+  ContentText,
+  Button,
+  ErrorMessage,
+} from 'components/containers';
+import { LabelTitleInput } from 'components/form';
 
-interface CreateLabelProps {
-  closeModal: () => void;
-}
-
-export function CreateLabel({ closeModal }: CreateLabelProps) {
-  const { errorHandler } = useErrorHandler();
+export function CreateLabel({ closeModal }: ModalViewProps) {
   const { pathname } = useLocation();
+  const { errorHandler } = useErrorHandler({ route: pathname });
   const taskId = Number(pathname.match(REGEX.TASK_ID)?.[1]) || null;
   const {
     register,
@@ -40,7 +43,7 @@ export function CreateLabel({ closeModal }: CreateLabelProps) {
 
   return (
     <ModalContainer
-      variants={defaultVariants}
+      variants={DEFAULT_VARIANTS}
       initial="from"
       animate="to"
       exit="exit"
@@ -48,12 +51,11 @@ export function CreateLabel({ closeModal }: CreateLabelProps) {
       <Title>Create Label</Title>
       <CreateForm onSubmit={handleSubmit(onValid)}>
         <TextWrapper>
-          <Content>Label Name:</Content>
-          {errors.labelTitle && <Errorspan>Name is required</Errorspan>}
+          <ContentText>Label Name:</ContentText>
+          {errors.labelTitle && <ErrorMessage>Name is required</ErrorMessage>}
         </TextWrapper>
-        <Input type="text" {...register('labelTitle', { required: true })} />
-
-        <Button type="submit">Create Label</Button>
+        <LabelTitleInput register={register} />
+        <Button buttonType="point">Create Label</Button>
       </CreateForm>
     </ModalContainer>
   );
@@ -69,60 +71,14 @@ const ModalContainer = styled(motion.div)`
   max-width: 100%;
 `;
 
-const Title = styled.h2`
-  font-size: 24px;
-  font-weight: 600;
-  text-align: center;
-  color: ${({ theme }) => theme.color};
-`;
-
 const CreateForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 16px;
 `;
 
-const Content = styled.label`
-  font-weight: 600;
-  color: ${({ theme }) => theme.transparentColor};
-`;
-
-const Button = styled.button`
-  padding: 0.5rem 16px;
-  font-size: 14px;
-  font-weight: 600;
-  background: ${({ theme }) => theme.pointColor};
-  border: none;
-  border-radius: 4px;
-  transition: ${({ theme }) => theme.transitionOption};
-  color: whitesmoke;
-
-  :hover {
-    cursor: pointer;
-    background: ${({ theme }) => theme.pointColorLight};
-  }
-`;
-
 const TextWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: -8px;
-`;
-
-const Errorspan = styled.span`
-  color: ${({ theme }) => theme.accentColor};
-  font-size: 12px;
-`;
-
-const Input = styled.input`
-  padding: 8px;
-  font-size: 14px;
-  border: 1px solid ${({ theme }) => theme.borderColor};
-  border-radius: 4px;
-  outline: none;
-  transition: ${({ theme }) => theme.transitionOption};
-  color: #111;
-  :focus {
-    border-color: ${({ theme }) => theme.pointColor};
-  }
 `;

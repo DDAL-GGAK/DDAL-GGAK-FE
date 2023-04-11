@@ -1,44 +1,41 @@
 import styled from 'styled-components';
-import { NewLabelButton } from 'components/project';
-import { LabelDataForm } from 'types';
+import { NewLabelButton, LabelConfigButton } from 'components/project';
+import { LabelsProps } from 'types';
 
-interface TeamsProps {
-  labels: LabelDataForm[];
-}
-export function Teams({ labels }: TeamsProps) {
+export function Teams({ labels }: LabelsProps) {
   return (
     <Wrapper>
+      <Team>All</Team>
       {labels?.map((team) => {
-        const { labelId, labelTitle } = team;
-        return <Team key={labelId}>{labelTitle}</Team>;
+        const { labelTitle } = team;
+
+        return <Team key={labelTitle}>{labelTitle}</Team>;
       })}
       <NewLabelButton />
+      <LabelConfigButton labels={labels} />
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
   display: flex;
-  gap: 10px;
 `;
 
 const Team = styled.div`
-  background: ${({ theme }) => theme.background};
+  background: ${({ theme }) => theme.navLinkBackground};
+  border-right: solid 1px rgba(0, 0, 0, 0.15);
   color: ${({ theme }) => theme.pointColor};
   font-weight: 600;
-  border-radius: 5px;
   padding: 5px 10px;
-  box-shadow: 0 2px 4px
-    rgba(
-      0,
-      0,
-      0,
-      ${({ theme }) => (theme.background === '#F2F2F2' ? '0.1' : '0.3')}
-    );
+  transition: ${({ theme }) => theme.transitionOption};
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   :hover {
     cursor: pointer;
-    background-color: ${({ theme }) => theme.subColor};
+    background-color: ${({ theme }) => theme.color};
     color: ${({ theme }) => theme.background};
   }
 `;

@@ -6,20 +6,23 @@ import { createProject } from 'api';
 import { useMutation, useQueryClient } from 'react-query';
 import { sendToast } from 'libs';
 import { ProjectTitleInput } from 'components/form';
-import { TitleForm } from 'types';
-import { motion } from 'framer-motion';
-import { defaultVariants, QUERY, TOASTIFY } from 'constants/';
+import { TitleForm, ProjectModalProps } from 'types';
+import {
+  ModalContainer,
+  Title,
+  ErrorMessage,
+  ContentText,
+  Button,
+  LabelText,
+} from 'components/containers';
+import { Hr } from 'components';
+import { QUERY, TOASTIFY } from 'constants/';
 import { useErrorHandler } from 'hooks';
-
-interface CreateProjectProps {
-  closeModal: () => void;
-  setHasInviteCode: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
 export function CreateProject({
   closeModal,
   setHasInviteCode,
-}: CreateProjectProps) {
+}: ProjectModalProps) {
   const { errorHandler } = useErrorHandler();
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const queryClient = useQueryClient();
@@ -65,12 +68,7 @@ export function CreateProject({
   const inviteHandler = () => setHasInviteCode(true);
 
   return (
-    <ModalContainer
-      variants={defaultVariants}
-      initial="from"
-      animate="to"
-      exit="exit"
-    >
+    <ModalContainer>
       <Title>Create Project</Title>
       <CreateForm onSubmit={handleSubmit(onValid)}>
         <FileInput
@@ -82,9 +80,9 @@ export function CreateProject({
         />
         <BottomWrapper>
           <TextWrapper>
-            <Content>Project name</Content>
+            <ContentText>Project name</ContentText>
             {errors.projectTitle && (
-              <Errorspan>{errors.projectTitle.message}</Errorspan>
+              <ErrorMessage>{errors.projectTitle.message}</ErrorMessage>
             )}
           </TextWrapper>
           <ProjectTitleInput register={register} />
@@ -98,65 +96,23 @@ export function CreateProject({
             <Add size={50} />
           </ThumbnailLabel>
         )}
-        <Button>Create</Button>
+        <Button buttonType="point">Create</Button>
       </CreateForm>
       <Hr />
       <InviteWrapper>
-        <Text>If you have invite code?</Text>
-        <InviteCodeButton onClick={inviteHandler}>
+        <LabelText>If you have invite code?</LabelText>
+        <Button buttonType="dark" onClick={inviteHandler}>
           Enter invite code
-        </InviteCodeButton>
+        </Button>
       </InviteWrapper>
     </ModalContainer>
   );
 }
 
-const ModalContainer = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-`;
-
-const Title = styled.h2`
-  font-size: 24px;
-  font-weight: 600;
-  text-align: center;
-`;
-
 const CreateForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 16px;
-`;
-
-const Content = styled.label`
-  font-weight: 600;
-  color: ${({ theme }) => theme.transparentColor};
-`;
-
-const Button = styled.button`
-  padding: 0.5rem 16px;
-  font-size: 14px;
-  font-weight: 600;
-  background: ${({ theme }) => theme.pointColor};
-  border: none;
-  border-radius: 4px;
-  transition: ${({ theme }) => theme.transitionOption};
-  color: whitesmoke;
-
-  :hover {
-    cursor: pointer;
-    background: #454545;
-  }
-`;
-
-const Errorspan = styled.span`
-  color: ${({ theme }) => theme.accentColor};
-  font-size: 12px;
-`;
-
-const Hr = styled.div`
-  border-top: solid 1px ${({ theme }) => theme.borderColor};
 `;
 
 const BottomWrapper = styled.div`
@@ -205,28 +161,6 @@ const TextWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: -8px;
-`;
-
-const Text = styled.div`
-  font-size: 14px;
-  color: #454545;
-  text-align: center;
-`;
-
-const InviteCodeButton = styled.button`
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: 600;
-  border: none;
-  border-radius: 4px;
-  transition: ${({ theme }) => theme.transitionOption};
-  color: whitesmoke;
-  background: #454545;
-
-  :hover {
-    background: ${({ theme }) => theme.pointColor};
-    cursor: pointer;
-  }
 `;
 
 const InviteWrapper = styled.div`

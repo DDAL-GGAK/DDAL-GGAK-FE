@@ -4,3 +4,6 @@ export * from './JoinProject';
 export * from './ModalPortal';
 export * from './CreateTask';
 export * from './CreateLabel';
+export * from './ConfirmDeleteLabel';
+export * from './CreateTicket';
+export * from './TicketDetail';

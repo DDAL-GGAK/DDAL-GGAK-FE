@@ -1,7 +1,7 @@
 import { Variants } from 'types';
 
 /* Component Mount motion */
-export const defaultVariants: Variants = {
+export const DEFAULT_VARIANTS: Variants = {
   from: { opacity: 0 },
   to: {
     opacity: 1,
@@ -20,7 +20,7 @@ export const defaultVariants: Variants = {
 /* Modal motion */
 const MODAL_EASE = 'easeInOut';
 
-export const modalCardVariants: Variants = {
+export const MODAL_CARD_VARIANTS: Variants = {
   from: {
     opacity: 0,
     y: 20,
@@ -48,13 +48,13 @@ export const modalCardVariants: Variants = {
 };
 
 /* Nav */
-export const linkVariants = {
+export const LINK_VARIANTS = {
   from: { opacity: 0 },
   to: { opacity: 1, transition: { duration: 0.15 } },
   exit: { opacity: 0, transition: { duration: 0.15 } },
 };
 
-export const mountVariants = {
+export const MOUNT_VARIANTS = {
   from: { opacity: 0, transition: { duration: 0.5 } },
   to: { opacity: 1, transition: { duration: 0.5 } },
   exit: { opacity: 0 },

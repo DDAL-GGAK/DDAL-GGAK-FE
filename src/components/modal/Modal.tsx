@@ -1,21 +1,14 @@
 import styled from 'styled-components';
 import { ModalPortal } from 'components/modal';
 import { AnimatePresence, motion } from 'framer-motion';
-import { defaultVariants } from 'constants/';
-import { Variants } from 'types';
-
-interface ModalProps {
-  children: React.ReactNode;
-  isOpen: boolean;
-  closeModal: () => void;
-  variants?: Variants;
-}
+import { DEFAULT_VARIANTS } from 'constants/';
+import { ModalProps } from 'types';
 
 export function Modal({
   children,
   isOpen,
   closeModal,
-  variants = defaultVariants,
+  variants = DEFAULT_VARIANTS,
 }: ModalProps) {
   const closeHandler = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
@@ -28,7 +21,7 @@ export function Modal({
         {isOpen ? (
           <Overlay
             onClick={closeHandler}
-            variants={defaultVariants}
+            variants={DEFAULT_VARIANTS}
             initial="from"
             animate="to"
             exit="exit"
@@ -64,6 +57,7 @@ const Wrapper = styled(motion.div)`
   justify-content: center;
   align-items: center;
   background: ${({ theme }) => theme.background};
+  box-shadow: ${({ theme }) => theme.boxShadow};
   color: ${({ theme }) => theme.color};
   border-radius: 5px;
   padding: 20px;

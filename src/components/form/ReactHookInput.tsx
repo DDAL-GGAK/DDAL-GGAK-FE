@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import {
-  Label,
+  InputLabel,
   EmailInput,
   PasswordConfirmInput,
   PasswordInput,
@@ -30,7 +30,7 @@ export function ReactHookInput({
   return (
     <Wrapper>
       <>
-        <Label value={type} errorMessage={errorMessage} />
+        <InputLabel value={type} errorMessage={errorMessage} />
         {content(type)}
       </>
     </Wrapper>

@@ -1,26 +1,34 @@
 import styled from 'styled-components';
-import { CONTENT, REGEX, QUERY } from 'constants/';
-import { Tickets } from 'components';
+import { CONTENT, REGEX, QUERY, MODAL_CARD_VARIANTS } from 'constants/';
+import { Tickets, Button } from 'components';
 import { getTaskData } from 'api';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { TaskDetailDataForm } from 'types';
-import { useErrorHandler } from 'hooks';
+import { useErrorHandler, useModal } from 'hooks';
 import { Teams } from 'components/task';
+import { NewTicketButton } from 'components/project/NewTicketButton';
+import { useCallback, useMemo, useState } from 'react';
+import { TicketDetail } from 'components/modal';
 
 export function Task() {
   const { pathname } = useLocation();
   const { errorHandler } = useErrorHandler();
+  const { isOpen, openModal, closeModal, Modal } = useModal();
+  const [currTicketId, setCurrTicketId] = useState<string>();
 
   const projectId = pathname.match(REGEX.PROJECT_ID)?.[1];
   const taskId = pathname.match(REGEX.TASK_ID)?.[1];
-  const taskQueryKey = [QUERY.KEY.TASK_DATA, projectId, taskId];
-  const fetchTaskData = async () => {
+  const taskQueryKey = useMemo(
+    () => [QUERY.KEY.TASK_DATA, projectId, taskId],
+    [projectId, taskId]
+  );
+  const fetchTaskData = useCallback(async () => {
     if (!taskId || !projectId) return;
     const data = await getTaskData({ param: taskId, query: { projectId } });
 
     return data;
-  };
+  }, [taskId, projectId]);
 
   const { data: taskData } = useQuery<TaskDetailDataForm>(
     taskQueryKey,
@@ -34,41 +42,50 @@ export function Task() {
   console.log(taskData);
 
   return (
-    <Wrapper>
-      <TopWrapper>
-        <Teams labels={taskData?.labels || []} />
-        <SortMethods>
-          <SortButton>Column</SortButton>
-          <SortButton>Row</SortButton>
-        </SortMethods>
-      </TopWrapper>
-      <BottomWrapper>
-        <BottomHeader>Ticket</BottomHeader>
-        <TicketWrapper>
-          {Object.entries(taskData?.tickets || {}).map(([key, data]: any) => {
-            return (
-              <Tickets data={data} key={key}>
-                {key}
-              </Tickets>
-            );
-          })}
-        </TicketWrapper>
-      </BottomWrapper>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <TopWrapper>
+          <Teams labels={taskData?.labels || []} />
+          <SortMethods>
+            <Button>Column</Button>
+            <Button>Row</Button>
+          </SortMethods>
+        </TopWrapper>
+        <BottomWrapper>
+          <TicketWrapper>
+            {Object.entries(taskData?.tickets || {}).map(([key, data]: any) => {
+              return (
+                <Tickets
+                  data={data}
+                  key={key}
+                  openModal={openModal}
+                  setCurrTicketId={setCurrTicketId}
+                >
+                  {key}
+                </Tickets>
+              );
+            })}
+          </TicketWrapper>
+          <NewTicketButton />
+        </BottomWrapper>
+      </Wrapper>
+      <Modal
+        isOpen={isOpen}
+        closeModal={closeModal}
+        variants={MODAL_CARD_VARIANTS}
+      >
+        <TicketDetail
+          currTicketId={currTicketId || ''}
+          closeModal={closeModal}
+        />
+      </Modal>
+    </>
   );
 }
 
 const Wrapper = styled.div`
   height: ${CONTENT.HEIGHT};
-  border-radius: 12px;
   background: ${({ theme }) => theme.background};
-  box-shadow: 0 4px 8px
-    rgba(
-      0,
-      0,
-      0,
-      ${({ theme }) => (theme.background === '#F2F2F2' ? '0.1' : '0.3')}
-    );
   display: flex;
   flex-direction: column;
 `;
@@ -77,10 +94,7 @@ const TopWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
   background: ${({ theme }) => theme.pointColor};
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
 `;
 
 const SortMethods = styled.div`
@@ -88,47 +102,17 @@ const SortMethods = styled.div`
   gap: 10px;
 `;
 
-const SortButton = styled.button`
-  background: ${({ theme }) => theme.background};
-  color: ${({ theme }) => theme.pointColor};
-  font-weight: 600;
-  border-radius: 5px;
-  padding: 5px 10px;
-  border: none;
-  box-shadow: 0 2px 4px
-    rgba(
-      0,
-      0,
-      0,
-      ${({ theme }) => (theme.background === '#F2F2F2' ? '0.1' : '0.3')}
-    );
-
-  :hover {
-    cursor: pointer;
-    background-color: ${({ theme }) => theme.subColor};
-    color: ${({ theme }) => theme.background};
-  }
-`;
-
 const BottomWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 16px;
   overflow-y: auto;
   height: 100%;
   background: rgba(122, 122, 122, 0.5);
   border-radius: 0 0 10px 10px;
 `;
 
-const BottomHeader = styled.div`
-  font-weight: 600;
-  font-size: 20px;
-  color: ${({ theme }) => theme.pointColor};
-  margin-bottom: 16px;
-`;
-
 const TicketWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  height: 100%;
 `;

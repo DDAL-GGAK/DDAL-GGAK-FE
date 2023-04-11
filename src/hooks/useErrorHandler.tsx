@@ -3,11 +3,14 @@ import { AxiosError } from 'axios';
 import { sendToast } from 'libs';
 import { useNavigate } from 'react-router-dom';
 
-export function useErrorHandler({ route } = { route: null }) {
+interface RouteForm {
+  route: string | null | undefined;
+}
+
+export function useErrorHandler({ route }: RouteForm = { route: null }) {
   const navigate = useNavigate();
   const defaultRoute = ROUTE.HOME;
   const moveTo = route || defaultRoute;
-
   const errorHandler = (err: unknown) => {
     const error = err as AxiosError;
     sendToast.error(error.message);

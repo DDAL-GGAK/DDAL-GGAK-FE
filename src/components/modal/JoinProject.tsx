@@ -6,20 +6,16 @@ import { joinProject } from 'api';
 import { Team } from 'assets/svg';
 import { Back } from 'assets/icons';
 import { motion } from 'framer-motion';
-import { defaultVariants, SVG_SIZE, QUERY, TOASTIFY } from 'constants/';
+import { DEFAULT_VARIANTS, SVG_SIZE, QUERY, TOASTIFY } from 'constants/';
 import { useErrorHandler } from 'hooks';
 import { JoinProjectInput } from 'components/form';
-import { InviteCodeForm } from 'types';
-
-interface EnterProjectProps {
-  closeModal: () => void;
-  setHasInviteCode: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import { InviteCodeForm, ProjectModalProps } from 'types';
+import { Title, ErrorMessage, Button } from 'components/containers';
 
 export function JoinProject({
   closeModal,
   setHasInviteCode,
-}: EnterProjectProps) {
+}: ProjectModalProps) {
   const { errorHandler } = useErrorHandler();
   const {
     register,
@@ -48,7 +44,7 @@ export function JoinProject({
 
   return (
     <ModalContainer
-      variants={defaultVariants}
+      variants={DEFAULT_VARIANTS}
       initial="from"
       animate="to"
       exit="exit"
@@ -68,9 +64,7 @@ export function JoinProject({
           </ErrorMessage>
           <JoinProjectInput register={register} />
         </TextWrapper>
-        <Button type="submit" disabled={isLoading}>
-          {isLoading ? 'Loading...' : 'Join'}
-        </Button>
+        <Button buttonType="point">{isLoading ? 'Loading...' : 'Join'}</Button>
       </Form>
     </ModalContainer>
   );
@@ -87,12 +81,6 @@ const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`;
-
-const Title = styled.h2`
-  font-size: 24px;
-  font-weight: 600;
-  text-align: center;
 `;
 
 const Form = styled.form`
@@ -113,27 +101,4 @@ const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-`;
-
-const ErrorMessage = styled.div`
-  text-align: center;
-  color: ${({ theme }) => theme.accentColor};
-  font-size: 12px;
-  height: 16px;
-`;
-
-const Button = styled.button`
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: 600;
-  background: ${({ theme }) => theme.pointColor};
-  border: none;
-  border-radius: 4px;
-  transition: ${({ theme }) => theme.transitionOption};
-  color: whitesmoke;
-
-  :hover {
-    cursor: pointer;
-    background: #454545;
-  }
 `;

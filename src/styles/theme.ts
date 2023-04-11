@@ -10,6 +10,7 @@ export const lightTheme: DefaultTheme = {
   transparentColor: 'rgba(43, 43, 43, 0.65)',
   transitionOption: 'ease-in-out 0.15s',
   pointColorLight: 'rgb(68, 197, 172)',
+  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.5)',
 
   /* nav */
   navBackground: '#F2F2F2',
@@ -33,6 +34,7 @@ export const darkTheme: DefaultTheme = {
   color: '#F5F6F7',
   transparentColor: 'rgba(245, 246, 247, 0.65)',
   transitionOption: 'ease-in-out 0.15s',
+  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.5)',
 
   /* nav */
   navBackground: '#111',
