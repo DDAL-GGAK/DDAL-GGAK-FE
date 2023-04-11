@@ -2,7 +2,6 @@ export * from './NavLink';
 export * from './ThemeToggle';
 export * from './Config';
 export * from './LogOut';
-export * from './TicketBoard';
 export * from './Tickets';
 export * from './Ticket';
 export * from './AuthRoute';

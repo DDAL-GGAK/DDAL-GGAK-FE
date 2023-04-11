@@ -1,14 +1,9 @@
 import styled from 'styled-components';
 import { Ticket } from 'components';
-import { Link } from 'react-router-dom';
-
-interface TicketForm {
-  id: number;
-  name: string;
-}
+import { TicketDataForm } from 'types';
 
 interface TicketsProps {
-  data: TicketForm[];
+  data: TicketDataForm[];
   children: React.ReactNode;
 }
 
@@ -17,15 +12,9 @@ export function Tickets({ data, children }: TicketsProps) {
     <Wrapper>
       <BoardTitle>{children}</BoardTitle>
       <TicketWrapper>
-        {data.map((v) => {
-          const { id, name } = v;
-
-          return (
-            <Link key={id} to={`./ticket/${id}`}>
-              <Ticket data={name} />
-            </Link>
-          );
-        })}
+        {data.map((ticket: TicketDataForm) => (
+          <Ticket data={ticket} />
+        ))}
       </TicketWrapper>
     </Wrapper>
   );

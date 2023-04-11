@@ -5,7 +5,7 @@ import { ConfigLabelProps, LabelDataForm } from 'types';
 import { Title } from 'components/containers';
 import { useModal } from 'hooks';
 import { useState } from 'react';
-import { ConfirmDelete } from './ConfigmDelete';
+import { ConfirmDelete } from './ConfirmDelete';
 
 export function ConfigLabel({ labels }: ConfigLabelProps) {
   const { Modal, isOpen, openModal, closeModal } = useModal();
