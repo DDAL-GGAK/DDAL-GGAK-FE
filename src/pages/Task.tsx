@@ -88,6 +88,7 @@ const BottomWrapper = styled.div`
 `;
 
 const TicketWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  height: 100%;
 `;

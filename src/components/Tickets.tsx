@@ -27,7 +27,7 @@ const Wrapper = styled.div`
 `;
 
 const BoardTitle = styled.div`
-  padding: 10px 22px;
+  padding: 8px;
   font-weight: 600;
   background: ${({ theme }) => theme.pointColor};
   color: ${({ theme }) => theme.background};
@@ -36,4 +36,6 @@ const BoardTitle = styled.div`
 const TicketWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  max-height: 242px;
+  overflow-y: auto;
 `;

@@ -7,13 +7,12 @@ interface TicketProps {
 }
 
 export function Ticket({ data }: TicketProps) {
-  const { ticketId, title, description, status, priority, difficulty, label } =
-    data;
+  const { ticketId, title, status, priority, difficulty, label } = data;
+
   return (
     <Link to={`./ticket/${ticketId}`}>
       <Wrapper>
         <Title>{title}</Title>
-        <Description>description : {description}</Description>
         <Details>
           <DetailItem>status : {status}</DetailItem>
           <DetailItem>priority : {priority}</DetailItem>
@@ -26,10 +25,12 @@ export function Ticket({ data }: TicketProps) {
 }
 
 const Wrapper = styled.div`
-  background: ${({ theme }) => theme.transparentBackground};
-  padding: 0.5rem 1rem;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  height: 36px;
+  background: ${({ theme }) => theme.transparentBackground};
+  padding: 0 1rem;
   gap: 1rem;
   transition: ${({ theme }) => theme.transitionOption};
   border-bottom: 1px solid lightgray;
@@ -44,8 +45,6 @@ const Title = styled.p`
   font-weight: 600;
   color: ${({ theme }) => theme.pointColor};
 `;
-
-const Description = styled.p``;
 
 const Details = styled.ul`
   display: flex;
