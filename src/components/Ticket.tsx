@@ -7,18 +7,17 @@ interface TicketProps {
 }
 
 export function Ticket({ data }: TicketProps) {
-  const { ticketId, title, description, status, priority, difficulty, label } =
-    data;
+  const { ticketId, title, status, priority, difficulty, label } = data;
+
   return (
-    <Link key={ticketId} to={`./ticket/${ticketId}`}>
+    <Link to={`./ticket/${ticketId}`}>
       <Wrapper>
         <Title>{title}</Title>
-        <Description>{description}</Description>
         <Details>
-          <DetailItem>{status}</DetailItem>
-          <DetailItem>{priority}</DetailItem>
-          <DetailItem>{difficulty}</DetailItem>
-          <DetailItem>{label}</DetailItem>
+          <DetailItem>status : {status}</DetailItem>
+          <DetailItem>priority : {priority}</DetailItem>
+          <DetailItem>difficulty : {difficulty}</DetailItem>
+          <DetailItem>label : {label || 'unAssigned'}</DetailItem>
         </Details>
       </Wrapper>
     </Link>
@@ -26,37 +25,36 @@ export function Ticket({ data }: TicketProps) {
 }
 
 const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 36px;
   background: ${({ theme }) => theme.transparentBackground};
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: ${({ theme }) => theme.boxShadow};
-  margin-bottom: 16px;
+  padding: 0 1rem;
+  gap: 1rem;
+  transition: ${({ theme }) => theme.transitionOption};
+  border-bottom: 1px solid lightgray;
+  :hover {
+    background: lightgray;
+    color: #111;
+  }
 `;
 
-const Title = styled.h2`
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 8px;
+const Title = styled.p`
+  font-size: 1.15rem;
+  font-weight: 600;
   color: ${({ theme }) => theme.pointColor};
-`;
-
-const Description = styled.p`
-  font-size: 16px;
-  margin-bottom: 16px;
-  color: ${({ theme }) => theme.color};
 `;
 
 const Details = styled.ul`
   display: flex;
-  flex-wrap: wrap;
-  margin: 0 -8px;
+  gap: 10px;
 `;
 
 const DetailItem = styled.li`
   font-size: 14px;
   padding: 4px 8px;
-  margin: 8px;
   background-color: ${({ theme }) => theme.navLinkBackground};
+  color: #111;
   border-radius: 4px;
-  color: ${({ theme }) => theme.color};
 `;
