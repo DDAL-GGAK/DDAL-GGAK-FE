@@ -1,12 +1,12 @@
-import { Button, ModalContainer } from 'components/containers';
+import { ModalContainer } from 'components/containers';
 import { useLocation } from 'react-router-dom';
 import { useErrorHandler } from 'hooks';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { getTicketData, deleteTicket } from 'api';
-import { REGEX, QUERY, TOASTIFY } from 'constants/';
+import { useQuery } from 'react-query';
+import { getTicketData } from 'api';
+import { REGEX, QUERY } from 'constants/';
 import styled from 'styled-components';
 import { Loading } from 'components';
-import { sendToast } from 'libs';
+import { DeleteTicketButton } from 'components/project';
 
 interface TicketDetailProps {
   currTicketId: string;
@@ -15,7 +15,6 @@ interface TicketDetailProps {
 
 export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
   const { pathname } = useLocation();
-  const queryClient = useQueryClient();
   const taskId = pathname.match(REGEX.TASK_ID)?.[1];
   const { errorHandler } = useErrorHandler({ route: pathname });
   const { data: ticketData } = useQuery(
@@ -26,19 +25,6 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
       onError: (error: unknown) => errorHandler(error),
     }
   );
-
-  const { mutate } = useMutation(deleteTicket, {
-    ...QUERY.DEFAULT_CONFIG,
-    onSuccess: () => {
-      queryClient.invalidateQueries(QUERY.KEY.TASK_DATA);
-      sendToast.success(TOASTIFY.SUCCESS.CREATE_LABEL);
-      closeModal();
-    },
-    onError: (error: unknown) => errorHandler(error),
-  });
-  const deleteHandler = () => {
-    mutate(currTicketId);
-  };
 
   return (
     <StyledModalContainer>
@@ -53,9 +39,7 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
           <Text>{ticketData.priority}</Text>
           <Label>Due Date:</Label>
           <Text>{ticketData.dueDate}</Text>
-          <Button buttonType="dangerous_big" onClick={deleteHandler}>
-            Delete
-          </Button>
+          <DeleteTicketButton closeModal={closeModal} ticket={ticketData} />
         </>
       ) : (
         <Loading />
