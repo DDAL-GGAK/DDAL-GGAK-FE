@@ -1,12 +1,6 @@
-export interface Tickets {
-  TODO: [];
-  IN_PROGRESS: [];
-  DONE: [];
-}
-
 type TicketState = 'TODO' | 'IN_PROGRESS' | 'DONE';
 
-export interface TicketDetailForm {
+export interface Ticket {
   assigned: string | null;
   completedAt: string | null;
   description: string;
@@ -17,6 +11,12 @@ export interface TicketDetailForm {
   status: TicketState;
   ticketId: number | string;
   title: string;
+}
+
+export interface Tickets {
+  TODO: Ticket[];
+  IN_PROGRESS: Ticket[];
+  DONE: Ticket[];
 }
 
 export interface TicketCreateForm {
