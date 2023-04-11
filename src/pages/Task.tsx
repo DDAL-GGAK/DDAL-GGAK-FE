@@ -7,7 +7,6 @@ import { useQuery } from 'react-query';
 import { TaskDetailDataForm } from 'types';
 import { useErrorHandler } from 'hooks';
 import { Teams } from 'components/task';
-import { ContentText } from 'components/containers';
 import { NewTicketButton } from 'components/project/NewTicketButton';
 
 export function Task() {
@@ -45,10 +44,6 @@ export function Task() {
         </SortMethods>
       </TopWrapper>
       <BottomWrapper>
-        <BottomHeader>
-          <ContentText>Ticket</ContentText>
-          <NewTicketButton />
-        </BottomHeader>
         <TicketWrapper>
           {Object.entries(taskData?.tickets || {}).map(([key, data]: any) => {
             return (
@@ -58,6 +53,7 @@ export function Task() {
             );
           })}
         </TicketWrapper>
+        <NewTicketButton />
       </BottomWrapper>
     </Wrapper>
   );
@@ -65,9 +61,7 @@ export function Task() {
 
 const Wrapper = styled.div`
   height: ${CONTENT.HEIGHT};
-  border-radius: 12px;
   background: ${({ theme }) => theme.background};
-  box-shadow: ${({ theme }) => theme.boxShadow};
   display: flex;
   flex-direction: column;
 `;
@@ -76,10 +70,7 @@ const TopWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
   background: ${({ theme }) => theme.pointColor};
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
 `;
 
 const SortMethods = styled.div`
@@ -90,24 +81,13 @@ const SortMethods = styled.div`
 const BottomWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 16px;
   overflow-y: auto;
   height: 100%;
   background: rgba(122, 122, 122, 0.5);
   border-radius: 0 0 10px 10px;
 `;
 
-const BottomHeader = styled.div`
-  display: flex;
-  font-weight: 600;
-  font-size: 20px;
-  color: ${({ theme }) => theme.pointColor};
-  margin-bottom: 16px;
-  gap: 10px;
-`;
-
 const TicketWrapper = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
+  flex-direction: column;
 `;

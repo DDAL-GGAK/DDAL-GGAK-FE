@@ -24,20 +24,17 @@ export function NewTicketButton() {
 }
 
 const Wrapper = styled.div`
-  border: 1px solid ${({ theme }) => theme.borderColor};
   box-sizing: border-box;
-  color: ${({ theme }) => theme.navBackground};
-  background: ${({ theme }) => theme.color};
-  padding: 5px;
-  border-radius: 5px;
+  color: ${({ theme }) => theme.color};
+  background: ${({ theme }) => theme.background};
+  transition: ${({ theme }) => theme.transitionOption};
+  padding: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: ${({ theme }) => theme.boxShadow};
-  transition: ${({ theme }) => theme.transitionOption};
   :hover {
-    color: ${({ theme }) => theme.color};
-    background: ${({ theme }) => theme.background};
+    color: ${({ theme }) => theme.background};
+    background: ${({ theme }) => theme.color};
     cursor: pointer;
   }
 `;

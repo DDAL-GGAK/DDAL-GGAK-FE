@@ -5,6 +5,7 @@ import { LabelsProps } from 'types';
 export function Teams({ labels }: LabelsProps) {
   return (
     <Wrapper>
+      <Team>All</Team>
       {labels?.map((team) => {
         const { labelTitle } = team;
 
@@ -18,17 +19,19 @@ export function Teams({ labels }: LabelsProps) {
 
 const Wrapper = styled.div`
   display: flex;
-  gap: 10px;
 `;
 
 const Team = styled.div`
-  background: ${({ theme }) => theme.background};
+  background: ${({ theme }) => theme.navLinkBackground};
+  border-right: solid 1px rgba(0, 0, 0, 0.15);
   color: ${({ theme }) => theme.pointColor};
   font-weight: 600;
-  border-radius: 5px;
   padding: 5px 10px;
-  box-shadow: ${({ theme }) => theme.boxShadow};
   transition: ${({ theme }) => theme.transitionOption};
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   :hover {
     cursor: pointer;
