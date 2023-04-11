@@ -10,7 +10,7 @@ export function Ticket({ data }: TicketProps) {
   const { ticketId, title, description, status, priority, difficulty, label } =
     data;
   return (
-    <Link key={ticketId} to={`./ticket/${ticketId}`}>
+    <Link to={`./ticket/${ticketId}`}>
       <Wrapper>
         <Title>{title}</Title>
         <Description>{description}</Description>

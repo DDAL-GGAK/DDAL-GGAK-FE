@@ -13,7 +13,7 @@ export function Tickets({ data, children }: TicketsProps) {
       <BoardTitle>{children}</BoardTitle>
       <TicketWrapper>
         {data.map((ticket: TicketDataForm) => (
-          <Ticket data={ticket} />
+          <Ticket data={ticket} key={ticket.ticketId} />
         ))}
       </TicketWrapper>
     </Wrapper>
