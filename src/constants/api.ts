@@ -27,6 +27,7 @@ const TICKET = Object.freeze({
   DELETE: '/api/ticket',
   CHANGE_STATUS: (ticketId: string) => `/api/ticket/${ticketId}/movement`,
   SEND_REVIEW: '/api/review',
+  ASSIGN_TICKET: (ticketId: string) => `/api/ticket/${ticketId}/assign`,
 });
 
 const USER = Object.freeze({

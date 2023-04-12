@@ -45,3 +45,9 @@ export const sendTicketReview = async (ticketId: string) => {
 
   return res;
 };
+
+export const assignTicket = async (ticketId: string) => {
+  const res = await api.post(API_ROUTE.TICKET.ASSIGN_TICKET(ticketId), {});
+
+  return res;
+};
