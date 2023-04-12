@@ -1,4 +1,10 @@
-type TicketState = 'TODO' | 'IN_PROGRESS' | 'DONE';
+type TicketState = 'TODO' | 'IN_PROGRESS' | 'REVIEW' | 'DONE';
+
+export interface Comment {
+  commentId: string;
+  comment: string;
+  email: string;
+}
 
 export interface TicketDataForm {
   assigned: string | null;
@@ -11,6 +17,7 @@ export interface TicketDataForm {
   status: TicketState;
   ticketId: number | string;
   title: string;
+  commentlist: Comment[];
 }
 
 export interface Tickets {
