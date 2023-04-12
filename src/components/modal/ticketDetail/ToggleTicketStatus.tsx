@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { useMutation, useQueryClient } from 'react-query';
 import { changeTicketStatus } from 'api';
 import { QUERY } from 'constants/';
@@ -26,19 +25,8 @@ export function ToggleTicketStatus({
   });
 
   return (
-    <Text>
-      <span>status : {status}</span>
-      <Button onClick={handleStatusChange} buttonType="point">
-        {status === 'TODO' ? 'TODO => IN PROGRESS' : 'IN PROGRESS => TODO'}
-      </Button>
-    </Text>
+    <Button onClick={handleStatusChange} buttonType="point">
+      {status === 'TODO' ? 'TODO => IN PROGRESS' : 'IN PROGRESS => TODO'}
+    </Button>
   );
 }
-
-const Text = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  margin-bottom: 16px;
-`;
