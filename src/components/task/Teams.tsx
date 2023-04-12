@@ -1,23 +1,26 @@
 import styled from 'styled-components';
 import { NewLabelButton, LabelConfigButton } from 'components/project';
 import { LabelsProps } from 'types';
+import { useDispatch } from 'react-redux';
+import { setLabel } from 'redux/modules/ticketData';
 
 export function Teams({ labels }: LabelsProps) {
-  const LabelClickHandler = (labelId: number) => {
-    console.log(labelId);
+  const dispatch = useDispatch();
+  const LabelClickHandler = (labelTitle: string) => {
+    dispatch(setLabel(labelTitle));
   };
 
   return (
     <Wrapper>
       <Label>All</Label>
       {labels?.map((team) => {
-        const { labelTitle, labelId } = team;
+        const { labelTitle } = team;
 
         return (
           <Label
             key={labelTitle}
             onClick={() => {
-              LabelClickHandler(labelId);
+              LabelClickHandler(labelTitle);
             }}
           >
             {labelTitle}
