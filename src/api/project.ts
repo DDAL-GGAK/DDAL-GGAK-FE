@@ -4,19 +4,25 @@ import { API_ROUTE } from 'constants/';
 const api = new Axios(true);
 /* Project */
 export const getUserProjects = async () => {
-  const res = await api.get(API_ROUTE.PROJECT.GET_USER_PROJECTS);
+  const { data: res } = await api.get(API_ROUTE.PROJECT.GET_USER_PROJECTS);
 
   return res;
 };
 
 export const createProject = async (data: FormData) => {
-  const res = await api.postMultipartFormData(API_ROUTE.PROJECT.CREATE, data);
+  const { data: res } = await api.postMultipartFormData(
+    API_ROUTE.PROJECT.CREATE,
+    data
+  );
 
   return res;
 };
 
 export const joinProject = async (projectId: string | number) => {
-  const res = await api.post(API_ROUTE.PROJECT.JOIN_PROJECT(projectId), {});
+  const { data: res } = await api.post(
+    API_ROUTE.PROJECT.JOIN_PROJECT(projectId),
+    {}
+  );
 
   return res;
 };
@@ -29,7 +35,6 @@ export const getProjectData = async (param: string) => {
 
   return res;
 };
-
 
 export const setProjectThumbnail = async (data: FormData) => {
   await api.putFormData(API_ROUTE.PROJECT.SET_THUMBNAIL, data);
