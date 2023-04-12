@@ -8,12 +8,14 @@ import { TaskDetailDataForm } from 'types';
 import { useErrorHandler } from 'hooks';
 import { Teams } from 'components/task';
 import { NewTicketButton } from 'components/project/NewTicketButton';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setLabel, setTicketData } from 'redux/modules/ticketData';
 
 export function Task() {
   const { pathname } = useLocation();
   const { errorHandler } = useErrorHandler();
-
+  const dispatch = useDispatch();
   const projectId = pathname.match(REGEX.PROJECT_ID)?.[1];
   const taskId = pathname.match(REGEX.TASK_ID)?.[1];
   const taskQueryKey = useMemo(
@@ -27,14 +29,23 @@ export function Task() {
     return data;
   }, [taskId, projectId]);
 
-  const { data: taskData } = useQuery<TaskDetailDataForm>(
+  const { data: taskData, refetch } = useQuery<TaskDetailDataForm>(
     taskQueryKey,
     fetchTaskData,
     {
       ...QUERY.DEFAULT_CONFIG,
+      enabled: false,
+      onSuccess: (data) => {
+        if (data) dispatch(setTicketData(data?.tickets));
+        dispatch(setLabel('all'));
+      },
       onError: (error: unknown) => errorHandler(error),
     }
   );
+
+  useEffect(() => {
+    if (projectId && taskId) refetch();
+  }, [projectId, taskId, refetch]);
 
   console.log(taskData);
 
@@ -48,7 +59,7 @@ export function Task() {
         </SortMethods>
       </TopWrapper>
       <BottomWrapper>
-        <TicketContainer ticketData={taskData?.tickets} />
+        <TicketContainer />
         <NewTicketButton />
       </BottomWrapper>
     </Wrapper>
