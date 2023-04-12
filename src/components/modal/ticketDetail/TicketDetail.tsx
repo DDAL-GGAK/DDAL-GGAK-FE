@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { Loading } from 'components';
 import {
   DeleteTicketButton,
+  SendTicketReviewButton,
   ToggleTicketStatus,
 } from 'components/modal/ticketDetail';
 
@@ -44,6 +45,10 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
           <Text>{ticketData.status}</Text>
           <TicketStateWrapper>
             <ToggleTicketStatus
+              status={ticketData.status}
+              currTicketId={currTicketId}
+            />
+            <SendTicketReviewButton
               status={ticketData.status}
               currTicketId={currTicketId}
             />
