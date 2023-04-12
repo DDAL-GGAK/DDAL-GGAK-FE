@@ -17,7 +17,10 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
 
   return (
     <Wrapper onClick={openModalHandler}>
-      <Title>{title}</Title>
+      <LeftBox>
+        <input type="checkbox" />
+        <Title>{title}</Title>
+      </LeftBox>
       <Details>
         <DetailItem>status: {status}</DetailItem>
         <DetailItem>priority : {priority}</DetailItem>
@@ -43,6 +46,10 @@ const Wrapper = styled.div`
     background: lightgray;
     color: #111;
   }
+`;
+
+const LeftBox = styled.div`
+  display: flex;
 `;
 
 const Title = styled.p`
