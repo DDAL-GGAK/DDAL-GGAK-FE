@@ -4,21 +4,22 @@ import { TicketDataForm } from 'types';
 interface TicketProps {
   data: TicketDataForm;
   openModal: () => void;
-  setCurrTicketId: React.Dispatch<React.SetStateAction<number | string>>;
+  setCurrTicketId: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
-  const { ticketId, title, priority, difficulty, label } = data;
+  const { ticketId, title, priority, difficulty, label, status } = data;
 
   const openModalHandler = () => {
     openModal();
-    setCurrTicketId(ticketId);
+    setCurrTicketId(String(ticketId));
   };
 
   return (
     <Wrapper onClick={openModalHandler}>
       <Title>{title}</Title>
       <Details>
+        <DetailItem>status: {status}</DetailItem>
         <DetailItem>priority : {priority}</DetailItem>
         <DetailItem>difficulty : {difficulty}</DetailItem>
         <DetailItem>label : {label || 'unAssigned'}</DetailItem>
