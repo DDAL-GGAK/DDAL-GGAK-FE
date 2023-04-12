@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { sendTicketReview } from 'api';
-import { QUERY } from 'constants/';
+import { QUERY, TICKET } from 'constants/';
 import { useErrorHandler } from 'hooks';
 import { useLocation } from 'react-router-dom';
 import { Button } from 'components/containers';
@@ -34,7 +34,9 @@ export function SendTicketReviewButton({
 
   return (
     <Button onClick={sendReviewHandler} buttonType="point">
-      {status === 'review' ? 'On Review' : 'Send Review!'}
+      {status === TICKET.STATUS.REVIEW
+        ? 'Ticket is on Review'
+        : 'Review Enrollment'}
     </Button>
   );
 }
