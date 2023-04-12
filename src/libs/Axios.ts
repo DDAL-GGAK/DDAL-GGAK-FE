@@ -181,13 +181,12 @@ export class Axios {
 
   /**
    * @param {string} endPoint
-   * @param {number} id
    * @param {object} data
    */
-  patch(endPoint: EndPoint, data: object, id: ID | undefined = undefined) {
+  patch(endPoint: EndPoint, data: object = {}) {
     return this.#instance({
       method: METHOD.PATCH,
-      url: !!id || id === '' || id === 0 ? `${endPoint}/${id}` : endPoint,
+      url: endPoint,
       data,
     });
   }
