@@ -8,7 +8,7 @@ interface TicketProps {
 }
 
 export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
-  const { ticketId, title, status, priority, difficulty, label } = data;
+  const { ticketId, title, priority, difficulty, label } = data;
 
   const openModalHandler = () => {
     openModal();
@@ -19,7 +19,6 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
     <Wrapper onClick={openModalHandler}>
       <Title>{title}</Title>
       <Details>
-        <DetailItem>status : {status}</DetailItem>
         <DetailItem>priority : {priority}</DetailItem>
         <DetailItem>difficulty : {difficulty}</DetailItem>
         <DetailItem>label : {label || 'unAssigned'}</DetailItem>

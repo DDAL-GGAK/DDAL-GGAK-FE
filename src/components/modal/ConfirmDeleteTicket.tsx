@@ -22,7 +22,6 @@ export function ConfirmDeleteTicket({
   const { pathname } = useLocation();
   const { errorHandler } = useErrorHandler({ route: pathname });
   const queryClient = useQueryClient();
-
   const { mutate, isLoading } = useMutation(deleteTicket, {
     ...QUERY.DEFAULT_CONFIG,
     onSuccess: () => {
