@@ -15,6 +15,7 @@ export function TicketContainer({ ticketData }: TicketsProps) {
   const [currTicketId, setCurrTicketId] = useState<string>();
 
   console.log('ticketData :', ticketData);
+
   return (
     <>
       <Wrapper>
