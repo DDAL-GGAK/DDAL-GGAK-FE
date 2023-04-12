@@ -1,4 +1,6 @@
-type TicketState = 'TODO' | 'IN_PROGRESS' | 'REVIEW' | 'DONE';
+import { TICKET } from 'constants/';
+
+type TicketStatus = keyof typeof TICKET.STATUS;
 
 export interface Comment {
   commentId: string;
@@ -14,7 +16,7 @@ export interface TicketDataForm {
   expiredAt: string | null;
   label: null | string;
   priority: number | string;
-  status: TicketState;
+  status: TicketStatus;
   ticketId: number | string;
   title: string;
   commentlist: Comment[];
