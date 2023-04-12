@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { TicketDataForm } from 'types';
+import { AssignCheckBox } from 'components';
 
 interface TicketProps {
   data: TicketDataForm;
@@ -18,7 +19,7 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
   return (
     <Wrapper onClick={openModalHandler}>
       <LeftBox>
-        <input type="checkbox" />
+        <AssignCheckBox />
         <Title>{title}</Title>
       </LeftBox>
       <Details>
