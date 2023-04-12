@@ -1,27 +1,42 @@
 import styled from 'styled-components';
 import { TicketDataForm } from 'types';
+import { AssignCheckBox } from 'components';
 
 interface TicketProps {
   data: TicketDataForm;
   openModal: () => void;
-  setCurrTicketId: React.Dispatch<React.SetStateAction<number | string>>;
+  setCurrTicketId: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
-  const { ticketId, title, priority, difficulty, label } = data;
+  const {
+    ticketId,
+    title,
+    priority,
+    difficulty,
+    label,
+    status,
+    assigned,
+    isMyTicket,
+  } = data;
 
   const openModalHandler = () => {
     openModal();
-    setCurrTicketId(ticketId);
+    setCurrTicketId(String(ticketId));
   };
 
   return (
     <Wrapper onClick={openModalHandler}>
-      <Title>{title}</Title>
+      <LeftBox>
+        <AssignCheckBox ticketData={{ assigned, isMyTicket, ticketId }} />
+        <Title>{title}</Title>
+      </LeftBox>
       <Details>
+        <DetailItem>status: {status}</DetailItem>
         <DetailItem>priority : {priority}</DetailItem>
         <DetailItem>difficulty : {difficulty}</DetailItem>
         <DetailItem>label : {label || 'unAssigned'}</DetailItem>
+        <DetailItem>owner : {assigned || 'unAssigned'}</DetailItem>
       </Details>
     </Wrapper>
   );
@@ -42,6 +57,12 @@ const Wrapper = styled.div`
     background: lightgray;
     color: #111;
   }
+`;
+
+const LeftBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
 `;
 
 const Title = styled.p`
