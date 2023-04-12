@@ -32,7 +32,10 @@ export const deleteTicket = async (ticketId: string | number) => {
 };
 
 export const changeTicketStatus = async (ticketId: string | number) => {
-  const res = await api.patch(API_ROUTE.TICKET.CHANGE_STATUS, {}, ticketId);
+  const res = await api.post(
+    API_ROUTE.TICKET.CHANGE_STATUS(String(ticketId)),
+    {}
+  );
 
   return res;
 };
