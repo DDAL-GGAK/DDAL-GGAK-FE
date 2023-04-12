@@ -6,6 +6,7 @@ import { sendToast } from 'libs';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { TicketDataForm } from 'types';
+import { Loading } from 'components/Loading';
 
 interface CofirmDeleteTicketProps {
   ticket: TicketDataForm;
@@ -22,7 +23,7 @@ export function ConfirmDeleteTicket({
   const { errorHandler } = useErrorHandler({ route: pathname });
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation(deleteTicket, {
+  const { mutate, isLoading } = useMutation(deleteTicket, {
     ...QUERY.DEFAULT_CONFIG,
     onSuccess: () => {
       queryClient.invalidateQueries(QUERY.KEY.TASK_DATA);
@@ -45,7 +46,7 @@ export function ConfirmDeleteTicket({
             mutate(ticket.ticketId);
           }}
         >
-          Yes
+          {isLoading ? <Loading /> : <div>Yes</div>}
         </DeleteButton>
         <Button onClick={closeModal}>No</Button>
       </ButtonWrapper>
