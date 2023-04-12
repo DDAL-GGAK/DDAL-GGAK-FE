@@ -9,7 +9,16 @@ interface TicketProps {
 }
 
 export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
-  const { ticketId, title, priority, difficulty, label, status } = data;
+  const {
+    ticketId,
+    title,
+    priority,
+    difficulty,
+    label,
+    status,
+    assigned,
+    isMyTicket,
+  } = data;
 
   const openModalHandler = () => {
     openModal();
@@ -19,7 +28,7 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
   return (
     <Wrapper onClick={openModalHandler}>
       <LeftBox>
-        <AssignCheckBox />
+        <AssignCheckBox assigned={assigned} isMyTicket={isMyTicket} />
         <Title>{title}</Title>
       </LeftBox>
       <Details>
@@ -27,6 +36,7 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
         <DetailItem>priority : {priority}</DetailItem>
         <DetailItem>difficulty : {difficulty}</DetailItem>
         <DetailItem>label : {label || 'unAssigned'}</DetailItem>
+        <DetailItem>owner : {assigned || 'unAssigned'}</DetailItem>
       </Details>
     </Wrapper>
   );
@@ -51,6 +61,8 @@ const Wrapper = styled.div`
 
 const LeftBox = styled.div`
   display: flex;
+  align-items: center;
+  gap: 10px;
 `;
 
 const Title = styled.p`
