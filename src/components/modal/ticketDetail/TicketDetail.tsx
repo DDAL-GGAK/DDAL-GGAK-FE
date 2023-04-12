@@ -6,7 +6,10 @@ import { getTicketData } from 'api';
 import { REGEX, QUERY } from 'constants/';
 import styled from 'styled-components';
 import { Loading } from 'components';
-import { DeleteTicketButton } from 'components/project';
+import {
+  DeleteTicketButton,
+  TicketStatus,
+} from 'components/modal/ticketDetail';
 
 interface TicketDetailProps {
   currTicketId: string;
@@ -39,6 +42,7 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
           <Text>{ticketData.priority}</Text>
           <Label>Due Date:</Label>
           <Text>{ticketData.dueDate}</Text>
+          <TicketStatus status={ticketData.status} />
           <DeleteTicketButton closeModal={closeModal} ticket={ticketData} />
         </>
       ) : (
