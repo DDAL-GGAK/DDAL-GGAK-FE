@@ -28,7 +28,7 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
   return (
     <Wrapper onClick={openModalHandler}>
       <LeftBox>
-        <AssignCheckBox assigned={assigned} isMyTicket={isMyTicket} />
+        <AssignCheckBox ticketData={{ assigned, isMyTicket, ticketId }} />
         <Title>{title}</Title>
       </LeftBox>
       <Details>

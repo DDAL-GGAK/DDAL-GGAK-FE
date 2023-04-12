@@ -14,14 +14,13 @@ export function TicketContainer({ ticketData }: TicketsProps) {
   const { isOpen, openModal, closeModal, Modal } = useModal();
   const [currTicketId, setCurrTicketId] = useState<string>();
 
-  console.log(111, ticketData);
+  console.log('ticketData :', ticketData);
   return (
     <>
       <Wrapper>
         {Object.entries(ticketData || {}).map(([key, data]) => {
-          console.log('key', key);
           return (
-            <StatusWrapper>
+            <StatusWrapper key={key}>
               <BoardTitle>{key}</BoardTitle>
               <TicketWrapper>
                 {data.map((ticket: TicketDataForm) => (
