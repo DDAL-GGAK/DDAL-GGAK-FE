@@ -3,13 +3,26 @@ import { NewLabelButton, LabelConfigButton } from 'components/project';
 import { LabelsProps } from 'types';
 
 export function Teams({ labels }: LabelsProps) {
+  const LabelClickHandler = (labelId: number) => {
+    console.log(labelId);
+  };
+
   return (
     <Wrapper>
-      <Team>All</Team>
+      <Label>All</Label>
       {labels?.map((team) => {
-        const { labelTitle } = team;
+        const { labelTitle, labelId } = team;
 
-        return <Team key={labelTitle}>{labelTitle}</Team>;
+        return (
+          <Label
+            key={labelTitle}
+            onClick={() => {
+              LabelClickHandler(labelId);
+            }}
+          >
+            {labelTitle}
+          </Label>
+        );
       })}
       <NewLabelButton />
       <LabelConfigButton labels={labels} />
@@ -21,7 +34,7 @@ const Wrapper = styled.div`
   display: flex;
 `;
 
-const Team = styled.div`
+const Label = styled.div`
   background: ${({ theme }) => theme.navLinkBackground};
   border-right: solid 1px rgba(0, 0, 0, 0.15);
   color: ${({ theme }) => theme.pointColor};

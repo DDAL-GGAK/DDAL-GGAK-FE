@@ -47,6 +47,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 36px;
+  min-height: 36px;
   background: ${({ theme }) => theme.transparentBackground};
   padding: 0 1rem;
   gap: 1rem;
