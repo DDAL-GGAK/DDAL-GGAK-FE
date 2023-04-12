@@ -42,7 +42,10 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
           <Text>{ticketData.priority}</Text>
           <Label>Due Date:</Label>
           <Text>{ticketData.dueDate}</Text>
-          <TicketStatus status={ticketData.status} />
+          <TicketStatus
+            status={ticketData.status}
+            currTicketId={currTicketId}
+          />
           <DeleteTicketButton closeModal={closeModal} ticket={ticketData} />
         </>
       ) : (

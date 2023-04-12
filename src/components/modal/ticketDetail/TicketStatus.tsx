@@ -1,53 +1,44 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { changeTicketStatus } from 'api';
-import { QUERY, TOASTIFY } from 'constants/';
-import { sendToast } from 'libs';
+import { QUERY } from 'constants/';
 import { useErrorHandler } from 'hooks';
 import { useLocation } from 'react-router-dom';
+import { Button } from 'components/containers';
 
-export function TicketStatus({ status }: { status: string }) {
-  const [availableStatuses, setAvailableStatuses] = useState<string[]>([]);
+export function TicketStatus({
+  status,
+  currTicketId,
+}: {
+  status: string;
+  currTicketId: string;
+}) {
   const { pathname } = useLocation();
   const { errorHandler } = useErrorHandler({ route: pathname });
   const queryClient = useQueryClient();
-
-  useEffect(() => {
-    const statuses = ['ToDo', 'In_Progress', 'Done'].filter(
-      (s) => s !== status
-    );
-    setAvailableStatuses(statuses);
-  }, [status]);
-
-  const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    mutate(event.target.value);
-  };
-
+  const handleStatusChange = () => mutate(currTicketId);
   const { mutate } = useMutation(changeTicketStatus, {
     ...QUERY.DEFAULT_CONFIG,
     onSuccess: () => {
       queryClient.invalidateQueries(QUERY.KEY.TASK_DATA);
-      sendToast.success(TOASTIFY.SUCCESS.CREATE_LABEL);
     },
     onError: (error: unknown) => errorHandler(error),
   });
 
   return (
-    <>
-      <Text>status : {status}</Text>
-      <select onChange={handleStatusChange}>
-        {availableStatuses.map((s) => (
-          <option key={s} value={s}>
-            {s}
-          </option>
-        ))}
-      </select>
-    </>
+    <Text>
+      <span>status : {status}</span>
+      <Button onClick={handleStatusChange} buttonType="point">
+        {status === 'TODO' ? 'TODO => IN PROGRESS' : 'IN PROGRESS => TODO'}
+      </Button>
+    </Text>
   );
 }
 
-const Text = styled.p`
+const Text = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 14px;
   margin-bottom: 16px;
 `;
