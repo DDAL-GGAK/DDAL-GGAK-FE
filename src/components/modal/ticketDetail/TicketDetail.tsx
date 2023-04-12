@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import { Loading } from 'components';
 import {
   DeleteTicketButton,
-  TicketStatus,
+  ToggleTicketStatus,
 } from 'components/modal/ticketDetail';
 
 interface TicketDetailProps {
@@ -42,7 +42,7 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
           <Text>{ticketData.priority}</Text>
           <Label>Due Date:</Label>
           <Text>{ticketData.dueDate}</Text>
-          <TicketStatus
+          <ToggleTicketStatus
             status={ticketData.status}
             currTicketId={currTicketId}
           />

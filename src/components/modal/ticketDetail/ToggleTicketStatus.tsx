@@ -6,7 +6,7 @@ import { useErrorHandler } from 'hooks';
 import { useLocation } from 'react-router-dom';
 import { Button } from 'components/containers';
 
-export function TicketStatus({
+export function ToggleTicketStatus({
   status,
   currTicketId,
 }: {
