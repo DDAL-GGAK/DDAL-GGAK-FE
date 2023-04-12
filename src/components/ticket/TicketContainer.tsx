@@ -1,25 +1,24 @@
 import styled from 'styled-components';
 import { Ticket } from 'components';
-import { Tickets, TicketDataForm } from 'types';
+import { TicketDataForm } from 'types';
 import { useModal } from 'hooks';
 import { useState } from 'react';
 import { TicketDetail } from 'components/modal';
 import { MODAL_CARD_VARIANTS } from 'constants/';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
 
-interface TicketsProps {
-  ticketData: Tickets | undefined;
-}
-
-export function TicketContainer({ ticketData }: TicketsProps) {
+export function TicketContainer() {
   const { isOpen, openModal, closeModal, Modal } = useModal();
   const [currTicketId, setCurrTicketId] = useState<string>();
+  const ticketData = useSelector((state: RootState) => state.ticketDataSlicer);
 
   console.log('ticketData :', ticketData);
 
   return (
     <>
       <Wrapper>
-        {Object.entries(ticketData || {}).map(([key, data]) => {
+        {Object.entries(ticketData.ticket || {}).map(([key, data]) => {
           return (
             <StatusWrapper key={key}>
               <BoardTitle>{key}</BoardTitle>
