@@ -25,3 +25,9 @@ export interface TicketCreateForm {
   priority: number;
   difficulty: number;
 }
+
+export interface SendTicketReviewForm {
+  ticketId: string;
+  reviewTitle: string;
+  reviewDescription: string;
+}
