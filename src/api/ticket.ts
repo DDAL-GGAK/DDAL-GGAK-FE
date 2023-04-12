@@ -5,7 +5,7 @@ import { API_ROUTE } from 'constants/';
 const api = new Axios(true);
 
 export const createTicket = async (data: TicketCreateForm) => {
-  const res = await api.post(API_ROUTE.TICKET.CREATE, data);
+  const { data: res } = await api.post(API_ROUTE.TICKET.CREATE, data);
 
   return res;
 };
@@ -26,13 +26,13 @@ export const getTicketData = async ({
 };
 
 export const deleteTicket = async (ticketId: string | number) => {
-  const res = await api.delete(API_ROUTE.TICKET.DELETE, ticketId);
+  const { data: res } = await api.delete(API_ROUTE.TICKET.DELETE, ticketId);
 
   return res;
 };
 
 export const changeTicketStatus = async (ticketId: string | number) => {
-  const res = await api.post(
+  const { data: res } = await api.post(
     API_ROUTE.TICKET.CHANGE_STATUS(String(ticketId)),
     {}
   );
@@ -41,13 +41,18 @@ export const changeTicketStatus = async (ticketId: string | number) => {
 };
 
 export const sendTicketReview = async (ticketId: string) => {
-  const res = await api.post(API_ROUTE.TICKET.SEND_REVIEW, { ticketId });
+  const { data: res } = await api.post(API_ROUTE.TICKET.SEND_REVIEW, {
+    ticketId,
+  });
 
   return res;
 };
 
 export const assignTicket = async (ticketId: string) => {
-  const res = await api.post(API_ROUTE.TICKET.ASSIGN_TICKET(ticketId), {});
+  const { data: res } = await api.post(
+    API_ROUTE.TICKET.ASSIGN_TICKET(ticketId),
+    {}
+  );
 
   return res;
 };

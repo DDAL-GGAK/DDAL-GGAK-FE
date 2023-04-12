@@ -19,7 +19,7 @@ export function ProejectHome() {
     }
   );
 
-  const project = fetchData?.data?.[0];
+  const project = fetchData?.[0];
   useEffect(() => {
     if (project) {
       const projectId = project.id;

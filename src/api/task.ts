@@ -5,7 +5,7 @@ import { API_ROUTE } from 'constants/';
 const api = new Axios(true);
 
 export const createTask = async (data: TaskCreateForm) => {
-  const res = await api.post(API_ROUTE.TASK.CREATE, data);
+  const { data: res } = await api.post(API_ROUTE.TASK.CREATE, data);
 
   return res;
 };

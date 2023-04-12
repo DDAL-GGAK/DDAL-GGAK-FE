@@ -1,15 +1,31 @@
 import styled from 'styled-components';
 import { NewLabelButton, LabelConfigButton } from 'components/project';
 import { LabelsProps } from 'types';
+import { useDispatch } from 'react-redux';
+import { setLabel } from 'redux/modules/ticketData';
 
 export function Teams({ labels }: LabelsProps) {
+  const dispatch = useDispatch();
+  const LabelClickHandler = (labelTitle: string) => {
+    dispatch(setLabel(labelTitle));
+  };
+
   return (
     <Wrapper>
-      <Team>All</Team>
+      <Label>All</Label>
       {labels?.map((team) => {
         const { labelTitle } = team;
 
-        return <Team key={labelTitle}>{labelTitle}</Team>;
+        return (
+          <Label
+            key={labelTitle}
+            onClick={() => {
+              LabelClickHandler(labelTitle);
+            }}
+          >
+            {labelTitle}
+          </Label>
+        );
       })}
       <NewLabelButton />
       <LabelConfigButton labels={labels} />
@@ -21,7 +37,7 @@ const Wrapper = styled.div`
   display: flex;
 `;
 
-const Team = styled.div`
+const Label = styled.div`
   background: ${({ theme }) => theme.navLinkBackground};
   border-right: solid 1px rgba(0, 0, 0, 0.15);
   color: ${({ theme }) => theme.pointColor};
