@@ -12,3 +12,4 @@ export * from './regex';
 export * from './mediaQuery';
 export * from './query';
 export * from './error';
+export * from './ticket';

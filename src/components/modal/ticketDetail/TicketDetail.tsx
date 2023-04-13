@@ -6,7 +6,11 @@ import { getTicketData } from 'api';
 import { REGEX, QUERY } from 'constants/';
 import styled from 'styled-components';
 import { Loading } from 'components';
-import { DeleteTicketButton } from 'components/project';
+import {
+  DeleteTicketButton,
+  SendTicketReviewButton,
+  ToggleTicketStatus,
+} from 'components/modal/ticketDetail';
 
 interface TicketDetailProps {
   currTicketId: string;
@@ -33,13 +37,23 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
           <Title>{ticketData.title}</Title>
           <Label>Description:</Label>
           <Text>{ticketData.description}</Text>
-          <Label>Status:</Label>
-          <Text>{ticketData.status}</Text>
           <Label>Priority:</Label>
           <Text>{ticketData.priority}</Text>
           <Label>Due Date:</Label>
           <Text>{ticketData.dueDate}</Text>
-          <DeleteTicketButton closeModal={closeModal} ticket={ticketData} />
+          <Label>Status:</Label>
+          <Text>{ticketData.status}</Text>
+          <TicketStateWrapper>
+            <ToggleTicketStatus
+              status={ticketData.status}
+              currTicketId={currTicketId}
+            />
+            <SendTicketReviewButton
+              status={ticketData.status}
+              currTicketId={currTicketId}
+            />
+            <DeleteTicketButton closeModal={closeModal} ticket={ticketData} />
+          </TicketStateWrapper>
         </>
       ) : (
         <Loading />
@@ -73,4 +87,10 @@ const Label = styled.p`
 const Text = styled.p`
   font-size: 14px;
   margin-bottom: 16px;
+`;
+
+const TicketStateWrapper = styled.div`
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
 `;

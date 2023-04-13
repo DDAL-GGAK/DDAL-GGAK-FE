@@ -6,4 +6,5 @@ export * from './CreateTask';
 export * from './CreateLabel';
 export * from './ConfirmDeleteLabel';
 export * from './CreateTicket';
-export * from './TicketDetail';
+export * from './ticketDetail/TicketDetail';
+export * from './ConfirmDeleteTask';

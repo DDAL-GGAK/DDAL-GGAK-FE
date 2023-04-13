@@ -1,51 +1,45 @@
-import { QUERY, TOASTIFY } from 'constants/';
-import { deleteTicket } from 'api';
+import { QUERY, TOASTIFY, REGEX, ROUTE } from 'constants/';
+import { deleteTask } from 'api';
 import { useMutation, useQueryClient } from 'react-query';
 import { useErrorHandler } from 'hooks';
 import { sendToast } from 'libs';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { TicketDataForm } from 'types';
-import { Loading } from 'components/Loading';
 
-interface CofirmDeleteTicketProps {
-  ticket: TicketDataForm;
+interface CofirmDeleteTaskProps {
   closeModal: () => void;
-  closeNestedModal: () => void;
 }
 
-export function ConfirmDeleteTicket({
-  ticket,
-  closeModal,
-  closeNestedModal,
-}: CofirmDeleteTicketProps) {
+export function ConfirmDeleteTask({ closeModal }: CofirmDeleteTaskProps) {
   const { pathname } = useLocation();
-  const { errorHandler } = useErrorHandler({ route: pathname });
+  const taskId = Number(pathname.match(REGEX.TASK_ID)?.[1]) || null;
+  const navigate = useNavigate();
+  const { errorHandler } = useErrorHandler({ route: ROUTE.HOME });
   const queryClient = useQueryClient();
-  const { mutate, isLoading } = useMutation(deleteTicket, {
+  const { mutate } = useMutation(deleteTask, {
     ...QUERY.DEFAULT_CONFIG,
     onSuccess: () => {
       queryClient.invalidateQueries(QUERY.KEY.TASK_DATA);
-      sendToast.success(TOASTIFY.SUCCESS.DELETE_TICKET);
-      closeNestedModal();
+      sendToast.success(TOASTIFY.SUCCESS.DELETE_TASK);
+      closeModal();
+      navigate(ROUTE.PROJECT_HOME);
     },
-    onError: (error: unknown) => errorHandler(error),
+    onError: errorHandler,
   });
 
   return (
     <ConfirmDeleteWrapper>
       <Heading>
-        Are you sure you want to <HighlightAccent>delete</HighlightAccent>{' '}
-        ticket
-        <HighlightPoint> {ticket.title} </HighlightPoint>?
+        Are you sure you want to <HighlightAccent>delete</HighlightAccent> this
+        <HighlightPoint> task </HighlightPoint>?
       </Heading>
       <ButtonWrapper>
         <DeleteButton
           onClick={() => {
-            mutate(ticket.ticketId);
+            if (taskId) mutate(taskId);
           }}
         >
-          {isLoading ? <Loading /> : <div>Yes</div>}
+          Yes
         </DeleteButton>
         <Button onClick={closeModal}>No</Button>
       </ButtonWrapper>

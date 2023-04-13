@@ -1,28 +1,46 @@
 import styled from 'styled-components';
-import { TicketDataForm } from 'types';
+import { TicketDataForm, UserDataForm } from 'types';
+import { AssignCheckBox } from 'components';
+import { RootState } from 'redux/store';
+import { useSelector } from 'react-redux';
 
 interface TicketProps {
   data: TicketDataForm;
   openModal: () => void;
-  setCurrTicketId: React.Dispatch<React.SetStateAction<number | string>>;
+  setCurrTicketId: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
-  const { ticketId, title, status, priority, difficulty, label } = data;
+  const { ticketId, title, priority, difficulty, label, status, assigned } =
+    data;
+
+  const userData = useSelector(
+    (state: RootState) => state.userDataSlicer
+  ) as UserDataForm | null;
 
   const openModalHandler = () => {
     openModal();
-    setCurrTicketId(ticketId);
+    setCurrTicketId(String(ticketId));
   };
 
   return (
     <Wrapper onClick={openModalHandler}>
-      <Title>{title}</Title>
+      <LeftBox>
+        <AssignCheckBox
+          ticketData={{
+            assigned,
+            ticketId,
+            isMyTicket: assigned === userData?.email,
+          }}
+        />
+        <Title>{title}</Title>
+      </LeftBox>
       <Details>
-        <DetailItem>status : {status}</DetailItem>
+        <DetailItem>status: {status}</DetailItem>
         <DetailItem>priority : {priority}</DetailItem>
         <DetailItem>difficulty : {difficulty}</DetailItem>
         <DetailItem>label : {label || 'unAssigned'}</DetailItem>
+        <DetailItem>owner : {assigned || 'unAssigned'}</DetailItem>
       </Details>
     </Wrapper>
   );
@@ -33,6 +51,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 36px;
+  min-height: 36px;
   background: ${({ theme }) => theme.transparentBackground};
   padding: 0 1rem;
   gap: 1rem;
@@ -43,6 +62,12 @@ const Wrapper = styled.div`
     background: lightgray;
     color: #111;
   }
+`;
+
+const LeftBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
 `;
 
 const Title = styled.p`

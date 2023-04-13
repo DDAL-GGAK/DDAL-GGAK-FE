@@ -6,24 +6,29 @@ const unAuthAPI = new Axios();
 const authAPI = new Axios(true);
 
 export const signUp = async ({ email, password }: RegisterField) => {
-  const res = await unAuthAPI.post(API_ROUTE.AUTH.SIGN_UP, { email, password });
+  const res = await unAuthAPI.post(API_ROUTE.AUTH.SIGN_UP, {
+    email,
+    password,
+  });
 
   return res;
 };
 
 export const checkEmail = async ({ email }: RegisterField) => {
-  const res = await unAuthAPI.post(API_ROUTE.AUTH.CHECK_EMAIL, { email });
+  const res = await unAuthAPI.post(API_ROUTE.AUTH.CHECK_EMAIL, {
+    email,
+  });
 
   return res;
 };
 
 export const logIn = async ({ email, password }: RegisterField) => {
-  const response = await authAPI.post(API_ROUTE.AUTH.LOG_IN, {
+  const res = await authAPI.post(API_ROUTE.AUTH.LOG_IN, {
     email,
     password,
   });
 
-  return response;
+  return res;
 };
 
 export const logOut = async () => authAPI.post(API_ROUTE.AUTH.LOG_OUT, {});
