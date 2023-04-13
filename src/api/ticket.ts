@@ -41,9 +41,7 @@ export const changeTicketStatus = async (ticketId: string | number) => {
 };
 
 export const sendTicketReview = async (ticketId: string) => {
-  const res = await api.post(API_ROUTE.TICKET.SEND_REVIEW, {
-    ticketId,
-  });
+  const res = await api.post(API_ROUTE.TICKET.SEND_REVIEW(ticketId), {});
 
   return res;
 };

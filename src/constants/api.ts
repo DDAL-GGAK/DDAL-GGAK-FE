@@ -27,7 +27,7 @@ const TICKET = Object.freeze({
   GET_DATA: (taskId: string) => `/api/ticket/${taskId}`,
   DELETE: '/api/ticket',
   CHANGE_STATUS: (ticketId: string) => `/api/ticket/${ticketId}/movement`,
-  SEND_REVIEW: '/api/review',
+  SEND_REVIEW: (ticketId: string) => `/api/ticket/${ticketId}/review`,
   ASSIGN_TICKET: (ticketId: string) => `/api/ticket/${ticketId}/assign`,
 });
 
