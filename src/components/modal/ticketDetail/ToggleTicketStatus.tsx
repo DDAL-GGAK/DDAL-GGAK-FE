@@ -31,7 +31,7 @@ export function ToggleTicketStatus({
 
   return (
     <Button onClick={handleStatusChange} buttonType="point">
-      {status === 'TODO' ? 'TODO => IN PROGRESS' : 'IN PROGRESS => TODO'}
+      {status === 'TODO' ? 'Change to IN PROGRESS' : 'IN PROGRESS => TODO'}
     </Button>
   );
 }
