@@ -11,10 +11,14 @@ export const getUserData = async () => {
 };
 
 export const setUserProfile = async (data: FormData) => {
-  await api.putFormData(API_ROUTE.USER.SET_PROFILE, data);
+  const res = await api.putFormData(API_ROUTE.USER.SET_PROFILE, data);
+
+  return res;
 };
 
 export const setUserNickname = async (data: NicknameForm) => {
   if (!data) return;
-  await api.put(API_ROUTE.USER.SET_NICKNAME, data);
+  const res = await api.put(API_ROUTE.USER.SET_NICKNAME, data);
+
+  return res;
 };
