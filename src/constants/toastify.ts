@@ -5,6 +5,7 @@ export const TOASTIFY = Object.freeze({
     CREATE_TASK: 'successfully created!',
     CREATE_LABEL: 'successfully created!',
     JOIN_PROJECT: 'Joined the project!',
+    DELETE_PROJECT: 'successfully deleted!',
     USER_SETTING: 'successfully changed',
     CREATE_TICKET: 'successfully created!',
     DELETE_TICKET: 'successfully deleted!',

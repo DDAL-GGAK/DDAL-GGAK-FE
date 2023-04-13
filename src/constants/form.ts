@@ -15,10 +15,6 @@ export const REGISTER_TYPE = Object.freeze({
   TASK_TITLE: 'taskTitle',
 });
 
-export const UPDATE_TYPE = Object.freeze({
-  NICKNAME: 'nickname',
-});
-
 export const ERROR_MESSAGE = Object.freeze({
   EMAIL: Object.freeze({
     REQUIRED: 'is required',
