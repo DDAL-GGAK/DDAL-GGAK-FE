@@ -25,7 +25,7 @@ export const getTaskData = async ({
   return res;
 };
 
-export const deleteTask = async (taskId: string) => {
+export const deleteTask = async (taskId: number) => {
   const res = await api.delete(API_ROUTE.TASK.DELETE, taskId);
 
   return res;
