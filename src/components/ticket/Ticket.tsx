@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { TicketDataForm, UserDataForm } from 'types';
+import { TicketDataForm, UserDataForm, LabelDataForm } from 'types';
 import { AssignCheckBox } from 'components';
 import { RootState } from 'redux/store';
 import { useSelector } from 'react-redux';
@@ -8,7 +8,7 @@ import { useLocation } from 'react-router-dom';
 import { QUERY, REGEX } from 'constants/';
 import { getLabels } from 'api';
 import { useErrorHandler } from 'hooks';
-import { useMemo } from 'react';
+import { ChangeEvent, useMemo, MouseEvent } from 'react';
 
 interface TicketProps {
   data: TicketDataForm;
@@ -33,10 +33,23 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
   ) as UserDataForm | null;
 
   const QueryKey = useMemo(() => [QUERY.KEY.LABEL_DATA, taskId], [taskId]);
-  const { data: labels } = useQuery(QueryKey, () => getLabels(String(taskId)), {
-    ...QUERY.DEFAULT_CONFIG,
-    onError: errorHandler,
-  });
+  const { data: labels } = useQuery<LabelDataForm[]>(
+    QueryKey,
+    () => getLabels(String(taskId)),
+    {
+      ...QUERY.DEFAULT_CONFIG,
+      onError: errorHandler,
+    }
+  );
+
+  const labelChangeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
+    const selectedLabel = e.target.value;
+    console.log(selectedLabel);
+  };
+
+  const optionOpenHandler = (e: MouseEvent<HTMLSelectElement>) => {
+    e.stopPropagation();
+  };
 
   return (
     <Wrapper onClick={openModalHandler}>
@@ -54,7 +67,24 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
         <DetailItem>status: {status}</DetailItem>
         <DetailItem>priority : {priority}</DetailItem>
         <DetailItem>difficulty : {difficulty}</DetailItem>
-        <DetailItem>label : {label || 'unAssigned'}</DetailItem>
+        <LabelSelectWrapper>
+          <LabelSelect
+            value={label || 'unAssigned'}
+            onChange={labelChangeHandler}
+            onClick={optionOpenHandler}
+          >
+            <option value="unAssigned">unAssigned</option>
+            {labels?.map((labelData: LabelDataForm) => {
+              const { labelId, labelTitle } = labelData;
+
+              return (
+                <option key={labelId} value={labelTitle}>
+                  {label}
+                </option>
+              );
+            })}
+          </LabelSelect>
+        </LabelSelectWrapper>
         <DetailItem>owner : {assigned || 'unAssigned'}</DetailItem>
       </Details>
     </Wrapper>
@@ -99,7 +129,28 @@ const Details = styled.ul`
 const DetailItem = styled.li`
   font-size: 14px;
   padding: 4px 8px;
-  background-color: ${({ theme }) => theme.navLinkBackground};
+  background: ${({ theme }) => theme.navLinkBackground};
   color: #111;
   border-radius: 4px;
+`;
+
+const LabelSelectWrapper = styled.div`
+  display: inline-block;
+  background: ${({ theme }) => theme.navLinkBackground};
+  border-radius: 4px;
+`;
+
+const LabelSelect = styled.select`
+  font-size: 14px;
+  padding: 4px 8px;
+  border: none;
+  background: transparent;
+  color: #111;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+
+  :hover {
+    background: lightgray;
+  }
 `;
