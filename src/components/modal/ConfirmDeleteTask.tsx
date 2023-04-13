@@ -1,9 +1,9 @@
-import { QUERY, TOASTIFY, REGEX } from 'constants/';
+import { QUERY, TOASTIFY, REGEX, ROUTE } from 'constants/';
 import { deleteTask } from 'api';
 import { useMutation, useQueryClient } from 'react-query';
 import { useErrorHandler } from 'hooks';
 import { sendToast } from 'libs';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface CofirmDeleteTaskProps {
@@ -13,7 +13,8 @@ interface CofirmDeleteTaskProps {
 export function ConfirmDeleteTask({ closeModal }: CofirmDeleteTaskProps) {
   const { pathname } = useLocation();
   const taskId = Number(pathname.match(REGEX.TASK_ID)?.[1]) || null;
-  const { errorHandler } = useErrorHandler({ route: 'project/' });
+  const navigate = useNavigate();
+  const { errorHandler } = useErrorHandler({ route: ROUTE.HOME });
   const queryClient = useQueryClient();
   const { mutate } = useMutation(deleteTask, {
     ...QUERY.DEFAULT_CONFIG,
@@ -21,6 +22,7 @@ export function ConfirmDeleteTask({ closeModal }: CofirmDeleteTaskProps) {
       queryClient.invalidateQueries(QUERY.KEY.TASK_DATA);
       sendToast.success(TOASTIFY.SUCCESS.DELETE_TASK);
       closeModal();
+      navigate(ROUTE.PROJECT_HOME);
     },
     onError: errorHandler,
   });
