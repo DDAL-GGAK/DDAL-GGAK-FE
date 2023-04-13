@@ -29,6 +29,7 @@ const TICKET = Object.freeze({
   CHANGE_STATUS: (ticketId: string) => `/api/ticket/${ticketId}/movement`,
   SEND_REVIEW: (ticketId: string) => `/api/ticket/${ticketId}/review`,
   ASSIGN_TICKET: (ticketId: string) => `/api/ticket/${ticketId}/assign`,
+  SET_LABEL: (ticketId: string) => `/api/ticket/${ticketId}/label`,
 });
 
 const USER = Object.freeze({
@@ -39,7 +40,6 @@ const USER = Object.freeze({
 
 const LABEL = Object.freeze({
   GET: (taskId: string) => `/api/task/${taskId}/labels`,
-  SET: (ticketId: string) => `/api/ticket/${ticketId}/label`,
   CREATE: '/api/label',
   DELETE: '/api/label',
 });

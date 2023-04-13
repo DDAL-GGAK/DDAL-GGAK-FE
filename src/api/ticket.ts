@@ -1,5 +1,5 @@
 import { Axios } from 'libs';
-import { TicketCreateForm, Query } from 'types';
+import { TicketCreateForm, Query, SetLabelForm } from 'types';
 import { API_ROUTE } from 'constants/';
 
 const api = new Axios(true);
@@ -48,6 +48,15 @@ export const sendTicketReview = async (ticketId: string) => {
 
 export const assignTicket = async (ticketId: string) => {
   const res = await api.post(API_ROUTE.TICKET.ASSIGN_TICKET(ticketId), {});
+
+  return res;
+};
+
+export const setLabel = async ({ ticketId, labelId }: SetLabelForm) => {
+  console.log('target : ', labelId);
+  const res = await api.post(API_ROUTE.TICKET.SET_LABEL(ticketId), {
+    labelId: Number(labelId),
+  });
 
   return res;
 };
