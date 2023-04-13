@@ -38,6 +38,7 @@ const USER = Object.freeze({
 });
 
 const LABEL = Object.freeze({
+  GET: (taskId: string) => `/api/task/${taskId}/labels`,
   CREATE: '/api/label',
   DELETE: '/api/label',
 });
