@@ -28,7 +28,7 @@ export function AssignCheckBox({ ticketData }: AssignCheckBoxProps) {
 
   const { mutate } = useMutation(assignTicket, {
     ...QUERY.DEFAULT_CONFIG,
-    onSuccess: (data) => {
+    onSuccess: ({ data }) => {
       if (data) dispatch(setTicketData(data));
       queryClient.invalidateQueries(QUERY.KEY.TASK_DATA);
       console.log(123123, data);

@@ -31,7 +31,7 @@ export function SideNav() {
   return (
     <Wrapper>
       <TopWrapper>
-        {fetchData?.map((project: ProjectsLink) => {
+        {fetchData?.data?.map((project: ProjectsLink) => {
           const { id } = project;
 
           return (
