@@ -5,6 +5,7 @@ import { ConfigLabelProps, LabelDataForm } from 'types';
 import { Title } from 'components/containers';
 import { useModal } from 'hooks';
 import { useState } from 'react';
+import { DeleteTaskButton } from 'components/project';
 import { ConfirmDeleteLabel } from './ConfirmDeleteLabel';
 
 export function ConfigLabel({ labels }: ConfigLabelProps) {
@@ -44,6 +45,7 @@ export function ConfigLabel({ labels }: ConfigLabelProps) {
           );
         })}
       </LabelList>
+      <DeleteTaskButton />
       {selectedLabel !== null && (
         <Modal
           isOpen={isOpen}
