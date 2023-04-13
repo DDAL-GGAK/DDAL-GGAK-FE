@@ -11,9 +11,14 @@ const PROJECT = Object.freeze({
   JOIN_PROJECT: (projectId: string | number) =>
     `/api/project/${projectId}/join`,
   GET_DATA: '/api/project',
-  SET_THUMBNAIL: '/api/project/thumbnail',
-  SET_TITLE: '/api/project/title',
+  SET_THUMBNAIL: (projectId: string | number) =>
+    `/api/project/${projectId}/settings`,
+  SET_TITLE: (projectId: string | number) =>
+    `/api/project/${projectId}/settings`,
   GET_USER_PROJECTS: '/api/projects',
+  GET_PROJECT_USERS: (projectId: string | number) =>
+    `/api/project/${projectId}/users`,
+  DELETE: '/api/project',
 });
 
 const TASK = Object.freeze({
