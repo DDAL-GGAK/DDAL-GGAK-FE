@@ -29,7 +29,7 @@ export function User() {
 
   useEffect(() => {
     onMountHandler();
-  }, [userData]);
+  }, []);
 
   const { mutate } = useMutation(setUserNickname, {
     ...QUERY.DEFAULT_CONFIG,
@@ -43,7 +43,7 @@ export function User() {
   const onNickname = async (data: NicknameForm) => mutate(data);
 
   return (
-    <div>
+    <Wrapper>
       <Container>
         <TextL>Account</TextL>
         <div>{userData?.nickname}</div>
@@ -59,9 +59,13 @@ export function User() {
         <Button>Save</Button>
         {errors.nickname && <Errorspan>{errors.nickname.message}</Errorspan>}
       </NickNameForm>
-    </div>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  max-width: 800px;
+`;
 const Container = styled.div``;
 
 const NickNameForm = styled.form``;
