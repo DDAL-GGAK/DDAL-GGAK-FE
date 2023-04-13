@@ -75,22 +75,14 @@ export class Axios {
     const { authorization, refreshtoken } = res.headers;
 
     if (authorization) {
-      const validUntil = new Date();
-      validUntil.setTime(new Date().getTime() + EXPIRE.ACCESS_TOKEN);
-
       this.#cookie.set(KEY.ACCESS_TOKEN, authorization, {
         path: '/',
-        expires: validUntil,
       });
     }
 
     if (refreshtoken) {
-      const validUntil = new Date();
-      validUntil.setTime(new Date().getTime() + EXPIRE.REFRESH_TOKEN);
-
       this.#cookie.set(KEY.REFRESH_TOKEN, refreshtoken, {
         path: '/',
-        expires: validUntil,
       });
     }
 
