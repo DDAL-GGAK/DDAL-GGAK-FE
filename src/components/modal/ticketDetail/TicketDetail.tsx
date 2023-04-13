@@ -22,7 +22,7 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
   const taskId = pathname.match(REGEX.TASK_ID)?.[1];
   const { errorHandler } = useErrorHandler({ route: pathname });
   const { data: ticketData } = useQuery(
-    [QUERY.KEY.TICKET_DATA, currTicketId, taskId],
+    [QUERY.KEY.TICKET_DETAIL, currTicketId, taskId],
     () => getTicketData({ param: currTicketId, query: { taskId } }),
     {
       ...QUERY.DEFAULT_CONFIG,

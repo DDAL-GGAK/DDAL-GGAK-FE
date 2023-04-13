@@ -24,6 +24,7 @@ export function ToggleTicketStatus({
     onSuccess: (data) => {
       dispatch(setTicketData(data.data));
       queryClient.invalidateQueries(QUERY.KEY.TASK_DATA);
+      queryClient.invalidateQueries(QUERY.KEY.TICKET_DETAIL);
     },
     onError: (error: unknown) => errorHandler(error),
   });

@@ -22,6 +22,7 @@ export function SendTicketReviewButton({
     onSuccess: () => {
       sendToast.success(TOASTIFY.SUCCESS.SEND_REVIEW);
       queryClient.invalidateQueries(QUERY.KEY.TASK_DATA);
+      queryClient.invalidateQueries(QUERY.KEY.TICKET_DETAIL);
     },
     onError: (error: unknown) => errorHandler(error),
   });
@@ -38,7 +39,7 @@ export function SendTicketReviewButton({
     <Button onClick={sendReviewHandler} buttonType="point">
       {status === TICKET.STATUS.REVIEW
         ? 'Ticket is on Review'
-        : 'Review Enrollment'}
+        : 'Enroll Review'}
     </Button>
   );
 }
