@@ -39,6 +39,7 @@ const USER = Object.freeze({
 
 const LABEL = Object.freeze({
   GET: (taskId: string) => `/api/task/${taskId}/labels`,
+  SET: (ticketId: string) => `/api/ticket/${ticketId}/label`,
   CREATE: '/api/label',
   DELETE: '/api/label',
 });
