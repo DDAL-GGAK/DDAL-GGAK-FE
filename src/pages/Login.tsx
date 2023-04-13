@@ -25,8 +25,7 @@ export function Login() {
 
   const { mutate } = useMutation(logIn, {
     ...QUERY.DEFAULT_CONFIG,
-    onSuccess: (res) => {
-      const { data: userData } = res;
+    onSuccess: (userData) => {
       localStorage.setItem(
         QUERY.KEY.USER_INFORMATION,
         JSON.stringify({ userData })
