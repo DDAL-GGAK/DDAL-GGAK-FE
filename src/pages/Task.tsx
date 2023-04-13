@@ -37,7 +37,7 @@ export function Task() {
       enabled: false,
       onSuccess: (data) => {
         if (data) dispatch(setTicketData(data?.tickets));
-        dispatch(setLabel('all'));
+        dispatch(setLabel('All'));
       },
       onError: (error: unknown) => errorHandler(error),
     }
