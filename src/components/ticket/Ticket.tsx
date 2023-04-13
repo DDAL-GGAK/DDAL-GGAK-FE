@@ -3,6 +3,12 @@ import { TicketDataForm, UserDataForm } from 'types';
 import { AssignCheckBox } from 'components';
 import { RootState } from 'redux/store';
 import { useSelector } from 'react-redux';
+import { useQuery } from 'react-query';
+import { useLocation } from 'react-router-dom';
+import { QUERY, REGEX } from 'constants/';
+import { getLabels } from 'api';
+import { useErrorHandler } from 'hooks';
+import { useMemo } from 'react';
 
 interface TicketProps {
   data: TicketDataForm;
@@ -11,17 +17,26 @@ interface TicketProps {
 }
 
 export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
+  const { pathname } = useLocation();
+  const taskId = pathname.match(REGEX.TASK_ID)?.[1];
+  const { errorHandler } = useErrorHandler({ route: pathname });
   const { ticketId, title, priority, difficulty, label, status, assigned } =
     data;
-
-  const userData = useSelector(
-    (state: RootState) => state.userDataSlicer
-  ) as UserDataForm | null;
 
   const openModalHandler = () => {
     openModal();
     setCurrTicketId(String(ticketId));
   };
+
+  const userData = useSelector(
+    (state: RootState) => state.userDataSlicer
+  ) as UserDataForm | null;
+
+  const QueryKey = useMemo(() => [QUERY.KEY.LABEL_DATA, taskId], [taskId]);
+  const { data: labels } = useQuery(QueryKey, () => getLabels(String(taskId)), {
+    ...QUERY.DEFAULT_CONFIG,
+    onError: errorHandler,
+  });
 
   return (
     <Wrapper onClick={openModalHandler}>
