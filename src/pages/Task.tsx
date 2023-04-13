@@ -8,7 +8,7 @@ import { TaskDetailDataForm } from 'types';
 import { useErrorHandler } from 'hooks';
 import { Labels } from 'components/task';
 import { NewTicketButton } from 'components/project/NewTicketButton';
-import { useCallback, useMemo, useEffect } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { setLabel, setTicketData } from 'redux/modules/ticketData';
 
@@ -29,12 +29,11 @@ export function Task() {
     return data;
   }, [taskId, projectId]);
 
-  const { data: taskData, refetch } = useQuery<TaskDetailDataForm>(
+  const { data: taskData } = useQuery<TaskDetailDataForm>(
     taskQueryKey,
     fetchTaskData,
     {
       ...QUERY.DEFAULT_CONFIG,
-      enabled: false,
       onSuccess: (data) => {
         if (data) dispatch(setTicketData(data?.tickets));
         dispatch(setLabel('All'));
@@ -42,10 +41,6 @@ export function Task() {
       onError: (error: unknown) => errorHandler(error),
     }
   );
-
-  useEffect(() => {
-    if (projectId && taskId) refetch();
-  }, [projectId, taskId, refetch]);
 
   console.log(taskData);
 
@@ -83,6 +78,7 @@ const TopWrapper = styled.div`
 const SortMethods = styled.div`
   display: flex;
   gap: 10px;
+  padding: 0px 10px;
 `;
 
 const BottomWrapper = styled.div`
