@@ -4,7 +4,7 @@ import { LabelsProps } from 'types';
 import { useDispatch } from 'react-redux';
 import { setLabel } from 'redux/modules/ticketData';
 
-export function Teams({ labels }: LabelsProps) {
+export function Labels({ labels }: LabelsProps) {
   const dispatch = useDispatch();
   const LabelClickHandler = (labelTitle: string) => {
     dispatch(setLabel(labelTitle));

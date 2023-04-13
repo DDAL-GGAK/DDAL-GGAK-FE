@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { TaskDetailDataForm } from 'types';
 import { useErrorHandler } from 'hooks';
-import { Teams } from 'components/task';
+import { Labels } from 'components/task';
 import { NewTicketButton } from 'components/project/NewTicketButton';
 import { useCallback, useMemo, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -52,7 +52,7 @@ export function Task() {
   return (
     <Wrapper>
       <TopWrapper>
-        <Teams labels={taskData?.labels || []} />
+        <Labels labels={taskData?.labels || []} />
         <SortMethods>
           <Button>Column</Button>
           <Button>Row</Button>
