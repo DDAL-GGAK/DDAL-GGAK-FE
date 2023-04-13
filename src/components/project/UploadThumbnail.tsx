@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import { setProjectThumbnail } from 'api';
-
+// import { setProjectThumbnail } from 'api';
 type ThumbnailState = string | ArrayBuffer | undefined | any;
 interface UploadThumbnailProps {
   imageSrc: ThumbnailState;
@@ -17,7 +16,7 @@ export function UploadThumbnail({ imageSrc }: UploadThumbnailProps) {
     /* setProfile */
     const formData = new FormData();
     formData.append('image', image);
-    await setProjectThumbnail(formData);
+    // await setProjectThumbnail(formData);
 
     /* renderProfile */
     const fileReader = new FileReader();
