@@ -6,7 +6,7 @@ const unAuthAPI = new Axios();
 const authAPI = new Axios(true);
 
 export const signUp = async ({ email, password }: RegisterField) => {
-  const { data: res } = await unAuthAPI.post(API_ROUTE.AUTH.SIGN_UP, {
+  const res = await unAuthAPI.post(API_ROUTE.AUTH.SIGN_UP, {
     email,
     password,
   });
@@ -15,7 +15,7 @@ export const signUp = async ({ email, password }: RegisterField) => {
 };
 
 export const checkEmail = async ({ email }: RegisterField) => {
-  const { data: res } = await unAuthAPI.post(API_ROUTE.AUTH.CHECK_EMAIL, {
+  const res = await unAuthAPI.post(API_ROUTE.AUTH.CHECK_EMAIL, {
     email,
   });
 
@@ -23,7 +23,7 @@ export const checkEmail = async ({ email }: RegisterField) => {
 };
 
 export const logIn = async ({ email, password }: RegisterField) => {
-  const { data: res } = await authAPI.post(API_ROUTE.AUTH.LOG_IN, {
+  const res = await authAPI.post(API_ROUTE.AUTH.LOG_IN, {
     email,
     password,
   });
@@ -34,7 +34,7 @@ export const logIn = async ({ email, password }: RegisterField) => {
 export const logOut = async () => authAPI.post(API_ROUTE.AUTH.LOG_OUT, {});
 
 export const validateToken = async () => {
-  const { data: res } = await authAPI.get(API_ROUTE.AUTH.VALIDATE_TOKEN);
+  const res = await authAPI.get(API_ROUTE.AUTH.VALIDATE_TOKEN);
 
   return res;
 };

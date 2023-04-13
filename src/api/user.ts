@@ -5,7 +5,7 @@ import { NicknameForm } from 'types';
 const api = new Axios(true);
 
 export const getUserData = async () => {
-  const { data: res } = await api.get(API_ROUTE.USER.GET_DATA);
+  const res = await api.get(API_ROUTE.USER.GET_DATA);
 
   return res;
 };

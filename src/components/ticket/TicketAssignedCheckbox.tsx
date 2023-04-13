@@ -5,8 +5,9 @@ import { assignTicket } from 'api';
 import { useMutation, useQueryClient } from 'react-query';
 import { useLocation } from 'react-router-dom';
 import { useErrorHandler } from 'hooks';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setTicketData } from 'redux/modules/ticketData';
+import { RootState } from 'redux/store';
 
 interface AssignCheckBoxProps {
   ticketData: {
@@ -22,6 +23,8 @@ export function AssignCheckBox({ ticketData }: AssignCheckBoxProps) {
   const { errorHandler } = useErrorHandler({ route: pathname });
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
+  const userData = useSelector((state: RootState) => state.userDataSlicer);
+  console.log('userData : ', userData);
 
   const { mutate } = useMutation(assignTicket, {
     ...QUERY.DEFAULT_CONFIG,
