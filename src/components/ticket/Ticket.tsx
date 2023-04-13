@@ -1,6 +1,8 @@
 import styled from 'styled-components';
-import { TicketDataForm } from 'types';
+import { TicketDataForm, UserDataForm } from 'types';
 import { AssignCheckBox } from 'components';
+import { RootState } from 'redux/store';
+import { useSelector } from 'react-redux';
 
 interface TicketProps {
   data: TicketDataForm;
@@ -9,16 +11,12 @@ interface TicketProps {
 }
 
 export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
-  const {
-    ticketId,
-    title,
-    priority,
-    difficulty,
-    label,
-    status,
-    assigned,
-    isMyTicket,
-  } = data;
+  const { ticketId, title, priority, difficulty, label, status, assigned } =
+    data;
+
+  const userData = useSelector(
+    (state: RootState) => state.userDataSlicer
+  ) as UserDataForm | null;
 
   const openModalHandler = () => {
     openModal();
@@ -28,7 +26,13 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
   return (
     <Wrapper onClick={openModalHandler}>
       <LeftBox>
-        <AssignCheckBox ticketData={{ assigned, isMyTicket, ticketId }} />
+        <AssignCheckBox
+          ticketData={{
+            assigned,
+            ticketId,
+            isMyTicket: assigned === userData?.email,
+          }}
+        />
         <Title>{title}</Title>
       </LeftBox>
       <Details>
