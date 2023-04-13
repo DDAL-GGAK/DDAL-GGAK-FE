@@ -11,6 +11,7 @@ const KEY = Object.freeze({
   TASK_DATA: 'taskData',
   LABEL_DATA: 'labelData',
   TICKET_DATA: 'ticketData',
+  TICKET_DETAIL: 'ticketDetail',
 });
 
 export const QUERY = Object.freeze({
