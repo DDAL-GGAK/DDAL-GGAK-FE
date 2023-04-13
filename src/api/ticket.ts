@@ -53,7 +53,6 @@ export const assignTicket = async (ticketId: string) => {
 };
 
 export const setLabel = async ({ ticketId, labelId }: SetLabelForm) => {
-  console.log('target : ', labelId);
   const res = await api.post(API_ROUTE.TICKET.SET_LABEL(ticketId), {
     labelId: Number(labelId),
   });
