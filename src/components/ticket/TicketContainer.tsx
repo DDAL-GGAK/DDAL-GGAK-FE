@@ -13,6 +13,7 @@ export function TicketContainer() {
   const [currTicketId, setCurrTicketId] = useState<string>();
   const ticketData = useSelector((state: RootState) => state.ticketDataSlicer);
 
+  // revert
   console.log('ticketData :', ticketData);
 
   return (
