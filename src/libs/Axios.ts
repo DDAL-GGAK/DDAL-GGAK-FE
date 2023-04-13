@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Cookies } from 'react-cookie';
-import { KEY, EXPIRE, METHOD } from 'constants/';
+import { KEY, METHOD } from 'constants/';
 import {
   AxiosInterceptorReqConfig,
   AuthReqConfig,
