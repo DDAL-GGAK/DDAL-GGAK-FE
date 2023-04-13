@@ -1,5 +1,5 @@
 import { UseFormRegister } from 'react-hook-form';
-import { INPUT_TYPE, REGISTER_TYPE, UPDATE_TYPE } from 'constants/';
+import { INPUT_TYPE, REGISTER_TYPE } from 'constants/';
 
 type InputSchema = typeof INPUT_TYPE;
 type InputKeys = keyof typeof INPUT_TYPE;
@@ -8,10 +8,6 @@ export type InputTypes = InputSchema[InputKeys];
 type RegisterSchema = typeof REGISTER_TYPE;
 type RegisterKeys = keyof typeof REGISTER_TYPE;
 export type RegisterTypes = RegisterSchema[RegisterKeys];
-
-type UpdateSchema = typeof UPDATE_TYPE;
-type UpdateKeys = keyof typeof UPDATE_TYPE;
-export type UpdateTypes = UpdateSchema[UpdateKeys];
 
 export type RegisterForm = UseFormRegister<RegisterField>;
 type ErrorMessageState = string | undefined;
@@ -45,6 +41,7 @@ export type RegisterField = Record<RegisterTypes, string>;
 
 /* Error */
 export interface TitleForm {
+  projectId: string | number;
   projectTitle: string;
 }
 
@@ -68,4 +65,19 @@ export interface NicknameForm {
 
 export interface NicknameInputProps {
   register: UseFormRegister<NicknameForm>;
+}
+
+/* projectSetting */
+export interface UpdateProjectTitleForm {
+  projectId: string | number;
+  projectTitle: string;
+}
+
+export interface ProjectTitleUpdateProps {
+  register: UseFormRegister<UpdateProjectTitleForm>;
+}
+
+export interface UpdateProjectDataProps {
+  data: FormData | string;
+  projectId: string | number;
 }
