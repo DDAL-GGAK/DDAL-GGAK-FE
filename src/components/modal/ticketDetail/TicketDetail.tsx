@@ -11,6 +11,9 @@ import {
   SendTicketReviewButton,
   ToggleTicketStatus,
 } from 'components/modal/ticketDetail';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
+import { UserDataForm } from 'types';
 
 interface TicketDetailProps {
   currTicketId: string;
@@ -22,13 +25,17 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
   const taskId = pathname.match(REGEX.TASK_ID)?.[1];
   const { errorHandler } = useErrorHandler({ route: pathname });
   const { data: ticketData } = useQuery(
-    [QUERY.KEY.TICKET_DATA, currTicketId, taskId],
+    [QUERY.KEY.TICKET_DETAIL, currTicketId, taskId],
     () => getTicketData({ param: currTicketId, query: { taskId } }),
     {
       ...QUERY.DEFAULT_CONFIG,
       onError: (error: unknown) => errorHandler(error),
     }
   );
+
+  const userData = useSelector(
+    (state: RootState) => state.userDataSlicer
+  ) as UserDataForm | null;
 
   return (
     <StyledModalContainer>
@@ -43,17 +50,20 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
           <Text>{ticketData.dueDate}</Text>
           <Label>Status:</Label>
           <Text>{ticketData.status}</Text>
-          <TicketStateWrapper>
-            <ToggleTicketStatus
-              status={ticketData.status}
-              currTicketId={currTicketId}
-            />
-            <SendTicketReviewButton
-              status={ticketData.status}
-              currTicketId={currTicketId}
-            />
-            <DeleteTicketButton closeModal={closeModal} ticket={ticketData} />
-          </TicketStateWrapper>
+
+          {ticketData?.assigned === userData?.email && (
+            <TicketStateWrapper>
+              <ToggleTicketStatus
+                status={ticketData.status}
+                currTicketId={currTicketId}
+              />
+              <SendTicketReviewButton
+                status={ticketData.status}
+                currTicketId={currTicketId}
+              />
+              <DeleteTicketButton closeModal={closeModal} ticket={ticketData} />
+            </TicketStateWrapper>
+          )}
         </>
       ) : (
         <Loading />

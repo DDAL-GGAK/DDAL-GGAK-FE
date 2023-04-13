@@ -21,3 +21,8 @@ export interface LabelsProps {
 export interface LabelTitleInputProps {
   register: UseFormRegister<LabelInputForm>;
 }
+
+export interface SetLabelForm {
+  ticketId: string;
+  labelId: string;
+}

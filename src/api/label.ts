@@ -4,6 +4,12 @@ import { LabelCreateForm } from 'types';
 
 const api = new Axios(true);
 
+export const getLabels = async (taskId: string) => {
+  const { data: res } = await api.get(API_ROUTE.LABEL.GET(taskId));
+
+  return res;
+};
+
 export const createLabel = async (data: LabelCreateForm) => {
   const { data: res } = await api.post(API_ROUTE.LABEL.CREATE, data);
 

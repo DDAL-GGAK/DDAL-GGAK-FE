@@ -1,8 +1,14 @@
 import styled from 'styled-components';
-import { TicketDataForm, UserDataForm } from 'types';
-import { AssignCheckBox } from 'components';
+import { TicketDataForm, UserDataForm, LabelDataForm } from 'types';
+import { AssignCheckBox, SetLabel } from 'components';
 import { RootState } from 'redux/store';
 import { useSelector } from 'react-redux';
+import { useQuery } from 'react-query';
+import { useLocation } from 'react-router-dom';
+import { QUERY, REGEX } from 'constants/';
+import { getLabels } from 'api';
+import { useErrorHandler } from 'hooks';
+import { useMemo } from 'react';
 
 interface TicketProps {
   data: TicketDataForm;
@@ -11,17 +17,30 @@ interface TicketProps {
 }
 
 export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
+  const { pathname } = useLocation();
+  const taskId = pathname.match(REGEX.TASK_ID)?.[1];
+  const { errorHandler } = useErrorHandler({ route: pathname });
   const { ticketId, title, priority, difficulty, label, status, assigned } =
     data;
-
-  const userData = useSelector(
-    (state: RootState) => state.userDataSlicer
-  ) as UserDataForm | null;
 
   const openModalHandler = () => {
     openModal();
     setCurrTicketId(String(ticketId));
   };
+
+  const userData = useSelector(
+    (state: RootState) => state.userDataSlicer
+  ) as UserDataForm | null;
+
+  const QueryKey = useMemo(() => [QUERY.KEY.LABEL_DATA, taskId], [taskId]);
+  const { data: labelsData } = useQuery<LabelDataForm[]>(
+    QueryKey,
+    () => getLabels(String(taskId)),
+    {
+      ...QUERY.DEFAULT_CONFIG,
+      onError: errorHandler,
+    }
+  );
 
   return (
     <Wrapper onClick={openModalHandler}>
@@ -39,7 +58,7 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
         <DetailItem>status: {status}</DetailItem>
         <DetailItem>priority : {priority}</DetailItem>
         <DetailItem>difficulty : {difficulty}</DetailItem>
-        <DetailItem>label : {label || 'unAssigned'}</DetailItem>
+        <SetLabel label={label} labelsData={labelsData} ticketId={ticketId} />
         <DetailItem>owner : {assigned || 'unAssigned'}</DetailItem>
       </Details>
     </Wrapper>
@@ -84,7 +103,7 @@ const Details = styled.ul`
 const DetailItem = styled.li`
   font-size: 14px;
   padding: 4px 8px;
-  background-color: ${({ theme }) => theme.navLinkBackground};
+  background: ${({ theme }) => theme.navLinkBackground};
   color: #111;
   border-radius: 4px;
 `;

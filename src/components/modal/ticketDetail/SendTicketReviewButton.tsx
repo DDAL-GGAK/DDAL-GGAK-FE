@@ -1,10 +1,11 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { sendTicketReview } from 'api';
-import { QUERY, TICKET } from 'constants/';
+import { QUERY, TICKET, TOASTIFY } from 'constants/';
 import { useErrorHandler } from 'hooks';
 import { useLocation } from 'react-router-dom';
 import { Button } from 'components/containers';
 import { Loading } from 'components/Loading';
+import { sendToast } from 'libs';
 
 export function SendTicketReviewButton({
   currTicketId,
@@ -19,7 +20,9 @@ export function SendTicketReviewButton({
   const { mutate, isLoading } = useMutation(sendTicketReview, {
     ...QUERY.DEFAULT_CONFIG,
     onSuccess: () => {
+      sendToast.success(TOASTIFY.SUCCESS.SEND_REVIEW);
       queryClient.invalidateQueries(QUERY.KEY.TASK_DATA);
+      queryClient.invalidateQueries(QUERY.KEY.TICKET_DETAIL);
     },
     onError: (error: unknown) => errorHandler(error),
   });
@@ -36,7 +39,7 @@ export function SendTicketReviewButton({
     <Button onClick={sendReviewHandler} buttonType="point">
       {status === TICKET.STATUS.REVIEW
         ? 'Ticket is on Review'
-        : 'Review Enrollment'}
+        : 'Enroll Review'}
     </Button>
   );
 }
