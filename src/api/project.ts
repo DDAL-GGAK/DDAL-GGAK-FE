@@ -1,5 +1,6 @@
 import { Axios } from 'libs';
 import { API_ROUTE } from 'constants/';
+import { UpdateProjectDataProps } from 'types';
 
 const api = new Axios(true);
 /* Project */
@@ -30,11 +31,21 @@ export const getProjectData = async (param: string) => {
   return res;
 };
 
-export const setProjectThumbnail = async (data: FormData) => {
-  await api.putFormData(API_ROUTE.PROJECT.SET_THUMBNAIL, data);
+export const updateProjectThumbnail = async ({data, projectId}: UpdateProjectDataProps) => {
+  const res = await api.postMultipartFormData(API_ROUTE.PROJECT.SET_THUMBNAIL(projectId), data as FormData);
+
+  return res;
 };
 
-export const setProjectTitle = async (data: string | undefined) => {
+export const updateProjectTitle = async ({data, projectId}: UpdateProjectDataProps) => {
   if (!data) return;
-  await api.put(API_ROUTE.PROJECT.SET_TITLE, { title: data });
+  const res = await api.put(API_ROUTE.PROJECT.SET_TITLE(projectId), { title: data });
+
+  return res;
+};
+
+export const deleteProject = async (projectId: string | number) => {
+  const res = await api.delete(API_ROUTE.PROJECT.DELETE, projectId);
+
+  return res;
 };
