@@ -1,51 +1,74 @@
 import styled from 'styled-components';
-import { getUserData, setProjectTitle } from 'api';
-import { useEffect, useState } from 'react';
-import { UploadProfile } from 'components/user';
-import { ProjectDataForm } from 'types';
+import { useLocation, useParams } from 'react-router-dom';
+import { getProjectData, updateProjectTitle } from 'api';
+// import { useEffect } from 'react';
+import { UpdateProjectTitleForm, ProjectDataForm } from 'types';
+import { useMutation, useQueryClient, useQuery } from 'react-query';
+import { ProjectTitleInput } from 'components/form';
+import { UpdateThumbnail, DeleteProjectButton } from 'components/project';
+import { useErrorHandler } from 'hooks';
+import { REGEX, QUERY, TOASTIFY } from 'constants/';
+import { sendToast } from 'libs';
+import { useForm } from 'react-hook-form';
 
 export function ProjectSetting() {
-  const [projectData, setProjectData] = useState<ProjectDataForm>();
-  const [projectTitleValue, setProjectTitleValue] = useState(
-    projectData?.projectTitle
+  const { id: param } = useParams();
+  const { errorHandler } = useErrorHandler();
+  const { pathname } = useLocation();
+  const projectId = Number(pathname.match(REGEX.PROJECT_ID)?.[1]) || null;
+  const { data: projectData } = useQuery<ProjectDataForm>(
+    [QUERY.KEY.PROJECT_DATA, param],
+    () => getProjectData(param as string),
+    {
+      ...QUERY.DEFAULT_CONFIG,
+      onError: (error: unknown) => errorHandler(error),
+    }
   );
-  const onMountHandler = async () => {
-    const { data } = await getUserData();
-    setProjectData(data);
-  };
 
-  useEffect(() => {
-    onMountHandler();
-  }, []);
+  console.log(projectData?.participants)
 
-  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      currentTarget: { value },
-    } = e;
-    setProjectTitleValue(value);
-  };
+  const queryClient = useQueryClient();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UpdateProjectTitleForm>({
+    mode: 'onChange',
+  });
 
-  const saveProjectTitle = async () => {
-    await setProjectTitle(projectTitleValue);
-  };
+  // const onMountHandler = async () => {
+  //   const { data } = await getProjectData();
+  //   setProjectData(data);
+  // };
+
+  // useEffect(() => {
+  //   onMountHandler();
+  // }, []);
+
+  const { mutate } = useMutation(updateProjectTitle, {
+    ...QUERY.DEFAULT_CONFIG,
+    onSuccess: () => {
+      queryClient.invalidateQueries(QUERY.KEY.PROJECT_TITLE);
+      sendToast.success(TOASTIFY.SUCCESS.USER_SETTING);
+    },
+    onError: (error: unknown) => errorHandler(error),
+  });
+
+  const onNickname = async (data: UpdateProjectTitleForm) => mutate({ data: data.projectTitle, projectId: Number(projectId) });
+
   return (
-    <div>
+    <Wrapper>
       <Container>
         <TextL>Project Setting</TextL>
       </Container>
-      <ProfileWrapper>
-        <TextM>Thumbnail</TextM>
-        <UploadProfile imageSrc={projectData?.thumbnail} />
-        <TextS>Pick a thumbnail for your project. size is 256x256px.</TextS>
-      </ProfileWrapper>
+      <UpdateThumbnail projectData={projectData} />
       <Hr />
-      <Form>
+      <Form onSubmit={handleSubmit(onNickname)}>
         <TextL>General</TextL>
-        <TextM>project name</TextM>
-        <ProjectnameInput value={projectTitleValue} onChange={changeHandler} />
-        <Button type="button" onClick={saveProjectTitle}>
-          Save
-        </Button>
+        <TextM>project Title</TextM>
+        <ProjectTitleInput register={register} />
+        {errors.projectTitle && <Errorspan>{errors.projectTitle.message}</Errorspan>}
+        <Button>Save</Button>
       </Form>
       <Hr />
       <Container>
@@ -55,11 +78,18 @@ export function ProjectSetting() {
           including but not limited to users, issues, and comments, you can do
           so below.
         </TextS>
-        <Button type="button">Delete this project</Button>
+        <DeleteProjectButton 
+          projectData={projectData}
+          projectId={projectId}
+        />
       </Container>
-    </div>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  max-width: 800px;
+`;
 
 const Container = styled.div``;
 
@@ -78,11 +108,6 @@ const TextS = styled.div`
   font-size: 12px;
   font-weight: 400;
 `;
-const ProfileWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
 
 const Hr = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
@@ -90,15 +115,11 @@ const Hr = styled.div`
   margin-bottom: 20px;
 `;
 
-const ProjectnameInput = styled.input`
-  background: none;
-  border: none;
-  outline: none;
-  border-bottom: solid 1px ${({ theme }) => theme.color};
-  color: ${({ theme }) => theme.color};
-  padding: 10px;
-`;
-
 const Button = styled.button`
   display: block;
+`;
+
+const Errorspan = styled.span`
+  color: ${({ theme }) => theme.accentColor};
+  font-size: 12px;
 `;
