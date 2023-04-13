@@ -7,3 +7,4 @@ export * from './CreateLabel';
 export * from './ConfirmDeleteLabel';
 export * from './CreateTicket';
 export * from './ticketDetail/TicketDetail';
+export * from './ConfirmDeleteTask';

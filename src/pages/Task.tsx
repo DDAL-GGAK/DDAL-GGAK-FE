@@ -6,9 +6,9 @@ import { useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { TaskDetailDataForm } from 'types';
 import { useErrorHandler } from 'hooks';
-import { Teams } from 'components/task';
+import { Labels } from 'components/task';
 import { NewTicketButton } from 'components/project/NewTicketButton';
-import { useCallback, useMemo, useEffect } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { setLabel, setTicketData } from 'redux/modules/ticketData';
 
@@ -29,12 +29,11 @@ export function Task() {
     return data;
   }, [taskId, projectId]);
 
-  const { data: taskData, refetch } = useQuery<TaskDetailDataForm>(
+  const { data: taskData } = useQuery<TaskDetailDataForm>(
     taskQueryKey,
     fetchTaskData,
     {
       ...QUERY.DEFAULT_CONFIG,
-      enabled: false,
       onSuccess: (data) => {
         if (data) dispatch(setTicketData(data?.tickets));
         dispatch(setLabel('All'));
@@ -43,16 +42,12 @@ export function Task() {
     }
   );
 
-  useEffect(() => {
-    if (projectId && taskId) refetch();
-  }, [projectId, taskId, refetch]);
-
   console.log(taskData);
 
   return (
     <Wrapper>
       <TopWrapper>
-        <Teams labels={taskData?.labels || []} />
+        <Labels labels={taskData?.labels || []} />
         <SortMethods>
           <Button>Column</Button>
           <Button>Row</Button>
@@ -83,6 +78,7 @@ const TopWrapper = styled.div`
 const SortMethods = styled.div`
   display: flex;
   gap: 10px;
+  padding: 0px 10px;
 `;
 
 const BottomWrapper = styled.div`
