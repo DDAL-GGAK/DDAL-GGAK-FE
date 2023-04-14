@@ -1,23 +1,25 @@
-import { Carousel, Content1, Content2, FloatNav } from 'components/home';
+import { Carousel } from 'components/home';
 import styled from 'styled-components';
+import { MainLogo } from 'components';
 
 export function Home() {
   return (
     <>
-      <FloatNav />
+      {/* <FloatNav /> */}
+      <MainLogo size={50} />
       <Wrapper>
         <Container>
           <Carousel />
         </Container>
-        <Content1 />
-        <Content2 />
+        {/* <Content1 />
+        <Content2 /> */}
       </Wrapper>
     </>
   );
 }
 const Wrapper = styled.div`
   height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
 `;
 
 const Container = styled.div`
