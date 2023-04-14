@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { ProjectDataForm, Thumbnail } from 'types';
+import { InboxIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 
 interface ProjectInfoProps {
   projectData: ProjectDataForm;
@@ -11,28 +12,67 @@ export function ProjectInformation({ projectData }: ProjectInfoProps) {
   return (
     <Wrapper>
       <Image thumbnail={thumbnail} />
-      <Title>{projectTitle}</Title>
-      <ProjectLeader>Project Leader: {projectLeader}</ProjectLeader>
-      <Participants>Participants: {participants.length}</Participants>
-      <Tasks>Tasks: {tasks.length}</Tasks>
+      <ImageContainer>
+        <Inner>
+          <Title>{projectTitle}</Title>
+          <Field className="leader">{`Leaded by ${projectLeader}`}</Field>
+          <Row>
+            <Field>
+              <InboxIcon className="icon" />
+              {tasks.length}
+            </Field>
+            <Field>
+              <UserGroupIcon className="icon" />
+              {participants.length}
+            </Field>
+          </Row>
+        </Inner>
+      </ImageContainer>
     </Wrapper>
   );
 }
 
-const Wrapper = styled.div`
-  height: calc(100% - 42px);
-  background-color: rgba(111, 111, 111, 0.3);
-  backdrop-filter: blur(5px);
-  border: 1px solid ${({ theme }) => theme.borderColor};
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+const Field = styled.div`
   display: flex;
-  width: 300px;
-  min-width: 300px;
+  gap: 10px;
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
+  &.leader {
+    color: #ebebeb;
+  }
+`;
+
+const Wrapper = styled.div`
+  position: relative;
+  color: white;
+  backdrop-filter: blur(5px);
+  border-radius: 5px;
+  display: flex;
   flex-direction: column;
   gap: 10px;
   transition: ${({ theme }) => theme.transitionOption};
+`;
+
+const ImageContainer = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  backdrop-filter: blur(4px);
+  background: rgb(0 0 0 / 0.2);
+`;
+
+const Inner = styled.div`
+  padding: 0px 40px;
+`;
+
+const Row = styled.div`
+  display: flex;
+  margin-top: 20px;
+  gap: 15px;
 `;
 
 const Image = styled.div<{ thumbnail: Thumbnail }>`
@@ -42,29 +82,11 @@ const Image = styled.div<{ thumbnail: Thumbnail }>`
       : props.theme.navLinkBackground};
   border-radius: 5px;
   width: 100%;
-  height: 150px;
+  height: 200px;
 `;
 
 const Title = styled.h2`
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 4px;
-`;
-
-const ProjectLeader = styled.p`
-  font-size: 14px;
-  font-weight: 500;
-  margin-bottom: 4px;
-`;
-
-const Participants = styled.p`
-  font-size: 14px;
-  font-weight: 400;
-  margin-bottom: 4px;
-`;
-
-const Tasks = styled.p`
-  font-size: 14px;
-  font-weight: 400;
+  font-size: 36px;
+  font-weight: 800;
   margin-bottom: 4px;
 `;

@@ -29,23 +29,22 @@ export function Project() {
 
   return (
     <Wrapper>
+      {projectData && <ProjectInformation projectData={projectData} />}
       <ProjectBoard>
-        <NewTaskButton />
         {projectData?.tasks.map((taskData: TaskDataForm) => (
           <TaskCard taskData={taskData} key={taskData.id} />
         ))}
+        <NewTaskButton />
       </ProjectBoard>
-      {projectData && <ProjectInformation projectData={projectData} />}
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
   height: ${CONTENT.HEIGHT};
-  display: flex;
-  justify-content: center;
-  align-items: center;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
   overflow-x: hidden;
   gap: 20px;
   border: solid 1px ${({ theme }) => theme.borderColor};
@@ -53,11 +52,15 @@ const Wrapper = styled.div`
 `;
 
 const ProjectBoard = styled.div`
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  background: tomato;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  /* grid-template-columns: repeat(4, minmax(0, 1fr)); */
+  grid-gap: 20px;
+
+  padding: 20px;
+
+  width: -moz-available;
+  width: -webkit-fill-available;
+  width: fill-available;
 `;

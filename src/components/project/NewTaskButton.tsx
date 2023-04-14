@@ -24,12 +24,8 @@ export function NewTaskButton() {
 }
 
 const Wrapper = styled.div`
-  border: 1px solid ${({ theme }) => theme.borderColor};
-  box-sizing: border-box;
   color: ${({ theme }) => theme.navBackground};
   background: ${({ theme }) => theme.color};
-  width: 100%;
-  height: 100px;
   border-radius: 5px;
   display: flex;
   align-items: center;
