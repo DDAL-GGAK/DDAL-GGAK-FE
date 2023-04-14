@@ -27,6 +27,8 @@ export function User() {
     setUserData(data);
   };
 
+  console.log(userData)
+
   useEffect(() => {
     onMountHandler();
   }, []);
