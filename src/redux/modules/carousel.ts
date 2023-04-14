@@ -3,51 +3,34 @@ import img1 from 'assets/img/i1.webp';
 import img2 from 'assets/img/i2.webp';
 import img3 from 'assets/img/i3.webp';
 import img4 from 'assets/img/i4.webp';
-
-type Title = string;
-
-export interface TextDataType {
-  mainTitle: Title;
-  subTitle: Title;
-  pointTitle?: Title[];
-}
-
-interface ImgsState extends TextDataType {
-  src: string;
-}
-
-interface CarouselState {
-  index: number;
-  imgs: ImgsState[];
-  intervalRef: NodeJS.Timer | any;
-}
+import { CarouselState } from 'types';
 
 const initialState: CarouselState = {
   index: 0,
   imgs: [
     {
       src: img1,
-      pointTitle: ['고집'],
-      subTitle: 'GO-ZIP의',
-      mainTitle: '있는 상품',
+      pointTitle: ['Efficient '],
+      subTitle: 'Streamline your',
+      mainTitle: 'performance evaluations',
     },
     {
       src: img2,
-      pointTitle: ['다이나믹'],
-      subTitle: '궁전부터 지하철 노숙까지',
-      mainTitle: '한 매물들',
+      pointTitle: ['Dynamic '],
+      subTitle: 'From individual tasks to company-wide projects',
+      mainTitle: 'manage it all',
     },
     {
       src: img3,
-      pointTitle: ['구독'],
-      subTitle: '매달 다른 집에서',
-      mainTitle: '형 월세 상품',
+      pointTitle: ['Subscription '],
+      subTitle: 'Stay up to date with',
+      mainTitle: 'our monthly insights',
     },
     {
       src: img4,
-      pointTitle: ['최상'],
-      subTitle: '휴식과 미래를 잇다',
-      mainTitle: '의 작업 공간 ',
+      pointTitle: ['Top-notch '],
+      subTitle: 'Connecting productivity and growth',
+      mainTitle: 'in your workspace',
     },
   ],
   intervalRef: null,
