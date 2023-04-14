@@ -72,7 +72,7 @@ const TopWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: ${({ theme }) => theme.pointColor};
+  background: ${({ theme }) => theme.background};
 `;
 
 const SortMethods = styled.div`

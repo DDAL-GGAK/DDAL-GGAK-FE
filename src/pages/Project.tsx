@@ -58,9 +58,13 @@ const ProjectBoard = styled.div`
   /* grid-template-columns: repeat(4, minmax(0, 1fr)); */
   grid-gap: 20px;
 
-  padding: 20px;
+  padding: 16px;
+  max-width: 1200px;
+  width: 100%;
 
+  margin: 0px auto;
+  /* 
   width: -moz-available;
   width: -webkit-fill-available;
-  width: fill-available;
+  width: fill-available; */
 `;

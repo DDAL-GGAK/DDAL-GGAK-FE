@@ -76,6 +76,7 @@ const Wrapper = styled.div`
   transition: ${({ theme }) => theme.transitionOption};
   background: ${({ theme }) => theme.background};
   border-bottom: solid 1px ${({ theme }) => theme.borderColor};
+  transition: ${({ theme }) => theme.transitionOption};
   :hover {
     cursor: pointer;
     background: lightgray;
