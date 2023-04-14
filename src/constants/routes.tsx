@@ -27,22 +27,22 @@ export const ROUTE_MAP: RouteMap = Object.freeze({
   },
   '/project/': {
     COMPONENT: ProejectHome,
-    AUTH: false,
+    AUTH: true,
     HAS_NAV: true,
   },
   '/project/:id': {
     COMPONENT: Project,
-    AUTH: false,
+    AUTH: true,
     HAS_NAV: true,
   },
   '/project/:id/task/:id': {
     COMPONENT: Task,
-    AUTH: false,
+    AUTH: true,
     HAS_NAV: true,
   },
   '/project/:id/settings/*': {
     COMPONENT: Settings,
-    AUTH: false,
+    AUTH: true,
     HAS_NAV: true,
   },
 });
