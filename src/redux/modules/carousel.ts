@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import img1 from 'assets/img/i1.webp';
-import img2 from 'assets/img/i2.webp';
-import img3 from 'assets/img/i3.webp';
-import img4 from 'assets/img/i4.webp';
+import img1 from 'assets/svg/analystic.svg';
+import img2 from 'assets/svg/report.svg';
+import img3 from 'assets/svg/info.svg';
+import img4 from 'assets/svg/interface.svg';
 import { CarouselState } from 'types';
 
 const initialState: CarouselState = {

@@ -71,11 +71,12 @@ const Wrapper = styled.div`
   justify-content: space-between;
   height: 36px;
   min-height: 36px;
-  background: ${({ theme }) => theme.transparentBackground};
   padding: 0 1rem;
   gap: 1rem;
   transition: ${({ theme }) => theme.transitionOption};
-  border-bottom: 1px solid lightgray;
+  background: ${({ theme }) => theme.background};
+  border-bottom: solid 1px ${({ theme }) => theme.borderColor};
+  transition: ${({ theme }) => theme.transitionOption};
   :hover {
     cursor: pointer;
     background: lightgray;

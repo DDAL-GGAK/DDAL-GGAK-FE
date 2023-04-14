@@ -13,7 +13,6 @@ export function TicketContainer() {
   const [currTicketId, setCurrTicketId] = useState<string>();
   const ticketData = useSelector((state: RootState) => state.ticketDataSlicer);
 
-  // revert
   console.log('ticketData :', ticketData);
 
   return (
@@ -53,26 +52,25 @@ export function TicketContainer() {
 
 const StatusWrapper = styled.div`
   width: 100%;
-  background: ${({ theme }) => theme.transparentBackground};
   box-shadow: ${({ theme }) => theme.boxShadow};
+  box-sizing: border-box;
 `;
 
 const BoardTitle = styled.div`
   padding: 8px;
   font-weight: 600;
-  background: ${({ theme }) => theme.pointColor};
-  color: ${({ theme }) => theme.background};
+  background: ${({ theme }) => theme.transparentBackground};
+  color: ${({ theme }) => theme.color};
+  border-bottom: solid 1px ${({ theme }) => theme.borderColor};
 `;
 
 const TicketWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  max-height: 242px;
   overflow-y: auto;
 `;
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-rows: repeat(3, 1fr);
-  height: 100%;
+  border: solid 1px ${({ theme }) => theme.borderColor};
 `;

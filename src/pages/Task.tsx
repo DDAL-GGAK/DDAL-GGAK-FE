@@ -72,7 +72,7 @@ const TopWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: ${({ theme }) => theme.pointColor};
+  background: ${({ theme }) => theme.background};
 `;
 
 const SortMethods = styled.div`
@@ -86,6 +86,5 @@ const BottomWrapper = styled.div`
   flex-direction: column;
   overflow-y: auto;
   height: 100%;
-  background: rgba(122, 122, 122, 0.5);
   border-radius: 0 0 10px 10px;
 `;

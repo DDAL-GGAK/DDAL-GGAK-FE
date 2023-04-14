@@ -24,13 +24,13 @@ export function TaskCard({ taskData }: TaskCardProps) {
   const deadLinePercentage = calcDeadlinePercentage({ expiredAt, createdAt });
 
   return (
-    <Wrapper data-expired={expired} key={id}>
-      <MyLink to={`./task/${id}`}>
+    <MyLink to={`./task/${id}`}>
+      <Wrapper data-expired={expired} key={id}>
         <Title>{taskTitle}</Title>
-        <Hr />
         <Info>
           <div>Participants: {participantsCount}</div>
         </Info>
+        <Hr />
         <BottomWrapper>
           <ProgressBar>
             <ProgressFiller progress={progressPercentage} />
@@ -44,20 +44,21 @@ export function TaskCard({ taskData }: TaskCardProps) {
             <div>Due: {expiredAt}</div>
           </div>
         </BottomWrapper>
-      </MyLink>
-    </Wrapper>
+      </Wrapper>
+    </MyLink>
   );
 }
 
 const Wrapper = styled(motion.div)<{ 'data-expired': boolean }>`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
   border: 1px solid
     ${({ 'data-expired': expired, theme }) =>
       expired ? theme.accentColor : theme.borderColor};
   box-sizing: border-box;
-  border-radius: 5px;
+  border-radius: 8px;
+  min-width: 200px;
   color: ${({ theme }) => theme.color};
   background: ${({ 'data-expired': expired, theme }) =>
     expired ? theme.transparentColor : theme.background};
@@ -65,13 +66,12 @@ const Wrapper = styled(motion.div)<{ 'data-expired': boolean }>`
   box-shadow: ${({ theme }) => theme.boxShadow};
   padding: 20px;
   :hover {
-    color: ${({ theme }) => theme.background};
-    background: ${({ theme }) => theme.color};
+    border-color: ${({ theme }) => theme.pointColor};
   }
 `;
 
 const MyLink = styled(Link)`
-  border-radius: 5px;
+  border-radius: 8px;
   width: calc(100% - 40px);
   transition: ${({ theme }) => theme.transitionOption};
   width: 100%;
@@ -79,8 +79,8 @@ const MyLink = styled(Link)`
 
 const Title = styled.div`
   margin: 0;
-  font-size: 1.5rem;
-  font-weight: 500;
+  font-size: 1.4rem;
+  font-weight: 600;
   color: ${({ theme }) => theme.pointColor};
 `;
 
