@@ -11,6 +11,11 @@ export const GlobalStyle = createGlobalStyle`
     border: none;
   }
 
+  /* HashRoute smooth motion */  
+  * {
+    scroll-behavior: smooth;
+  }
+
   /* Prevent Drag */
   * {
     -webkit-user-select: none;

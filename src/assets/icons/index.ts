@@ -6,3 +6,5 @@ export * from './ConfigSvg';
 export * from './Exit';
 export * from './AddFile';
 export * from './Back';
+export * from './Left';
+export * from './Right';
