@@ -123,7 +123,8 @@ const ModalContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 16px;
-  width: 280px;
+  width: 100%;
+  margin: 16px;
   border-radius: 8px;
 `;
 

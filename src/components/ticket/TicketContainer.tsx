@@ -52,7 +52,6 @@ export function TicketContainer() {
 
 const StatusWrapper = styled.div`
   width: 100%;
-  box-shadow: ${({ theme }) => theme.boxShadow};
   box-sizing: border-box;
 `;
 
