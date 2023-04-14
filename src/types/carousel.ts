@@ -15,7 +15,7 @@ export interface CarouselTextProps {
   textData: TextDataType;
 }
 
-interface ImgsState extends TextDataType {
+export interface ImgsState extends TextDataType {
   src: string;
 }
 

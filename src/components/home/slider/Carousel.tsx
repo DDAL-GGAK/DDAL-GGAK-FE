@@ -4,6 +4,7 @@ import { next } from 'redux/modules/carousel';
 import { RootState } from 'redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { ImgsState } from 'types';
 import { CarouselComponent } from './CarouselComponent';
 
 export function Carousel() {
@@ -24,7 +25,7 @@ export function Carousel() {
   return (
     <Wrapper>
       <AnimatePresence>
-        {imgs.map((v: any, i: number) => {
+        {imgs.map((v: ImgsState, i: number) => {
           const { src, ...textData } = v;
 
           return i === index ? (

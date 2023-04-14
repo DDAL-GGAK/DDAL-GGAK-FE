@@ -24,16 +24,3 @@ const Container = styled.div`
   display: flex;
   background: #2b2b2b;
 `;
-
-// const Content = styled.div<{ isEven: boolean }>`
-//   border-bottom: 2px black solid;
-//   height: 100vh;
-//   background: ${(props) => {
-//     const {
-//       isEven,
-//       theme: { transparentColor, transparentBackground },
-//     } = props;
-
-//     return isEven ? transparentColor : transparentBackground;
-//   }};
-// `;
