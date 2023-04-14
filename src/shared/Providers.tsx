@@ -17,7 +17,7 @@ export function Providers({ children }: ProviderProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+        <ThemeProvider theme={!isDark ? darkTheme : lightTheme}>
           <ToastContainer />
           {children}
         </ThemeProvider>
