@@ -4,6 +4,7 @@ import {
   userDataSlicer,
   authLoadingSlicer,
   ticketDataSlicer,
+  carouselSlicer,
 } from './modules';
 
 const reducer = combineReducers({
@@ -11,6 +12,7 @@ const reducer = combineReducers({
   userDataSlicer,
   authLoadingSlicer,
   ticketDataSlicer,
+  carouselSlicer,
 });
 
 const store = configureStore({ reducer });
