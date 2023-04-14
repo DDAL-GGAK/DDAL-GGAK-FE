@@ -8,6 +8,6 @@ export function Title({ children, ...props }: Container) {
 const Wrapper = styled.h2<Container>`
   font-size: 24px;
   font-weight: 600;
-  text-align: center;
+  text-align: left;
   color: ${({ theme }) => theme.color};
 `;

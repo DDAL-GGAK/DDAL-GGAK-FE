@@ -7,6 +7,7 @@ import { TicketDetail } from 'components/modal';
 import { MODAL_CARD_VARIANTS } from 'constants/';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
+import { NewTicketButton } from 'components/project/NewTicketButton';
 
 export function TicketContainer() {
   const { isOpen, openModal, closeModal, Modal } = useModal();
@@ -21,7 +22,9 @@ export function TicketContainer() {
         {Object.entries(ticketData.ticket || {}).map(([key, data]) => {
           return (
             <StatusWrapper key={key}>
-              <BoardTitle>{key}</BoardTitle>
+              <BoardTitle>
+                {key} {key === 'TODO' ? <NewTicketButton /> : null}
+              </BoardTitle>
               <TicketWrapper>
                 {data.map((ticket: TicketDataForm) => (
                   <Ticket

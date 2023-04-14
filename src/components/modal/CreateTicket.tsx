@@ -4,10 +4,10 @@ import { useMutation, useQueryClient } from 'react-query';
 import { sendToast } from 'libs';
 import { createTicket } from 'api';
 import { motion } from 'framer-motion';
-import { DEFAULT_VARIANTS, SVG_SIZE, REGEX, QUERY, TOASTIFY } from 'constants/';
+import { DEFAULT_VARIANTS, REGEX, QUERY, TOASTIFY } from 'constants/';
 import { ModalViewProps, TicketCreateForm } from 'types';
 import { useLocation } from 'react-router-dom';
-import { Task } from 'assets/svg';
+// import { Task } from 'assets/svg';
 import { useErrorHandler } from 'hooks';
 import { Button, Title, LabelText, ErrorMessage } from 'components/containers';
 
@@ -43,7 +43,7 @@ export function CreateTicket({ closeModal }: ModalViewProps) {
       exit="exit"
     >
       <Title>Create Ticket</Title>
-      <Task size={SVG_SIZE.MODAL} />
+      {/* <Task size={SVG_SIZE.MODAL} /> */}
       <Form onSubmit={handleSubmit(onValid)}>
         <LabelWrapper>
           <LabelText>Ticket Title:</LabelText>
@@ -124,7 +124,6 @@ const ModalContainer = styled(motion.div)`
   flex-direction: column;
   gap: 16px;
   width: 100%;
-  margin: 16px;
   border-radius: 8px;
 `;
 

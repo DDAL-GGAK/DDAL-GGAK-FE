@@ -42,14 +42,22 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
       {ticketData ? (
         <>
           <Title>{ticketData.title}</Title>
-          <Label>Description:</Label>
-          <Text>{ticketData.description}</Text>
-          <Label>Priority:</Label>
-          <Text>{ticketData.priority}</Text>
-          <Label>Due Date:</Label>
-          <Text>{ticketData.dueDate}</Text>
-          <Label>Status:</Label>
-          <Text>{ticketData.status}</Text>
+          <ContentRow>
+            <ContentItem>
+              <Label>Priority:</Label>
+              <Text>{ticketData.priority}</Text>
+            </ContentItem>
+            <ContentItem>
+              <Label>Due Date:</Label>
+              <Text>{ticketData.dueDate}</Text>
+            </ContentItem>
+            <ContentItem>
+              <Label>Status:</Label>
+              <Text>{ticketData.status}</Text>
+            </ContentItem>
+          </ContentRow>
+
+          <Description>{ticketData.description}</Description>
 
           {ticketData?.assigned === userData?.email && (
             <TicketStateWrapper>
@@ -72,6 +80,22 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
   );
 }
 
+const ContentRow = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 12px;
+`;
+
+const ContentItem = styled.div`
+  display: flex;
+  align-items: center;
+
+  /* border: 1px solid #; */
+  padding: 12px;
+  border-radius: 12px;
+`;
+
 const StyledModalContainer = styled(ModalContainer)`
   max-width: 1200px;
   max-height: 900px;
@@ -82,21 +106,27 @@ const StyledModalContainer = styled(ModalContainer)`
 `;
 
 const Title = styled.h2`
-  font-size: 24px;
-  background: ${({ theme }) => theme.pointColor};
-  padding: 0.5rem 1rem;
+  font-size: 28px;
+  font-weight: bold;
+  /* background: ${({ theme }) => theme.pointColor}; */
+  /* padding: 0.5rem 1rem; */
   border-radius: 5px;
+  margin-bottom: 5px;
+`;
+
+const Description = styled.div`
+  font-size: 18px;
+  margin-bottom: 16px;
+  color: #cbcbcb;
 `;
 
 const Label = styled.p`
   font-size: 16px;
   font-weight: 600;
-  margin-bottom: 4px;
 `;
 
 const Text = styled.p`
   font-size: 14px;
-  margin-bottom: 16px;
 `;
 
 const TicketStateWrapper = styled.div`

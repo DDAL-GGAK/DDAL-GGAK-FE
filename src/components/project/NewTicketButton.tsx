@@ -13,6 +13,7 @@ export function NewTicketButton() {
         isOpen={isOpen}
         closeModal={closeModal}
         variants={MODAL_CARD_VARIANTS}
+        type="small"
       >
         <CreateTicket closeModal={closeModal} />
       </Modal>
@@ -32,6 +33,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  border-bottom: solid 1px ${({ theme }) => theme.borderColor};
   :hover {
     color: ${({ theme }) => theme.background};
     background: ${({ theme }) => theme.color};
