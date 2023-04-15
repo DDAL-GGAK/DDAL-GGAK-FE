@@ -7,9 +7,9 @@ export function LabelButton({ children, ...props }: Container) {
 
 const Wrapper = styled.div<{ isCurrLabel?: boolean }>`
   background: ${({ theme, isCurrLabel }) =>
-    isCurrLabel ? theme.background : theme.color};
+    isCurrLabel ? theme.color : theme.background};
   color: ${({ theme, isCurrLabel }) =>
-    isCurrLabel ? theme.pointColor : theme.background};
+    isCurrLabel ? theme.background : theme.pointColor};
   border-right: solid 1px rgba(0, 0, 0, 0.15);
   font-weight: 600;
   padding: 5px 10px;
@@ -22,7 +22,7 @@ const Wrapper = styled.div<{ isCurrLabel?: boolean }>`
 
   :hover {
     cursor: pointer;
-    background: ${({ theme }) => theme.background};
+    background: ${({ theme }) => theme.color};
     color: ${({ theme }) => theme.pointColor};
   }
 `;
