@@ -17,7 +17,7 @@ export function LogOut() {
     ...QUERY.DEFAULT_CONFIG,
     onSuccess: () => {
       cookie.remove(COOKIE.KEY.ACCESS_TOKEN);
-      localStorage.removeItem('userInfo');
+      localStorage.removeItem(QUERY.KEY.USER_DATA);
       dispatch(removeUserData());
       navigate('/');
     },
