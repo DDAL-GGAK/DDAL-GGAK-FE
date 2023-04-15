@@ -89,8 +89,7 @@ const ImageContainer = styled.div`
 
 const Inner = styled.div`
   padding: 0px 40px;
-  margin: 0px auto;
-  width: 1200px;
+  width: 100%;
 `;
 
 const Row = styled.div`
