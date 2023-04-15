@@ -42,8 +42,6 @@ export function Task() {
     }
   );
 
-  console.log(taskData);
-
   return (
     <Wrapper>
       <Labels labels={taskData?.labels || []} />
