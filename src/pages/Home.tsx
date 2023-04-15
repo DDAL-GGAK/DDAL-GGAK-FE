@@ -1,18 +1,15 @@
 import { Carousel } from 'components/home';
 import styled from 'styled-components';
-import { MainLogo } from 'components';
+import { HomeNav } from 'components';
 
 export function Home() {
   return (
     <>
-      {/* <FloatNav /> */}
-      <MainLogo size={50} />
+      <HomeNav />
       <Wrapper>
         <Container>
           <Carousel />
         </Container>
-        {/* <Content1 />
-        <Content2 /> */}
       </Wrapper>
     </>
   );
