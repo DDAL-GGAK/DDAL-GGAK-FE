@@ -52,12 +52,30 @@ const Wrapper = styled.div<{ thumbnail?: Thumbnail }>`
       ? `url(${props.thumbnail}) center / cover`
       : props.theme.navLinkBackground};
 
+  ::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: ${(props) =>
+      props.thumbnail ? 'rgba(0, 0, 0, 0)' : 'transparent'};
+    border-radius: ${NAVLINK.BORDER_RADIUS}px;
+    transition: ${({ theme }) => theme.transitionOption};
+  }
+
   :hover {
     cursor: pointer;
     background: ${(props) =>
       props.thumbnail
         ? `url(${props.thumbnail}) center / cover`
         : props.theme.color};
+
+    ::after {
+      background-color: ${(props) =>
+        props.thumbnail ? 'rgba(255, 255, 255, 0.3)' : 'transparent'};
+    }
   }
 `;
 
