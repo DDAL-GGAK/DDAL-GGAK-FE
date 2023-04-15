@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { DEFAULT_VARIANTS, REGEX, QUERY, TOASTIFY } from 'constants/';
 import { ModalViewProps, TicketCreateForm } from 'types';
 import { useLocation } from 'react-router-dom';
+import { TicketScoreRadio } from 'components/form';
 // import { Task } from 'assets/svg';
 import { useErrorHandler } from 'hooks';
 import { Button, Title, LabelText, ErrorMessage } from 'components/containers';
@@ -74,21 +75,8 @@ export function CreateTicket({ closeModal }: ModalViewProps) {
             <ErrorMessage>{errors.priority.message}</ErrorMessage>
           )}
         </LabelWrapper>
-        <RadioGroup>
-          {Array.from({ length: 5 }, (_, i) => (
-            <RadioLabel key={`priority${i + 1}`}>
-              <RadioInput
-                type="radio"
-                id={`priority${i + 1}`}
-                value={i + 1}
-                {...register('priority', {
-                  required: 'Priority is required!',
-                })}
-              />
-              <label htmlFor={`priority${i + 1}`}>{i + 1}</label>
-            </RadioLabel>
-          ))}
-        </RadioGroup>
+
+        <TicketScoreRadio register={register} />
 
         <LabelWrapper>
           <LabelText>Difficulty:</LabelText>
@@ -111,13 +99,21 @@ export function CreateTicket({ closeModal }: ModalViewProps) {
             </RadioLabel>
           ))}
         </RadioGroup>
-        <Button buttonType="point">
-          {isLoading ? 'Loading...' : 'Create Ticket'}
-        </Button>
+        <ButtonContainer>
+          <Button buttonType="point">
+            {isLoading ? 'Loading...' : 'Create Ticket'}
+          </Button>
+        </ButtonContainer>
       </Form>
     </ModalContainer>
   );
 }
+
+const ButtonContainer = styled.div`
+  margin-top: 8px;
+  display: flex;
+  justify-content: flex-end;
+`;
 
 const ModalContainer = styled(motion.div)`
   display: flex;

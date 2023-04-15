@@ -13,6 +13,7 @@ export const REGISTER_TYPE = Object.freeze({
   NICKNAME: 'nickname',
   LABEL_TITLE: 'labelTitle',
   TASK_TITLE: 'taskTitle',
+  TICKET_SCORE: 'ticketPriority',
 });
 
 export const ERROR_MESSAGE = Object.freeze({
@@ -51,6 +52,9 @@ export const ERROR_MESSAGE = Object.freeze({
     REQUIRED: 'Task title is required!',
     MAX_LENGTH: 'Requires shorter than 15',
   }),
+  TICKET_PRIORITY: Object.freeze({
+    REQUIRED: 'Priority is required!',
+  }),
 });
 
 export const CONFIG = Object.freeze({
@@ -78,5 +82,8 @@ export const CONFIG = Object.freeze({
   }),
   TASK_TITLE: Object.freeze({
     MAX_LENGTH: 15,
+  }),
+  TICKET_PRIORITY: Object.freeze({
+    LENGTH: 5,
   }),
 });

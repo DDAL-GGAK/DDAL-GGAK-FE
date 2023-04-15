@@ -8,3 +8,6 @@ export * from './inputText/JoinProjectInput';
 export * from './inputText/UserNicknameInput';
 export * from './inputText/LabelTitleInput';
 export * from './inputText/TaskTitleInput';
+
+/* Ticket */
+export * from './ticket/TicketScoreInput';
