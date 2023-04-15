@@ -45,12 +45,12 @@ const ProfileImage = styled(motion.div)<{ profile: ProfileProps }>`
   box-sizing: border-box;
   width: 40px;
   height: 40px;
-
   background: ${({ profile, theme }) =>
     profile ? `url(${profile}) center / cover` : theme.color};
-  border-bottom: 1px solid #000000;
-  border-radius: 8px;
+  border-radius: 50%;
+  border: solid 2px ${({ theme }) => theme.color};
   transition: ${({ theme }) => theme.transitionOption};
+  box-sizing: border-box;
 `;
 
 const DefaultImage = styled(motion.div)`
