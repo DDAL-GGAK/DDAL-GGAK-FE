@@ -64,7 +64,6 @@ const Wrapper = styled.div`
   position: relative;
   color: white;
   backdrop-filter: blur(5px);
-  border-radius: 5px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -101,7 +100,6 @@ const Row = styled.div`
 const Image = styled.div<{ thumbnail: Thumbnail }>`
   background: ${({ thumbnail, theme }) =>
     thumbnail ? `url(${thumbnail}) center / cover` : `${theme.borderColor}`};
-  border-radius: 5px;
   width: 100%;
   height: 200px;
 `;

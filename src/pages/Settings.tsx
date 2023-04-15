@@ -58,7 +58,9 @@ const Wrapper = styled.div`
   transition: ${({ theme }) => theme.transitionOption};
 `;
 
-const SettingLink = styled(Link)<{ isCurrNav: boolean }>`
+const SettingLink = styled(({ isCurrNav, ...rest }) => <Link {...rest} />)<{
+  isCurrNav: boolean;
+}>`
   padding: 0.25rem 0.5rem;
   border-radius: 5px;
   background: ${({ isCurrNav, theme }) => (isCurrNav ? theme.borderColor : '')};
@@ -70,7 +72,6 @@ const SettingLink = styled(Link)<{ isCurrNav: boolean }>`
     color: white;
   }
 `;
-
 const Title = styled.div`
   font-weight: 600;
   color: white;
@@ -95,7 +96,7 @@ const LeftWrapper = styled.div`
 const RightWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 2rem;
+  padding: 1.5rem 2rem;
   gap: 10px;
   width: calc(100% - 200px);
   height: calc(100% - 2rem * 2);

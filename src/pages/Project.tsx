@@ -65,8 +65,6 @@ const Wrapper = styled.div`
   flex-direction: column;
   overflow-x: hidden;
   gap: 1rem;
-  border: solid 1px ${({ theme }) => theme.borderColor};
-  border-radius: 5px;
 `;
 
 const ProjectBoard = styled.div<{ gridColumnCount: number }>`

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Participant } from 'types';
-import { Link } from 'react-router-dom';
 import { MenuDots } from 'assets/icons';
+import { ContentText, LabelText } from 'components/containers';
 
 interface MemberDataProps {
   memberData: Participant;
@@ -13,14 +13,12 @@ export function MemberCard({ memberData }: MemberDataProps) {
   return (
     <Wrapper>
       <LeftWrapper>
-        <Link to="/">
-          <ImageLabel>
-            <Image src={thumbnail} />
-          </ImageLabel>
-        </Link>
+        <ImageLabel>
+          <Image src={thumbnail} />
+        </ImageLabel>
         <UserInfo>
-          <span>{email}</span>
-          <span>{nickname}</span>
+          <LabelText>{nickname}</LabelText>
+          <ContentText>{email}</ContentText>
         </UserInfo>
       </LeftWrapper>
       <MiddleWrapper>
@@ -28,20 +26,19 @@ export function MemberCard({ memberData }: MemberDataProps) {
       </MiddleWrapper>
       <RightWrapper>
         <Button>
-            <MenuDots size={20}/>
+          <MenuDots size={20} />
         </Button>
-    </RightWrapper>
+      </RightWrapper>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
-  display: grid;
-  column-gap: 16px;
-  grid-template-columns: 7fr 3fr 2fr;
-  height: 60px;
-  min-width: 0px;
+  display: flex;
   align-items: center;
+  background: ${({ theme }) => theme.borderColor};
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
 `;
 
 const LeftWrapper = styled.div`
@@ -71,7 +68,7 @@ const RightWrapper = styled.div`
 `;
 
 const UserInfo = styled.div`
-width: 220px;
+  width: 220px;
   display: flex;
   flex: initial;
   flex-direction: column;
@@ -79,8 +76,8 @@ width: 220px;
 `;
 
 const ImageLabel = styled.div`
-  width: 24px;
-  height: 24px;
+  width: 36px;
+  height: 36px;
   background: rgba(0, 0, 0, 0.3);
   border-radius: 50%;
   :hover {
@@ -96,4 +93,4 @@ const Image = styled.img`
 
 const Button = styled.button`
   background-color: unset;
-`
+`;
