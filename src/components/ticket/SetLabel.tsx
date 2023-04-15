@@ -2,11 +2,11 @@ import { LabelDataForm } from 'types';
 import styled from 'styled-components';
 import { setLabel } from 'api';
 import { useMutation, useQueryClient } from 'react-query';
-import { useErrorHandler } from 'hooks';
+import { useErrorHandler, useOutsideClick } from 'hooks';
 import { QUERY } from 'constants/';
 import { useLocation } from 'react-router-dom';
 import { TagIcon } from '@heroicons/react/24/outline';
-import { useState, MouseEvent } from 'react';
+import { useState, MouseEvent, useRef } from 'react';
 
 interface SetLabelProps {
   labelsData: LabelDataForm[] | undefined;
@@ -35,12 +35,17 @@ export function SetLabel({
     },
     onError: errorHandler,
   });
-
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLabel, setSelectedLabel] = useState(label || 'unAssigned');
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useOutsideClick({
+    ref: dropdownRef,
+    callback: () => setIsOpen(false),
+    isOpen,
+  });
 
   const handleLabelChange = (labelId: number) => {
-    console.log('changeTo: ', labelId);
     setSelectedLabel(
       labelsData?.find((l: LabelDataForm) => l.labelId === labelId)
         ?.labelTitle || 'unAssigned'
@@ -58,7 +63,7 @@ export function SetLabel({
       <TagIcon style={{ width: 15 }} />
       <SelectedLabel>{selectedLabel}</SelectedLabel>
       {isOpen && (
-        <Dropdown x={x} y={y}>
+        <Dropdown ref={dropdownRef} x={x} y={y}>
           <DropdownOption onClick={() => handleLabelChange(0)}>
             unAssigned
           </DropdownOption>
@@ -119,8 +124,9 @@ const DropdownOption = styled.div`
   font-size: 14px;
   font-weight: 600;
   text-align: center;
-  cursor: pointer;
-  &:hover {
+  width: 100px;
+  :hover {
+    cursor: pointer;
     background: ${({ theme }) => theme.ticketHover};
   }
 `;
