@@ -1,8 +1,8 @@
 import { useModal } from 'hooks';
 import { MODAL_CARD_VARIANTS } from 'constants/';
 import { CreateLabel } from 'components/modal';
-import { Button } from 'components';
 import { Add } from 'assets/icons';
+import { LabelButton } from 'components/containers';
 
 export function NewLabelButton() {
   const { Modal, isOpen, openModal, closeModal } = useModal();
@@ -16,9 +16,9 @@ export function NewLabelButton() {
       >
         <CreateLabel closeModal={closeModal} />
       </Modal>
-      <Button onClick={openModal}>
+      <LabelButton onClick={openModal}>
         <Add size={20} />
-      </Button>
+      </LabelButton>
     </>
   );
 }
