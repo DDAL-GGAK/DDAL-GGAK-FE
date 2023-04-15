@@ -60,7 +60,11 @@ export function ProjectSetting() {
     };
 
     if (projectData?.thumbnail) {
-      const file = await urlToFile(projectData.thumbnail, 'thumbnail.jpg', 'image/jpeg, image/png, image/gif, image/webp');
+      const file = await urlToFile(
+        projectData.thumbnail,
+        'thumbnail.jpg',
+        'image/jpeg, image/png, image/gif, image/webp'
+      );
       formData.append('thumbnail', file);
     }
 
@@ -79,66 +83,109 @@ export function ProjectSetting() {
       <Container>
         <TextL>Project Setting</TextL>
       </Container>
-      <TextM>{projectData?.projectTitle}&apos;s Profile</TextM>
-      <UpdateThumbnail projectData={projectData} />
-      <Hr />
-      <Form onSubmit={handleSubmit(onValid)}>
-        <TextL>General</TextL>
-        <TextM>project Title</TextM>
-        <ProjectTitleInput register={register} />
-        {errors.projectTitle && <Errorspan>{errors.projectTitle.message}</Errorspan>}
-        <Button>Save</Button>
-      </Form>
+      <ProjectWrapper>
+        <TextL>Change Icon</TextL>
+        <UpdateThumbnail projectData={projectData} />
+        <Hr />
+        <Form onSubmit={handleSubmit(onValid)}>
+          <TextL>Change Title</TextL>
+          <ButtonWrapper>
+            <ProjectTitleInput register={register} />
+            {errors.projectTitle && (
+              <Errorspan>{errors.projectTitle.message}</Errorspan>
+            )}
+            <Button>Save</Button>
+          </ButtonWrapper>
+        </Form>
+      </ProjectWrapper>
+
       <Hr />
       <Container>
         <TextL>Delete project</TextL>
-        <TextS>
-          if you want to permanently delete this project and all of its data,
-          including but not limited to users, issues, and comments, you can do
-          so below.
-        </TextS>
-        <DeleteProjectButton 
-          projectData={projectData}
-          projectId={projectId}
-        />
+        <TextM>
+          if you want to permanently <TextDelete> delete</TextDelete> this
+          project and all of its data, including but not limited to users,
+          issues, and comments, you can do so below.
+        </TextM>
+        <ButtonWrapper>
+          <DeleteProjectButton
+            projectData={projectData}
+            projectId={projectId}
+          />
+        </ButtonWrapper>
       </Container>
     </Wrapper>
   );
 }
 
-const Wrapper = styled.div`
-  max-width: 800px;
+const Wrapper = styled.div``;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
-const Container = styled.div``;
+const ProjectWrapper = styled.div`
+  background-color: ${({ theme }) => theme.background};
+  border: 1px solid ${({ theme }) => theme.borderColor};
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+`;
 
-const Form = styled.form``;
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
 
 const TextL = styled.div`
   font-size: 25px;
   font-weight: 600;
+  color: ${({ theme }) => theme.color};
+  margin-bottom: 1rem;
 `;
 
 const TextM = styled.div`
   font-size: 17.5px;
   font-weight: 600;
-`;
-const TextS = styled.div`
-  font-size: 12px;
-  font-weight: 400;
+  color: ${({ theme }) => theme.color};
+  margin-bottom: 0.5rem;
 `;
 
 const Hr = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 2rem 0;
 `;
 
 const Button = styled.button`
-  display: block;
+  padding: 0.5rem 16px;
+  font-size: 14px;
+  font-weight: 600;
+  background: ${({ theme }) => theme.pointColor};
+  border: none;
+  border-radius: 4px;
+  transition: ${({ theme }) => theme.transitionOption};
+  color: ${({ theme }) => theme.background};
+  :hover {
+    cursor: pointer;
+    background: ${({ theme }) => theme.pointColorLight};
+  }
 `;
 
 const Errorspan = styled.span`
-  color: ${({ theme }) => theme.accentColor};
+  color: ${({ theme }) => theme.errorColor};
   font-size: 12px;
+  margin-top: 0.5rem;
+`;
+
+const TextDelete = styled.span`
+  color: ${({ theme }) => theme.accentColor};
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  height: 3rem;
+  gap: 1rem;
+  margin-top: 1rem;
+  max-width: 270px;
 `;
