@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { useErrorHandler } from 'hooks';
 import { QUERY } from 'constants/';
 import { useLocation } from 'react-router-dom';
+import { TagIcon } from '@heroicons/react/24/outline';
 
 interface SetLabelProps {
   labelsData: LabelDataForm[] | undefined;
@@ -40,6 +41,7 @@ export function SetLabel({ labelsData, label, ticketId }: SetLabelProps) {
 
   return (
     <LabelSelectWrapper>
+      <TagIcon style={{ width: 15 }} />
       <LabelSelect
         value={selectedLabel || 'unAssigned'}
         onChange={labelChangeHandler}
@@ -61,9 +63,16 @@ export function SetLabel({ labelsData, label, ticketId }: SetLabelProps) {
 }
 
 const LabelSelectWrapper = styled.div`
-  display: inline-block;
-  background: ${({ theme }) => theme.navLinkBackground};
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  background: ${({ theme }) => theme.borderColor};
+  color: ${({ theme }) => theme.color};
   border-radius: 4px;
+  transition: ${({ theme }) => theme.transitionOption};
+  :hover {
+    background: ${({ theme }) => theme.ticketHover};
+  }
 `;
 
 const LabelSelect = styled.select`
@@ -71,17 +80,18 @@ const LabelSelect = styled.select`
   padding: 4px 8px;
   border: none;
   background: transparent;
-  color: #111;
+  color: ${({ theme }) => theme.color};
   cursor: pointer;
   outline: none;
   appearance: none;
-
-  :hover {
-    background: lightgray;
-  }
+  border: none;
+  outline: none;
+  font-weight: 600;
+  width: 100px;
 `;
 
 const Option = styled.option`
   text-align: center;
   font-weight: 600;
+  background: ${({ theme }) => theme.borderColor};
 `;

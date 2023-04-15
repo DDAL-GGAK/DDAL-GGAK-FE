@@ -114,7 +114,7 @@ const Details = styled.ul`
 const DetailItem = styled.li`
   font-size: 14px;
   padding: 4px 8px;
-  background: ${({ theme }) => theme.navLinkBackground};
-  color: #111;
+  background: ${({ theme }) => theme.borderColor};
+  color: white;
   border-radius: 4px;
 `;
