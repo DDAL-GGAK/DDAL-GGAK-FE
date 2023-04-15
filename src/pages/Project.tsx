@@ -64,7 +64,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
-  gap: 20px;
+  gap: 1rem;
   border: solid 1px ${({ theme }) => theme.borderColor};
   border-radius: 5px;
 `;
