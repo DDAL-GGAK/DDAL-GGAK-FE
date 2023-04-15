@@ -58,7 +58,9 @@ const Wrapper = styled.div`
   transition: ${({ theme }) => theme.transitionOption};
 `;
 
-const SettingLink = styled(Link)<{ isCurrNav: boolean }>`
+const SettingLink = styled(({ isCurrNav, ...rest }) => <Link {...rest} />)<{
+  isCurrNav: boolean;
+}>`
   padding: 0.25rem 0.5rem;
   border-radius: 5px;
   background: ${({ isCurrNav, theme }) => (isCurrNav ? theme.borderColor : '')};
@@ -70,7 +72,6 @@ const SettingLink = styled(Link)<{ isCurrNav: boolean }>`
     color: white;
   }
 `;
-
 const Title = styled.div`
   font-weight: 600;
   color: white;
