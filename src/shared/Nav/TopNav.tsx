@@ -1,16 +1,17 @@
 import styled from 'styled-components';
 import { SIDE_NAV, TOP_NAV, REGEX } from 'constants/';
-import { Logo, Menu } from 'assets/icons';
+import { Menu } from 'assets/icons';
 import { DEVICES } from 'styles';
 import { ThemeToggle } from 'components';
 import { useMediaQuery } from 'hooks';
 import { useLocation, Link } from 'react-router-dom';
+import { MainLogo } from 'shared/MainLogo';
+import { Profile } from 'shared';
 
 export function TopNav() {
   const { pathname } = useLocation();
   const projectId = Number(pathname.match(REGEX.PROJECT_ID)?.[1]) || null;
   const isNotSmallDevice = useMediaQuery(DEVICES.MOBILES);
-
   return (
     <Wrapper>
       <NavToggle>
@@ -18,16 +19,13 @@ export function TopNav() {
       </NavToggle>
       <MainNav isNotSmall={isNotSmallDevice}>
         <Link to="/">
-          <LeftWrapper>
-            <Logo size={30} />
-            <ProjectTitle>DDAL-GGAK</ProjectTitle>
-          </LeftWrapper>
+          <MainLogo />
         </Link>
         {isNotSmallDevice ? (
           <RightWrapper>
             <ThemeToggle />
             <Link to={`/project/${projectId}/settings/user`}>
-              <ProfileImage />
+              <Profile />
             </Link>
           </RightWrapper>
         ) : (
@@ -83,35 +81,8 @@ const MainNav = styled.div<MainNavProps>`
 `;
 
 /* MainWrapper */
-const LeftWrapper = styled.div`
-  gap: 10px;
-  display: flex;
-`;
-
 const RightWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 15px;
-`;
-
-const ProfileImage = styled.div`
-  box-sizing: border-box;
-  width: 40px;
-  height: 40px;
-  background: url(.jpg);
-  border-bottom: 1px solid #000000;
-  border-radius: 10px;
-  background: ${({ theme }) => theme.navLinkBackground};
-  transition: ${({ theme }) => theme.transitionOption};
-`;
-
-const ProjectTitle = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  /* text */
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 600;
 `;

@@ -57,30 +57,43 @@ export function User() {
   );
 }
 
-const Wrapper = styled.div`
-  max-width: 800px;
-`;
-const Container = styled.div``;
+const Wrapper = styled.div``;
 
-const NickNameForm = styled.form``;
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+`;
+
+const NickNameForm = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
 
 const TextL = styled.div`
   font-size: 25px;
   font-weight: 600;
+  color: ${({ theme }) => theme.color};
+  margin-bottom: 1rem;
 `;
 
 const TextM = styled.div`
   font-size: 17.5px;
   font-weight: 600;
+  color: ${({ theme }) => theme.color};
+  margin-bottom: 0.5rem;
 `;
 
 const Errorspan = styled.span`
-  color: ${({ theme }) => theme.accentColor};
+  color: ${({ theme }) => theme.errorColor};
   font-size: 12px;
+  margin-top: 0.5rem;
 `;
 
 const Hr = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
+  margin: 2rem 0;
 `;
 
 const Button = styled.button`
@@ -91,9 +104,10 @@ const Button = styled.button`
   border: none;
   border-radius: 4px;
   transition: ${({ theme }) => theme.transitionOption};
-  color: whitesmoke;
+  color: ${({ theme }) => theme.background};
+  margin-top: 1rem;
   :hover {
     cursor: pointer;
-    background: #454545;
+    background: ${({ theme }) => theme.pointColorLight};
   }
 `;
