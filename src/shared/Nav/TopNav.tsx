@@ -6,7 +6,6 @@ import { ThemeToggle } from 'components';
 import { useMediaQuery } from 'hooks';
 import { useLocation, Link } from 'react-router-dom';
 
-
 export function TopNav() {
   const { pathname } = useLocation();
   const projectId = Number(pathname.match(REGEX.PROJECT_ID)?.[1]) || null;
@@ -18,10 +17,12 @@ export function TopNav() {
         <Menu size={30} />
       </NavToggle>
       <MainNav isNotSmall={isNotSmallDevice}>
-        <LeftWrapper>
-          <Logo size={30} />
-          <ProjectTitle>Project name</ProjectTitle>
-        </LeftWrapper>
+        <Link to="/">
+          <LeftWrapper>
+            <Logo size={30} />
+            <ProjectTitle>DDAL-GGAK</ProjectTitle>
+          </LeftWrapper>
+        </Link>
         {isNotSmallDevice ? (
           <RightWrapper>
             <ThemeToggle />

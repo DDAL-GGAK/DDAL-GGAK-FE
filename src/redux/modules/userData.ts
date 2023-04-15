@@ -9,6 +9,7 @@ const userDataSlicer = createSlice({
   reducers: {
     setUserData: (state, actions) => {
       const { payload } = actions;
+
       return payload;
     },
     removeUserData: () => null,

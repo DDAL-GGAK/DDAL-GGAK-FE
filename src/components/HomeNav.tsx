@@ -1,26 +1,33 @@
 import styled from 'styled-components';
 import { Logo } from 'assets/icons';
 import { Link } from 'react-router-dom';
+import { useIsLogin } from 'hooks/useIsLogin';
+import { LogOut } from './LogOut';
 
-export function MainLogo({ size }: { size: number }) {
+export function HomeNav() {
+  const isLogin = useIsLogin();
+
   return (
     <Container>
       <LogoWrapper>
-        <div className="left">
-          <Logo size={size} />
+        <Left>
+          <Logo size={50} />
           <LogoText>DDAL-GGAK</LogoText>
-        </div>
-        <div className="right">
+        </Left>
+        <Right>
+          {!isLogin ? (
+            <NavItem>
+              <Link to="/login">Login</Link>
+            </NavItem>
+          ) : (
+            <NavItem>
+              <LogOut />
+            </NavItem>
+          )}
           <NavItem>
-            <Link to="/login">Login</Link>
+            <Link to="/project/">My Project</Link>
           </NavItem>
-          <NavItem>
-            <Link to="/project/">Project</Link>
-          </NavItem>
-          <NavItem>
-            <Link to="/project/111/task/111">Task</Link>
-          </NavItem>
-        </div>
+        </Right>
       </LogoWrapper>
     </Container>
   );
@@ -34,18 +41,24 @@ const Container = styled.div`
 
 const LogoWrapper = styled.div`
   display: flex;
-  align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
   padding: 1.25rem;
   color: white;
+  align-items: center;
+`;
 
-  .left,
-  .right {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
+const Left = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+`;
+
+const Right = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: -8px;
 `;
 
 const LogoText = styled.h1`

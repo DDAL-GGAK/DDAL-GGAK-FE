@@ -22,6 +22,9 @@ export const lightTheme: DefaultTheme = {
   loginBackground: '#F8FAFB',
   validColor: '#30B198',
   errorColor: '#EF476F',
+
+  /* ticket */
+  ticketHover: '#1C1D2A',
 };
 
 export const darkTheme: DefaultTheme = {
@@ -46,4 +49,7 @@ export const darkTheme: DefaultTheme = {
   loginBackground: '#F8FAFB',
   validColor: '#30B198',
   errorColor: '#EF476F',
+
+  /* ticket */
+  ticketHover: '#1C1D2A',
 };

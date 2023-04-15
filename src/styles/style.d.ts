@@ -23,5 +23,8 @@ declare module 'styled-components' {
     loginBackground: string;
     validColor: string;
     errorColor: string;
+
+    /* ticket */
+    ticketHover: string;
   }
 }

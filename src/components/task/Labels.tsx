@@ -4,6 +4,7 @@ import { LabelsProps } from 'types';
 import { useDispatch } from 'react-redux';
 import { setLabel } from 'redux/modules/ticketData';
 import { useState } from 'react';
+import { LabelButton } from 'components/containers';
 
 export function Labels({ labels }: LabelsProps) {
   const dispatch = useDispatch();
@@ -13,36 +14,52 @@ export function Labels({ labels }: LabelsProps) {
   };
 
   return (
-    <Wrapper>
-      <LabelWrapper>
-        <Label>All</Label>
-        {labels?.map((team) => {
-          const { labelTitle } = team;
+    <TopWrapper>
+      <Wrapper>
+        <LabelWrapper>
+          <LabelButton>All</LabelButton>
+          {labels?.map((team) => {
+            const { labelTitle } = team;
 
-          return (
-            <Label
-              key={labelTitle}
-              isCurrLabel={currLabel === labelTitle}
-              onClick={() => {
-                LabelClickHandler(labelTitle);
-                setCurrLabel(labelTitle);
-              }}
-            >
-              {labelTitle}
-            </Label>
-          );
-        })}
-      </LabelWrapper>
-      <ConfigWrapper>
-        <NewLabelButton />
-        <LabelConfigButton labels={labels} />
-      </ConfigWrapper>
-    </Wrapper>
+            return (
+              <LabelButton
+                key={labelTitle}
+                isCurrLabel={currLabel === labelTitle}
+                onClick={() => {
+                  LabelClickHandler(labelTitle);
+                  setCurrLabel(labelTitle);
+                }}
+              >
+                {labelTitle}
+              </LabelButton>
+            );
+          })}
+        </LabelWrapper>
+        <ConfigWrapper>
+          <NewLabelButton />
+          <LabelConfigButton labels={labels} />
+        </ConfigWrapper>
+      </Wrapper>
+
+      <SortMethods />
+    </TopWrapper>
   );
 }
 
 const Wrapper = styled.div`
   display: flex;
+`;
+
+const TopWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: ${({ theme }) => theme.background};
+`;
+
+const SortMethods = styled.div`
+  display: flex;
+  padding: 0px 10px;
 `;
 
 const LabelWrapper = styled.div`
@@ -53,28 +70,4 @@ const LabelWrapper = styled.div`
 
 const ConfigWrapper = styled.div`
   display: flex;
-  padding: 0px 16px;
-  gap: 10px;
-`;
-
-const Label = styled.div<{ isCurrLabel?: boolean }>`
-  background: ${({ theme, isCurrLabel }) =>
-    isCurrLabel ? theme.background : theme.color};
-  color: ${({ theme, isCurrLabel }) =>
-    isCurrLabel ? theme.pointColor : theme.background};
-  border-right: solid 1px rgba(0, 0, 0, 0.15);
-  font-weight: 600;
-  padding: 5px 10px;
-  transition: ${({ theme }) => theme.transitionOption};
-  min-width: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: ${({ theme }) => theme.transitionOption};
-
-  :hover {
-    cursor: pointer;
-    background: ${({ theme }) => theme.background};
-    color: ${({ theme }) => theme.pointColor};
-  }
 `;

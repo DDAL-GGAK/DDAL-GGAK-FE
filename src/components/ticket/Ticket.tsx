@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { TicketDataForm, UserDataForm, LabelDataForm } from 'types';
+import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 import { AssignCheckBox, SetLabel } from 'components';
 import { RootState } from 'redux/store';
 import { useSelector } from 'react-redux';
@@ -8,7 +9,7 @@ import { useLocation } from 'react-router-dom';
 import { QUERY, REGEX } from 'constants/';
 import { getLabels } from 'api';
 import { useErrorHandler } from 'hooks';
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 
 interface TicketProps {
   data: TicketDataForm;
@@ -22,6 +23,13 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
   const { errorHandler } = useErrorHandler({ route: pathname });
   const { ticketId, title, priority, difficulty, label, status, assigned } =
     data;
+  const labelRef = useRef<HTMLDivElement>(null);
+
+  const getDropdownPosition = (): { x: number; y: number } => {
+    if (!labelRef.current) return { x: 0, y: 0 };
+    const rect = labelRef.current.getBoundingClientRect();
+    return { x: rect.left, y: rect.bottom };
+  };
 
   const openModalHandler = () => {
     openModal();
@@ -45,6 +53,8 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
   return (
     <Wrapper onClick={openModalHandler}>
       <LeftBox>
+        <EllipsisHorizontalIcon className="ellips-icon" />
+        <Id>Ticket {ticketId}</Id>
         <AssignCheckBox
           ticketData={{
             assigned,
@@ -58,7 +68,13 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
         <DetailItem>status: {status}</DetailItem>
         <DetailItem>priority : {priority}</DetailItem>
         <DetailItem>difficulty : {difficulty}</DetailItem>
-        <SetLabel label={label} labelsData={labelsData} ticketId={ticketId} />
+        <SetLabel
+          wrapperRef={labelRef}
+          label={label}
+          labelsData={labelsData}
+          ticketId={ticketId}
+          {...getDropdownPosition()}
+        />
         <DetailItem>owner : {assigned || 'unAssigned'}</DetailItem>
       </Details>
     </Wrapper>
@@ -79,15 +95,22 @@ const Wrapper = styled.div`
   transition: ${({ theme }) => theme.transitionOption};
   :hover {
     cursor: pointer;
-    background: lightgray;
-    color: #111;
+    background: ${({ theme }) => theme.ticketHover};
   }
 `;
 
 const LeftBox = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 16px;
+
+  .ellips-icon {
+    width: 20px;
+  }
+`;
+
+const Id = styled.div`
+  width: 70px;
 `;
 
 const Title = styled.p`
@@ -104,7 +127,7 @@ const Details = styled.ul`
 const DetailItem = styled.li`
   font-size: 14px;
   padding: 4px 8px;
-  background: ${({ theme }) => theme.navLinkBackground};
-  color: #111;
+  background: ${({ theme }) => theme.borderColor};
+  color: white;
   border-radius: 4px;
 `;

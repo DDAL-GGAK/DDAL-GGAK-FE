@@ -9,6 +9,7 @@ export function Modal({
   isOpen,
   closeModal,
   variants = DEFAULT_VARIANTS,
+  type = 'medium',
 }: ModalProps) {
   const closeHandler = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
@@ -26,7 +27,14 @@ export function Modal({
             animate="to"
             exit="exit"
           >
-            <Wrapper variants={variants} onClick={(e) => e.stopPropagation()}>
+            <Wrapper
+              variants={variants}
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                maxWidth: type === 'small' ? '520px' : undefined,
+                width: type === 'small' ? '100%' : undefined,
+              }}
+            >
               {children}
             </Wrapper>
           </Overlay>
@@ -60,6 +68,6 @@ const Wrapper = styled(motion.div)`
   box-shadow: ${({ theme }) => theme.boxShadow};
   color: ${({ theme }) => theme.color};
   border-radius: 5px;
-  padding: 20px;
+  padding: 30px;
   position: relative;
 `;

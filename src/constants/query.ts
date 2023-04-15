@@ -3,7 +3,7 @@ const DEFAULT_CONFIG = Object.freeze({
 });
 
 const KEY = Object.freeze({
-  USER_INFORMATION: 'userInfo',
+  USER_DATA: 'userData',
   USER_PROJECTS: 'userProjects',
   USER_PROFILE: 'userProfile',
   USER_NICKNAME: 'userNickname',

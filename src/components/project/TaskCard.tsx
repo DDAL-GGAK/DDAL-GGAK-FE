@@ -3,12 +3,13 @@ import { TaskDataForm } from 'types';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { calcDeadlinePercentage } from 'utils';
+import { memo } from 'react';
 
 interface TaskCardProps {
   taskData: TaskDataForm;
 }
 
-export function TaskCard({ taskData }: TaskCardProps) {
+export const TaskCard = memo(({ taskData }: TaskCardProps) => {
   const {
     id,
     participantsCount,
@@ -47,7 +48,7 @@ export function TaskCard({ taskData }: TaskCardProps) {
       </Wrapper>
     </MyLink>
   );
-}
+});
 
 const Wrapper = styled(motion.div)<{ 'data-expired': boolean }>`
   display: flex;
@@ -72,9 +73,8 @@ const Wrapper = styled(motion.div)<{ 'data-expired': boolean }>`
 
 const MyLink = styled(Link)`
   border-radius: 8px;
-  width: calc(100% - 40px);
   transition: ${({ theme }) => theme.transitionOption};
-  width: 100%;
+  min-width: 300px;
 `;
 
 const Title = styled.div`
@@ -101,7 +101,7 @@ const Hr = styled.div`
 const ProgressBar = styled.div`
   width: 100%;
   height: 10px;
-  background-color: ${({ theme }) => theme.subColor};
+  background-color: ${({ theme }) => theme.borderColor};
   border-radius: 5px;
   margin: 0.5rem 0;
 `;
@@ -127,7 +127,7 @@ const BottomWrapper = styled.div`
 const DeadlineBar = styled.div`
   width: 100%;
   height: 5px;
-  background-color: ${({ theme }) => theme.subColor};
+  background-color: ${({ theme }) => theme.borderColor};
   border-radius: 5px;
   margin: 0.5rem 0;
 `;

@@ -82,13 +82,13 @@ const CheckboxWrapper = styled.div`
 const AssignedTicket = styled(motion.div)`
   width: 12px;
   height: 12px;
-  background: ${({ theme }) => theme.pointColor};
+  background: ${({ theme }) => theme.transparentColor};
   border-radius: 2px;
 `;
 
 const AssignedMyTicket = styled(motion.div)`
   width: 12px;
   height: 12px;
-  background: ${({ theme }) => theme.accentColor};
+  background: ${({ theme }) => theme.subColor};
   border-radius: 2px;
 `;

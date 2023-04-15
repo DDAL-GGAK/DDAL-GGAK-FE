@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 import { ProjectDataForm, Thumbnail } from 'types';
-import { InboxIcon, UserGroupIcon } from '@heroicons/react/24/outline';
+import {
+  InboxIcon,
+  UserGroupIcon,
+  Cog6ToothIcon,
+} from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
 
 interface ProjectInfoProps {
   projectData: ProjectDataForm;
@@ -14,16 +19,23 @@ export function ProjectInformation({ projectData }: ProjectInfoProps) {
       <Image thumbnail={thumbnail} />
       <ImageContainer>
         <Inner>
-          <Title>{projectTitle}</Title>
-          <Field className="leader">{`Leaded by ${projectLeader}`}</Field>
+          <TitleWrapper>
+            <Title>{projectTitle}</Title>
+          </TitleWrapper>
+          <Field>{`Leaded by ${projectLeader}`}</Field>
           <Row>
             <Field>
-              <InboxIcon className="icon" />
+              <InboxIcon style={{ width: 20 }} />
               {tasks.length}
             </Field>
             <Field>
-              <UserGroupIcon className="icon" />
+              <UserGroupIcon style={{ width: 20 }} />
               {participants.length}
+            </Field>
+            <Field>
+              <Link to="./settings/projectSetting">
+                <Cog6ToothIcon className="config" />
+              </Link>
             </Field>
           </Row>
         </Inner>
@@ -35,12 +47,16 @@ export function ProjectInformation({ projectData }: ProjectInfoProps) {
 const Field = styled.div`
   display: flex;
   gap: 10px;
-  .icon {
-    width: 20px;
-    height: 20px;
-  }
-  &.leader {
-    color: #ebebeb;
+  color: #ebebeb;
+  align-items: center;
+
+  .config {
+    width: 25px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 5px;
+    :hover {
+      cursor: pointer;
+    }
   }
 `;
 
@@ -55,6 +71,12 @@ const Wrapper = styled.div`
   transition: ${({ theme }) => theme.transitionOption};
 `;
 
+const TitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
 const ImageContainer = styled.div`
   position: absolute;
   width: 100%;
@@ -67,6 +89,8 @@ const ImageContainer = styled.div`
 
 const Inner = styled.div`
   padding: 0px 40px;
+  margin: 0px auto;
+  width: 1200px;
 `;
 
 const Row = styled.div`
@@ -76,10 +100,8 @@ const Row = styled.div`
 `;
 
 const Image = styled.div<{ thumbnail: Thumbnail }>`
-  background: ${(props) =>
-    props.thumbnail
-      ? `url(${props.thumbnail}) center / cover`
-      : props.theme.navLinkBackground};
+  background: ${({ thumbnail, theme }) =>
+    thumbnail ? `url(${thumbnail}) center / cover` : `${theme.borderColor}`};
   border-radius: 5px;
   width: 100%;
   height: 200px;
