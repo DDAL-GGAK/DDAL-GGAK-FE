@@ -1,8 +1,20 @@
 import styled from 'styled-components';
 import { Container } from 'types';
 
-export function LabelButton({ children, ...props }: Container) {
-  return <Wrapper {...props}>{children}</Wrapper>;
+interface LabelButtonProps extends Container {
+  isCurrLabel?: boolean;
+}
+
+export function LabelButton({
+  children,
+  isCurrLabel,
+  ...props
+}: LabelButtonProps) {
+  return (
+    <Wrapper isCurrLabel={isCurrLabel} {...props}>
+      {children}
+    </Wrapper>
+  );
 }
 
 const Wrapper = styled.div<{ isCurrLabel?: boolean }>`
