@@ -9,7 +9,7 @@ import { useLocation } from 'react-router-dom';
 import { QUERY, REGEX } from 'constants/';
 import { getLabels } from 'api';
 import { useErrorHandler } from 'hooks';
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 
 interface TicketProps {
   data: TicketDataForm;
@@ -23,6 +23,13 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
   const { errorHandler } = useErrorHandler({ route: pathname });
   const { ticketId, title, priority, difficulty, label, status, assigned } =
     data;
+  const labelRef = useRef<HTMLDivElement>(null);
+
+  const getDropdownPosition = (): { x: number; y: number } => {
+    if (!labelRef.current) return { x: 0, y: 0 };
+    const rect = labelRef.current.getBoundingClientRect();
+    return { x: rect.left, y: rect.bottom };
+  };
 
   const openModalHandler = () => {
     openModal();
@@ -61,7 +68,13 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
         <DetailItem>status: {status}</DetailItem>
         <DetailItem>priority : {priority}</DetailItem>
         <DetailItem>difficulty : {difficulty}</DetailItem>
-        <SetLabel label={label} labelsData={labelsData} ticketId={ticketId} />
+        <SetLabel
+          wrapperRef={labelRef}
+          label={label}
+          labelsData={labelsData}
+          ticketId={ticketId}
+          {...getDropdownPosition()}
+        />
         <DetailItem>owner : {assigned || 'unAssigned'}</DetailItem>
       </Details>
     </Wrapper>

@@ -24,5 +24,5 @@ export interface LabelTitleInputProps {
 
 export interface SetLabelForm {
   ticketId: string;
-  labelId: string;
+  labelId: number;
 }
