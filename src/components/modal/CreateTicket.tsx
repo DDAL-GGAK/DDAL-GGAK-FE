@@ -7,15 +7,15 @@ import { motion } from 'framer-motion';
 import { DEFAULT_VARIANTS, REGEX, QUERY, TOASTIFY, SVG_SIZE } from 'constants/';
 import { ModalViewProps, TicketCreateForm } from 'types';
 import { useLocation } from 'react-router-dom';
+import { Task } from 'assets/svg';
+import { useErrorHandler } from 'hooks';
+import { Button, Title } from 'components/containers';
+import { TicketDifficultyRadio } from 'components/form/ticket/TicketDifficultyRadio';
 import {
   TicketPriorityRadio,
   TicketTitleInput,
   TicketDescriptionInput,
 } from 'components/form';
-import { Task } from 'assets/svg';
-import { useErrorHandler } from 'hooks';
-import { Button, Title } from 'components/containers';
-import { TicketDifficultyRadio } from 'components/form/ticket/TicketDifficultyRadio';
 
 export function CreateTicket({ closeModal }: ModalViewProps) {
   const { errorHandler } = useErrorHandler();
