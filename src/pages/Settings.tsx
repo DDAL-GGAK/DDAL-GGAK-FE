@@ -1,10 +1,15 @@
 import { User, ProjectSetting, ProjectMember } from 'pages';
 import styled from 'styled-components';
 import { CONTENT } from 'constants/';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { Cog6ToothIcon } from '@heroicons/react/24/outline';
 
 export function Settings() {
+  const { pathname } = useLocation();
+  console.log(pathname);
+
+  const isCurrNav = true;
+
   return (
     <Wrapper>
       <LeftWrapper>
@@ -12,9 +17,15 @@ export function Settings() {
           <Cog6ToothIcon style={{ width: 20 }} />
           <div>Settings</div>
         </Title>
-        <Link to="user">My Account</Link>
-        <Link to="projectSetting">Project Settings</Link>
-        <Link to="projectMember">Project Members</Link>
+        <SettingLink isCurrNav={isCurrNav} to="user">
+          My Account
+        </SettingLink>
+        <SettingLink isCurrNav={isCurrNav} to="projectSetting">
+          Project Settings
+        </SettingLink>
+        <SettingLink isCurrNav={isCurrNav} to="projectMember">
+          Project Member
+        </SettingLink>
       </LeftWrapper>
       <RightWrapper>
         <Routes>
@@ -32,7 +43,12 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   transition: ${({ theme }) => theme.transitionOption};
-  border-radius: 10px;
+`;
+
+const SettingLink = styled(Link)<{ isCurrNav: boolean }>`
+  padding: 0.25rem 0.5rem;
+  border-radius: 5px;
+  background: ${({ isCurrNav }) => (isCurrNav ? '#2b2d31' : '')};
 `;
 
 const Title = styled.div`
@@ -47,13 +63,13 @@ const Title = styled.div`
 
 const LeftWrapper = styled.div`
   width: 200px;
-  border-right: solid 1px ${({ theme }) => theme.borderColor};
   box-sizing: border-box;
   transition: ${({ theme }) => theme.transitionOption};
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding: 20px;
+  background: ${({ theme }) => theme.transparentBackground};
   a {
     transition: ${({ theme }) => theme.transitionOption};
     font-weight: 600;
@@ -68,8 +84,10 @@ const LeftWrapper = styled.div`
 const RightWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 2rem;
   gap: 10px;
-  padding: 35px;
   width: calc(100% - 200px);
-  background: rgba(0, 0, 0, 0.1);
+  height: calc(100% - 2rem * 2);
+  background: ${({ theme }) => theme.background};
+  background: teal;
 `;
