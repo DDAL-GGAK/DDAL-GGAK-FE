@@ -21,7 +21,7 @@ export function User() {
   });
 
   const { data: userData } = useQuery(
-    QUERY.KEY.USER_INFORMATION,
+    QUERY.KEY.USER_DATA,
     getUserData,
     {
       ...QUERY.DEFAULT_CONFIG,
