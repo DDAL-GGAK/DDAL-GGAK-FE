@@ -10,8 +10,8 @@ import { ProjectDataForm } from 'types';
 import { updateProjectThumbnail } from 'api';
 
 interface ProjectThumbnailProps {
-    projectData: ProjectDataForm | undefined;
-  }  
+  projectData: ProjectDataForm | undefined;
+}
 
 export function UpdateThumbnail({ projectData }: ProjectThumbnailProps) {
   const { errorHandler } = useErrorHandler();
@@ -38,11 +38,20 @@ export function UpdateThumbnail({ projectData }: ProjectThumbnailProps) {
     if (files && files[0]) setThumbnail(files[0]);
   };
 
-  const handleProfileUpdate = (newProfile: File | null) => {
-    if (!newProfile) return;
+  const handleProfileUpdate = (newThumbnail: File | null) => {
+    if (!newThumbnail) return;
 
     const formData = new FormData();
-    formData.append('image', newProfile);
+    const dataField = {
+      projectTitle: projectData?.projectTitle,
+    };
+    const jsonDataField = JSON.stringify(dataField);
+    const blobDataField = new Blob([jsonDataField], {
+      type: 'application/json',
+    });
+
+    formData.append('data', blobDataField);
+    formData.append('thumbnail', newThumbnail);
     mutate({ data: formData, projectId: Number(projectId) });
   };
 
@@ -60,7 +69,6 @@ export function UpdateThumbnail({ projectData }: ProjectThumbnailProps) {
 
   return (
     <ThumbnailWrapper>
-      <TextM>Profile</TextM>
       <FileInput
         hidden
         id="thumbnailInput"
@@ -75,11 +83,6 @@ export function UpdateThumbnail({ projectData }: ProjectThumbnailProps) {
   );
 }
 
-const TextM = styled.div`
-  font-size: 17.5px;
-  font-weight: 600;
-`;
-
 /* File Input */
 const FileInput = styled.input`
   font-size: 14px;
@@ -92,6 +95,8 @@ const ThumbnailWrapper = styled.div`
 `;
 
 const ImageLabel = styled.label`
+  display: flex;
+  justify-content: center;
   width: 125px;
   height: 125px;
   background: rgba(0, 0, 0, 0.3);
