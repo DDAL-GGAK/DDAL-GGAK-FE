@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useIsLogin } from 'hooks/useIsLogin';
-import { MainLogo } from 'shared';
+import { MainLogo, Profile } from 'shared';
+import { TOP_NAV } from 'constants/';
 import { LogOut } from './LogOut';
 
 export function HomeNav() {
@@ -25,6 +26,9 @@ export function HomeNav() {
           <NavItem>
             <Link to="/project/">My Project</Link>
           </NavItem>
+          <Link to="/project/">
+            <Profile />
+          </Link>
         </Right>
       </LogoWrapper>
     </Container>
@@ -39,21 +43,22 @@ const Container = styled.div`
 
 const LogoWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
-  gap: 0.5rem;
-  padding: 1.25rem;
-  color: white;
   align-items: center;
+  box-sizing: border-box;
+  justify-content: space-between;
+  padding: ${TOP_NAV.PADDING}px;
+  color: white;
 `;
 
 const Right = styled.div`
   display: flex;
-  gap: 10px;
   align-items: center;
-  margin-top: -8px;
+  gap: 10px;
+  margin-top: -5px;
 `;
 
 const NavItem = styled.div`
+  font-size: 18px;
   font-weight: 600;
   padding: 5px;
   box-sizing: border-box;
