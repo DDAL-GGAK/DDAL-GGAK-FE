@@ -22,7 +22,7 @@ const Wrapper = styled.div<{ isCurrLabel?: boolean }>`
     isCurrLabel ? theme.color : theme.background};
   color: ${({ theme, isCurrLabel }) =>
     isCurrLabel ? theme.background : theme.pointColor};
-  border-right: solid 1px rgba(0, 0, 0, 0.15);
+  border-right: solid 1px ${({ theme }) => theme.borderColor};
   font-weight: 600;
   padding: 5px 10px;
   transition: ${({ theme }) => theme.transitionOption};
@@ -35,6 +35,6 @@ const Wrapper = styled.div<{ isCurrLabel?: boolean }>`
   :hover {
     cursor: pointer;
     background: ${({ theme }) => theme.color};
-    color: ${({ theme }) => theme.pointColor};
+    color: ${({ theme }) => theme.background};
   }
 `;
