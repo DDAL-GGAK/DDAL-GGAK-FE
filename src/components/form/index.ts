@@ -12,3 +12,4 @@ export * from './RadioComponent';
 
 /* Ticket */
 export * from './ticket/TicketScoreInput';
+export * from './inputText/TicketTitleInput';

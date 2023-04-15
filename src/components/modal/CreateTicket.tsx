@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { DEFAULT_VARIANTS, REGEX, QUERY, TOASTIFY } from 'constants/';
 import { ModalViewProps, TicketCreateForm } from 'types';
 import { useLocation } from 'react-router-dom';
-import { TicketScoreRadio } from 'components/form';
+import { TicketScoreRadio, TicketTitleInput } from 'components/form';
 // import { Task } from 'assets/svg';
 import { useErrorHandler } from 'hooks';
 import { Button, Title, LabelText, ErrorMessage } from 'components/containers';
@@ -46,18 +46,8 @@ export function CreateTicket({ closeModal }: ModalViewProps) {
       <Title>Create Ticket</Title>
       {/* <Task size={SVG_SIZE.MODAL} /> */}
       <Form onSubmit={handleSubmit(onValid)}>
-        <LabelWrapper>
-          <LabelText>Ticket Title:</LabelText>
-          {errors.ticketTitle && (
-            <ErrorMessage>{errors.ticketTitle.message}</ErrorMessage>
-          )}
-        </LabelWrapper>
-        <input
-          type="text"
-          {...register('ticketTitle', {
-            required: 'Ticket title is required!',
-          })}
-        />
+        <TicketTitleInput register={register} errors={errors} />
+
         <LabelWrapper>
           <LabelText>Ticket Description:</LabelText>
           {errors.ticketDescription && (
