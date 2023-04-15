@@ -24,7 +24,7 @@ export function ProjectMember() {
     <Wrapper>
       <Container>
         <TextL>Members</TextL>
-        <TextS>Manage who has access to this project</TextS>
+        <TextM>Manage who has access to this project</TextM>
       </Container>
       <Hr />
       <Container>
@@ -34,10 +34,7 @@ export function ProjectMember() {
           message will only appear to people with permission to invite members.
           Resetting the link will allow you to generate a new invite link.
         </TextS>
-        <ContentTop>
-          copy link
-          <Button>copy link</Button>
-        </ContentTop>
+        <Button>copy link</Button>
       </Container>
       <Hr />
       <Container>
@@ -48,7 +45,6 @@ export function ProjectMember() {
         </TextS>
         <ContentTop>
           <Button>add members</Button>
-          <div>search</div>
         </ContentTop>
         <MemberBoard>
           {projectData?.participants.map((memberData: Participant) => (
@@ -59,24 +55,28 @@ export function ProjectMember() {
     </Wrapper>
   );
 }
-
 const Wrapper = styled.div`
-  max-width: 800px;
+  background: ${({ theme }) => theme.background};
 `;
 
 const TextL = styled.div`
   font-size: 25px;
   font-weight: 600;
+  color: ${({ theme }) => theme.color};
 `;
 
 const TextM = styled.div`
   font-size: 17.5px;
   font-weight: 600;
+  color: ${({ theme }) => theme.color};
 `;
+
 const TextS = styled.div`
   font-size: 12px;
   font-weight: 400;
+  color: ${({ theme }) => theme.color};
 `;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -91,6 +91,20 @@ const Hr = styled.div`
 
 const Button = styled.button`
   display: block;
+  background: ${({ theme }) => theme.color};
+  color: ${({ theme }) => theme.background};
+  border: none;
+  border-radius: 5px;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: ${({ theme }) => theme.transitionOption};
+  width: 150px;
+
+  :hover {
+    cursor: pointer;
+    background: ${({ theme }) => theme.pointColorLight};
+  }
 `;
 
 const ContentTop = styled.div`
@@ -99,4 +113,9 @@ const ContentTop = styled.div`
   align-items: center;
 `;
 
-const MemberBoard = styled.div``;
+const MemberBoard = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+`;
