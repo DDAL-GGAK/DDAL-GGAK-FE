@@ -31,6 +31,7 @@ const Wrapper = styled.div<{ isCurrLabel?: boolean }>`
   align-items: center;
   justify-content: center;
   transition: ${({ theme }) => theme.transitionOption};
+  height: 28px;
 
   :hover {
     cursor: pointer;
