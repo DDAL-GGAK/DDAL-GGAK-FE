@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { Logo } from 'assets/icons';
 import { Link } from 'react-router-dom';
 import { useIsLogin } from 'hooks/useIsLogin';
+import { MainLogo } from 'shared';
 import { LogOut } from './LogOut';
 
 export function HomeNav() {
@@ -10,10 +10,8 @@ export function HomeNav() {
   return (
     <Container>
       <LogoWrapper>
-        <Left>
-          <Logo size={50} />
-          <LogoText>DDAL-GGAK</LogoText>
-        </Left>
+        <MainLogo />
+        <div />
         <Right>
           {!isLogin ? (
             <NavItem>
@@ -48,22 +46,11 @@ const LogoWrapper = styled.div`
   align-items: center;
 `;
 
-const Left = styled.div`
-  display: flex;
-  gap: 10px;
-  align-items: center;
-`;
-
 const Right = styled.div`
   display: flex;
   gap: 10px;
   align-items: center;
   margin-top: -8px;
-`;
-
-const LogoText = styled.h1`
-  font-weight: 600;
-  font-size: 30px;
 `;
 
 const NavItem = styled.div`

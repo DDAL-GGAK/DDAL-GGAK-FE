@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import { SIDE_NAV, TOP_NAV, REGEX } from 'constants/';
-import { Logo, Menu } from 'assets/icons';
+import { Menu } from 'assets/icons';
 import { DEVICES } from 'styles';
 import { ThemeToggle } from 'components';
 import { useMediaQuery } from 'hooks';
 import { useLocation, Link } from 'react-router-dom';
+import { MainLogo } from 'shared/MainLogo';
 
 export function TopNav() {
   const { pathname } = useLocation();
@@ -18,10 +19,7 @@ export function TopNav() {
       </NavToggle>
       <MainNav isNotSmall={isNotSmallDevice}>
         <Link to="/">
-          <LeftWrapper>
-            <Logo size={30} />
-            <ProjectTitle>DDAL-GGAK</ProjectTitle>
-          </LeftWrapper>
+          <MainLogo />
         </Link>
         {isNotSmallDevice ? (
           <RightWrapper>
@@ -83,11 +81,6 @@ const MainNav = styled.div<MainNavProps>`
 `;
 
 /* MainWrapper */
-const LeftWrapper = styled.div`
-  gap: 10px;
-  display: flex;
-`;
-
 const RightWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -103,15 +96,4 @@ const ProfileImage = styled.div`
   border-radius: 10px;
   background: ${({ theme }) => theme.navLinkBackground};
   transition: ${({ theme }) => theme.transitionOption};
-`;
-
-const ProjectTitle = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  /* text */
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 600;
 `;
