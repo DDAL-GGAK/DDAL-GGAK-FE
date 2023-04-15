@@ -54,20 +54,20 @@ const Wrapper = styled(motion.div)<{ 'data-expired': boolean }>`
   display: flex;
   flex-direction: column;
   gap: 15px;
-  border: 1px solid
-    ${({ 'data-expired': expired, theme }) =>
-      expired ? theme.accentColor : theme.borderColor};
-  box-sizing: border-box;
   border-radius: 8px;
-  min-width: 200px;
+  min-width: 300px;
   color: ${({ theme }) => theme.color};
   background: ${({ 'data-expired': expired, theme }) =>
-    expired ? theme.transparentColor : theme.borderColor};
-  transition: ${({ theme }) => theme.transitionOption};
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.12);
+    expired ? theme.transparentColor : theme.taskCardBackground};
+  box-shadow: ${({ theme }) => theme.boxShadow};
+  height: 240px;
   padding: 20px;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+  transition: ${({ theme }) => theme.transitionOption};
   :hover {
-    border-color: ${({ theme }) => theme.pointColor};
+    border: 2px solid ${({ theme }) => theme.pointColor};
+    cursor: pointer;
   }
 `;
 
