@@ -1,18 +1,16 @@
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { getUserData, setUserNickname } from 'api';
-import { useEffect, useState } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient, useQuery } from 'react-query';
 import { UserNicknameInput } from 'components/form';
 import { sendToast } from 'libs';
 import { QUERY, TOASTIFY } from 'constants/';
-import { UserDataForm, NicknameForm } from 'types';
+import { NicknameForm } from 'types';
 import { useErrorHandler } from 'hooks';
 import { UpdateProfile } from 'components/user';
 
 export function User() {
   const { errorHandler } = useErrorHandler();
-  const [userData, setUserData] = useState<UserDataForm>();
   const queryClient = useQueryClient();
   const {
     register,
@@ -22,14 +20,14 @@ export function User() {
     mode: 'onChange',
   });
 
-  const onMountHandler = async () => {
-    const { data } = await getUserData();
-    setUserData(data);
-  };
-
-  useEffect(() => {
-    onMountHandler();
-  }, []);
+  const { data: userData } = useQuery(
+    QUERY.KEY.USER_INFORMATION,
+    getUserData,
+    {
+      ...QUERY.DEFAULT_CONFIG,
+      onError: (error: unknown) => errorHandler(error),
+    }
+  );
 
   const { mutate } = useMutation(setUserNickname, {
     ...QUERY.DEFAULT_CONFIG,
@@ -46,14 +44,14 @@ export function User() {
     <Wrapper>
       <Container>
         <TextL>Account</TextL>
-        <div>{userData?.nickname}</div>
+        <TextM>{userData?.data.nickname}&apos;s Profile</TextM>
       </Container>
-      <UpdateProfile userData={userData} />
+      <UpdateProfile userData={userData?.data} />
       <Hr />
       <NickNameForm onSubmit={handleSubmit(onNickname)}>
         <TextL>Privacy</TextL>
         <TextM>email</TextM>
-        <div>{userData?.email}</div>
+        <div>{userData?.data.email}</div>
         <TextM>nickname</TextM>
         <UserNicknameInput register={register} />
         <Button>Save</Button>

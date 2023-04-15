@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { useLocation, useParams } from 'react-router-dom';
 import { getProjectData, updateProjectTitle } from 'api';
-// import { useEffect } from 'react';
 import { UpdateProjectTitleForm, ProjectDataForm } from 'types';
 import { useMutation, useQueryClient, useQuery } from 'react-query';
 import { ProjectTitleInput } from 'components/form';
@@ -25,8 +24,6 @@ export function ProjectSetting() {
     }
   );
 
-  console.log(projectData?.participants)
-
   const queryClient = useQueryClient();
   const {
     register,
@@ -35,15 +32,6 @@ export function ProjectSetting() {
   } = useForm<UpdateProjectTitleForm>({
     mode: 'onChange',
   });
-
-  // const onMountHandler = async () => {
-  //   const { data } = await getProjectData();
-  //   setProjectData(data);
-  // };
-
-  // useEffect(() => {
-  //   onMountHandler();
-  // }, []);
 
   const { mutate } = useMutation(updateProjectTitle, {
     ...QUERY.DEFAULT_CONFIG,
@@ -54,16 +42,47 @@ export function ProjectSetting() {
     onError: (error: unknown) => errorHandler(error),
   });
 
-  const onNickname = async (data: UpdateProjectTitleForm) => mutate({ data: data.projectTitle, projectId: Number(projectId) });
+  const urlToFile = async (
+    url: string,
+    filename = 'default_name',
+    mimeType?: string
+  ): Promise<File> => {
+    const response = await fetch(url);
+    const data = await response.blob();
+    const metadata = { type: mimeType || data.type };
+    return new File([data], filename, metadata);
+  };
+
+  const onValid = async (data: UpdateProjectTitleForm) => {
+    const formData = new FormData();
+    const dataField = {
+      projectTitle: data.projectTitle,
+    };
+
+    if (projectData?.thumbnail) {
+      const file = await urlToFile(projectData.thumbnail, 'thumbnail.jpg', 'image/jpeg, image/png, image/gif, image/webp');
+      formData.append('thumbnail', file);
+    }
+
+    const jsonDataField = JSON.stringify(dataField);
+    const blobDataField = new Blob([jsonDataField], {
+      type: 'application/json',
+    });
+
+    formData.append('data', blobDataField);
+
+    mutate({ data: formData, projectId: Number(projectId) });
+  };
 
   return (
     <Wrapper>
       <Container>
         <TextL>Project Setting</TextL>
       </Container>
+      <TextM>{projectData?.projectTitle}&apos;s Profile</TextM>
       <UpdateThumbnail projectData={projectData} />
       <Hr />
-      <Form onSubmit={handleSubmit(onNickname)}>
+      <Form onSubmit={handleSubmit(onValid)}>
         <TextL>General</TextL>
         <TextM>project Title</TextM>
         <ProjectTitleInput register={register} />

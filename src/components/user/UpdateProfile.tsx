@@ -9,8 +9,8 @@ import { UserDataForm } from 'types';
 import { setUserProfile } from 'api';
 
 interface UserProfileProps {
-    userData: UserDataForm | undefined;
-  }  
+  userData: UserDataForm | undefined;
+}
 
 export function UpdateProfile({ userData }: UserProfileProps) {
   const { errorHandler } = useErrorHandler();
@@ -57,7 +57,6 @@ export function UpdateProfile({ userData }: UserProfileProps) {
 
   return (
     <ProfileWrapper>
-      <TextM>Profile</TextM>
       <FileInput
         hidden
         id="profileInput"
@@ -72,11 +71,6 @@ export function UpdateProfile({ userData }: UserProfileProps) {
   );
 }
 
-const TextM = styled.div`
-  font-size: 17.5px;
-  font-weight: 600;
-`;
-
 /* File Input */
 const FileInput = styled.input`
   font-size: 14px;
@@ -89,6 +83,8 @@ const ProfileWrapper = styled.div`
 `;
 
 const ImageLabel = styled.label`
+  display: flex;
+  justify-content: center;
   width: 125px;
   height: 125px;
   background: rgba(0, 0, 0, 0.3);
