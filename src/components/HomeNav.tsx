@@ -54,13 +54,13 @@ const Right = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: -5px;
+  margin-top: -7px;
 `;
 
 const NavItem = styled.div`
   font-size: 18px;
   font-weight: 600;
-  padding: 5px;
+  padding: 10px 5px;
   box-sizing: border-box;
   border-bottom: 2px solid transparent;
   transition: ${({ theme }) => theme.transitionOption};
@@ -68,6 +68,6 @@ const NavItem = styled.div`
   :hover {
     cursor: pointer;
     box-sizing: border-box;
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid ${({ theme }) => theme.pointColor};
   }
 `;

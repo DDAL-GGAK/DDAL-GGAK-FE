@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import { UserIcon } from '@heroicons/react/24/outline';
-import { QUERY } from 'constants/';
+import { DEFAULT_VARIANTS, QUERY } from 'constants/';
+import { motion } from 'framer-motion';
 
 export function Profile() {
   const storeData = useSelector(
@@ -19,9 +20,20 @@ export function Profile() {
   return (
     <div>
       {data ? (
-        <ProfileImage profile={data.profile} />
+        <ProfileImage
+          profile={data.profile}
+          variants={DEFAULT_VARIANTS}
+          initial="from"
+          animate="to"
+          exit="exit"
+        />
       ) : (
-        <DefaultImage>
+        <DefaultImage
+          variants={DEFAULT_VARIANTS}
+          initial="from"
+          animate="to"
+          exit="exit"
+        >
           <UserIcon style={{ width: 30 }} />
         </DefaultImage>
       )}
@@ -29,7 +41,7 @@ export function Profile() {
   );
 }
 
-const ProfileImage = styled.div<{ profile: ProfileProps }>`
+const ProfileImage = styled(motion.div)<{ profile: ProfileProps }>`
   box-sizing: border-box;
   width: 40px;
   height: 40px;
@@ -41,7 +53,7 @@ const ProfileImage = styled.div<{ profile: ProfileProps }>`
   transition: ${({ theme }) => theme.transitionOption};
 `;
 
-const DefaultImage = styled.div`
+const DefaultImage = styled(motion.div)`
   position: relative;
   background: ${({ theme }) => theme.transparentColor};
   color: ${({ theme }) => theme.borderColor};
