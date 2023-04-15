@@ -2,17 +2,33 @@ import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { getProjectData } from 'api';
 import { ProjectDataForm, TaskDataForm } from 'types';
-import { CONTENT, QUERY } from 'constants/';
+import { CONTENT, QUERY, DEVICES } from 'constants/';
 import { Loading } from 'components';
+
 import {
   NewTaskButton,
   TaskCard,
   ProjectInformation,
 } from 'components/project';
 import { useQuery } from 'react-query';
-import { useErrorHandler } from 'hooks';
+import { useErrorHandler, useMediaQuery } from 'hooks';
 
 export function Project() {
+  const isMobileM = useMediaQuery(DEVICES.MOBILEM);
+  const isMobileL = useMediaQuery(DEVICES.MOBILEL);
+  const isTablet = useMediaQuery(DEVICES.TABLET);
+  const isLaptop = useMediaQuery(DEVICES.LAPTOP);
+
+  const getGridColumnCount = () => {
+    if (isLaptop) return 4;
+    if (isTablet) return 3;
+    if (isMobileL) return 2;
+    if (isMobileM) return 1;
+    return 1;
+  };
+
+  const gridColumnCount = getGridColumnCount();
+
   const { id: param } = useParams();
   const { errorHandler } = useErrorHandler();
 
@@ -30,7 +46,7 @@ export function Project() {
   return (
     <Wrapper>
       {projectData && <ProjectInformation projectData={projectData} />}
-      <ProjectBoard>
+      <ProjectBoard gridColumnCount={gridColumnCount}>
         {projectData?.tasks.map((taskData: TaskDataForm) => (
           <TaskCard taskData={taskData} key={taskData.id} />
         ))}
@@ -51,20 +67,12 @@ const Wrapper = styled.div`
   border-radius: 5px;
 `;
 
-const ProjectBoard = styled.div`
+const ProjectBoard = styled.div<{ gridColumnCount: number }>`
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-
-  /* grid-template-columns: repeat(4, minmax(0, 1fr)); */
-  grid-gap: 20px;
-
+  grid-template-columns: ${({ gridColumnCount }) =>
+    `repeat(${gridColumnCount}, minmax(0, 1fr))`};
+  gap: 20px;
   padding: 16px;
-  max-width: 1200px;
-  width: 100%;
-
+  width: calc(100% - 32px);
   margin: 0px auto;
-  /* 
-  width: -moz-available;
-  width: -webkit-fill-available;
-  width: fill-available; */
 `;
