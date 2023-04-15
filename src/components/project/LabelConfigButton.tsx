@@ -3,7 +3,7 @@ import { MODAL_CARD_VARIANTS } from 'constants/';
 import { Button } from 'components';
 import { Config } from 'assets/icons';
 import { LabelsProps } from 'types';
-import { ConfigLabel } from 'components/modal/ConfigLabel';
+import { TaskConfig } from 'components/modal/TaskConfig';
 
 export function LabelConfigButton({ labels }: LabelsProps) {
   const { Modal, isOpen, openModal, closeModal } = useModal();
@@ -15,7 +15,7 @@ export function LabelConfigButton({ labels }: LabelsProps) {
         closeModal={closeModal}
         variants={MODAL_CARD_VARIANTS}
       >
-        <ConfigLabel labels={labels} />
+        <TaskConfig labels={labels} />
       </Modal>
       <Button onClick={openModal}>
         <Config size={20} />

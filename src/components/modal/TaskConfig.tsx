@@ -6,9 +6,10 @@ import { Title } from 'components/containers';
 import { useModal } from 'hooks';
 import { useState } from 'react';
 import { DeleteTaskButton } from 'components/project';
+import { TagIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ConfirmDeleteLabel } from './ConfirmDeleteLabel';
 
-export function ConfigLabel({ labels }: ConfigLabelProps) {
+export function TaskConfig({ labels }: ConfigLabelProps) {
   const { Modal, isOpen, openModal, closeModal } = useModal();
   const [selectedLabel, setSelectedLabel] = useState<LabelDataForm | null>(
     null
@@ -26,20 +27,24 @@ export function ConfigLabel({ labels }: ConfigLabelProps) {
       animate="to"
       exit="exit"
     >
-      <Title>DeleteList</Title>
+      <Title>Task Config</Title>
       <LabelList>
+        <Title>
+          <TagIcon style={{ width: 20 }} />
+          Labels
+        </Title>
         {labels?.map((label: LabelDataForm) => {
           const { labelId, labelTitle } = label;
 
           return (
             <Label key={labelId}>
-              {labelId} : {labelTitle}
+              <LabelName>{labelTitle}</LabelName>
               <DeleteButton
                 onClick={() => {
                   handleOpenModal(label);
                 }}
               >
-                Delete
+                <XMarkIcon style={{ width: 20 }} />
               </DeleteButton>
             </Label>
           );
@@ -70,35 +75,49 @@ const ModalContainer = styled(motion.div)`
 `;
 
 const LabelList = styled.div`
-  background: rgba(0, 0, 0, 0.3);
+  background: ${({ theme }) => theme.borderColor};
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   padding: 1rem;
 `;
 
-const Label = styled.div`
-  background: rgba(0, 0, 0, 0.3);
+const LabelName = styled.div`
   padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+const Label = styled.div`
+  position: relative;
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   transition: ${({ theme }) => theme.transitionOption};
+  background: ${({ theme }) => theme.background};
   :hover {
     cursor: pointer;
     background: rgba(0, 0, 0, 0.5);
   }
+  padding: 10px 5px;
 `;
 
 const DeleteButton = styled.button`
   color: #111;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 16px;
+  height: 100%;
+  border-radius: 0 6px 6px 0;
   font-size: 14px;
-  font-weight: 600;
   transition: ${({ theme }) => theme.transitionOption};
+  position: absolute;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 0;
+  background: ${({ theme }) => theme.loginDisable};
   :hover {
     background: ${({ theme }) => theme.accentColor};
     cursor: pointer;
