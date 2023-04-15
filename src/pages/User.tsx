@@ -27,11 +27,9 @@ export function User() {
     setUserData(data);
   };
 
-  console.log(userData)
-
   useEffect(() => {
     onMountHandler();
-  }, []);
+  }, [userData]);
 
   const { mutate } = useMutation(setUserNickname, {
     ...QUERY.DEFAULT_CONFIG,
@@ -48,7 +46,7 @@ export function User() {
     <Wrapper>
       <Container>
         <TextL>Account</TextL>
-        <div>{userData?.nickname}</div>
+        <TextM>{userData?.nickname}&apos;s Profile</TextM>
       </Container>
       <UpdateProfile userData={userData} />
       <Hr />
