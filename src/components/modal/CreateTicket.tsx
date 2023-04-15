@@ -71,8 +71,8 @@ export function CreateTicket({ closeModal }: ModalViewProps) {
         />
         <LabelWrapper>
           <LabelText>Priority:</LabelText>
-          {errors.priority && (
-            <ErrorMessage>{errors.priority.message}</ErrorMessage>
+          {errors.ticketPriority && (
+            <ErrorMessage>{errors.ticketPriority.message}</ErrorMessage>
           )}
         </LabelWrapper>
 
@@ -80,8 +80,8 @@ export function CreateTicket({ closeModal }: ModalViewProps) {
 
         <LabelWrapper>
           <LabelText>Difficulty:</LabelText>
-          {errors.difficulty && (
-            <ErrorMessage>{errors.difficulty.message}</ErrorMessage>
+          {errors.ticketDifficulty && (
+            <ErrorMessage>{errors.ticketDifficulty.message}</ErrorMessage>
           )}
         </LabelWrapper>
         <RadioGroup>
@@ -91,7 +91,7 @@ export function CreateTicket({ closeModal }: ModalViewProps) {
                 type="radio"
                 id={`difficulty${i + 1}`}
                 value={i + 1}
-                {...register('difficulty', {
+                {...register('ticketDifficulty', {
                   required: 'Difficulty is required!',
                 })}
               />

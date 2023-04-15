@@ -1,12 +1,8 @@
 import styled from 'styled-components';
-import { UseFormRegister } from 'react-hook-form';
 import { REGISTER_TYPE, ERROR_MESSAGE, CONFIG } from 'constants/';
+import { TicketCreateRegister } from 'types';
 
-interface TicketScoreRadioProps {
-  register: UseFormRegister<any>;
-}
-
-export function TicketScoreRadio({ register }: TicketScoreRadioProps) {
+export function TicketScoreRadio({ register }: TicketCreateRegister) {
   return (
     <RadioGroup>
       {Array.from({ length: CONFIG.TICKET_PRIORITY.LENGTH }, (_, i) => (
