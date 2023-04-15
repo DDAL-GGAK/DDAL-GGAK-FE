@@ -39,7 +39,7 @@ export const updateProjectThumbnail = async ({data, projectId}: UpdateProjectDat
 
 export const updateProjectTitle = async ({data, projectId}: UpdateProjectDataProps) => {
   if (!data) return;
-  const res = await api.put(API_ROUTE.PROJECT.SET_TITLE(projectId), { title: data });
+  const res = await api.postMultipartFormData(API_ROUTE.PROJECT.SET_TITLE(projectId), data as FormData);
 
   return res;
 };
