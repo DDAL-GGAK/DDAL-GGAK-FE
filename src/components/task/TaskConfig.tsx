@@ -7,7 +7,7 @@ import { useModal } from 'hooks';
 import { useState } from 'react';
 import { DeleteTaskButton } from 'components/project';
 import { TagIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { ConfirmDeleteLabel } from './ConfirmDeleteLabel';
+import { ConfirmDeleteLabel } from '../modal/ConfirmDeleteLabel';
 
 export function TaskConfig({ labels }: ConfigLabelProps) {
   const { Modal, isOpen, openModal, closeModal } = useModal();
@@ -79,8 +79,8 @@ const LabelList = styled.div`
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
   padding: 1rem;
+  gap: 10px;
 `;
 
 const LabelName = styled.div`
@@ -106,7 +106,8 @@ const Label = styled.div`
 `;
 
 const DeleteButton = styled.button`
-  color: #111;
+  color: ${({ theme }) => theme.accentColor};
+  background: ${({ theme }) => theme.background};
   height: 100%;
   border-radius: 0 6px 6px 0;
   font-size: 14px;
@@ -117,9 +118,9 @@ const DeleteButton = styled.button`
   align-items: center;
   justify-content: center;
   right: 0;
-  background: ${({ theme }) => theme.loginDisable};
   :hover {
     background: ${({ theme }) => theme.accentColor};
+    color: #111;
     cursor: pointer;
   }
 `;
