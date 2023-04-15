@@ -4,11 +4,16 @@ import { SVG_SIZE } from 'constants/';
 import styled from 'styled-components';
 import { getColorByLebel } from 'utils';
 
-export function Difficulty(
-  difficulty: number,
-  size: number = SVG_SIZE.TICKET_L
-) {
-  const color = getColorByLebel(difficulty);
+interface DifficultyProps {
+  difficulty: number | string;
+  size?: number;
+}
+
+export function Difficulty({
+  difficulty,
+  size = SVG_SIZE.TICKET_L,
+}: DifficultyProps) {
+  const color = getColorByLebel(Number(difficulty));
 
   return (
     <Wrapper>
