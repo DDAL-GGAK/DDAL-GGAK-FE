@@ -3,7 +3,10 @@ import { TicketCreateRegister } from 'types';
 import { LabelWrapper, LabelText, ErrorMessage } from 'components/containers';
 import { RadioInput, RadioLabel, RadioGroup } from '../RadioComponent';
 
-export function TicketScoreRadio({ register, errors }: TicketCreateRegister) {
+export function TicketPriorityRadio({
+  register,
+  errors,
+}: TicketCreateRegister) {
   return (
     <>
       <LabelWrapper>

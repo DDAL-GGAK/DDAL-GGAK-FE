@@ -11,5 +11,5 @@ export * from './inputText/TaskTitleInput';
 export * from './RadioComponent';
 
 /* Ticket */
-export * from './ticket/TicketScoreInput';
+export * from './ticket/TicketPriorityRadio';
 export * from './inputText/TicketTitleInput';

@@ -7,10 +7,11 @@ import { motion } from 'framer-motion';
 import { DEFAULT_VARIANTS, REGEX, QUERY, TOASTIFY } from 'constants/';
 import { ModalViewProps, TicketCreateForm } from 'types';
 import { useLocation } from 'react-router-dom';
-import { TicketScoreRadio, TicketTitleInput } from 'components/form';
+import { TicketPriorityRadio, TicketTitleInput } from 'components/form';
 // import { Task } from 'assets/svg';
 import { useErrorHandler } from 'hooks';
 import { Button, Title, LabelText, ErrorMessage } from 'components/containers';
+import { TicketDifficultyRadio } from 'components/form/ticket/TicketDifficultyRadio';
 
 export function CreateTicket({ closeModal }: ModalViewProps) {
   const { errorHandler } = useErrorHandler();
@@ -47,7 +48,6 @@ export function CreateTicket({ closeModal }: ModalViewProps) {
       {/* <Task size={SVG_SIZE.MODAL} /> */}
       <Form onSubmit={handleSubmit(onValid)}>
         <TicketTitleInput register={register} errors={errors} />
-
         <LabelWrapper>
           <LabelText>Ticket Description:</LabelText>
           {errors.ticketDescription && (
@@ -59,9 +59,8 @@ export function CreateTicket({ closeModal }: ModalViewProps) {
             required: 'Ticket description is required!',
           })}
         />
-
-        <TicketScoreRadio register={register} errors={errors} />
-
+        <TicketDifficultyRadio register={register} errors={errors} />
+        <TicketPriorityRadio register={register} errors={errors} />
         <ButtonContainer>
           <Button buttonType="point">
             {isLoading ? 'Loading...' : 'Create Ticket'}
