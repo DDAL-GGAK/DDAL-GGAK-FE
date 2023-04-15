@@ -58,14 +58,12 @@ const Wrapper = styled.div<{ thumbnail?: Thumbnail }>`
       props.thumbnail
         ? `url(${props.thumbnail}) center / cover`
         : props.theme.color};
-
-    border-radius: ${NAVLINK.HOVER_BORDER_RADIUS}px;
   }
 `;
 
 const Text = styled.div`
   font-weight: 600;
-  color: teal;
+  color: ${({ theme }) => theme.sideNavColor};
 `;
 
 const Current = styled(motion.div)`
@@ -75,5 +73,5 @@ const Current = styled(motion.div)`
   border-radius: 0 10px 10px 0;
   height: ${NAVLINK.HEIGHT}px;
   transition: ${({ theme }) => theme.transitionOption};
-  background: ${({ theme }) => theme.color};
+  background: ${({ theme }) => theme.sideNavCurrBorder};
 `;

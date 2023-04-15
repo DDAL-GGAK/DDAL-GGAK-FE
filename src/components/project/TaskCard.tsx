@@ -62,9 +62,9 @@ const Wrapper = styled(motion.div)<{ 'data-expired': boolean }>`
   min-width: 200px;
   color: ${({ theme }) => theme.color};
   background: ${({ 'data-expired': expired, theme }) =>
-    expired ? theme.transparentColor : theme.background};
+    expired ? theme.transparentColor : theme.borderColor};
   transition: ${({ theme }) => theme.transitionOption};
-  box-shadow: ${({ theme }) => theme.boxShadow};
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.12);
   padding: 20px;
   :hover {
     border-color: ${({ theme }) => theme.pointColor};
@@ -101,7 +101,7 @@ const Hr = styled.div`
 const ProgressBar = styled.div`
   width: 100%;
   height: 10px;
-  background-color: ${({ theme }) => theme.borderColor};
+  background-color: ${({ theme }) => theme.background};
   border-radius: 5px;
   margin: 0.5rem 0;
 `;
@@ -127,7 +127,7 @@ const BottomWrapper = styled.div`
 const DeadlineBar = styled.div`
   width: 100%;
   height: 5px;
-  background-color: ${({ theme }) => theme.borderColor};
+  background-color: ${({ theme }) => theme.background};
   border-radius: 5px;
   margin: 0.5rem 0;
 `;

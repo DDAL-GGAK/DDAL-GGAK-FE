@@ -55,9 +55,8 @@ const Wrapper = styled.div`
   z-index: 0;
   left: 0;
   top: ${TOP_NAV.HEIGHT}px;
-  background: ${({ theme }) => theme.navBackground};
+  background: ${({ theme }) => theme.sideNavBackground};
   box-sizing: border-box;
-  box-shadow: 0 0px 5px rgba(0, 0, 0, 0.3);
   width: ${SIDE_NAV.WIDTH}px;
   height: calc(100% - ${TOP_NAV.HEIGHT}px);
   padding: ${TOP_NAV.PADDING}px 0;
