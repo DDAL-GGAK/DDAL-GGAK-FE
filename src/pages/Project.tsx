@@ -39,15 +39,19 @@ export function Project() {
     }
   );
 
+  const memoizedTasks = useMemo(() => {
+    return projectData?.tasks.map((taskData: TaskDataForm) => (
+      <TaskCard taskData={taskData} key={taskData.id} />
+    ));
+  }, [projectData?.tasks]);
+
   if (isLoading) return <Loading />;
 
   return (
     <Wrapper>
       {projectData && <ProjectInformation projectData={projectData} />}
       <ProjectBoard gridColumnCount={gridColumnCount}>
-        {projectData?.tasks.map((taskData: TaskDataForm) => (
-          <TaskCard taskData={taskData} key={taskData.id} />
-        ))}
+        {memoizedTasks}
         <NewTaskButton />
       </ProjectBoard>
     </Wrapper>
