@@ -88,7 +88,6 @@ const LabelSelectWrapper = styled.div`
   align-items: center;
   padding: 0 8px;
   gap: 8px;
-  width: 100px;
   background: ${({ theme }) => theme.borderColor};
   color: ${({ theme }) => theme.color};
   border-radius: 4px;
