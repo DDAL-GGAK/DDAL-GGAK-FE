@@ -5,15 +5,18 @@ import { useDispatch } from 'react-redux';
 import { useErrorHandler } from 'hooks';
 import { logOut } from 'api';
 import { removeUserData } from 'redux/modules/userData';
-import { QUERY } from 'constants/';
+import { COOKIE, QUERY } from 'constants/';
+import { Cookies } from 'react-cookie';
 
 export function LogOut() {
+  const cookie = new Cookies();
   const { errorHandler } = useErrorHandler();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { mutate } = useMutation(logOut, {
     ...QUERY.DEFAULT_CONFIG,
     onSuccess: () => {
+      cookie.remove(COOKIE.KEY.ACCESS_TOKEN);
       localStorage.removeItem('userInfo');
       dispatch(removeUserData());
       navigate('/');
