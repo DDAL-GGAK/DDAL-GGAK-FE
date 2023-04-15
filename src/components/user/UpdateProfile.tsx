@@ -9,8 +9,8 @@ import { UserDataForm } from 'types';
 import { setUserProfile } from 'api';
 
 interface UserProfileProps {
-    userData: UserDataForm | undefined;
-  }  
+  userData: UserDataForm | undefined;
+}
 
 export function UpdateProfile({ userData }: UserProfileProps) {
   const { errorHandler } = useErrorHandler();
@@ -89,6 +89,8 @@ const ProfileWrapper = styled.div`
 `;
 
 const ImageLabel = styled.label`
+  display: flex;
+  justify-content: center;
   width: 125px;
   height: 125px;
   background: rgba(0, 0, 0, 0.3);
