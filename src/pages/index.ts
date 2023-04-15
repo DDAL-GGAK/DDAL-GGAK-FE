@@ -8,3 +8,4 @@ export * from './User';
 export * from './ProjectSetting';
 export * from './ProjectMember';
 export * from './ProjectHome';
+export * from './MyTicketPage';
