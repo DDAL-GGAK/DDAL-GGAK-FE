@@ -4,14 +4,14 @@ import { getProjectData } from 'api';
 import { ProjectDataForm, TaskDataForm } from 'types';
 import { CONTENT, QUERY, DEVICES } from 'constants/';
 import { Loading } from 'components';
-
+import { useQuery } from 'react-query';
+import { useErrorHandler, useMediaQuery } from 'hooks';
+import { useMemo } from 'react';
 import {
   NewTaskButton,
   TaskCard,
   ProjectInformation,
 } from 'components/project';
-import { useQuery } from 'react-query';
-import { useErrorHandler, useMediaQuery } from 'hooks';
 
 export function Project() {
   const isMobileM = useMediaQuery(DEVICES.MOBILEM);
@@ -19,15 +19,13 @@ export function Project() {
   const isTablet = useMediaQuery(DEVICES.TABLET);
   const isLaptop = useMediaQuery(DEVICES.LAPTOP);
 
-  const getGridColumnCount = () => {
+  const gridColumnCount = useMemo(() => {
     if (isLaptop) return 4;
     if (isTablet) return 3;
     if (isMobileL) return 2;
     if (isMobileM) return 1;
     return 1;
-  };
-
-  const gridColumnCount = getGridColumnCount();
+  }, [isLaptop, isTablet, isMobileL, isMobileM]);
 
   const { id: param } = useParams();
   const { errorHandler } = useErrorHandler();
