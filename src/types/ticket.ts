@@ -33,8 +33,8 @@ export interface Tickets {
 export interface TicketCreateForm {
   ticketTitle: string;
   ticketDescription: string;
-  ticketPriority: number;
-  ticketDifficulty: number;
+  priority: number;
+  difficulty: number;
 }
 
 export interface TicketCreateRegister {

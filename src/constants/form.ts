@@ -13,8 +13,8 @@ export const REGISTER_TYPE = Object.freeze({
   NICKNAME: 'nickname',
   LABEL_TITLE: 'labelTitle',
   TASK_TITLE: 'taskTitle',
-  TICKET_SCORE: 'ticketPriority',
-  TICKET_DIFFICULTY: 'ticketDifficulty',
+  TICKET_SCORE: 'priority',
+  TICKET_DIFFICULTY: 'difficulty',
   TICKET_TITLE: 'ticketTitle',
   TICKET_DESCRIPTION: 'ticketDescription',
 });
