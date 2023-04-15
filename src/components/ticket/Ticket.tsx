@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { TicketDataForm, UserDataForm, LabelDataForm } from 'types';
+import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 import { AssignCheckBox, SetLabel } from 'components';
 import { RootState } from 'redux/store';
 import { useSelector } from 'react-redux';
@@ -45,6 +46,8 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
   return (
     <Wrapper onClick={openModalHandler}>
       <LeftBox>
+        <EllipsisHorizontalIcon className="ellips-icon" />
+        <Id>Ticket {ticketId}</Id>
         <AssignCheckBox
           ticketData={{
             assigned,
@@ -79,15 +82,22 @@ const Wrapper = styled.div`
   transition: ${({ theme }) => theme.transitionOption};
   :hover {
     cursor: pointer;
-    background: lightgray;
-    color: #111;
+    background: ${({ theme }) => theme.ticketHover};
   }
 `;
 
 const LeftBox = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 16px;
+
+  .ellips-icon {
+    width: 20px;
+  }
+`;
+
+const Id = styled.div`
+  width: 70px;
 `;
 
 const Title = styled.p`

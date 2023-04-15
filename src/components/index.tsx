@@ -15,4 +15,4 @@ export * from './form';
 export * from './modal';
 export * from './project';
 export * from './task';
-export * from './Logo';
+export * from './HomeNav';

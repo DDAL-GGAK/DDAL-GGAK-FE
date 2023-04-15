@@ -30,6 +30,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 300px;
   box-shadow: ${({ theme }) => theme.boxShadow};
   transition: ${({ theme }) => theme.transitionOption};
   :hover {

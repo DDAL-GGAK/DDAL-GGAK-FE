@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { CONTENT, REGEX, QUERY } from 'constants/';
-import { Button, TicketContainer } from 'components';
+import { TicketContainer } from 'components';
 import { getTaskData } from 'api';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
@@ -46,13 +46,7 @@ export function Task() {
 
   return (
     <Wrapper>
-      <TopWrapper>
-        <Labels labels={taskData?.labels || []} />
-        <SortMethods>
-          <Button>Column</Button>
-          <Button>Row</Button>
-        </SortMethods>
-      </TopWrapper>
+      <Labels labels={taskData?.labels || []} />
       <BottomWrapper>
         <TicketContainer />
         <NewTicketButton />
@@ -66,19 +60,6 @@ const Wrapper = styled.div`
   background: ${({ theme }) => theme.background};
   display: flex;
   flex-direction: column;
-`;
-
-const TopWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: ${({ theme }) => theme.background};
-`;
-
-const SortMethods = styled.div`
-  display: flex;
-  gap: 10px;
-  padding: 0px 10px;
 `;
 
 const BottomWrapper = styled.div`

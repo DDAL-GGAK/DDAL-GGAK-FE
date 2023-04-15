@@ -1,10 +1,10 @@
 const DEVICES_SIZE = Object.freeze({
   MOBILES: '320px',
   MOBILEM: '480px',
-  MOBILEL: '768px',
-  TABLET: '992px',
-  LAPTOP: '1200px',
-  LAPTOPL: '1440px',
+  MOBILEL: '858px',
+  TABLET: '1102px',
+  LAPTOP: '1500px',
+  LAPTOPL: '1640px',
   DESKTOP: '2560px',
 });
 
