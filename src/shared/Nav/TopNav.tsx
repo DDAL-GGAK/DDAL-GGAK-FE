@@ -1,15 +1,40 @@
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { SIDE_NAV, TOP_NAV, REGEX } from 'constants/';
 import { Logo, Menu } from 'assets/icons';
 import { DEVICES } from 'styles';
-import { ThemeToggle } from 'components';
+import { ThemeToggle, LogOut } from 'components';
 import { useMediaQuery } from 'hooks';
 import { useLocation, Link } from 'react-router-dom';
 
 export function TopNav() {
   const { pathname } = useLocation();
+  const [dropdownVisible, setDropdownVisible] = useState(false);
   const projectId = Number(pathname.match(REGEX.PROJECT_ID)?.[1]) || null;
   const isNotSmallDevice = useMediaQuery(DEVICES.MOBILES);
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (target && !target.closest('.dropdown')) {
+        setDropdownVisible(false);
+      }
+    };
+
+    if (dropdownVisible) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [dropdownVisible]);
 
   return (
     <Wrapper>
@@ -24,11 +49,22 @@ export function TopNav() {
           </LeftWrapper>
         </Link>
         {isNotSmallDevice ? (
-          <RightWrapper>
+          <RightWrapper className="dropdown">
             <ThemeToggle />
-            <Link to={`/project/${projectId}/settings/user`}>
-              <ProfileImage />
-            </Link>
+            <ProfileImage onClick={toggleDropdown} />
+            {dropdownVisible && (
+              <DropdownMenu>
+                <DropdownItem onClick={() => setDropdownVisible(false)}>
+                  <Link to={`/myTicketPage`}>My Ticket</Link>
+                </DropdownItem>
+                <DropdownItem onClick={() => setDropdownVisible(false)}>
+                  <Link to={`/project/${projectId}/settings/user`}>My Page</Link>
+                </DropdownItem>
+                <DropdownItem onClick={() => setDropdownVisible(false)}>
+                  <LogOut />
+                </DropdownItem>
+              </DropdownMenu>
+            )}
           </RightWrapper>
         ) : (
           ''
@@ -104,6 +140,7 @@ const ProfileImage = styled.div`
   border-radius: 10px;
   background: ${({ theme }) => theme.navLinkBackground};
   transition: ${({ theme }) => theme.transitionOption};
+  cursor: pointer;
 `;
 
 const ProjectTitle = styled.div`
@@ -115,4 +152,27 @@ const ProjectTitle = styled.div`
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 600;
+`;
+
+const DropdownMenu = styled.div`
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: ${({ theme }) => theme.navBackground};
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 85px
+`;
+
+const DropdownItem = styled.div`
+  padding: 5px;
+  cursor: pointer;
+  &:hover {
+    color: ${({ theme }) => theme.color};
+    font-weight: bold;
+  }
 `;
