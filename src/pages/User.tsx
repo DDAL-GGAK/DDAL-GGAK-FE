@@ -10,6 +10,8 @@ import { useErrorHandler } from 'hooks';
 import { UpdateProfile } from 'components/user';
 import { useDispatch } from 'react-redux';
 import { setUserData } from 'redux/modules/userData';
+import { ContentText } from 'components';
+import { EnvelopeIcon, UserIcon } from '@heroicons/react/24/outline';
 
 export function User() {
   const dispatch = useDispatch();
@@ -23,7 +25,7 @@ export function User() {
     mode: 'onChange',
   });
 
-  const { data: userData } = useQuery(QUERY.KEY.USER_DATA, getUserData, {
+  const { data: userData } = useQuery<any>(QUERY.KEY.USER_DATA, getUserData, {
     ...QUERY.DEFAULT_CONFIG,
     onError: (error: unknown) => errorHandler(error),
   });
@@ -45,18 +47,45 @@ export function User() {
   return (
     <Wrapper>
       <Container>
-        <TextL>Account</TextL>
-        <TextM>{userData?.data.nickname}&apos;s Profile</TextM>
+        <TextL>My Account</TextL>
       </Container>
-      <UpdateProfile userData={userData?.data} />
+      <ProfileWrapper>
+        <TopWrapper />
+        <MainInfo>
+          <UpdateProfile userData={userData?.data} />
+          <TextL>
+            {userData?.data.nickname}{' '}
+            <IdWrapper>#{userData?.data?.userId}</IdWrapper>
+          </TextL>
+        </MainInfo>
+        <PrivacyWrapper>
+          <Privacy>
+            <TextL>Privacy</TextL>
+            <Border />
+            <TextM>
+              <ContentText>
+                <UserIcon style={{ width: 20 }} />
+                <div>USER-NAME</div>
+              </ContentText>
+              <div>{userData?.data.nickname}</div>
+            </TextM>
+            <TextM>
+              <ContentText>
+                <EnvelopeIcon style={{ width: 20 }} />
+                <div>E-MAIL</div>
+              </ContentText>
+              <div>{userData?.data.email}</div>
+            </TextM>
+          </Privacy>
+        </PrivacyWrapper>
+      </ProfileWrapper>
       <Hr />
       <NickNameForm onSubmit={handleSubmit(onNickname)}>
-        <TextL>Privacy</TextL>
-        <TextM>email</TextM>
-        <div>{userData?.data.email}</div>
-        <TextM>nickname</TextM>
-        <UserNicknameInput register={register} />
-        <Button>Save</Button>
+        <TextL>Change Username</TextL>
+        <ButtonWrapper>
+          <UserNicknameInput register={register} />
+          <Button>Save</Button>
+        </ButtonWrapper>
         {errors.nickname && <Errorspan>{errors.nickname.message}</Errorspan>}
       </NickNameForm>
     </Wrapper>
@@ -65,11 +94,63 @@ export function User() {
 
 const Wrapper = styled.div``;
 
-const Container = styled.div`
+const Container = styled.div``;
+
+const ProfileWrapper = styled.div`
+  position: relative;
+  background: ${({ theme }) => theme.borderColor};
+  border-radius: 8px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  height: 500px;
+  min-width: 400px;
+`;
+
+const MainInfo = styled.div`
+  position: absolute;
+  display: flex;
   align-items: center;
-  margin-bottom: 2rem;
+  gap: 1rem;
+  top: 4rem;
+  left: 2rem;
+  z-index: 1;
+`;
+
+const IdWrapper = styled.div`
+  color: ${({ theme }) => theme.sideNavCurrBorder};
+`;
+
+const TopWrapper = styled.div`
+  background: ${({ theme }) => theme.background};
+  height: 300px;
+  width: 100%;
+  background: ${({ theme }) => theme.sideNavBackground};
+  border-radius: 8px 8px 0 0;
+`;
+
+const PrivacyWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  padding-top: 70px;
+  height: 100%;
+  background: ${({ theme }) => theme.background};
+  border-radius: 0 0 8px 8px;
+  border: 1px solid ${({ theme }) => theme.borderColor};
+`;
+
+const Border = styled.div`
+  width: 100%;
+  border-bottom: 1px solid ${({ theme }) => theme.navLinkBackground};
+  margin-bottom: 1rem;
+`;
+
+const Privacy = styled.div`
+  padding: 1.5rem;
+  background: ${({ theme }) => theme.borderColor};
+  width: calc(100% - 3rem);
+  height: calc(100% - 3rem);
+  border-radius: 5px;
 `;
 
 const NickNameForm = styled.form`
@@ -82,13 +163,15 @@ const TextL = styled.div`
   font-weight: 600;
   color: ${({ theme }) => theme.color};
   margin-bottom: 1rem;
+  display: flex;
+  gap: 0.5rem;
 `;
 
 const TextM = styled.div`
   font-size: 17.5px;
   font-weight: 600;
   color: ${({ theme }) => theme.color};
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 `;
 
 const Errorspan = styled.span`
@@ -102,8 +185,14 @@ const Hr = styled.div`
   margin: 2rem 0;
 `;
 
+const ButtonWrapper = styled.div`
+  display: flex;
+  height: 3rem;
+  gap: 1rem;
+`;
+
 const Button = styled.button`
-  padding: 0.5rem 16px;
+  padding: 0.5rem 1rem;
   font-size: 14px;
   font-weight: 600;
   background: ${({ theme }) => theme.pointColor};
@@ -111,7 +200,6 @@ const Button = styled.button`
   border-radius: 4px;
   transition: ${({ theme }) => theme.transitionOption};
   color: ${({ theme }) => theme.background};
-  margin-top: 1rem;
   :hover {
     cursor: pointer;
     background: ${({ theme }) => theme.pointColorLight};

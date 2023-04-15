@@ -30,7 +30,7 @@ export function UpdateProfile({ userData }: UserProfileProps) {
       const { data } = res;
       localStorage.setItem(QUERY.KEY.USER_DATA, JSON.stringify({ data }));
       dispatch(setUserData(data));
-      queryClient.invalidateQueries(QUERY.KEY.USER_DATA);
+      queryClient.invalidateQueries(QUERY.KEY.USER_PROFILE);
       sendToast.success(TOASTIFY.SUCCESS.USER_SETTING);
     },
     onError: (error: unknown) => errorHandler(error),
@@ -93,8 +93,9 @@ const ImageLabel = styled.label`
   justify-content: center;
   width: 125px;
   height: 125px;
-  background: rgba(0, 0, 0, 0.3);
+  background: ${({ theme }) => theme.borderColor};
   border-radius: 50%;
+  border: 8px solid ${({ theme }) => theme.background};
   :hover {
     cursor: pointer;
   }

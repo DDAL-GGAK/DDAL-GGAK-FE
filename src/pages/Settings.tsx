@@ -96,7 +96,7 @@ const LeftWrapper = styled.div`
 const RightWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 2rem;
+  padding: 1.5rem 2rem;
   gap: 10px;
   width: calc(100% - 200px);
   height: calc(100% - 2rem * 2);
