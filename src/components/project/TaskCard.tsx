@@ -234,7 +234,7 @@ const TimeWrapper = styled.div`
   justify-content: space-between;
   padding: 0.5rem 0;
   width: 100%;
-  margin-top: 0.5rem;
+  margin-top: 4px;
 `;
 
 const Time = styled.div`
@@ -244,5 +244,6 @@ const Time = styled.div`
   padding: 5px 10px;
   background: #575868;
   border-radius: 15px;
+  font-size: 0.9rem;
   color: white;
 `;
