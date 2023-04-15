@@ -1,34 +1,20 @@
 import { User, ProjectSetting, ProjectMember } from 'pages';
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
-import { UserDataForm } from 'types';
 import { CONTENT } from 'constants/';
-import { getUserData } from 'api';
 import { Routes, Route, Link } from 'react-router-dom';
+import { Cog6ToothIcon } from '@heroicons/react/24/outline';
 
 export function Settings() {
-  const [userData, setUserData] = useState<UserDataForm>();
-  const onMountHandler = async () => {
-    const { data } = await getUserData();
-    setUserData(data);
-  };
-
-  useEffect(() => {
-    onMountHandler();
-  }, []);
-
   return (
     <Wrapper>
       <LeftWrapper>
-        <div>{userData?.email}</div>
-        <Link to="user">myAccount</Link>
-        <div>nav1</div>
-        <div>nav2</div>
-        <div>nav3</div>
-        <div>Project</div>
-        <Link to="projectSetting">Project setting</Link>
-        <br />
-        <Link to="projectMember">Project member</Link>
+        <Title>
+          <Cog6ToothIcon style={{ width: 20 }} />
+          <div>Settings</div>
+        </Title>
+        <Link to="user">My Account</Link>
+        <Link to="projectSetting">Project Settings</Link>
+        <Link to="projectMember">Project Members</Link>
       </LeftWrapper>
       <RightWrapper>
         <Routes>
@@ -49,12 +35,36 @@ const Wrapper = styled.div`
   border-radius: 10px;
 `;
 
+const Title = styled.div`
+  font-weight: 600;
+  color: white;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+`;
+
 const LeftWrapper = styled.div`
   width: 200px;
   border-right: solid 1px ${({ theme }) => theme.borderColor};
   box-sizing: border-box;
   transition: ${({ theme }) => theme.transitionOption};
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
+  a {
+    transition: ${({ theme }) => theme.transitionOption};
+    font-weight: 600;
+    color: ${({ theme }) => theme.transparentColor};
+
+    :hover {
+      color: white;
+    }
+  }
 `;
+
 const RightWrapper = styled.div`
   display: flex;
   flex-direction: column;
