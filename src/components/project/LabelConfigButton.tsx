@@ -1,6 +1,6 @@
 import { useModal } from 'hooks';
 import { MODAL_CARD_VARIANTS } from 'constants/';
-import { Button } from 'components';
+import { LabelButton } from 'components';
 import { Config } from 'assets/icons';
 import { LabelsProps } from 'types';
 import { TaskConfig } from 'components/modal/TaskConfig';
@@ -17,9 +17,9 @@ export function LabelConfigButton({ labels }: LabelsProps) {
       >
         <TaskConfig labels={labels} />
       </Modal>
-      <Button onClick={openModal}>
+      <LabelButton onClick={openModal}>
         <Config size={20} />
-      </Button>
+      </LabelButton>
     </>
   );
 }
