@@ -16,6 +16,7 @@ export const REGISTER_TYPE = Object.freeze({
   TICKET_SCORE: 'ticketPriority',
   TICKET_DIFFICULTY: 'ticketDifficulty',
   TICKET_TITLE: 'ticketTitle',
+  TICKET_DESCRIPTION: 'ticketDescription',
 });
 
 export const ERROR_MESSAGE = Object.freeze({
@@ -62,6 +63,9 @@ export const ERROR_MESSAGE = Object.freeze({
   }),
   TICKET_TITLE: Object.freeze({
     REQUIRED: 'Ticket title is required!',
+  }),
+  TICKET_DESCRIPTION: Object.freeze({
+    REQUIRED: 'Ticket description is required!',
   }),
 });
 

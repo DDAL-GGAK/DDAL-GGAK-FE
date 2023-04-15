@@ -13,3 +13,4 @@ export * from './RadioComponent';
 /* Ticket */
 export * from './ticket/TicketPriorityRadio';
 export * from './inputText/TicketTitleInput';
+export * from './inputText/TicketDescriptionInput';
