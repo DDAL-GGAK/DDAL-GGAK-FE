@@ -34,5 +34,8 @@ declare module 'styled-components' {
     navLinkBackground: string;
     topNavBackground: string;
     borderColor: string;
+    taskCardBackground: string;
+    newTaskBackground: string;
+    newTaskColor: string;
   }
 }

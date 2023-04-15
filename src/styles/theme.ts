@@ -31,6 +31,9 @@ export const lightTheme: DefaultTheme = {
   navLinkBackground: '#4F5060',
   topNavBackground: '#181821',
   borderColor: '#2C2D3C',
+  taskCardBackground: '#2C2D3C',
+  newTaskBackground: '#14141C',
+  newTaskColor: '#757686',
 };
 
 export const darkTheme: DefaultTheme = {
@@ -64,4 +67,7 @@ export const darkTheme: DefaultTheme = {
   navLinkBackground: '#4F5060',
   topNavBackground: '#181821',
   borderColor: '#2C2D3C',
+  taskCardBackground: '#2C2D3C',
+  newTaskBackground: '#14141C',
+  newTaskColor: '#757686',
 };
