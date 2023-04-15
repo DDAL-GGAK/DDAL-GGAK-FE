@@ -57,7 +57,6 @@ export function UpdateProfile({ userData }: UserProfileProps) {
 
   return (
     <ProfileWrapper>
-      <TextM>Profile</TextM>
       <FileInput
         hidden
         id="profileInput"
@@ -71,11 +70,6 @@ export function UpdateProfile({ userData }: UserProfileProps) {
     </ProfileWrapper>
   );
 }
-
-const TextM = styled.div`
-  font-size: 17.5px;
-  font-weight: 600;
-`;
 
 /* File Input */
 const FileInput = styled.input`
