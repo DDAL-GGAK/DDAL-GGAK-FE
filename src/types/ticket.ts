@@ -1,5 +1,5 @@
 import { TICKET } from 'constants/';
-import { UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
 type TicketStatus = keyof typeof TICKET.STATUS;
 
@@ -39,4 +39,5 @@ export interface TicketCreateForm {
 
 export interface TicketCreateRegister {
   register: UseFormRegister<TicketCreateForm>;
+  errors: FieldErrors<TicketCreateForm>;
 }

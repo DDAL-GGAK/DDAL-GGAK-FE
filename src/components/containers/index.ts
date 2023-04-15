@@ -6,3 +6,4 @@ export * from './Submit';
 export * from './Title';
 export * from './ContentText';
 export * from './TextInput';
+export * from './LabelWrapper';

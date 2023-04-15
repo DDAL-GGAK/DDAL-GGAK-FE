@@ -76,14 +76,7 @@ export function CreateTicket({ closeModal }: ModalViewProps) {
           )}
         </LabelWrapper>
 
-        <TicketScoreRadio register={register} />
-
-        <LabelWrapper>
-          <LabelText>Difficulty:</LabelText>
-          {errors.ticketDifficulty && (
-            <ErrorMessage>{errors.ticketDifficulty.message}</ErrorMessage>
-          )}
-        </LabelWrapper>
+        <TicketScoreRadio register={register} errors={errors} />
         <RadioGroup>
           {Array.from({ length: 5 }, (_, i) => (
             <RadioLabel key={`difficulty${i + 1}`}>
