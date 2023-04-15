@@ -14,8 +14,6 @@ export const lightTheme: DefaultTheme = {
 
   /* nav */
   navBackground: '#F2F2F2',
-  navLinkBackground: '#D9D9D9',
-  borderColor: '#000000',
 
   /* login */
   loginDisable: '#C9D5DB',
@@ -25,6 +23,17 @@ export const lightTheme: DefaultTheme = {
 
   /* ticket */
   ticketHover: '#1C1D2A',
+
+  /* Pallete */
+  sideNavBackground: '#393A49',
+  sideNavCurrBorder: '#82838F',
+  sideNavColor: '#A4A5B2',
+  navLinkBackground: '#4F5060',
+  topNavBackground: '#181821',
+  borderColor: '#2C2D3C',
+  taskCardBackground: '#2C2D3C',
+  newTaskBackground: '#14141C',
+  newTaskColor: '#757686',
 };
 
 export const darkTheme: DefaultTheme = {
@@ -41,8 +50,6 @@ export const darkTheme: DefaultTheme = {
 
   /* nav */
   navBackground: '#111',
-  navLinkBackground: '#D9D9D9',
-  borderColor: '#2C2D3C',
 
   /* login */
   loginDisable: '#C9D5DB',
@@ -52,4 +59,15 @@ export const darkTheme: DefaultTheme = {
 
   /* ticket */
   ticketHover: '#1C1D2A',
+
+  /* Pallete */
+  sideNavBackground: '#393A49',
+  sideNavCurrBorder: '#82838F',
+  sideNavColor: '#A4A5B2',
+  navLinkBackground: '#4F5060',
+  topNavBackground: '#181821',
+  borderColor: '#2C2D3C',
+  taskCardBackground: '#2C2D3C',
+  newTaskBackground: '#14141C',
+  newTaskColor: '#757686',
 };

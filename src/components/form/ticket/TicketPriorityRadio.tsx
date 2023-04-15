@@ -11,8 +11,8 @@ export function TicketPriorityRadio({
     <>
       <LabelWrapper>
         <LabelText>Priority:</LabelText>
-        {errors.ticketPriority && (
-          <ErrorMessage>{errors.ticketPriority.message}</ErrorMessage>
+        {errors.priority && (
+          <ErrorMessage>{errors.priority.message}</ErrorMessage>
         )}
       </LabelWrapper>
       <RadioGroup>

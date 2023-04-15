@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { TicketDataForm, UserDataForm, LabelDataForm } from 'types';
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
-import { AssignCheckBox, SetLabel } from 'components';
+import { AssignCheckBox, SetLabel, Difficulty } from 'components';
 import { RootState } from 'redux/store';
 import { useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
@@ -65,9 +65,6 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
         <Title>{title}</Title>
       </LeftBox>
       <Details>
-        <DetailItem>status: {status}</DetailItem>
-        <DetailItem>priority : {priority}</DetailItem>
-        <DetailItem>difficulty : {difficulty}</DetailItem>
         <SetLabel
           wrapperRef={labelRef}
           label={label}
@@ -76,6 +73,9 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
           {...getDropdownPosition()}
         />
         <DetailItem>owner : {assigned || 'unAssigned'}</DetailItem>
+        <DetailItem>status: {status}</DetailItem>
+        <DetailItem>priority : {priority}</DetailItem>
+        <Difficulty difficulty={difficulty} />
       </Details>
     </Wrapper>
   );
@@ -130,4 +130,7 @@ const DetailItem = styled.li`
   background: ${({ theme }) => theme.borderColor};
   color: white;
   border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 `;

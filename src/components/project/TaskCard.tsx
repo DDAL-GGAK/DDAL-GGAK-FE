@@ -54,20 +54,20 @@ const Wrapper = styled(motion.div)<{ 'data-expired': boolean }>`
   display: flex;
   flex-direction: column;
   gap: 15px;
-  border: 1px solid
-    ${({ 'data-expired': expired, theme }) =>
-      expired ? theme.accentColor : theme.borderColor};
-  box-sizing: border-box;
   border-radius: 8px;
-  min-width: 200px;
+  min-width: 300px;
   color: ${({ theme }) => theme.color};
   background: ${({ 'data-expired': expired, theme }) =>
-    expired ? theme.transparentColor : theme.background};
-  transition: ${({ theme }) => theme.transitionOption};
+    expired ? theme.transparentColor : theme.taskCardBackground};
   box-shadow: ${({ theme }) => theme.boxShadow};
+  height: 240px;
   padding: 20px;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+  transition: ${({ theme }) => theme.transitionOption};
   :hover {
-    border-color: ${({ theme }) => theme.pointColor};
+    border: 2px solid ${({ theme }) => theme.pointColor};
+    cursor: pointer;
   }
 `;
 
@@ -101,7 +101,7 @@ const Hr = styled.div`
 const ProgressBar = styled.div`
   width: 100%;
   height: 10px;
-  background-color: ${({ theme }) => theme.borderColor};
+  background-color: ${({ theme }) => theme.background};
   border-radius: 5px;
   margin: 0.5rem 0;
 `;
@@ -127,7 +127,7 @@ const BottomWrapper = styled.div`
 const DeadlineBar = styled.div`
   width: 100%;
   height: 5px;
-  background-color: ${({ theme }) => theme.borderColor};
+  background-color: ${({ theme }) => theme.background};
   border-radius: 5px;
   margin: 0.5rem 0;
 `;

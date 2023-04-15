@@ -39,8 +39,10 @@ export function CreateTicket({ closeModal }: ModalViewProps) {
 
   const onValid = async (data: TicketCreateForm) => {
     const payload = { ...data, taskId };
+
     return mutate(payload);
   };
+
   return (
     <ModalContainer
       variants={DEFAULT_VARIANTS}

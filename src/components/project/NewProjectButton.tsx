@@ -47,12 +47,11 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   transition: ${({ theme }) => theme.transitionOption};
-  background: ${({ theme }) => theme.transparentColor};
-  color: ${({ theme }) => theme.background};
+  background: ${({ theme }) => theme.navLinkBackground};
+  color: ${({ theme }) => theme.sideNavColor};
 
   :hover {
     cursor: pointer;
     background: ${({ theme }) => theme.color};
-    border-radius: ${NAVLINK.HOVER_BORDER_RADIUS}px;
   }
 `;

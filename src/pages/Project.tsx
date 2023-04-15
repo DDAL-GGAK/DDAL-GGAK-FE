@@ -73,8 +73,12 @@ const ProjectBoard = styled.div<{ gridColumnCount: number }>`
   display: grid;
   grid-template-columns: ${({ gridColumnCount }) =>
     `repeat(${gridColumnCount}, minmax(0, 1fr))`};
+  grid-auto-rows: 240px;
   gap: 20px;
   padding: 16px;
   width: calc(100% - 32px);
   margin: 0px auto;
+  & > * {
+    height: 240px;
+  }
 `;

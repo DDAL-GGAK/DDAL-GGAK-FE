@@ -20,14 +20,10 @@ export function User() {
     mode: 'onChange',
   });
 
-  const { data: userData } = useQuery(
-    QUERY.KEY.USER_INFORMATION,
-    getUserData,
-    {
-      ...QUERY.DEFAULT_CONFIG,
-      onError: (error: unknown) => errorHandler(error),
-    }
-  );
+  const { data: userData } = useQuery(QUERY.KEY.USER_DATA, getUserData, {
+    ...QUERY.DEFAULT_CONFIG,
+    onError: (error: unknown) => errorHandler(error),
+  });
 
   const { mutate } = useMutation(setUserNickname, {
     ...QUERY.DEFAULT_CONFIG,
