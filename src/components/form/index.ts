@@ -8,6 +8,7 @@ export * from './inputText/JoinProjectInput';
 export * from './inputText/UserNicknameInput';
 export * from './inputText/LabelTitleInput';
 export * from './inputText/TaskTitleInput';
+export * from './RadioComponent';
 
 /* Ticket */
 export * from './ticket/TicketScoreInput';
