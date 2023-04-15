@@ -4,7 +4,7 @@ import LoadingGif from 'assets/img/loading.gif';
 export function Loading() {
   return (
     <Wrapper>
-      <LoadingGif />
+      <Image src={LoadingGif} />
     </Wrapper>
   );
 }
@@ -16,4 +16,8 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const Image = styled.img`
+  width: 100px;
 `;

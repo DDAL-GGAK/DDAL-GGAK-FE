@@ -5,6 +5,7 @@ import { AuthRouteProps } from 'types';
 import { ROUTE } from 'constants/';
 import { useDispatch } from 'react-redux';
 import { setAuthLoading } from 'redux/modules/authLoading';
+import { Loading } from './Loading';
 
 export function AuthRoute({ element, ...rest }: AuthRouteProps) {
   const [loading, setLoading] = useState(true);
@@ -23,7 +24,7 @@ export function AuthRoute({ element, ...rest }: AuthRouteProps) {
     checkValidation();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
 
   return isAuth ? (
     element
