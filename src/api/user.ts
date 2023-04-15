@@ -17,7 +17,6 @@ export const setUserProfile = async (data: FormData) => {
 };
 
 export const setUserNickname = async (data: NicknameForm) => {
-  if (!data) return;
   const res = await api.put(API_ROUTE.USER.SET_NICKNAME, data);
 
   return res;

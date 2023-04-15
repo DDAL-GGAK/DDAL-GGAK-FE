@@ -8,8 +8,11 @@ import { QUERY, TOASTIFY } from 'constants/';
 import { NicknameForm } from 'types';
 import { useErrorHandler } from 'hooks';
 import { UpdateProfile } from 'components/user';
+import { useDispatch } from 'react-redux';
+import { setUserData } from 'redux/modules/userData';
 
 export function User() {
+  const dispatch = useDispatch();
   const { errorHandler } = useErrorHandler();
   const queryClient = useQueryClient();
   const {
@@ -27,8 +30,11 @@ export function User() {
 
   const { mutate } = useMutation(setUserNickname, {
     ...QUERY.DEFAULT_CONFIG,
-    onSuccess: () => {
-      queryClient.invalidateQueries(QUERY.KEY.USER_NICKNAME);
+    onSuccess: (res) => {
+      const { data } = res;
+      localStorage.setItem(QUERY.KEY.USER_DATA, JSON.stringify({ data }));
+      dispatch(setUserData(data));
+      queryClient.invalidateQueries(QUERY.KEY.USER_DATA);
       sendToast.success(TOASTIFY.SUCCESS.USER_SETTING);
     },
     onError: (error: unknown) => errorHandler(error),
