@@ -6,12 +6,12 @@ import { ThemeToggle } from 'components';
 import { useMediaQuery } from 'hooks';
 import { useLocation, Link } from 'react-router-dom';
 import { MainLogo } from 'shared/MainLogo';
+import { Profile } from 'shared';
 
 export function TopNav() {
   const { pathname } = useLocation();
   const projectId = Number(pathname.match(REGEX.PROJECT_ID)?.[1]) || null;
   const isNotSmallDevice = useMediaQuery(DEVICES.MOBILES);
-
   return (
     <Wrapper>
       <NavToggle>
@@ -25,7 +25,7 @@ export function TopNav() {
           <RightWrapper>
             <ThemeToggle />
             <Link to={`/project/${projectId}/settings/user`}>
-              <ProfileImage />
+              <Profile />
             </Link>
           </RightWrapper>
         ) : (
@@ -85,15 +85,4 @@ const RightWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 15px;
-`;
-
-const ProfileImage = styled.div`
-  box-sizing: border-box;
-  width: 40px;
-  height: 40px;
-  background: url(.jpg);
-  border-bottom: 1px solid #000000;
-  border-radius: 10px;
-  background: ${({ theme }) => theme.navLinkBackground};
-  transition: ${({ theme }) => theme.transitionOption};
 `;
