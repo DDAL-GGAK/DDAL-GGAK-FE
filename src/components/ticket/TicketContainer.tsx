@@ -17,7 +17,6 @@ export function TicketContainer() {
     <>
       <Wrapper>
         {Object.entries(ticketData.ticket || {}).map(([key, data]) => {
-          console.log(`key : ${key}, data: ${data}`);
           return (
             <StatusWrapper key={key}>
               <BoardTitle>
