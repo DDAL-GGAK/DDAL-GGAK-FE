@@ -7,8 +7,6 @@ import { TicketDetail } from 'components/modal';
 import { MODAL_CARD_VARIANTS } from 'constants/';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
-import { NewTicketButton } from 'components/project/NewTicketButton';
-import { ChartBarIcon } from '@heroicons/react/24/outline';
 
 export function TicketContainer() {
   const { isOpen, openModal, closeModal, Modal } = useModal();
@@ -22,16 +20,8 @@ export function TicketContainer() {
           return (
             <StatusWrapper key={key}>
               <BoardTitle>
-                <ChartBarIcon
-                  style={{ width: 20, color: 'rgba(255, 255, 255, 0.3)' }}
-                  fill="white"
-                />
-                <span>{key}</span>
-                {key === 'TODO' ? (
-                  <AddTicketWrapper>
-                    <NewTicketButton />
-                  </AddTicketWrapper>
-                ) : null}
+                <div>{key}</div>
+                <BoardCount>1</BoardCount>
               </BoardTitle>
               <TicketWrapper>
                 {data.map((ticket: TicketDataForm) => (
@@ -67,28 +57,27 @@ const StatusWrapper = styled.div`
 `;
 
 const BoardTitle = styled.div`
-  padding: 8px;
+  padding: 12px 20px;
   font-weight: 600;
   background: ${({ theme }) => theme.transparentBackground};
   color: ${({ theme }) => theme.color};
   border-bottom: solid 1px ${({ theme }) => theme.borderColor};
+  font-size: 20px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 20px;
+`;
+
+const BoardCount = styled.div`
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
 `;
 
 const TicketWrapper = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-`;
-
-const AddTicketWrapper = styled.div`
-  width: 30px;
-  height: 30px;
-  :hover {
-    background: ${({ theme }) => theme.borderColor};
-  }
 `;
 
 const Wrapper = styled.div`
