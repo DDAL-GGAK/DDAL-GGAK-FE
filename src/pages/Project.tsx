@@ -64,7 +64,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
-  gap: 1rem;
 `;
 
 const ProjectBoard = styled.div<{ gridColumnCount: number }>`

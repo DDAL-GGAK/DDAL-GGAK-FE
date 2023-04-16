@@ -1,11 +1,10 @@
 import { ContentWrapper, Nav, Router, Portal } from 'shared';
 import { useLocation } from 'react-router-dom';
-import { navChecker } from 'libs/';
+import { navChecker, syncLogin } from 'libs/';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import { preload } from 'utils';
 import { useEffect } from 'react';
-import { syncLogin } from 'libs/syncLogin';
 
 function App() {
   const { pathname } = useLocation();
