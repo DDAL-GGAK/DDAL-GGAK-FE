@@ -9,7 +9,7 @@ interface SetLabelAction {
   payload: string;
 }
 
-interface TicketState {
+export interface TicketState {
   ticket: Tickets;
   label: string;
 }
