@@ -59,3 +59,21 @@ export const MOUNT_VARIANTS = {
   to: { opacity: 1, transition: { duration: 0.5 } },
   exit: { opacity: 0 },
 };
+
+/* TaskCard */
+export const PROJECTBOARD_VARIANTS = {
+  from: {},
+  to: {
+    transition: {
+      staggerChildren: 0.6,
+      delayChildren: 1,
+    },
+  },
+  exit: {},
+};
+
+export const TASKCARD_MOUNT_VARIANTS = {
+  from: { opacity: 0, scale: 1, y: 20 },
+  to: { opacity: 1, scale: 1, y: 0 },
+  exit: { opacity: 0 },
+};
