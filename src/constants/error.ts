@@ -54,3 +54,7 @@ export const ERROR = Object.freeze({
   UNSUPPORTED_MEDIA_TYPE,
   INTERNAL_SERVER_ERROR,
 });
+
+export const STATUS_CODES = Object.freeze({
+  ERROR: Object.freeze({ EXPIRED_TOKEN: 1002 }),
+});
