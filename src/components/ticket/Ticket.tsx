@@ -63,7 +63,7 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
           ticketData={{
             assigned,
             ticketId,
-            isMyTicket: assigned === userData?.nickname,
+            isMyTicket: assigned === userData?.email,
           }}
         />
         <Id>Ticket {ticketId}</Id>

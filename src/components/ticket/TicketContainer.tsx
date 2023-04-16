@@ -23,7 +23,7 @@ export function TicketContainer() {
             <StatusWrapper key={key}>
               <BoardTitle>
                 <div>{key}</div>
-                <BoardCount>{ticketData?.ticket[`${key}`]?.length}</BoardCount>
+                <BoardCount>{ticketData?.ticket[key]?.length}</BoardCount>
               </BoardTitle>
               <TicketWrapper>
                 {data.map((ticket: TicketDataForm) => {
