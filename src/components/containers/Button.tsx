@@ -94,8 +94,8 @@ const Dark = styled.button`
 `;
 
 const Dangerous = styled.button`
-  background: ${({ theme }) => theme.loginDisable};
-  color: #ffffff;
+  background: ${({ theme }) => theme.newTaskBackground};
+  color: ${({ theme }) => theme.color};
   transition: ${({ theme }) => theme.transitionOption};
   padding: 12px 24px;
   font-size: 1rem;

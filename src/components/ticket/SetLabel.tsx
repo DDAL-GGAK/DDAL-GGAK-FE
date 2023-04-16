@@ -124,6 +124,7 @@ const DropdownOption = styled.div`
   font-weight: 600;
   text-align: center;
   width: 100px;
+  transition: ${({ theme }) => theme.transitionOption};
   :hover {
     cursor: pointer;
     background: ${({ theme }) => theme.ticketHover};

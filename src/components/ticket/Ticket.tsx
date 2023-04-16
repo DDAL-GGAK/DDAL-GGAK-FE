@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 import { TicketDataForm, UserDataForm, LabelDataForm } from 'types';
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
-import { AssignCheckBox, SetLabel, Difficulty, Priority } from 'components';
+import {
+  AssignCheckBox,
+  SetLabel,
+  Difficulty,
+  Priority,
+  Image,
+} from 'components';
 import { RootState } from 'redux/store';
 import { useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
@@ -10,6 +16,7 @@ import { QUERY, REGEX } from 'constants/';
 import { getLabels } from 'api';
 import { useErrorHandler } from 'hooks';
 import { useMemo, useRef } from 'react';
+import participantImgSrc from 'assets/img/participant1.png';
 
 interface TicketProps {
   data: TicketDataForm;
@@ -52,15 +59,15 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
   return (
     <Wrapper onClick={openModalHandler}>
       <LeftBox>
-        <Priority priority={priority} />
-        <Id>Ticket {ticketId}</Id>
         <AssignCheckBox
           ticketData={{
             assigned,
             ticketId,
-            isMyTicket: assigned === userData?.email,
+            isMyTicket: assigned === userData?.nickname,
           }}
         />
+        <Id>Ticket {ticketId}</Id>
+        <Priority priority={priority} />
         <Title>{title}</Title>
       </LeftBox>
       <Details>
@@ -71,7 +78,10 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
           ticketId={ticketId}
           {...getDropdownPosition()}
         />
-        <DetailItem>{assigned || 'unAssigned'}</DetailItem>
+        <DetailItem>
+          <Image src={participantImgSrc} />
+          {assigned || 'unAssigned'}
+        </DetailItem>
         <Difficulty difficulty={Number(difficulty)} />
         <EllipsisHorizontalIcon className="ellips-icon" width={20} />
       </Details>
@@ -109,12 +119,13 @@ const LeftBox = styled.div`
 
 const Id = styled.div`
   width: 80px;
+  opacity: 0.5;
 `;
 
 const Title = styled.p`
   font-size: 1.15rem;
   font-weight: 600;
-  color: ${({ theme }) => theme.pointColor};
+  color: ${({ theme }) => theme.color};
 `;
 
 const Details = styled.ul`

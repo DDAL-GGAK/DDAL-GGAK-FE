@@ -17,11 +17,12 @@ export function TicketContainer() {
     <>
       <Wrapper>
         {Object.entries(ticketData.ticket || {}).map(([key, data]) => {
+          console.log(`key : ${key}, data: ${data}`);
           return (
             <StatusWrapper key={key}>
               <BoardTitle>
                 <div>{key}</div>
-                <BoardCount>1</BoardCount>
+                <BoardCount>{1}</BoardCount>
               </BoardTitle>
               <TicketWrapper>
                 {data.map((ticket: TicketDataForm) => (
@@ -65,13 +66,13 @@ const BoardTitle = styled.div`
   font-size: 20px;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 `;
 
 const BoardCount = styled.div`
   font-size: 16px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.5);
 `;
 
 const TicketWrapper = styled.div`
