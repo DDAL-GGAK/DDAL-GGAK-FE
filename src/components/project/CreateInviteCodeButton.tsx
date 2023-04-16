@@ -1,10 +1,10 @@
-import { Button } from 'components/containers';
 import { createProjectInviteCode } from 'api';
 import { useQuery } from 'react-query';
 import { QUERY, REGEX, TOASTIFY } from 'constants/';
 import { useErrorHandler } from 'hooks';
 import { useLocation } from 'react-router-dom';
 import { sendToast } from 'libs';
+import styled from 'styled-components';
 
 export function CreateInviteCodeButton() {
   const { pathname } = useLocation();
@@ -27,5 +27,10 @@ export function CreateInviteCodeButton() {
       await navigator.clipboard.writeText(newInviteCode);
   };
 
-  return <Button onClick={createInviteCodeHandler}>Copy Invite Code</Button>;
+  return <Wrapper onClick={createInviteCodeHandler}>Copy Invite Code</Wrapper>;
 }
+
+const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
+`;
