@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import { preload } from 'utils';
 import { useEffect } from 'react';
+import { syncLogin } from 'libs/syncLogin';
 
 function App() {
   const { pathname } = useLocation();
@@ -13,6 +14,7 @@ function App() {
 
   useEffect(() => {
     preload();
+    syncLogin();
   }, []);
 
   return (
