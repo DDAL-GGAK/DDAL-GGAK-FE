@@ -1,18 +1,14 @@
 import styled from 'styled-components';
-import { ProjectDataForm, Thumbnail } from 'types';
+import { Thumbnail, ProjectInfoProps } from 'types';
 import { InboxIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { DEFAULT_VARIANTS, SVG_SIZE } from 'constants/';
 import { ParticipantsStatusButton } from './ParticipantsStatusButton';
 
-interface ProjectInfoProps {
-  projectData: ProjectDataForm;
-}
-
 export function ProjectInformation({ projectData }: ProjectInfoProps) {
-  const { projectLeader, projectTitle, thumbnail, participants, tasks } =
-    projectData;
+  const { projectLeader, projectTitle, thumbnail, tasks } = projectData;
+
   return (
     <Wrapper
       variants={DEFAULT_VARIANTS}
@@ -33,7 +29,7 @@ export function ProjectInformation({ projectData }: ProjectInfoProps) {
                 <InboxIcon style={{ width: SVG_SIZE.INFO_SVG }} />
                 {tasks.length}
               </Field>
-              <ParticipantsStatusButton participants={participants.length} />
+              <ParticipantsStatusButton projectData={projectData} />
             </RowIconWrapper>
             <RowIconWrapper>
               <Field>

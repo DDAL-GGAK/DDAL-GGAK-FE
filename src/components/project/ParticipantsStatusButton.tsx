@@ -3,12 +3,9 @@ import { UserGroupIcon } from '@heroicons/react/24/outline';
 import { SVG_SIZE, MODAL_CARD_VARIANTS } from 'constants/';
 import { useModal } from 'hooks';
 import { ManageParticipants } from 'components/modal';
+import { ProjectInfoProps } from 'types';
 
-interface ParticipantsProps {
-  participants: number;
-}
-
-export function ParticipantsStatusButton({ participants }: ParticipantsProps) {
+export function ParticipantsStatusButton({ projectData }: ProjectInfoProps) {
   const { Modal, isOpen, openModal, closeModal } = useModal();
 
   return (
@@ -18,11 +15,11 @@ export function ParticipantsStatusButton({ participants }: ParticipantsProps) {
         closeModal={closeModal}
         variants={MODAL_CARD_VARIANTS}
       >
-        <ManageParticipants />
+        <ManageParticipants closeModal={closeModal} projectData={projectData} />
       </Modal>
       <Field onClick={openModal}>
         <UserGroupIcon style={{ width: SVG_SIZE.INFO_SVG }} />
-        {participants}
+        {projectData.participants.length}
       </Field>
     </>
   );

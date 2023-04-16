@@ -1,7 +1,7 @@
 import { BorderWrapper } from 'components/containers';
 import styled from 'styled-components';
 import { Participant } from 'types';
-import { MemberCard } from './MemberCard';
+import { MemberCard } from 'components/';
 
 interface ParticipantsProps {
   participants: Participant[] | undefined;

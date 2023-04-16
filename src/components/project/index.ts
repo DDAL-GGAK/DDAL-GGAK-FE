@@ -11,3 +11,4 @@ export * from './DeleteProjectButton';
 export * from './MemberCard';
 export * from './Participants';
 export * from './ParticipantsStatusButton';
+export * from './CreateInviteCodeButton';
