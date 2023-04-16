@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { NewLabelButton, LabelConfigButton } from 'components/project';
-import { LabelsProps } from 'types';
+import { LabelsProps, TicketState } from 'types';
 import { useDispatch, useSelector } from 'react-redux';
-import { setLabel, TicketState } from 'redux/modules/ticketData';
+import { setLabel } from 'redux/modules/ticketData';
 import { LabelButton } from 'components/containers';
 import { RootState } from 'redux/store';
 

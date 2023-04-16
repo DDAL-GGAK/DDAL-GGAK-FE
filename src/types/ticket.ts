@@ -27,7 +27,9 @@ export interface TicketDataForm {
 export interface Tickets {
   TODO: TicketDataForm[];
   IN_PROGRESS: TicketDataForm[];
+  REVIEW: TicketDataForm[];
   DONE: TicketDataForm[];
+  [key: string]: TicketDataForm[];
 }
 
 export interface TicketCreateForm {
@@ -40,4 +42,9 @@ export interface TicketCreateForm {
 export interface TicketCreateRegister {
   register: UseFormRegister<TicketCreateForm>;
   errors: FieldErrors<TicketCreateForm>;
+}
+
+export interface TicketState {
+  ticket: Tickets;
+  label: string;
 }
