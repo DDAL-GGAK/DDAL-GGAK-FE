@@ -25,7 +25,9 @@ export function Difficulty({
 
 const Wrapper = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
+  width: 2rem;
   font-size: 14px;
   padding: 4px 8px;
   background: ${({ theme }) => theme.borderColor};
