@@ -66,7 +66,10 @@ export const deleteProject = async (projectId: string) => {
 };
 
 export const createProjectInviteCode = async (projectId: string) => {
-  const res = await api.get(API_ROUTE.PROJECT.CREATE_INVITE_CODE(projectId));
+  const { data: res } = await api.post(
+    API_ROUTE.PROJECT.CREATE_INVITE_CODE(projectId),
+    {}
+  );
 
   return res;
 };
