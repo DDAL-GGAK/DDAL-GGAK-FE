@@ -3,4 +3,5 @@ export const SVG_SIZE = Object.freeze({
   TICKET_M: 15,
   TICKET_L: 18,
   LOGO_SIZE: 30,
+  INFO_SVG: 25,
 });
