@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 import { ProjectDataForm, Thumbnail } from 'types';
-import {
-  InboxIcon,
-  UserGroupIcon,
-  Cog6ToothIcon,
-} from '@heroicons/react/24/outline';
+import { InboxIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { DEFAULT_VARIANTS, SVG_SIZE } from 'constants/';
+import { ParticipantsStatusButton } from './ParticipantsStatusButton';
 
 interface ProjectInfoProps {
   projectData: ProjectDataForm;
@@ -15,7 +14,12 @@ export function ProjectInformation({ projectData }: ProjectInfoProps) {
   const { projectLeader, projectTitle, thumbnail, participants, tasks } =
     projectData;
   return (
-    <Wrapper>
+    <Wrapper
+      variants={DEFAULT_VARIANTS}
+      initial="from"
+      animate="to"
+      exit="exit"
+    >
       <Image thumbnail={thumbnail} />
       <ImageContainer>
         <Inner>
@@ -24,19 +28,20 @@ export function ProjectInformation({ projectData }: ProjectInfoProps) {
           </TitleWrapper>
           <Field>{`Leaded by ${projectLeader}`}</Field>
           <Row>
-            <Field>
-              <InboxIcon style={{ width: 20 }} />
-              {tasks.length}
-            </Field>
-            <Field>
-              <UserGroupIcon style={{ width: 20 }} />
-              {participants.length}
-            </Field>
-            <Field>
-              <Link to="./settings/projectSetting">
-                <Cog6ToothIcon className="config" />
-              </Link>
-            </Field>
+            <RowIconWrapper>
+              <Field>
+                <InboxIcon style={{ width: SVG_SIZE.INFO_SVG }} />
+                {tasks.length}
+              </Field>
+              <ParticipantsStatusButton participants={participants.length} />
+            </RowIconWrapper>
+            <RowIconWrapper>
+              <Field>
+                <Link to="./settings/projectSetting">
+                  <Cog6ToothIcon className="config" />
+                </Link>
+              </Field>
+            </RowIconWrapper>
           </Row>
         </Inner>
       </ImageContainer>
@@ -44,23 +49,7 @@ export function ProjectInformation({ projectData }: ProjectInfoProps) {
   );
 }
 
-const Field = styled.div`
-  display: flex;
-  gap: 10px;
-  color: #ebebeb;
-  align-items: center;
-
-  .config {
-    width: 25px;
-    color: rgba(255, 255, 255, 0.7);
-    margin-top: 5px;
-    :hover {
-      cursor: pointer;
-    }
-  }
-`;
-
-const Wrapper = styled.div`
+const Wrapper = styled(motion.div)`
   position: relative;
   color: white;
   backdrop-filter: blur(5px);
@@ -93,8 +82,29 @@ const Inner = styled.div`
 
 const Row = styled.div`
   display: flex;
-  margin-top: 20px;
-  gap: 15px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 3rem;
+`;
+
+const RowIconWrapper = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
+const Field = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  .config {
+    width: 25px;
+    color: white;
+    margin-top: 5px;
+    :hover {
+      cursor: pointer;
+    }
+  }
 `;
 
 const Image = styled.div<{ thumbnail: Thumbnail }>`
