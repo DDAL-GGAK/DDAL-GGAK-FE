@@ -35,9 +35,10 @@ const Wrapper = styled.div`
   justify-content: center;
   border-bottom: solid 1px ${({ theme }) => theme.borderColor};
   background: #4f5060;
-  margin: 14px 20px 20px 20px;
+  margin: 20px 20px 20px 20px;
   border-radius: 5px;
   :hover {
+    background: #5e5f72;
     cursor: pointer;
   }
 `;
