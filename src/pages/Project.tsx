@@ -36,7 +36,7 @@ export function Project() {
     () => getProjectData(param as string),
     {
       ...QUERY.DEFAULT_CONFIG,
-      onError: (error: unknown) => errorHandler(error),
+      onError: errorHandler,
     }
   );
 
@@ -55,7 +55,7 @@ export function Project() {
         {projectData?.tasks.map((taskData: TaskDataForm, index: number) => (
           <TaskCard taskData={taskData} index={index} key={taskData.id} />
         ))}
-        <NewTaskButton />
+        <NewTaskButton index={Number(projectData?.tasks?.length)} />
       </ProjectBoard>
     </Wrapper>
   );

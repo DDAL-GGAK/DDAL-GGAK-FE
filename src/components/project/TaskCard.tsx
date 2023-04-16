@@ -144,11 +144,9 @@ const Wrapper = styled(motion.div)`
   background: ${({ theme }) => theme.taskCardBackground};
   box-shadow: ${({ theme }) => theme.boxShadow};
   height: 240px;
-  padding: 20px;
   box-sizing: border-box;
-  border: 2px solid transparent;
+  padding: 20px;
   :hover {
-    border: 2px solid ${({ theme }) => theme.pointColor};
     cursor: pointer;
   }
 `;
@@ -160,8 +158,12 @@ const TitleWrapper = styled.div`
 
 const MyLink = styled(Link)`
   border-radius: 8px;
-  transition: ${({ theme }) => theme.transitionOption};
   min-width: 300px;
+  border: 2px solid transparent;
+  transition: ${({ theme }) => theme.transitionOption};
+  :hover {
+    border: 2px solid ${({ theme }) => theme.pointColor};
+  }
 `;
 
 const TopWrapper = styled.div`
