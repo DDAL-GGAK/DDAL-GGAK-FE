@@ -13,14 +13,7 @@ export function Participants({ participants }: ParticipantsProps) {
       <TextM>Participants</TextM>
       <MemberBoard>
         {participants?.map((memberData: Participant) => (
-          <>
-            {/* dummyData */}
-            <MemberCard key={memberData.id} memberData={memberData} />
-            <MemberCard key={memberData.id} memberData={memberData} />
-            <MemberCard key={memberData.id} memberData={memberData} />
-            <MemberCard key={memberData.id} memberData={memberData} />
-            <MemberCard key={memberData.id} memberData={memberData} />
-          </>
+          <MemberCard key={memberData.id} memberData={memberData} />
         ))}
       </MemberBoard>
     </BorderWrapper>

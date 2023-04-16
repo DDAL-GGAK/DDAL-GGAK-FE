@@ -7,6 +7,7 @@ import { getProjectData } from 'api';
 import { ProjectDataForm } from 'types';
 import { Participants } from 'components/project';
 import { BorderWrapper } from 'components';
+import { CreateInviteCodeButton } from 'components/project/CreateInviteCodeButton';
 
 export function ProjectMember() {
   const { id: param } = useParams();
@@ -37,7 +38,7 @@ export function ProjectMember() {
             members. Resetting the link will allow you to generate a new invite
             link.
           </TextS>
-          <Button>copy link</Button>
+          <CreateInviteCodeButton />
         </Container>
       </BorderWrapper>
       <Hr />
