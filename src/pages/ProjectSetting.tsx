@@ -9,6 +9,7 @@ import { useErrorHandler } from 'hooks';
 import { REGEX, QUERY, TOASTIFY } from 'constants/';
 import { sendToast } from 'libs';
 import { useForm } from 'react-hook-form';
+import { BorderWrapper } from 'components';
 
 export function ProjectSetting() {
   const { id: param } = useParams();
@@ -83,7 +84,7 @@ export function ProjectSetting() {
       <Container>
         <TextL>Project Setting</TextL>
       </Container>
-      <ProjectWrapper>
+      <BorderWrapper>
         <TextL>Change Icon</TextL>
         <UpdateThumbnail projectData={projectData} />
         <Hr />
@@ -97,23 +98,23 @@ export function ProjectSetting() {
             <Button>Save</Button>
           </ButtonWrapper>
         </Form>
-      </ProjectWrapper>
+      </BorderWrapper>
 
       <Hr />
-      <Container>
-        <TextL>Delete project</TextL>
-        <TextM>
-          if you want to permanently <TextDelete> delete</TextDelete> this
-          project and all of its data, including but not limited to users,
-          issues, and comments, you can do so below.
-        </TextM>
+      <TextL>Delete project</TextL>
+      <BorderWrapper>
         <ButtonWrapper>
           <DeleteProjectButton
             projectData={projectData}
             projectId={projectId}
           />
         </ButtonWrapper>
-      </Container>
+        <TextM>
+          if you want to permanently <TextDelete> delete</TextDelete> this
+          project and all of its data, including but not limited to users,
+          issues, and comments, you can do so below.
+        </TextM>
+      </BorderWrapper>
     </Wrapper>
   );
 }
@@ -123,14 +124,6 @@ const Wrapper = styled.div``;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const ProjectWrapper = styled.div`
-  background-color: ${({ theme }) => theme.background};
-  border: 1px solid ${({ theme }) => theme.borderColor};
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 `;
 
 const Form = styled.form`
@@ -149,7 +142,7 @@ const TextM = styled.div`
   font-size: 17.5px;
   font-weight: 600;
   color: ${({ theme }) => theme.color};
-  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
 `;
 
 const Hr = styled.div`
@@ -186,6 +179,5 @@ const ButtonWrapper = styled.div`
   display: flex;
   height: 3rem;
   gap: 1rem;
-  margin-top: 1rem;
   max-width: 270px;
 `;
