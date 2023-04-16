@@ -46,7 +46,7 @@ export function Project() {
     <Wrapper>
       {projectData && <ProjectInformation projectData={projectData} />}
       <ProjectBoard
-        gridColumnCount={gridColumnCount}
+        data-grid-column-count={gridColumnCount}
         variants={PROJECTBOARD_VARIANTS}
         initial="from"
         animate="to"
@@ -69,9 +69,9 @@ const Wrapper = styled.div`
   overflow-x: hidden;
 `;
 
-const ProjectBoard = styled(motion.div)<{ gridColumnCount: number }>`
+const ProjectBoard = styled(motion.div)<{ 'data-grid-column-count': number }>`
   display: grid;
-  grid-template-columns: ${({ gridColumnCount }) =>
+  grid-template-columns: ${({ 'data-grid-column-count': gridColumnCount }) =>
     `repeat(${gridColumnCount}, minmax(0, 1fr))`};
   grid-auto-rows: 240px;
   gap: 20px;
