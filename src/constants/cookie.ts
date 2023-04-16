@@ -8,7 +8,12 @@ export const EXPIRE = Object.freeze({
   REFRESH_TOKEN: 14 * 24 * 60 * 60 * 1000,
 });
 
+export const PATH = Object.freeze({
+  HOME: '/',
+});
+
 export const COOKIE = Object.freeze({
   KEY,
   EXPIRE,
+  PATH,
 });
