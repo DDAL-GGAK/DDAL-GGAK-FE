@@ -4,10 +4,10 @@ import { useMutation, useQueryClient } from 'react-query';
 import { sendToast } from 'libs';
 import { createTicket } from 'api';
 import { motion } from 'framer-motion';
-import { DEFAULT_VARIANTS, REGEX, QUERY, TOASTIFY, SVG_SIZE } from 'constants/';
+import { DEFAULT_VARIANTS, REGEX, QUERY, TOASTIFY } from 'constants/';
 import { ModalViewProps, TicketCreateForm } from 'types';
 import { useLocation } from 'react-router-dom';
-import { Task } from 'assets/svg';
+import { report } from 'assets/svg';
 import { useErrorHandler } from 'hooks';
 import { Button, Title } from 'components/containers';
 import { TicketDifficultyRadio } from 'components/form/ticket/TicketDifficultyRadio';
@@ -51,7 +51,9 @@ export function CreateTicket({ closeModal }: ModalViewProps) {
       exit="exit"
     >
       <Title>Create Ticket</Title>
-      <Task size={SVG_SIZE.MODAL} />
+      <ImageWrapper>
+        <Image src={report} />
+      </ImageWrapper>
       <Form onSubmit={handleSubmit(onValid)}>
         <TicketTitleInput register={register} errors={errors} />
         <TicketDescriptionInput register={register} errors={errors} />
@@ -84,5 +86,15 @@ const ModalContainer = styled(motion.div)`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
+`;
+
+const ImageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Image = styled.img`
+  width: 400px;
 `;
