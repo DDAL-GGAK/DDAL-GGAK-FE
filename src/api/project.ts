@@ -73,3 +73,17 @@ export const createProjectInviteCode = async (projectId: string) => {
 
   return res;
 };
+
+interface KickUserProps {
+  projectId: string;
+  userId: number;
+}
+
+export const kickUser = async ({ projectId, userId }: KickUserProps) => {
+  const { data: res } = await api.delete(
+    API_ROUTE.PROJECT.KICK_USER(projectId),
+    userId
+  );
+
+  return res;
+};

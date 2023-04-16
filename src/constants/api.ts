@@ -17,6 +17,7 @@ const PROJECT = Object.freeze({
   SET_TITLE: (projectId: string) => `/api/project/${projectId}/settings`,
   JOIN_PROJECT: (projectId: string) => `/api/project/${projectId}/join`,
   DELETE: '/api/project',
+  KICK_USER: (projectId: string) => `/api/project/${projectId}/user`,
 });
 
 const TASK = Object.freeze({
