@@ -36,7 +36,7 @@ export function ProjectSetting() {
   const { mutate } = useMutation(updateProjectTitle, {
     ...QUERY.DEFAULT_CONFIG,
     onSuccess: () => {
-      queryClient.invalidateQueries(QUERY.KEY.PROJECT_TITLE);
+      queryClient.invalidateQueries(QUERY.KEY.USER_PROJECTS);
       sendToast.success(TOASTIFY.SUCCESS.USER_SETTING);
     },
     onError: (error: unknown) => errorHandler(error),
