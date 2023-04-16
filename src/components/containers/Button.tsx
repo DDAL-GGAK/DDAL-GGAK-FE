@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 
 interface ButtonProps {
-  buttonType?: 'point' | 'dark' | 'default' | 'dangerous_big' | 'point_big';
+  buttonType?:
+    | 'point'
+    | 'dark'
+    | 'default'
+    | 'dangerous_big'
+    | 'point_big'
+    | 'small';
   children?: React.ReactNode;
   onClick?: () => void;
 }
@@ -23,6 +29,8 @@ export function Button({
         return <Dangerous {...props}>{children}</Dangerous>;
       case 'point_big':
         return <PointBig {...props}>{children}</PointBig>;
+      case 'small':
+        return <Small {...props}>{children}</Small>;
       default:
         return <Default {...props}>{children}</Default>;
     }
@@ -111,6 +119,24 @@ const PointBig = styled.button`
   width: 100%;
   transition: ${({ theme }) => theme.transitionOption};
   background: ${({ theme }) => theme.pointColor};
+
+  :hover {
+    cursor: pointer;
+    background: ${({ theme }) => theme.pointColorLight};
+  }
+`;
+
+const Small = styled.button`
+  display: block;
+  background: ${({ theme }) => theme.color};
+  color: ${({ theme }) => theme.background};
+  border: none;
+  border-radius: 5px;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: ${({ theme }) => theme.transitionOption};
+  width: 150px;
 
   :hover {
     cursor: pointer;
