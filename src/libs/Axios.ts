@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Cookies } from 'react-cookie';
-import { KEY, METHOD } from 'constants/';
+import { COOKIE, KEY, METHOD, QUERY } from 'constants/';
 import {
   AxiosInterceptorReqConfig,
   AuthReqConfig,
@@ -90,12 +90,16 @@ export class Axios {
   }
 
   #resOnError(error: AxiosRes) {
-    if (error.response && error?.response.status === 1002) this.#getNewToken();
+    if (error.response && error?.response.status === 1002)
+      this.#onTokenExpired();
 
     return Promise.reject(error);
   }
 
-  #getNewToken() {}
+  #onTokenExpired() {
+    this.#cookie.remove(COOKIE.KEY.ACCESS_TOKEN);
+    localStorage.removeItem(QUERY.KEY.USER_DATA);
+  }
 
   /**
    * @param {string} endPoint
