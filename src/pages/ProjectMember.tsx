@@ -4,8 +4,8 @@ import { useErrorHandler } from 'hooks';
 import { QUERY } from 'constants/';
 import { useQuery } from 'react-query';
 import { getProjectData } from 'api';
-import { ProjectDataForm, Participant } from 'types';
-import { MemberCard } from 'components/project';
+import { ProjectDataForm } from 'types';
+import { Participants } from 'components/project';
 import { BorderWrapper } from 'components';
 
 export function ProjectMember() {
@@ -17,7 +17,7 @@ export function ProjectMember() {
     () => getProjectData(param as string),
     {
       ...QUERY.DEFAULT_CONFIG,
-      onError: (error: unknown) => errorHandler(error),
+      onError: errorHandler,
     }
   );
 
@@ -53,11 +53,8 @@ export function ProjectMember() {
           </ContentTop>
         </Container>
       </BorderWrapper>
-      <MemberBoard>
-        {projectData?.participants.map((memberData: Participant) => (
-          <MemberCard key={memberData.id} memberData={memberData} />
-        ))}
-      </MemberBoard>
+      <Hr />
+      <Participants participants={projectData?.participants} />
     </Wrapper>
   );
 }
@@ -69,6 +66,7 @@ const TextL = styled.div`
   font-size: 25px;
   font-weight: 600;
   color: ${({ theme }) => theme.color};
+  margin-bottom: 1rem;
 `;
 
 const TextM = styled.div`
@@ -117,11 +115,4 @@ const ContentTop = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
-
-const MemberBoard = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
 `;

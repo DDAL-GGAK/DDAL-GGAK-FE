@@ -3,13 +3,18 @@ import styled from 'styled-components';
 import { Participant } from 'types';
 import { MemberCard } from './MemberCard';
 
-export function Participants(participants: Participant[]) {
+interface ParticipantsProps {
+  participants: Participant[] | undefined;
+}
+
+export function Participants({ participants }: ParticipantsProps) {
   return (
     <BorderWrapper>
       <TextM>Participants</TextM>
       <MemberBoard>
         {participants?.map((memberData: Participant) => (
           <>
+            {/* dummyData */}
             <MemberCard key={memberData.id} memberData={memberData} />
             <MemberCard key={memberData.id} memberData={memberData} />
             <MemberCard key={memberData.id} memberData={memberData} />

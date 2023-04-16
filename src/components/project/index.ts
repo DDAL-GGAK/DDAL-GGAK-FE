@@ -9,3 +9,4 @@ export * from './NewTaskButton';
 export * from './DeleteTaskButton';
 export * from './DeleteProjectButton';
 export * from './MemberCard';
+export * from './Participants';

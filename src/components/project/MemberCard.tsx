@@ -39,6 +39,11 @@ const Wrapper = styled.div`
   background: ${({ theme }) => theme.borderColor};
   padding: 0.5rem 1rem;
   border-radius: 5px;
+  transition: ${({ theme }) => theme.transitionOption};
+
+  :hover {
+    background: ${({ theme }) => theme.transparentBackground};
+  }
 `;
 
 const LeftWrapper = styled.div`
