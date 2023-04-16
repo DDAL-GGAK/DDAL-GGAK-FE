@@ -21,8 +21,7 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
   const { pathname } = useLocation();
   const taskId = pathname.match(REGEX.TASK_ID)?.[1];
   const { errorHandler } = useErrorHandler({ route: pathname });
-  const { ticketId, title, priority, difficulty, label, status, assigned } =
-    data;
+  const { ticketId, title, priority, difficulty, label, assigned } = data;
   const labelRef = useRef<HTMLDivElement>(null);
 
   const getDropdownPosition = (): { x: number; y: number } => {
@@ -53,7 +52,7 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
   return (
     <Wrapper onClick={openModalHandler}>
       <LeftBox>
-        <EllipsisHorizontalIcon className="ellips-icon" />
+        <Priority priority={priority} />
         <Id>Ticket {ticketId}</Id>
         <AssignCheckBox
           ticketData={{
@@ -72,10 +71,9 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
           ticketId={ticketId}
           {...getDropdownPosition()}
         />
-        <DetailItem>owner : {assigned || 'unAssigned'}</DetailItem>
-        <DetailItem>status: {status}</DetailItem>
-        <Priority priority={priority} />
-        <Difficulty difficulty={difficulty} />
+        <DetailItem>{assigned || 'unAssigned'}</DetailItem>
+        <Difficulty difficulty={Number(difficulty)} />
+        <EllipsisHorizontalIcon className="ellips-icon" width={20} />
       </Details>
     </Wrapper>
   );
@@ -87,7 +85,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
   height: 36px;
   min-height: 36px;
-  padding: 0 1rem;
+  padding: 4px 1rem;
   gap: 1rem;
   transition: ${({ theme }) => theme.transitionOption};
   background: ${({ theme }) => theme.background};
@@ -110,7 +108,7 @@ const LeftBox = styled.div`
 `;
 
 const Id = styled.div`
-  width: 70px;
+  width: 80px;
 `;
 
 const Title = styled.p`
