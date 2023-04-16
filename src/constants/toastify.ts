@@ -11,6 +11,7 @@ export const TOASTIFY = Object.freeze({
     DELETE_TICKET: 'successfully deleted!',
     SEND_REVIEW: 'enrolled review!',
     DELETE_TASK: 'successfully deleted!',
+    CREATE_INVITE_CODE: 'Invite code Copied!',
   }),
   ERROR: Object.freeze({
     SIGN_UP: 'Account creation failed!',
