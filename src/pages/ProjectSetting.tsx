@@ -9,7 +9,7 @@ import { useErrorHandler } from 'hooks';
 import { REGEX, QUERY, TOASTIFY } from 'constants/';
 import { sendToast } from 'libs';
 import { useForm } from 'react-hook-form';
-import { BorderWrapper } from 'components';
+import { BorderWrapper, Button } from 'components';
 
 export function ProjectSetting() {
   const { id: param } = useParams();
@@ -95,7 +95,7 @@ export function ProjectSetting() {
             {errors.projectTitle && (
               <Errorspan>{errors.projectTitle.message}</Errorspan>
             )}
-            <Button>Save</Button>
+            <Button buttonType="small">Save</Button>
           </ButtonWrapper>
         </Form>
       </BorderWrapper>
@@ -103,17 +103,17 @@ export function ProjectSetting() {
       <Hr />
       <TextL>Delete project</TextL>
       <BorderWrapper>
+        <TextM>
+          if you want to permanently <TextDelete> delete</TextDelete> this
+          project and all of its data, including but not limited to users,
+          issues, and comments, you can do so below.
+        </TextM>
         <ButtonWrapper>
           <DeleteProjectButton
             projectData={projectData}
             projectId={projectId}
           />
         </ButtonWrapper>
-        <TextM>
-          if you want to permanently <TextDelete> delete</TextDelete> this
-          project and all of its data, including but not limited to users,
-          issues, and comments, you can do so below.
-        </TextM>
       </BorderWrapper>
     </Wrapper>
   );
@@ -142,27 +142,12 @@ const TextM = styled.div`
   font-size: 17.5px;
   font-weight: 600;
   color: ${({ theme }) => theme.color};
-  margin-top: 0.5rem;
+  margin-bottom: 1rem;
 `;
 
 const Hr = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
   margin: 2rem 0;
-`;
-
-const Button = styled.button`
-  padding: 0.5rem 16px;
-  font-size: 14px;
-  font-weight: 600;
-  background: ${({ theme }) => theme.pointColor};
-  border: none;
-  border-radius: 4px;
-  transition: ${({ theme }) => theme.transitionOption};
-  color: ${({ theme }) => theme.background};
-  :hover {
-    cursor: pointer;
-    background: ${({ theme }) => theme.pointColorLight};
-  }
 `;
 
 const Errorspan = styled.span`
@@ -177,7 +162,6 @@ const TextDelete = styled.span`
 
 const ButtonWrapper = styled.div`
   display: flex;
-  height: 3rem;
   gap: 1rem;
   max-width: 270px;
 `;
