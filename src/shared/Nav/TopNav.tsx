@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { SIDE_NAV, TOP_NAV, REGEX } from 'constants/';
+import { SIDE_NAV, TOP_NAV, REGEX, DEFAULT_VARIANTS } from 'constants/';
 import { Menu } from 'assets/icons';
 import { DEVICES } from 'styles';
 import { ThemeToggle } from 'components';
@@ -9,8 +9,8 @@ import { MainLogo } from 'shared/MainLogo';
 import { Profile } from 'shared';
 import { ProjectsLink } from 'types';
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
+import { AnimatePresence, motion } from 'framer-motion';
+import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 
 interface TopNavProps {
   data: ProjectsLink[];
@@ -29,21 +29,28 @@ export function TopNav({ data }: TopNavProps) {
           size={30}
           onClick={() => setIsDropdownVisible(!isDropdownVisible)}
         />
-        {isDropdownVisible && (
-          <DropdownWrapper>
-            {data.map((v) => (
-              <StyledLink
-                key={v.id}
-                to={`/project/${v.id}`}
-                onClick={() => setIsDropdownVisible(false)}
-              >
-                <EllipsisHorizontalIcon style={{ width: 20 }} />
-                <Image src={v.thumbnail} />
-                <div>{v.projectTitle}</div>
-              </StyledLink>
-            ))}
-          </DropdownWrapper>
-        )}
+        <AnimatePresence>
+          {isDropdownVisible && (
+            <DropdownWrapper
+              variants={DEFAULT_VARIANTS}
+              initial="from"
+              animate="to"
+              exit="exit"
+            >
+              {data.map((v) => (
+                <StyledLink
+                  key={v.id}
+                  to={`/project/${v.id}`}
+                  onClick={() => setIsDropdownVisible(false)}
+                >
+                  <EllipsisVerticalIcon style={{ width: 20 }} />
+                  <Image src={v.thumbnail} />
+                  <div>{v.projectTitle}</div>
+                </StyledLink>
+              ))}
+            </DropdownWrapper>
+          )}
+        </AnimatePresence>
       </NavToggle>
       <MainNav isNotSmall={isNotSmallDevice}>
         {isNotSmallDevice ? (
@@ -122,6 +129,7 @@ const RightWrapper = styled.div`
 const DropdownWrapper = styled(motion.div)`
   display: flex;
   position: absolute;
+  z-index: 0;
   top: 44px;
   left: -16px;
   flex-direction: column;
