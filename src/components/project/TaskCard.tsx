@@ -19,8 +19,10 @@ export const TaskCard = memo(({ taskData }: TaskCardProps) => {
     completedTickets,
     totalTickets,
     createdAt,
-    expiredAt,
+    dueDate,
   } = taskData;
+
+  console.log(taskData);
 
   const progressPercentage = (completedTickets / totalTickets) * 100;
 
@@ -111,7 +113,7 @@ export const TaskCard = memo(({ taskData }: TaskCardProps) => {
           </ProgressBar>
           <TimeWrapper>
             <Time>{createdAt}</Time>
-            <Time>D-{expiredAt}</Time>
+            <Time>D - {dueDate}</Time>
           </TimeWrapper>
         </BottomWrapper>
       </Wrapper>
