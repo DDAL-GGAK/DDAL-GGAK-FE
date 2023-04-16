@@ -10,5 +10,8 @@ const Wrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.borderColor};
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: ${({ theme }) => theme.boxShadow};
+  display: flex;
+  flex-direction: column;
+  min-width: 350px;
 `;
