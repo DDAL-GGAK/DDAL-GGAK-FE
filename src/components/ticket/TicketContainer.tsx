@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Ticket } from 'components';
-import { TicketDataForm } from 'types';
+import { TicketDataForm, TicketState } from 'types';
 import { useModal } from 'hooks';
 import { useState } from 'react';
 import { TicketDetail } from 'components/modal';
@@ -11,28 +11,44 @@ import { RootState } from 'redux/store';
 export function TicketContainer() {
   const { isOpen, openModal, closeModal, Modal } = useModal();
   const [currTicketId, setCurrTicketId] = useState<string>();
-  const ticketData = useSelector((state: RootState) => state.ticketDataSlicer);
+  const ticketData: TicketState = useSelector(
+    (state: RootState) => state.ticketDataSlicer
+  );
 
   return (
     <>
       <Wrapper>
-        {Object.entries(ticketData.ticket || {}).map(([key, data]) => {
-          console.log(`key : ${key}, data: ${data}`);
+        {Object.entries(ticketData?.ticket || {}).map(([key, data]) => {
           return (
             <StatusWrapper key={key}>
               <BoardTitle>
                 <div>{key}</div>
-                <BoardCount>{1}</BoardCount>
+                <BoardCount>{ticketData?.ticket[`${key}`]?.length}</BoardCount>
               </BoardTitle>
               <TicketWrapper>
-                {data.map((ticket: TicketDataForm) => (
-                  <Ticket
-                    data={ticket}
-                    key={ticket.ticketId}
-                    openModal={openModal}
-                    setCurrTicketId={setCurrTicketId}
-                  />
-                ))}
+                {data.map((ticket: TicketDataForm) => {
+                  if (ticketData.label === 'All')
+                    return (
+                      <Ticket
+                        data={ticket}
+                        key={ticket.ticketId}
+                        openModal={openModal}
+                        setCurrTicketId={setCurrTicketId}
+                      />
+                    );
+
+                  if (ticketData.label === ticket.label)
+                    return (
+                      <Ticket
+                        data={ticket}
+                        key={ticket.ticketId}
+                        openModal={openModal}
+                        setCurrTicketId={setCurrTicketId}
+                      />
+                    );
+
+                  return null;
+                })}
               </TicketWrapper>
             </StatusWrapper>
           );

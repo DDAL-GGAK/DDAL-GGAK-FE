@@ -26,64 +26,6 @@ export const TaskCard = memo(({ taskData, index }: TaskCardProps) => {
 
   const progressPercentage = (completedTickets / totalTickets) * 100;
 
-  const dummy = [
-    {
-      id: 1,
-      email: 'string',
-      nickname: 'string',
-      thumbnail: 'string',
-      role: 'string',
-    },
-    {
-      id: 2,
-      email: 'string',
-      nickname: 'string',
-      thumbnail: 'string',
-      role: 'string',
-    },
-    {
-      id: 3,
-      email: 'string',
-      nickname: 'string',
-      thumbnail: 'string',
-      role: 'string',
-    },
-    {
-      id: 4,
-      email: 'string',
-      nickname: 'string',
-      thumbnail: 'string',
-      role: 'string',
-    },
-    {
-      id: 4,
-      email: 'string',
-      nickname: 'string',
-      thumbnail: 'string',
-      role: 'string',
-    },
-    {
-      id: 7,
-      email: 'string',
-      nickname: 'string',
-      thumbnail: 'string',
-      role: 'string',
-    },
-    {
-      id: 5,
-      email: 'string',
-      nickname: 'string',
-      thumbnail: 'string',
-      role: 'string',
-    },
-    {
-      id: 6,
-      email: 'string',
-      nickname: 'string',
-      thumbnail: 'string',
-      role: 'string',
-    },
-  ];
   return (
     <MyLink to={`./task/${id}`}>
       <Wrapper
@@ -106,7 +48,7 @@ export const TaskCard = memo(({ taskData, index }: TaskCardProps) => {
           <Info>
             <ContentText>Participants: {participantsCount}</ContentText>
             <ImageWrapper>
-              {[...participants, ...dummy].slice(0, 5).map((v, i) => (
+              {participants.slice(0, 5).map((v, i) => (
                 <Image src={v.thumbnail} index={i} key={v.id} alt="img" />
               ))}
             </ImageWrapper>
