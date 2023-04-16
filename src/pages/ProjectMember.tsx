@@ -38,7 +38,9 @@ export function ProjectMember() {
             members. Resetting the link will allow you to generate a new invite
             link.
           </TextS>
-          <CreateInviteCodeButton />
+          <Button>
+            <CreateInviteCodeButton>Copy Code</CreateInviteCodeButton>
+          </Button>
         </Container>
       </BorderWrapper>
       <Hr />

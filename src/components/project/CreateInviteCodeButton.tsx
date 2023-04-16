@@ -6,7 +6,11 @@ import { useLocation } from 'react-router-dom';
 import { sendToast } from 'libs';
 import styled from 'styled-components';
 
-export function CreateInviteCodeButton() {
+export function CreateInviteCodeButton({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const { pathname } = useLocation();
   const projectId = pathname.match(REGEX.PROJECT_ID)?.[1] || '';
   const { errorHandler } = useErrorHandler({ route: pathname });
@@ -27,7 +31,7 @@ export function CreateInviteCodeButton() {
       await navigator.clipboard.writeText(newInviteCode);
   };
 
-  return <Wrapper onClick={createInviteCodeHandler}>Copy Invite Code</Wrapper>;
+  return <Wrapper onClick={createInviteCodeHandler}>{children}</Wrapper>;
 }
 
 const Wrapper = styled.div`
