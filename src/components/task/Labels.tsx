@@ -55,6 +55,8 @@ const TopWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   background: ${({ theme }) => theme.background};
+  border-bottom: solid 1px ${({ theme }) => theme.borderColor};
+  box-sizing: border-box;
 `;
 
 const SortMethods = styled.div`

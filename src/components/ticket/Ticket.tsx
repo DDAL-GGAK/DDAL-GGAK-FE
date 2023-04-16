@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 import { TicketDataForm, UserDataForm, LabelDataForm } from 'types';
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
-import { AssignCheckBox, SetLabel, Difficulty, Priority } from 'components';
+import {
+  AssignCheckBox,
+  SetLabel,
+  Difficulty,
+  Priority,
+  Image,
+} from 'components';
 import { RootState } from 'redux/store';
 import { useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
@@ -10,6 +16,7 @@ import { QUERY, REGEX } from 'constants/';
 import { getLabels } from 'api';
 import { useErrorHandler } from 'hooks';
 import { useMemo, useRef } from 'react';
+import participantImgSrc from 'assets/img/participant1.png';
 
 interface TicketProps {
   data: TicketDataForm;
@@ -21,8 +28,7 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
   const { pathname } = useLocation();
   const taskId = pathname.match(REGEX.TASK_ID)?.[1];
   const { errorHandler } = useErrorHandler({ route: pathname });
-  const { ticketId, title, priority, difficulty, label, status, assigned } =
-    data;
+  const { ticketId, title, priority, difficulty, label, assigned } = data;
   const labelRef = useRef<HTMLDivElement>(null);
 
   const getDropdownPosition = (): { x: number; y: number } => {
@@ -53,15 +59,15 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
   return (
     <Wrapper onClick={openModalHandler}>
       <LeftBox>
-        <EllipsisHorizontalIcon className="ellips-icon" />
-        <Id>Ticket {ticketId}</Id>
         <AssignCheckBox
           ticketData={{
             assigned,
             ticketId,
-            isMyTicket: assigned === userData?.email,
+            isMyTicket: assigned === userData?.nickname,
           }}
         />
+        <Id>Ticket {ticketId}</Id>
+        <Priority priority={priority} />
         <Title>{title}</Title>
       </LeftBox>
       <Details>
@@ -72,10 +78,12 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
           ticketId={ticketId}
           {...getDropdownPosition()}
         />
-        <DetailItem>owner : {assigned || 'unAssigned'}</DetailItem>
-        <DetailItem>status: {status}</DetailItem>
-        <Priority priority={priority} />
-        <Difficulty difficulty={difficulty} />
+        <DetailItem>
+          <Image src={participantImgSrc} />
+          {assigned || 'unAssigned'}
+        </DetailItem>
+        <Difficulty difficulty={Number(difficulty)} />
+        <EllipsisHorizontalIcon className="ellips-icon" width={20} />
       </Details>
     </Wrapper>
   );
@@ -87,7 +95,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
   height: 36px;
   min-height: 36px;
-  padding: 0 1rem;
+  padding: 4px 1rem;
   gap: 1rem;
   transition: ${({ theme }) => theme.transitionOption};
   background: ${({ theme }) => theme.background};
@@ -110,13 +118,14 @@ const LeftBox = styled.div`
 `;
 
 const Id = styled.div`
-  width: 70px;
+  width: 80px;
+  opacity: 0.5;
 `;
 
 const Title = styled.p`
   font-size: 1.15rem;
   font-weight: 600;
-  color: ${({ theme }) => theme.pointColor};
+  color: ${({ theme }) => theme.color};
 `;
 
 const Details = styled.ul`

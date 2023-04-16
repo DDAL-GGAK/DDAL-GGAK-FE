@@ -45,9 +45,11 @@ export function Task() {
   return (
     <Wrapper>
       <Labels labels={taskData?.labels || []} />
+      <NewTicketWrapper>
+        <NewTicketButton />
+      </NewTicketWrapper>
       <BottomWrapper>
         <TicketContainer />
-        <NewTicketButton />
       </BottomWrapper>
     </Wrapper>
   );
@@ -66,4 +68,11 @@ const BottomWrapper = styled.div`
   overflow-y: auto;
   height: 100%;
   border-radius: 0 0 10px 10px;
+`;
+
+const NewTicketWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 `;

@@ -27,3 +27,7 @@ export interface TaskDataForm {
   expiredAt: string;
   createdAt: string;
 }
+
+export interface ProjectInfoProps {
+  projectData: ProjectDataForm;
+}

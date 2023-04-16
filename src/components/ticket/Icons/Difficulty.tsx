@@ -1,23 +1,17 @@
-import { CpuChipIcon } from '@heroicons/react/24/outline';
 import { LabelText } from 'components/containers';
-import { SVG_SIZE } from 'constants/';
 import styled from 'styled-components';
-import { getColorByLebel } from 'utils';
+import { DIFFICULTY } from 'constants/';
 
 interface DifficultyProps {
-  difficulty: number | string;
-  size?: number;
+  difficulty: number;
 }
 
-export function Difficulty({
-  difficulty,
-  size = SVG_SIZE.TICKET_L,
-}: DifficultyProps) {
-  const color = getColorByLebel(Number(difficulty));
+export function Difficulty({ difficulty }: DifficultyProps) {
+  const src = DIFFICULTY[difficulty];
 
   return (
     <Wrapper>
-      <CpuChipIcon style={{ width: size, color }} />
+      <Image src={src} alt="level" />
       <LabelText>{difficulty}</LabelText>
     </Wrapper>
   );
@@ -30,8 +24,11 @@ const Wrapper = styled.div`
   width: 2rem;
   font-size: 14px;
   padding: 4px 8px;
-  background: ${({ theme }) => theme.borderColor};
   color: white;
   border-radius: 4px;
   gap: 5px;
+`;
+
+const Image = styled.img`
+  width: 20px;
 `;

@@ -14,6 +14,7 @@ const KEY = Object.freeze({
   LABEL_DATA: 'labelData',
   TICKET_DATA: 'ticketData',
   TICKET_DETAIL: 'ticketDetail',
+  PROJECT_INVITE_CODE: 'projectIviteCode',
 });
 
 export const QUERY = Object.freeze({

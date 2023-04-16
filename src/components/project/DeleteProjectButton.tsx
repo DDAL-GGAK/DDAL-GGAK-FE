@@ -5,13 +5,13 @@ import { ProjectDataForm } from 'types';
 import { useModal } from 'hooks';
 
 interface DeleteProjectButtonProps {
-    projectData: ProjectDataForm | undefined;
-    projectId: number | null;
+  projectData: ProjectDataForm | undefined;
+  projectId: string;
 }
 
 export function DeleteProjectButton({
-    projectData,
-    projectId,
+  projectData,
+  projectId,
 }: DeleteProjectButtonProps) {
   const { Modal, isOpen, openModal, closeModal } = useModal();
 

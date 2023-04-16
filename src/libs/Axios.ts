@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Cookies } from 'react-cookie';
-import { COOKIE, KEY, METHOD, QUERY } from 'constants/';
+import { COOKIE, METHOD, QUERY, STATUS_CODES } from 'constants/';
 import {
   AxiosInterceptorReqConfig,
   AuthReqConfig,
@@ -58,7 +58,7 @@ export class Axios {
       headers: {
         ...headers,
         Authorization: `${this.#cookie
-          .get(KEY.ACCESS_TOKEN)
+          .get(COOKIE.KEY.ACCESS_TOKEN)
           ?.replace('%', ' ')}`,
       },
     };
@@ -75,14 +75,14 @@ export class Axios {
     const { authorization, refreshtoken } = res.headers;
 
     if (authorization) {
-      this.#cookie.set(KEY.ACCESS_TOKEN, authorization, {
-        path: '/',
+      this.#cookie.set(COOKIE.KEY.ACCESS_TOKEN, authorization, {
+        ...COOKIE.CONFIG.DEFAULT,
       });
     }
 
     if (refreshtoken) {
-      this.#cookie.set(KEY.REFRESH_TOKEN, refreshtoken, {
-        path: '/',
+      this.#cookie.set(COOKIE.KEY.REFRESH_TOKEN, refreshtoken, {
+        ...COOKIE.CONFIG.DEFAULT,
       });
     }
 
@@ -90,14 +90,19 @@ export class Axios {
   }
 
   #resOnError(error: AxiosRes) {
-    if (error.response && error?.response.status === 1002)
+    if (
+      error.response &&
+      error?.response.status === STATUS_CODES.ERROR.EXPIRED_TOKEN
+    )
       this.#onTokenExpired();
 
     return Promise.reject(error);
   }
 
   #onTokenExpired() {
-    this.#cookie.remove(COOKIE.KEY.ACCESS_TOKEN);
+    this.#cookie.remove(COOKIE.KEY.ACCESS_TOKEN, {
+      ...COOKIE.CONFIG.DEFAULT,
+    });
     localStorage.removeItem(QUERY.KEY.USER_DATA);
   }
 

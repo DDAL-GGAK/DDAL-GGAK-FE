@@ -37,5 +37,6 @@ declare module 'styled-components' {
     taskCardBackground: string;
     newTaskBackground: string;
     newTaskColor: string;
+    darkBorder: string;
   }
 }

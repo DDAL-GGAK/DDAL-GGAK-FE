@@ -1,4 +1,9 @@
-import { LabelWrapper, LabelText, ErrorMessage } from 'components/containers';
+import {
+  LabelWrapper,
+  LabelText,
+  ErrorMessage,
+  TextInput,
+} from 'components/containers';
 import { REGISTER_TYPE, ERROR_MESSAGE } from 'constants/';
 import { TicketCreateRegister } from 'types';
 
@@ -11,11 +16,13 @@ export function TicketTitleInput({ register, errors }: TicketCreateRegister) {
           <ErrorMessage>{errors.ticketTitle.message}</ErrorMessage>
         )}
       </LabelWrapper>
-      <input
+      <TextInput
         type="text"
-        {...register(REGISTER_TYPE.TICKET_TITLE, {
-          required: ERROR_MESSAGE.TICKET_TITLE.REQUIRED,
-        })}
+        register={{
+          ...register(REGISTER_TYPE.TICKET_TITLE, {
+            required: ERROR_MESSAGE.TICKET_TITLE.REQUIRED,
+          }),
+        }}
       />
     </>
   );

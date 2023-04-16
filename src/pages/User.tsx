@@ -10,7 +10,7 @@ import { useErrorHandler } from 'hooks';
 import { UpdateProfile } from 'components/user';
 import { useDispatch } from 'react-redux';
 import { setUserData } from 'redux/modules/userData';
-import { BorderWrapper, ContentText, LogOut } from 'components';
+import { BorderWrapper, Button, ContentText, LogOut } from 'components';
 import { EnvelopeIcon, UserIcon } from '@heroicons/react/24/outline';
 
 export function User() {
@@ -84,11 +84,12 @@ export function User() {
       </ProfileWrapper>
       <Hr />
       <NickNameForm onSubmit={handleSubmit(onNickname)}>
-        <TextL>Change Username</TextL>
+        <TextL>Edit</TextL>
         <BorderWrapper>
+          <TextM>Edit username</TextM>
           <ButtonWrapper>
             <UserNicknameInput register={register} />
-            <Button>Save</Button>
+            <Button buttonType="small">Save</Button>
           </ButtonWrapper>
         </BorderWrapper>
         {errors.nickname && <Errorspan>{errors.nickname.message}</Errorspan>}
@@ -109,6 +110,7 @@ const ProfileWrapper = styled.div`
   flex-direction: column;
   height: 500px;
   min-width: 400px;
+  margin-top: 1rem;
 `;
 
 const MainInfo = styled.div`
@@ -167,7 +169,6 @@ const TextL = styled.div`
   font-size: 25px;
   font-weight: 600;
   color: ${({ theme }) => theme.color};
-  margin-bottom: 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -193,23 +194,7 @@ const Hr = styled.div`
 
 const ButtonWrapper = styled.div`
   display: flex;
-  height: 3rem;
   gap: 1rem;
-`;
-
-const Button = styled.button`
-  padding: 0.5rem 1rem;
-  font-size: 14px;
-  font-weight: 600;
-  background: ${({ theme }) => theme.pointColor};
-  border: none;
-  border-radius: 4px;
-  transition: ${({ theme }) => theme.transitionOption};
-  color: ${({ theme }) => theme.background};
-  :hover {
-    cursor: pointer;
-    background: ${({ theme }) => theme.pointColorLight};
-  }
 `;
 
 const LogoutWrapper = styled.div`

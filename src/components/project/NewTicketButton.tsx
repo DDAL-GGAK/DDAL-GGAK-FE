@@ -28,13 +28,17 @@ const Wrapper = styled.div`
   box-sizing: border-box;
   color: ${({ theme }) => theme.color};
   transition: ${({ theme }) => theme.transitionOption};
-  padding: 8px;
+  padding: 12px;
   display: flex;
+  width: 100%;
   align-items: center;
   justify-content: center;
   border-bottom: solid 1px ${({ theme }) => theme.borderColor};
-  background: ${({ theme }) => theme.transparentBackground};
+  background: #4f5060;
+  margin: 20px 20px 20px 20px;
+  border-radius: 5px;
   :hover {
+    background: #5e5f72;
     cursor: pointer;
   }
 `;

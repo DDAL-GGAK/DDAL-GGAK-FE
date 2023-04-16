@@ -9,7 +9,7 @@ import styled from 'styled-components';
 
 interface ConfirmDeleteProjectProps {
   projectData: ProjectDataForm | undefined;
-  projectId: number | null;
+  projectId: string;
   closeModal: () => void;
 }
 
@@ -33,13 +33,7 @@ export function ConfirmDeleteProject({
     onError: (error: unknown) => errorHandler(error),
   });
 
-  const onDeleteProject = () => {
-    if (projectId !== null) {
-      mutate(projectId);
-    } else {
-      console.error('Project ID is missing or invalid');
-    }
-  };
+  const onDeleteProject = () => mutate(projectId);
 
   return (
     <ConfirmDeleteWrapper>

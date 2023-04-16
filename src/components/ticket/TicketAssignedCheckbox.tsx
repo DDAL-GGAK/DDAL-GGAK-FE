@@ -75,20 +75,22 @@ const CheckboxWrapper = styled.div`
   width: 20px;
   height: 20px;
   border: 2px solid ${({ theme }) => theme.pointColor};
-  border-radius: 4px;
+  border-radius: 50%;
   cursor: pointer;
 `;
 
 const AssignedTicket = styled(motion.div)`
   width: 12px;
   height: 12px;
-  background: ${({ theme }) => theme.transparentColor};
-  border-radius: 2px;
+  background: ${({ theme }) => theme.pointColor};
+  border-radius: 50%;
 `;
 
 const AssignedMyTicket = styled(motion.div)`
   width: 12px;
   height: 12px;
   background: ${({ theme }) => theme.subColor};
-  border-radius: 2px;
+  border-radius: 50%;
+
+  //border-radius: 2px;
 `;
