@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { getProjectData } from 'api';
 import { ProjectDataForm, TaskDataForm } from 'types';
-import { CONTENT, QUERY, DEVICES } from 'constants/';
+import { CONTENT, QUERY, DEVICES, PROJECTBOARD_VARIANTS } from 'constants/';
 import { Loading } from 'components';
 import { useQuery } from 'react-query';
 import { useErrorHandler, useMediaQuery } from 'hooks';
@@ -12,6 +12,7 @@ import {
   TaskCard,
   ProjectInformation,
 } from 'components/project';
+import { motion } from 'framer-motion';
 
 export function Project() {
   const isMobileM = useMediaQuery(DEVICES.MOBILEM);
@@ -35,24 +36,26 @@ export function Project() {
     () => getProjectData(param as string),
     {
       ...QUERY.DEFAULT_CONFIG,
-      onError: (error: unknown) => errorHandler(error),
+      onError: errorHandler,
     }
   );
-
-  const memoizedTasks = useMemo(() => {
-    return projectData?.tasks.map((taskData: TaskDataForm) => (
-      <TaskCard taskData={taskData} key={taskData.id} />
-    ));
-  }, [projectData?.tasks]);
 
   if (isLoading) return <Loading />;
 
   return (
     <Wrapper>
       {projectData && <ProjectInformation projectData={projectData} />}
-      <ProjectBoard gridColumnCount={gridColumnCount}>
-        {memoizedTasks}
-        <NewTaskButton />
+      <ProjectBoard
+        gridColumnCount={gridColumnCount}
+        variants={PROJECTBOARD_VARIANTS}
+        initial="from"
+        animate="to"
+        exit="exit"
+      >
+        {projectData?.tasks.map((taskData: TaskDataForm, index: number) => (
+          <TaskCard taskData={taskData} index={index} key={taskData.id} />
+        ))}
+        <NewTaskButton index={Number(projectData?.tasks?.length)} />
       </ProjectBoard>
     </Wrapper>
   );
@@ -64,10 +67,9 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
-  gap: 1rem;
 `;
 
-const ProjectBoard = styled.div<{ gridColumnCount: number }>`
+const ProjectBoard = styled(motion.div)<{ gridColumnCount: number }>`
   display: grid;
   grid-template-columns: ${({ gridColumnCount }) =>
     `repeat(${gridColumnCount}, minmax(0, 1fr))`};

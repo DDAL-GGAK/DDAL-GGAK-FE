@@ -5,12 +5,14 @@ import { motion } from 'framer-motion';
 import { memo } from 'react';
 import { ContentText } from 'components/containers';
 import { TicketIcon } from '@heroicons/react/24/outline';
+import { TASKCARD_MOUNT_VARIANTS } from 'constants/';
 
 interface TaskCardProps {
   taskData: TaskDataForm;
+  index: number;
 }
 
-export const TaskCard = memo(({ taskData }: TaskCardProps) => {
+export const TaskCard = memo(({ taskData, index }: TaskCardProps) => {
   const {
     id,
     participantsCount,
@@ -19,7 +21,7 @@ export const TaskCard = memo(({ taskData }: TaskCardProps) => {
     completedTickets,
     totalTickets,
     createdAt,
-    expiredAt,
+    dueDate,
   } = taskData;
 
   const progressPercentage = (completedTickets / totalTickets) * 100;
@@ -84,7 +86,19 @@ export const TaskCard = memo(({ taskData }: TaskCardProps) => {
   ];
   return (
     <MyLink to={`./task/${id}`}>
-      <Wrapper key={id}>
+      <Wrapper
+        key={id}
+        variants={TASKCARD_MOUNT_VARIANTS}
+        initial="from"
+        animate="to"
+        exit="exit"
+        custom={index}
+        transition={{
+          duration: 0.15,
+          ease: 'easeInOut',
+          delay: index * 0.01,
+        }}
+      >
         <TopWrapper>
           <TitleWrapper>
             <Title>{taskTitle}</Title>
@@ -111,7 +125,7 @@ export const TaskCard = memo(({ taskData }: TaskCardProps) => {
           </ProgressBar>
           <TimeWrapper>
             <Time>{createdAt}</Time>
-            <Time>D-{expiredAt}</Time>
+            <Time>D - {dueDate}</Time>
           </TimeWrapper>
         </BottomWrapper>
       </Wrapper>
@@ -130,12 +144,9 @@ const Wrapper = styled(motion.div)`
   background: ${({ theme }) => theme.taskCardBackground};
   box-shadow: ${({ theme }) => theme.boxShadow};
   height: 240px;
-  padding: 20px;
   box-sizing: border-box;
-  border: 2px solid transparent;
-  transition: ${({ theme }) => theme.transitionOption};
+  padding: 20px;
   :hover {
-    border: 2px solid ${({ theme }) => theme.pointColor};
     cursor: pointer;
   }
 `;
@@ -147,8 +158,12 @@ const TitleWrapper = styled.div`
 
 const MyLink = styled(Link)`
   border-radius: 8px;
-  transition: ${({ theme }) => theme.transitionOption};
   min-width: 300px;
+  border: 2px solid transparent;
+  transition: ${({ theme }) => theme.transitionOption};
+  :hover {
+    border: 2px solid ${({ theme }) => theme.pointColor};
+  }
 `;
 
 const TopWrapper = styled.div`

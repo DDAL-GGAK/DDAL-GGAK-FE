@@ -1,6 +1,6 @@
 import { ContentWrapper, Nav, Router, Portal } from 'shared';
 import { useLocation } from 'react-router-dom';
-import { navChecker } from 'libs/';
+import { navChecker, syncLogin } from 'libs/';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import { preload } from 'utils';
@@ -13,6 +13,7 @@ function App() {
 
   useEffect(() => {
     preload();
+    syncLogin();
   }, []);
 
   return (

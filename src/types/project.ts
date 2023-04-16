@@ -18,6 +18,7 @@ export interface ProjectDataForm {
 
 export interface TaskDataForm {
   id: number;
+  dueDate: number;
   participants: Participant[];
   participantsCount: number;
   taskTitle: string;

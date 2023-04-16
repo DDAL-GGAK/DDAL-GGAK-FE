@@ -1,24 +1,24 @@
-import { CpuChipIcon } from '@heroicons/react/24/outline';
+import { StarIcon } from '@heroicons/react/24/outline';
 import { LabelText } from 'components/containers';
 import { SVG_SIZE } from 'constants/';
 import styled from 'styled-components';
 import { getColorByLebel } from 'utils';
 
-interface DifficultyProps {
-  difficulty: number | string;
+interface PriorityProps {
+  priority: number | string;
   size?: number;
 }
 
-export function Difficulty({
-  difficulty,
+export function Priority({
+  priority,
   size = SVG_SIZE.TICKET_L,
-}: DifficultyProps) {
-  const color = getColorByLebel(Number(difficulty));
+}: PriorityProps) {
+  const color = getColorByLebel(Number(priority));
 
   return (
     <Wrapper>
-      <CpuChipIcon style={{ width: size, color }} />
-      <LabelText>{difficulty}</LabelText>
+      <StarIcon style={{ width: size, color }} />
+      <LabelText>{priority}</LabelText>
     </Wrapper>
   );
 }

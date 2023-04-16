@@ -1,9 +1,14 @@
 import styled from 'styled-components';
 import { SVGProps } from 'types';
 
-export function Menu({ size }: SVGProps) {
+interface MenuProps extends SVGProps {
+  onClick: () => void;
+}
+
+export function Menu({ size, onClick }: MenuProps) {
   return (
     <Svg
+      onClick={onClick}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
@@ -22,6 +27,7 @@ export function Menu({ size }: SVGProps) {
 }
 
 const Svg = styled.svg`
+  position: absolute;
   :hover {
     cursor: pointer;
   }

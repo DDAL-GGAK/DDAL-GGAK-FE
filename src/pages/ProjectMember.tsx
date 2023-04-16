@@ -6,6 +6,7 @@ import { useQuery } from 'react-query';
 import { getProjectData } from 'api';
 import { ProjectDataForm, Participant } from 'types';
 import { MemberCard } from 'components/project';
+import { BorderWrapper } from 'components';
 
 export function ProjectMember() {
   const { id: param } = useParams();
@@ -27,31 +28,36 @@ export function ProjectMember() {
         <TextM>Manage who has access to this project</TextM>
       </Container>
       <Hr />
-      <Container>
-        <TextM>Invite Link</TextM>
-        <TextS>
-          Invite people to your workspace by sharing this private link. This
-          message will only appear to people with permission to invite members.
-          Resetting the link will allow you to generate a new invite link.
-        </TextS>
-        <Button>copy link</Button>
-      </Container>
+      <BorderWrapper>
+        <Container>
+          <TextM>Invite Link</TextM>
+          <TextS>
+            Invite people to your workspace by sharing this private link. This
+            message will only appear to people with permission to invite
+            members. Resetting the link will allow you to generate a new invite
+            link.
+          </TextS>
+          <Button>copy link</Button>
+        </Container>
+      </BorderWrapper>
       <Hr />
-      <Container>
-        <TextM>Manage members</TextM>
-        <TextS>
-          In this section, you can manage your members or send invitations by
-          writing down the emails of the people you want to invite.
-        </TextS>
-        <ContentTop>
-          <Button>add members</Button>
-        </ContentTop>
-        <MemberBoard>
-          {projectData?.participants.map((memberData: Participant) => (
-            <MemberCard key={memberData.id} memberData={memberData} />
-          ))}
-        </MemberBoard>
-      </Container>
+      <BorderWrapper>
+        <Container>
+          <TextM>Manage members</TextM>
+          <TextS>
+            In this section, you can manage your members or send invitations by
+            writing down the emails of the people you want to invite.
+          </TextS>
+          <ContentTop>
+            <Button>add members</Button>
+          </ContentTop>
+        </Container>
+      </BorderWrapper>
+      <MemberBoard>
+        {projectData?.participants.map((memberData: Participant) => (
+          <MemberCard key={memberData.id} memberData={memberData} />
+        ))}
+      </MemberBoard>
     </Wrapper>
   );
 }

@@ -27,7 +27,7 @@ export function UpdateThumbnail({ projectData }: ProjectThumbnailProps) {
   const { mutate } = useMutation(updateProjectThumbnail, {
     ...QUERY.DEFAULT_CONFIG,
     onSuccess: () => {
-      queryClient.invalidateQueries(QUERY.KEY.PROJECT_THUMBNAIL);
+      queryClient.invalidateQueries(QUERY.KEY.USER_PROJECTS);
       sendToast.success(TOASTIFY.SUCCESS.USER_SETTING);
     },
     onError: (error: unknown) => errorHandler(error),

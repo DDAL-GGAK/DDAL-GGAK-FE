@@ -45,7 +45,6 @@ const LeftWrapper = styled.div`
   display: flex;
   flex: initial;
   flex-direction: row;
-  -webkit-box-align: center;
   align-items: center;
   gap: 16px;
 `;
@@ -53,17 +52,15 @@ const LeftWrapper = styled.div`
 const MiddleWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  -webkit-box-flex: 1;
   flex-grow: 1;
   gap: 8px;
 `;
+
 const RightWrapper = styled.div`
   display: flex;
   flex: initial;
   flex-direction: row;
-  -webkit-box-align: center;
   align-items: center;
-  -webkit-box-pack: end;
   justify-content: flex-end;
 `;
 
