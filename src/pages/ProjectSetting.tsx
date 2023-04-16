@@ -99,7 +99,6 @@ export function ProjectSetting() {
           </ButtonWrapper>
         </Form>
       </BorderWrapper>
-
       <Hr />
       <TextL>Delete project</TextL>
       <BorderWrapper>

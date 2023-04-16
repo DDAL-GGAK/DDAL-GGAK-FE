@@ -79,7 +79,7 @@ const TextM = styled.div`
 `;
 
 const TextS = styled.div`
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 400;
   color: ${({ theme }) => theme.color};
 `;

@@ -15,7 +15,7 @@ export function ParticipantsStatusButton({ projectData }: ProjectInfoProps) {
         closeModal={closeModal}
         variants={MODAL_CARD_VARIANTS}
       >
-        <ManageParticipants closeModal={closeModal} projectData={projectData} />
+        <ManageParticipants projectData={projectData} />
       </Modal>
       <Field onClick={openModal}>
         <UserGroupIcon style={{ width: SVG_SIZE.INFO_SVG }} />
