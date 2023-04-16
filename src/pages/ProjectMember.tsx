@@ -30,7 +30,7 @@ export function ProjectMember() {
       <Hr />
       <BorderWrapper>
         <Container>
-          <TextM>Invite Link</TextM>
+          <TextM>Create Invite Link</TextM>
           <TextS>
             Invite people to your workspace by sharing this private link. This
             message will only appear to people with permission to invite

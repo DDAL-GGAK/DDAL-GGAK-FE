@@ -15,7 +15,7 @@ export function ProjectSetting() {
   const { id: param } = useParams();
   const { errorHandler } = useErrorHandler();
   const { pathname } = useLocation();
-  const projectId = Number(pathname.match(REGEX.PROJECT_ID)?.[1]) || null;
+  const projectId = pathname.match(REGEX.PROJECT_ID)?.[1] || '';
   const { data: projectData } = useQuery<ProjectDataForm>(
     [QUERY.KEY.PROJECT_DATA, param],
     () => getProjectData(param as string),
@@ -76,7 +76,7 @@ export function ProjectSetting() {
 
     formData.append('data', blobDataField);
 
-    mutate({ data: formData, projectId: Number(projectId) });
+    mutate({ data: formData, projectId });
   };
 
   return (
