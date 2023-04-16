@@ -10,7 +10,7 @@ import { useErrorHandler } from 'hooks';
 import { UpdateProfile } from 'components/user';
 import { useDispatch } from 'react-redux';
 import { setUserData } from 'redux/modules/userData';
-import { ContentText } from 'components';
+import { BorderWrapper, ContentText, LogOut } from 'components';
 import { EnvelopeIcon, UserIcon } from '@heroicons/react/24/outline';
 
 export function User() {
@@ -76,16 +76,21 @@ export function User() {
               </ContentText>
               <div>{userData?.data.email}</div>
             </TextM>
+            <LogoutWrapper>
+              <LogOut />
+            </LogoutWrapper>
           </Privacy>
         </PrivacyWrapper>
       </ProfileWrapper>
       <Hr />
       <NickNameForm onSubmit={handleSubmit(onNickname)}>
         <TextL>Change Username</TextL>
-        <ButtonWrapper>
-          <UserNicknameInput register={register} />
-          <Button>Save</Button>
-        </ButtonWrapper>
+        <BorderWrapper>
+          <ButtonWrapper>
+            <UserNicknameInput register={register} />
+            <Button>Save</Button>
+          </ButtonWrapper>
+        </BorderWrapper>
         {errors.nickname && <Errorspan>{errors.nickname.message}</Errorspan>}
       </NickNameForm>
     </Wrapper>
@@ -111,8 +116,8 @@ const MainInfo = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
-  top: 4rem;
-  left: 2rem;
+  top: 71px;
+  left: 25px;
   z-index: 1;
 `;
 
@@ -131,7 +136,7 @@ const TopWrapper = styled.div`
 const PrivacyWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 0px 20px 20px 20px;
   padding-top: 70px;
   height: 100%;
   background: ${({ theme }) => theme.background};
@@ -164,6 +169,7 @@ const TextL = styled.div`
   color: ${({ theme }) => theme.color};
   margin-bottom: 1rem;
   display: flex;
+  align-items: center;
   gap: 0.5rem;
 `;
 
@@ -203,5 +209,15 @@ const Button = styled.button`
   :hover {
     cursor: pointer;
     background: ${({ theme }) => theme.pointColorLight};
+  }
+`;
+
+const LogoutWrapper = styled.div`
+  color: ${({ theme }) => theme.accentColor};
+  font-size: 1.1rem;
+  display: flex;
+  justify-content: flex-end;
+  :hover {
+    cursor: pointer;
   }
 `;
