@@ -8,6 +8,7 @@ import { MODAL_CARD_VARIANTS } from 'constants/';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import { NewTicketButton } from 'components/project/NewTicketButton';
+import { ChartBarIcon } from '@heroicons/react/24/outline';
 
 export function TicketContainer() {
   const { isOpen, openModal, closeModal, Modal } = useModal();
@@ -21,7 +22,11 @@ export function TicketContainer() {
           return (
             <StatusWrapper key={key}>
               <BoardTitle>
-                {key}
+                <ChartBarIcon
+                  style={{ width: 20, color: 'rgba(255, 255, 255, 0.3)' }}
+                  fill="white"
+                />
+                <span>{key}</span>
                 {key === 'TODO' ? (
                   <AddTicketWrapper>
                     <NewTicketButton />
@@ -69,7 +74,7 @@ const BoardTitle = styled.div`
   border-bottom: solid 1px ${({ theme }) => theme.borderColor};
   display: flex;
   align-items: center;
-  gap: 0px;
+  gap: 8px;
 `;
 
 const TicketWrapper = styled.div`
