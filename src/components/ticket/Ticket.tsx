@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { TicketDataForm, UserDataForm, LabelDataForm } from 'types';
+import { TicketDataForm, LabelDataForm } from 'types';
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 import {
   AssignCheckBox,
@@ -8,8 +8,6 @@ import {
   Priority,
   Image,
 } from 'components';
-import { RootState } from 'redux/store';
-import { useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
 import { useLocation } from 'react-router-dom';
 import { QUERY, REGEX } from 'constants/';
@@ -22,9 +20,15 @@ interface TicketProps {
   data: TicketDataForm;
   openModal: () => void;
   setCurrTicketId: React.Dispatch<React.SetStateAction<string | undefined>>;
+  userEmail: string | undefined;
 }
 
-export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
+export function Ticket({
+  data,
+  openModal,
+  setCurrTicketId,
+  userEmail,
+}: TicketProps) {
   const { pathname } = useLocation();
   const taskId = pathname.match(REGEX.TASK_ID)?.[1];
   const { errorHandler } = useErrorHandler({ route: pathname });
@@ -41,10 +45,6 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
     openModal();
     setCurrTicketId(String(ticketId));
   };
-
-  const userData = useSelector(
-    (state: RootState) => state.userDataSlicer
-  ) as UserDataForm | null;
 
   const QueryKey = useMemo(() => [QUERY.KEY.LABEL_DATA, taskId], [taskId]);
   const { data: labelsData } = useQuery<LabelDataForm[]>(
@@ -63,7 +63,7 @@ export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
           ticketData={{
             assigned,
             ticketId,
-            isMyTicket: assigned === userData?.email,
+            isMyTicket: assigned === userEmail,
           }}
         />
         <Id>Ticket {ticketId}</Id>

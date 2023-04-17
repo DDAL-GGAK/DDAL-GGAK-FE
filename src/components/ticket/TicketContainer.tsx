@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Ticket } from 'components';
-import { TicketDataForm, TicketState } from 'types';
+import { TicketDataForm, TicketState, UserDataForm } from 'types';
 import { useModal } from 'hooks';
 import { useState } from 'react';
 import { TicketDetail } from 'components/modal';
@@ -15,44 +15,54 @@ export function TicketContainer() {
     (state: RootState) => state.ticketDataSlicer
   );
 
+  const userData = useSelector(
+    (state: RootState) => state.userDataSlicer
+  ) as UserDataForm | null;
+
   return (
     <>
       <Wrapper>
-        {Object.entries(ticketData?.ticket || {}).map(([key, data]) => {
-          return (
-            <StatusWrapper key={key}>
-              <BoardTitle>
-                <div>{key}</div>
-                <BoardCount>{ticketData?.ticket[key]?.length}</BoardCount>
-              </BoardTitle>
-              <TicketWrapper>
-                {data.map((ticket: TicketDataForm) => {
-                  if (ticketData.label === 'All')
-                    return (
-                      <Ticket
-                        data={ticket}
-                        key={ticket.ticketId}
-                        openModal={openModal}
-                        setCurrTicketId={setCurrTicketId}
-                      />
-                    );
+        {Object.entries(ticketData?.ticket || {}).map(
+          ([ticketStatus, data]) => {
+            const ticketCount = ticketData?.ticket[ticketStatus]?.length;
 
-                  if (ticketData.label === ticket.label)
-                    return (
-                      <Ticket
-                        data={ticket}
-                        key={ticket.ticketId}
-                        openModal={openModal}
-                        setCurrTicketId={setCurrTicketId}
-                      />
-                    );
+            return (
+              <StatusWrapper key={ticketStatus}>
+                <BoardTitle>
+                  <div>{ticketStatus}</div>
+                  <BoardCount>{ticketCount}</BoardCount>
+                </BoardTitle>
+                <TicketWrapper>
+                  {data.map((ticket: TicketDataForm) => {
+                    if (ticketData.label === 'All')
+                      return (
+                        <Ticket
+                          data={ticket}
+                          key={ticket.ticketId}
+                          openModal={openModal}
+                          setCurrTicketId={setCurrTicketId}
+                          userEmail={userData?.email}
+                        />
+                      );
 
-                  return null;
-                })}
-              </TicketWrapper>
-            </StatusWrapper>
-          );
-        })}
+                    if (ticketData.label === ticket.label)
+                      return (
+                        <Ticket
+                          data={ticket}
+                          key={ticket.ticketId}
+                          openModal={openModal}
+                          setCurrTicketId={setCurrTicketId}
+                          userEmail={userData?.email}
+                        />
+                      );
+
+                    return null;
+                  })}
+                </TicketWrapper>
+              </StatusWrapper>
+            );
+          }
+        )}
       </Wrapper>
       <Modal
         isOpen={isOpen}

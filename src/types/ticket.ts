@@ -21,7 +21,6 @@ export interface TicketDataForm {
   ticketId: number | string;
   title: string;
   commentlist: Comment[];
-  isMyTicket: boolean;
 }
 
 export interface Tickets {
