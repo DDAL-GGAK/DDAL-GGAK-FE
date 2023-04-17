@@ -1,14 +1,52 @@
 import styled from 'styled-components';
 import { NewLabelButton, LabelConfigButton } from 'components/project';
-import { LabelsProps, TicketState } from 'types';
-import { useDispatch, useSelector } from 'react-redux';
-import { setLabel } from 'redux/modules/ticketData';
+import { TicketState, TaskDetailDataForm } from 'types';
+import { useSelector, useDispatch } from 'react-redux';
+import { setLabel, setTicketData } from 'redux/modules/ticketData';
 import { LabelButton } from 'components/containers';
 import { RootState } from 'redux/store';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
+import { REGEX, QUERY } from 'constants/';
+import { getTaskData } from 'api';
+import { useLocation } from 'react-router-dom';
+import { useQuery } from 'react-query';
 
-export const Labels = memo(({ labels }: LabelsProps) => {
+import { useErrorHandler } from 'hooks';
+
+export const Labels = memo(() => {
+  const { pathname } = useLocation();
+  const { errorHandler } = useErrorHandler();
   const dispatch = useDispatch();
+  const projectId = pathname.match(REGEX.PROJECT_ID)?.[1];
+  const taskId = pathname.match(REGEX.TASK_ID)?.[1];
+  const taskQueryKey = useMemo(
+    () => [QUERY.KEY.TASK_DATA, projectId, taskId],
+    [projectId, taskId]
+  );
+
+  const fetchTaskData = useCallback(async () => {
+    if (!taskId || !projectId) return;
+    const data = await getTaskData({ param: taskId, query: { projectId } });
+
+    return data;
+  }, [taskId, projectId]);
+
+  const { data: taskData } = useQuery<TaskDetailDataForm>(
+    taskQueryKey,
+    fetchTaskData,
+    {
+      ...QUERY.DEFAULT_CONFIG,
+      onSuccess: (data) => {
+        if (data) dispatch(setTicketData(data?.tickets));
+      },
+      onError: (error: unknown) => errorHandler(error),
+    }
+  );
+
+  useEffect(() => {
+    dispatch(setLabel('All'));
+  }, []);
+
   const LabelClickHandler = useCallback((labelTitle: string) => {
     dispatch(setLabel(labelTitle));
   }, []);
@@ -26,7 +64,7 @@ export const Labels = memo(({ labels }: LabelsProps) => {
               labelId: 0,
               labelTitle: 'All',
             },
-            ...labels,
+            ...(taskData?.labels || []),
           ]?.map((team) => {
             const { labelTitle } = team;
 
@@ -45,7 +83,7 @@ export const Labels = memo(({ labels }: LabelsProps) => {
         </LabelWrapper>
         <ConfigWrapper>
           <NewLabelButton />
-          <LabelConfigButton labels={labels} />
+          <LabelConfigButton labels={taskData?.labels || []} />
         </ConfigWrapper>
       </Wrapper>
 

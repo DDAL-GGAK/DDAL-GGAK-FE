@@ -2,13 +2,13 @@ import styled from 'styled-components';
 import { Ticket } from 'components';
 import { TicketDataForm, TicketState, UserDataForm } from 'types';
 import { useModal } from 'hooks';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { TicketDetail } from 'components/modal';
 import { MODAL_CARD_VARIANTS } from 'constants/';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 
-export function TicketContainer() {
+export const TicketContainer = memo(() => {
   const { isOpen, openModal, closeModal, Modal } = useModal();
   const [currTicketId, setCurrTicketId] = useState<string>();
   const ticketData: TicketState = useSelector(
@@ -77,7 +77,7 @@ export function TicketContainer() {
       </Modal>
     </>
   );
-}
+});
 
 const StatusWrapper = styled.div`
   width: 100%;
