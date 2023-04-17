@@ -1,4 +1,4 @@
-import { ModalContainer } from 'components/containers';
+import { LabelText, ModalContainer } from 'components/containers';
 import { useLocation } from 'react-router-dom';
 import { useErrorHandler } from 'hooks';
 import { useQuery } from 'react-query';
@@ -33,6 +33,7 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
     }
   );
 
+  console.log(ticketData);
   const userData = useSelector(
     (state: RootState) => state.userDataSlicer
   ) as UserDataForm | null;
@@ -41,37 +42,59 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
     <StyledModalContainer>
       {ticketData ? (
         <>
-          <Title>{ticketData.title}</Title>
-          <ContentRow>
+          <Header>
+            <Title>{ticketData.title}</Title>
+          </Header>
+          <Content>
+            <ContentRow>
+              <ContentItem>
+                <LabelText>Priority:</LabelText>
+                <Text>{ticketData.priority}</Text>
+              </ContentItem>
+              <ContentItem>
+                <LabelText>Due Date:</LabelText>
+                <Text>{ticketData.dueDate}</Text>
+              </ContentItem>
+              <ContentItem>
+                <LabelText>Status:</LabelText>
+                <Text>{ticketData.status}</Text>
+              </ContentItem>
+            </ContentRow>
             <ContentItem>
-              <Label>Priority:</Label>
-              <Text>{ticketData.priority}</Text>
+              <LabelText>Assigned:</LabelText>
+              <Text>{ticketData.assigned}</Text>
             </ContentItem>
             <ContentItem>
-              <Label>Due Date:</Label>
-              <Text>{ticketData.dueDate}</Text>
+              <LabelText>Difficulty:</LabelText>
+              <Text>{ticketData.difficulty}</Text>
             </ContentItem>
             <ContentItem>
-              <Label>Status:</Label>
-              <Text>{ticketData.status}</Text>
+              <LabelText>Progress:</LabelText>
+              <Text>{ticketData.progress}%</Text>
             </ContentItem>
-          </ContentRow>
-
-          <Description>{ticketData.description}</Description>
-
-          {ticketData?.assigned === userData?.email && (
-            <TicketStateWrapper>
-              <ToggleTicketStatus
-                status={ticketData.status}
-                currTicketId={currTicketId}
-              />
-              <SendTicketReviewButton
-                status={ticketData.status}
-                currTicketId={currTicketId}
-              />
-              <DeleteTicketButton closeModal={closeModal} ticket={ticketData} />
-            </TicketStateWrapper>
-          )}
+            <Description>
+              <LabelText>Description:</LabelText>
+              <Text>{ticketData.description}</Text>
+            </Description>
+            <BottomWrapper>
+              {ticketData?.assigned === userData?.email && (
+                <TicketStateWrapper>
+                  <ToggleTicketStatus
+                    status={ticketData.status}
+                    currTicketId={currTicketId}
+                  />
+                  <SendTicketReviewButton
+                    status={ticketData.status}
+                    currTicketId={currTicketId}
+                  />
+                  <DeleteTicketButton
+                    closeModal={closeModal}
+                    ticket={ticketData}
+                  />
+                </TicketStateWrapper>
+              )}
+            </BottomWrapper>
+          </Content>
         </>
       ) : (
         <Loading />
@@ -99,17 +122,15 @@ const ContentItem = styled.div`
 const StyledModalContainer = styled(ModalContainer)`
   max-width: 1200px;
   max-height: 900px;
-  width: 90vw;
+  width: 800px;
   height: 80vh;
   background: ${({ theme }) => theme.background};
   padding: 1rem;
 `;
 
-const Title = styled.h2`
+const Title = styled.div`
   font-size: 28px;
   font-weight: bold;
-  /* background: ${({ theme }) => theme.pointColor}; */
-  /* padding: 0.5rem 1rem; */
   border-radius: 5px;
   margin-bottom: 5px;
 `;
@@ -118,11 +139,6 @@ const Description = styled.div`
   font-size: 18px;
   margin-bottom: 16px;
   color: #cbcbcb;
-`;
-
-const Label = styled.p`
-  font-size: 16px;
-  font-weight: 600;
 `;
 
 const Text = styled.p`
@@ -134,3 +150,17 @@ const TicketStateWrapper = styled.div`
   gap: 1rem;
   justify-content: space-between;
 `;
+
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const BottomWrapper = styled.div``;
