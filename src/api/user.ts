@@ -10,8 +10,8 @@ export const getUserData = async () => {
   return res;
 };
 
-export const getUserTicketCount = async (): Promise<TicketData[]> => {
-  const res = await api.get(API_ROUTE.USER.GET_USERTICKETCOUNT);
+export const getUserTicketCount = async (userId: string): Promise<TicketData[]> => {
+  const res = await api.get(API_ROUTE.USER.GET_USERTICKETCOUNT(userId));
 
   return res.data;
 }
