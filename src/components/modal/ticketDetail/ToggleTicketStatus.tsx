@@ -1,14 +1,14 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { changeTicketStatus } from 'api';
-import { QUERY } from 'constants/';
+import { QUERY, TICKET } from 'constants/';
 import { useErrorHandler } from 'hooks';
-import { TicketStatusButton } from 'components/ticket';
 import { useLocation } from 'react-router-dom';
-import { ContentText } from 'components/containers';
+import { Button } from 'components/containers';
 import { useDispatch } from 'react-redux';
 import { setTicketData } from 'redux/modules/ticketData';
 import { memo, useCallback } from 'react';
 import styled from 'styled-components';
+import { PauseIcon, PlayIcon } from '@heroicons/react/24/outline';
 
 export const ToggleTicketStatus = memo(
   ({ status, currTicketId }: { status: string; currTicketId: string }) => {
@@ -31,16 +31,27 @@ export const ToggleTicketStatus = memo(
       [mutate, currTicketId]
     );
 
-    return (
-      <StatusWrapper>
-        <ContentText>change status</ContentText>
-        <TicketStatusButton
-          onClick={handleStatusChange}
-          status={status}
-          buttonType="small"
-        />
-      </StatusWrapper>
-    );
+    const content = () => {
+      if (status === TICKET.STATUS.TODO)
+        return (
+          <Button onClick={handleStatusChange} buttonType="border">
+            <Text>Ticket</Text>
+            <PlayIcon width={20} fill="white" />
+          </Button>
+        );
+
+      if (status === TICKET.STATUS.IN_PROGRESS)
+        return (
+          <Button onClick={handleStatusChange} buttonType="border">
+            <Text>Ticket</Text>
+            <PauseIcon width={20} fill="white" />
+          </Button>
+        );
+
+      return null;
+    };
+
+    return <StatusWrapper>{content()}</StatusWrapper>;
   }
 );
 
@@ -48,4 +59,10 @@ const StatusWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
+`;
+
+const Text = styled.div`
+  display: flex;
+  align-items: center;
+  height: 100%;
 `;
