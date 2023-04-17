@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { SIDE_NAV, TOP_NAV, REGEX, DEFAULT_VARIANTS } from 'constants/';
+import { SIDE_NAV, TOP_NAV, REGEX, DEFAULT_VARIANTS, QUERY } from 'constants/';
 import { Menu } from 'assets/icons';
 import { DEVICES } from 'styles';
 import { ThemeToggle, LogOut } from 'components';
@@ -8,7 +8,9 @@ import { useMediaQuery } from 'hooks';
 import { useLocation, Link } from 'react-router-dom';
 import { MainLogo } from 'shared/MainLogo';
 import { Profile } from 'shared';
-import { ProjectsLink } from 'types';
+import { RootState } from 'redux/store';
+import { useSelector } from 'react-redux';
+import { ProjectsLink, UserDataForm } from 'types';
 import { AnimatePresence, motion } from 'framer-motion';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 
@@ -21,6 +23,16 @@ export function TopNav({ data }: TopNavProps) {
   const { pathname } = useLocation();
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const projectId = Number(pathname.match(REGEX.PROJECT_ID)?.[1]) || null;
+  const storeData = useSelector(
+    (state: RootState) => state.userDataSlicer
+  ) as UserDataForm | null;
+
+  const localStorageStringData = localStorage.getItem(QUERY.KEY.USER_DATA);
+  const localStorageData =
+    localStorageStringData && JSON.parse(localStorageStringData);
+
+  const userData = localStorageData?.userData || storeData;
+
   const isNotSmallDevice = useMediaQuery(DEVICES.MOBILES);
 
   const toggleDropdown = () => {
@@ -82,7 +94,6 @@ export function TopNav({ data }: TopNavProps) {
             <Link to="/">
               <MainLogo />
             </Link>
-
             <RightWrapper className="dropdown">
               <ThemeToggle />
               <ProfileDiv onClick={toggleDropdown}>
@@ -91,7 +102,7 @@ export function TopNav({ data }: TopNavProps) {
               {dropdownVisible && (
                 <DropdownMenu>
                   <DropdownItem onClick={() => setDropdownVisible(false)}>
-                    <Link to={`/myTicketPage`}>My Ticket</Link>
+                    <Link to={`/myTicket/${userData.userId}`}>My Ticket</Link>
                   </DropdownItem>
                   <DropdownItem onClick={() => setDropdownVisible(false)}>
                     <Link to={`/project/${projectId}/settings/user`}>
