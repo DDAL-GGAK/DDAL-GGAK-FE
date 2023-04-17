@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Button } from 'components/containers';
 import { TICKET } from 'constants/';
 
-export const TicketStatusButton = styled(Button)<{ status: string }>`
+export const TicketButton = styled(Button)<{ status: string }>`
   position: relative;
   padding: 1rem 2rem;
   border: ${({ theme }) => theme.borderColor} 1px solid;
@@ -10,19 +10,7 @@ export const TicketStatusButton = styled(Button)<{ status: string }>`
   background: ${({ theme }) => theme.background};
   color: ${({ theme }) => theme.color};
 
-  /* Button Text */
-  --defaultText: ${({ status }) => `"${status}"`};
-  --hoverText: ${({ status }) => {
-    const { TODO, IN_PROGRESS } = TICKET.STATUS;
-
-    if (status === TODO) return `"${IN_PROGRESS}"`;
-    if (status === IN_PROGRESS) return `"${TODO}"`;
-
-    return `"${status}"`;
-  }};
-
   ::before {
-    content: var(--defaultText);
     position: absolute;
     top: 0;
     left: 0;
@@ -35,7 +23,6 @@ export const TicketStatusButton = styled(Button)<{ status: string }>`
   }
 
   ::after {
-    content: var(--hoverText);
     position: absolute;
     top: 0;
     left: 0;
@@ -59,5 +46,25 @@ export const TicketStatusButton = styled(Button)<{ status: string }>`
     ::before {
       opacity: 0;
     }
+  }
+`;
+
+export const TicketStatusButton = styled(TicketButton)<{ status: string }>`
+  --defaultText: ${({ status }) => `"${status}"`};
+  --hoverText: ${({ status }) => {
+    const { TODO, IN_PROGRESS } = TICKET.STATUS;
+
+    if (status === TODO) return `"${IN_PROGRESS}"`;
+    if (status === IN_PROGRESS) return `"${TODO}"`;
+
+    return `"${status}"`;
+  }};
+
+  ::before {
+    content: var(--defaultText);
+  }
+
+  ::after {
+    content: var(--hoverText);
   }
 `;
