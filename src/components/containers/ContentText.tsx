@@ -7,5 +7,8 @@ export function ContentText({ children, ...props }: Container) {
 
 const Wrapper = styled.label`
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   color: ${({ theme }) => theme.transparentColor};
 `;

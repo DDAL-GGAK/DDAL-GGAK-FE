@@ -52,6 +52,19 @@ const Wrapper = styled.div<{ thumbnail?: Thumbnail }>`
       ? `url(${props.thumbnail}) center / cover`
       : props.theme.navLinkBackground};
 
+  ::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: ${(props) =>
+      props.thumbnail ? 'rgba(0, 0, 0, 0)' : 'transparent'};
+    border-radius: ${NAVLINK.BORDER_RADIUS}px;
+    transition: ${({ theme }) => theme.transitionOption};
+  }
+
   :hover {
     cursor: pointer;
     background: ${(props) =>
@@ -59,13 +72,16 @@ const Wrapper = styled.div<{ thumbnail?: Thumbnail }>`
         ? `url(${props.thumbnail}) center / cover`
         : props.theme.color};
 
-    border-radius: ${NAVLINK.HOVER_BORDER_RADIUS}px;
+    ::after {
+      background-color: ${(props) =>
+        props.thumbnail ? 'rgba(255, 255, 255, 0.3)' : 'transparent'};
+    }
   }
 `;
 
 const Text = styled.div`
   font-weight: 600;
-  color: teal;
+  color: ${({ theme }) => theme.sideNavColor};
 `;
 
 const Current = styled(motion.div)`
@@ -75,5 +91,5 @@ const Current = styled(motion.div)`
   border-radius: 0 10px 10px 0;
   height: ${NAVLINK.HEIGHT}px;
   transition: ${({ theme }) => theme.transitionOption};
-  background: ${({ theme }) => theme.color};
+  background: ${({ theme }) => theme.sideNavCurrBorder};
 `;

@@ -8,3 +8,4 @@ export * from './ContentText';
 export * from './TextInput';
 export * from './LabelWrapper';
 export * from './LabelButton';
+export * from './BorderWrapper';

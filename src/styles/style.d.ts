@@ -14,9 +14,9 @@ declare module 'styled-components' {
     boxShadow: string;
 
     /* nav */
-    navBackground: string;
     navLinkBackground: string;
     borderColor: string;
+    navBackground: string;
 
     /* login */
     loginDisable: string;
@@ -26,5 +26,17 @@ declare module 'styled-components' {
 
     /* ticket */
     ticketHover: string;
+
+    /* Design */
+    sideNavBackground: string;
+    sideNavCurrBorder: string;
+    sideNavColor: string;
+    navLinkBackground: string;
+    topNavBackground: string;
+    borderColor: string;
+    taskCardBackground: string;
+    newTaskBackground: string;
+    newTaskColor: string;
+    darkBorder: string;
   }
 }

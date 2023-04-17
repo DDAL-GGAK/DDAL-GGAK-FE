@@ -6,7 +6,7 @@ export function UserNicknameInput({ register }: NicknameInputProps) {
   return (
     <TextInput
       type="text"
-      placeholder="Enter your nickname"
+      placeholder="New User name"
       register={register(REGISTER_TYPE.NICKNAME, {
         required: ERROR_MESSAGE.NICKNAME.REQUIRED,
         maxLength: {

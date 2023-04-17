@@ -7,6 +7,8 @@ import { useMutation, useQueryClient } from 'react-query';
 import { useErrorHandler } from 'hooks';
 import { UserDataForm } from 'types';
 import { setUserProfile } from 'api';
+import { useDispatch } from 'react-redux';
+import { setUserData } from 'redux/modules/userData';
 
 interface UserProfileProps {
   userData: UserDataForm | undefined;
@@ -16,6 +18,7 @@ export function UpdateProfile({ userData }: UserProfileProps) {
   const { errorHandler } = useErrorHandler();
   const queryClient = useQueryClient();
   const [profile, setProfile] = useState<File | null>(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     handleProfileUpdate(profile);
@@ -23,7 +26,10 @@ export function UpdateProfile({ userData }: UserProfileProps) {
 
   const { mutate } = useMutation(setUserProfile, {
     ...QUERY.DEFAULT_CONFIG,
-    onSuccess: () => {
+    onSuccess: (res) => {
+      const { data } = res;
+      localStorage.setItem(QUERY.KEY.USER_DATA, JSON.stringify({ data }));
+      dispatch(setUserData(data));
       queryClient.invalidateQueries(QUERY.KEY.USER_PROFILE);
       sendToast.success(TOASTIFY.SUCCESS.USER_SETTING);
     },
@@ -87,8 +93,9 @@ const ImageLabel = styled.label`
   justify-content: center;
   width: 125px;
   height: 125px;
-  background: rgba(0, 0, 0, 0.3);
+  background: ${({ theme }) => theme.borderColor};
   border-radius: 50%;
+  border: 8px solid ${({ theme }) => theme.background};
   :hover {
     cursor: pointer;
   }

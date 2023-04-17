@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Tickets } from 'types';
+import { Tickets, TicketState } from 'types';
 
 interface SetTicketDataAction {
   payload: Tickets;
@@ -9,15 +9,11 @@ interface SetLabelAction {
   payload: string;
 }
 
-interface TicketState {
-  ticket: Tickets;
-  label: string;
-}
-
 const initialState: TicketState = {
   ticket: {
     TODO: [],
     IN_PROGRESS: [],
+    REVIEW: [],
     DONE: [],
   },
   label: 'All',

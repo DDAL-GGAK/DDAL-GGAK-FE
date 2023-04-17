@@ -1,37 +1,23 @@
 import styled from 'styled-components';
 import { SIDE_NAV, TOP_NAV } from 'constants/layout';
-import { NavLink, Config, Loading } from 'components';
+import { NavLink, Config } from 'components';
 import { NewProjectButton } from 'components/project';
 import { ProjectsLink } from 'types';
-import { getUserProjects } from 'api';
-import { useQuery } from 'react-query';
-import { useLocation, Link } from 'react-router-dom';
-import { REGEX, QUERY } from 'constants/';
-import { useNavigateBack, useErrorHandler } from 'hooks';
+import { Link, useLocation } from 'react-router-dom';
+import { REGEX } from 'constants/';
 
-export function SideNav() {
+interface SideNavProps {
+  data: ProjectsLink[];
+}
+
+export function SideNav({ data }: SideNavProps) {
   const { pathname } = useLocation();
-  const navigateBack = useNavigateBack();
-  const { errorHandler } = useErrorHandler();
   const projectId = Number(pathname.match(REGEX.PROJECT_ID)?.[1]) || null;
-  const { data: fetchData } = useQuery(
-    QUERY.KEY.USER_PROJECTS,
-    getUserProjects,
-    {
-      ...QUERY.DEFAULT_CONFIG,
-      onError: (error: unknown) => errorHandler(error),
-    }
-  );
-
-  if (typeof fetchData?.data === 'string') {
-    navigateBack();
-    return <Loading />;
-  }
 
   return (
     <Wrapper>
       <TopWrapper>
-        {fetchData?.data?.map((project: ProjectsLink) => {
+        {data?.map((project: ProjectsLink) => {
           const { id } = project;
 
           return (
@@ -55,9 +41,8 @@ const Wrapper = styled.div`
   z-index: 0;
   left: 0;
   top: ${TOP_NAV.HEIGHT}px;
-  background: ${({ theme }) => theme.navBackground};
+  background: ${({ theme }) => theme.sideNavBackground};
   box-sizing: border-box;
-  box-shadow: 0 0px 5px rgba(0, 0, 0, 0.3);
   width: ${SIDE_NAV.WIDTH}px;
   height: calc(100% - ${TOP_NAV.HEIGHT}px);
   padding: ${TOP_NAV.PADDING}px 0;

@@ -9,12 +9,13 @@ import { useErrorHandler } from 'hooks';
 import { REGEX, QUERY, TOASTIFY } from 'constants/';
 import { sendToast } from 'libs';
 import { useForm } from 'react-hook-form';
+import { BorderWrapper, Button } from 'components';
 
 export function ProjectSetting() {
   const { id: param } = useParams();
   const { errorHandler } = useErrorHandler();
   const { pathname } = useLocation();
-  const projectId = Number(pathname.match(REGEX.PROJECT_ID)?.[1]) || null;
+  const projectId = pathname.match(REGEX.PROJECT_ID)?.[1] || '';
   const { data: projectData } = useQuery<ProjectDataForm>(
     [QUERY.KEY.PROJECT_DATA, param],
     () => getProjectData(param as string),
@@ -36,7 +37,7 @@ export function ProjectSetting() {
   const { mutate } = useMutation(updateProjectTitle, {
     ...QUERY.DEFAULT_CONFIG,
     onSuccess: () => {
-      queryClient.invalidateQueries(QUERY.KEY.PROJECT_TITLE);
+      queryClient.invalidateQueries(QUERY.KEY.USER_PROJECTS);
       sendToast.success(TOASTIFY.SUCCESS.USER_SETTING);
     },
     onError: errorHandler
@@ -60,7 +61,11 @@ export function ProjectSetting() {
     };
 
     if (projectData?.thumbnail) {
-      const file = await urlToFile(projectData.thumbnail, 'thumbnail.jpg', 'image/jpeg, image/png, image/gif, image/webp');
+      const file = await urlToFile(
+        projectData.thumbnail,
+        'thumbnail.jpg',
+        'image/jpeg, image/png, image/gif, image/webp'
+      );
       formData.append('thumbnail', file);
     }
 
@@ -71,7 +76,7 @@ export function ProjectSetting() {
 
     formData.append('data', blobDataField);
 
-    mutate({ data: formData, projectId: Number(projectId) });
+    mutate({ data: formData, projectId });
   };
 
   return (
@@ -79,66 +84,83 @@ export function ProjectSetting() {
       <Container>
         <TextL>Project Setting</TextL>
       </Container>
-      <TextM>{projectData?.projectTitle}&apos;s Profile</TextM>
-      <UpdateThumbnail projectData={projectData} />
+      <BorderWrapper>
+        <TextL>Change Icon</TextL>
+        <UpdateThumbnail projectData={projectData} />
+        <Hr />
+        <Form onSubmit={handleSubmit(onValid)}>
+          <TextL>Change Title</TextL>
+          <ButtonWrapper>
+            <ProjectTitleInput register={register} />
+            {errors.projectTitle && (
+              <Errorspan>{errors.projectTitle.message}</Errorspan>
+            )}
+            <Button buttonType="small">Save</Button>
+          </ButtonWrapper>
+        </Form>
+      </BorderWrapper>
       <Hr />
-      <Form onSubmit={handleSubmit(onValid)}>
-        <TextL>General</TextL>
-        <TextM>project Title</TextM>
-        <ProjectTitleInput register={register} />
-        {errors.projectTitle && <Errorspan>{errors.projectTitle.message}</Errorspan>}
-        <Button>Save</Button>
-      </Form>
-      <Hr />
-      <Container>
-        <TextL>Delete project</TextL>
-        <TextS>
-          if you want to permanently delete this project and all of its data,
-          including but not limited to users, issues, and comments, you can do
-          so below.
-        </TextS>
-        <DeleteProjectButton 
-          projectData={projectData}
-          projectId={projectId}
-        />
-      </Container>
+      <TextL>Delete project</TextL>
+      <BorderWrapper>
+        <TextM>
+          if you want to permanently <TextDelete> delete</TextDelete> this
+          project and all of its data, including but not limited to users,
+          issues, and comments, you can do so below.
+        </TextM>
+        <ButtonWrapper>
+          <DeleteProjectButton
+            projectData={projectData}
+            projectId={projectId}
+          />
+        </ButtonWrapper>
+      </BorderWrapper>
     </Wrapper>
   );
 }
 
-const Wrapper = styled.div`
-  max-width: 800px;
+const Wrapper = styled.div``;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
-const Container = styled.div``;
-
-const Form = styled.form``;
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
 
 const TextL = styled.div`
   font-size: 25px;
   font-weight: 600;
+  color: ${({ theme }) => theme.color};
+  margin-bottom: 1rem;
 `;
 
 const TextM = styled.div`
   font-size: 17.5px;
   font-weight: 600;
-`;
-const TextS = styled.div`
-  font-size: 12px;
-  font-weight: 400;
+  color: ${({ theme }) => theme.color};
+  margin-bottom: 1rem;
 `;
 
 const Hr = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
-  margin-top: 20px;
-  margin-bottom: 20px;
-`;
-
-const Button = styled.button`
-  display: block;
+  margin: 2rem 0;
 `;
 
 const Errorspan = styled.span`
-  color: ${({ theme }) => theme.accentColor};
+  color: ${({ theme }) => theme.errorColor};
   font-size: 12px;
+  margin-top: 0.5rem;
+`;
+
+const TextDelete = styled.span`
+  color: ${({ theme }) => theme.accentColor};
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  gap: 1rem;
+  max-width: 270px;
 `;

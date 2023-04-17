@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Participant } from 'types';
-import { Link } from 'react-router-dom';
-import { MenuDots } from 'assets/icons';
+import { Exit } from 'assets/icons';
 
 interface MemberDataProps {
   memberData: Participant;
@@ -13,76 +12,80 @@ export function MemberCard({ memberData }: MemberDataProps) {
   return (
     <Wrapper>
       <LeftWrapper>
-        <Link to="/">
-          <ImageLabel>
-            <Image src={thumbnail} />
-          </ImageLabel>
-        </Link>
+        <ImageLabel>
+          <Image src={thumbnail} />
+        </ImageLabel>
         <UserInfo>
-          <span>{email}</span>
-          <span>{nickname}</span>
+          <RoleText>
+            {'<'}
+            {role}
+            {'>'} {nickname}
+          </RoleText>
+          <EmailText>{email}</EmailText>
         </UserInfo>
       </LeftWrapper>
-      <MiddleWrapper>
-        <span>{role}</span>
-      </MiddleWrapper>
       <RightWrapper>
         <Button>
-            <MenuDots size={20}/>
+          <Exit size={20} />
         </Button>
-    </RightWrapper>
+      </RightWrapper>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
-  display: grid;
-  column-gap: 16px;
-  grid-template-columns: 7fr 3fr 2fr;
-  height: 60px;
-  min-width: 0px;
+  display: flex;
   align-items: center;
+  background: ${({ theme }) => theme.borderColor};
+  padding: 1rem;
+  border-radius: 5px;
+  box-shadow: ${({ theme }) => theme.boxShadow};
+  transition: ${({ theme }) => theme.transitionOption};
 `;
 
 const LeftWrapper = styled.div`
   display: flex;
   flex: initial;
   flex-direction: row;
-  -webkit-box-align: center;
   align-items: center;
   gap: 16px;
 `;
 
-const MiddleWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  -webkit-box-flex: 1;
-  flex-grow: 1;
-  gap: 8px;
-`;
 const RightWrapper = styled.div`
   display: flex;
   flex: initial;
   flex-direction: row;
-  -webkit-box-align: center;
   align-items: center;
-  -webkit-box-pack: end;
   justify-content: flex-end;
+  margin-left: auto;
 `;
 
 const UserInfo = styled.div`
-width: 220px;
   display: flex;
-  flex: initial;
   flex-direction: column;
-  gap: 4px;
+  gap: 0.5rem;
+`;
+
+const RoleText = styled.div`
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: ${({ theme }) => theme.color};
+`;
+
+const EmailText = styled.div`
+  font-size: 0.875rem;
+  color: ${({ theme }) => theme.color};
 `;
 
 const ImageLabel = styled.div`
-  width: 24px;
-  height: 24px;
+  width: 50px;
+  height: 50px;
   background: rgba(0, 0, 0, 0.3);
   border-radius: 50%;
+  overflow: hidden;
+
   :hover {
     cursor: pointer;
   }
@@ -91,9 +94,16 @@ const ImageLabel = styled.div`
 const Image = styled.img`
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+  object-fit: cover;
 `;
 
 const Button = styled.button`
-  background-color: unset;
-`
+  background: none;
+  color: ${({ theme }) => theme.color};
+  transition: ${({ theme }) => theme.transitionOption};
+
+  :hover {
+    cursor: pointer;
+    color: ${({ theme }) => theme.accentColor};
+  }
+`;

@@ -4,8 +4,10 @@ import { useErrorHandler } from 'hooks';
 import { QUERY } from 'constants/';
 import { useQuery } from 'react-query';
 import { getProjectData } from 'api';
-import { ProjectDataForm, Participant } from 'types';
-import { MemberCard } from 'components/project';
+import { ProjectDataForm } from 'types';
+import { Participants } from 'components/project';
+import { BorderWrapper } from 'components';
+import { CreateInviteCodeButton } from 'components/project/CreateInviteCodeButton';
 
 export function ProjectMember() {
   const { id: param } = useParams();
@@ -16,7 +18,7 @@ export function ProjectMember() {
     () => getProjectData(param as string),
     {
       ...QUERY.DEFAULT_CONFIG,
-      onError: (error: unknown) => errorHandler(error),
+      onError: errorHandler,
     }
   );
 
@@ -24,59 +26,64 @@ export function ProjectMember() {
     <Wrapper>
       <Container>
         <TextL>Members</TextL>
-        <TextS>Manage who has access to this project</TextS>
+        <TextM>Manage who has access to this project</TextM>
       </Container>
       <Hr />
-      <Container>
-        <TextM>Invite Link</TextM>
-        <TextS>
-          Invite people to your workspace by sharing this private link. This
-          message will only appear to people with permission to invite members.
-          Resetting the link will allow you to generate a new invite link.
-        </TextS>
-        <ContentTop>
-          copy link
-          <Button>copy link</Button>
-        </ContentTop>
-      </Container>
+      <BorderWrapper>
+        <Container>
+          <TextM>Create Invite Link</TextM>
+          <TextS>
+            Invite people to your workspace by sharing this private link. This
+            message will only appear to people with permission to invite
+            members. Resetting the link will allow you to generate a new invite
+            link.
+          </TextS>
+          <Button>
+            <CreateInviteCodeButton>Copy Code</CreateInviteCodeButton>
+          </Button>
+        </Container>
+      </BorderWrapper>
       <Hr />
-      <Container>
-        <TextM>Manage members</TextM>
-        <TextS>
-          In this section, you can manage your members or send invitations by
-          writing down the emails of the people you want to invite.
-        </TextS>
-        <ContentTop>
-          <Button>add members</Button>
-          <div>search</div>
-        </ContentTop>
-        <MemberBoard>
-          {projectData?.participants.map((memberData: Participant) => (
-            <MemberCard key={memberData.id} memberData={memberData} />
-          ))}
-        </MemberBoard>
-      </Container>
+      <BorderWrapper>
+        <Container>
+          <TextM>Manage members</TextM>
+          <TextS>
+            In this section, you can manage your members or send invitations by
+            writing down the emails of the people you want to invite.
+          </TextS>
+          <ContentTop>
+            <Button>add members</Button>
+          </ContentTop>
+        </Container>
+      </BorderWrapper>
+      <Hr />
+      <Participants participants={projectData?.participants} />
     </Wrapper>
   );
 }
-
 const Wrapper = styled.div`
-  max-width: 800px;
+  background: ${({ theme }) => theme.background};
 `;
 
 const TextL = styled.div`
   font-size: 25px;
   font-weight: 600;
+  color: ${({ theme }) => theme.color};
+  margin-bottom: 1rem;
 `;
 
 const TextM = styled.div`
   font-size: 17.5px;
   font-weight: 600;
+  color: ${({ theme }) => theme.color};
 `;
+
 const TextS = styled.div`
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 400;
+  color: ${({ theme }) => theme.color};
 `;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -91,6 +98,20 @@ const Hr = styled.div`
 
 const Button = styled.button`
   display: block;
+  background: ${({ theme }) => theme.color};
+  color: ${({ theme }) => theme.background};
+  border: none;
+  border-radius: 5px;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: ${({ theme }) => theme.transitionOption};
+  width: 150px;
+
+  :hover {
+    cursor: pointer;
+    background: ${({ theme }) => theme.pointColorLight};
+  }
 `;
 
 const ContentTop = styled.div`
@@ -98,5 +119,3 @@ const ContentTop = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
-
-const MemberBoard = styled.div``;

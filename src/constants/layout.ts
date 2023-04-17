@@ -23,7 +23,7 @@ export const MAIN_NAV = Object.freeze({
 export const NAVLINK = Object.freeze({
   WIDTH: 45,
   HEIGHT: 45,
-  BORDER_RADIUS: 15,
+  BORDER_RADIUS: 6,
   HOVER_BORDER_RADIUS: 10,
 });
 

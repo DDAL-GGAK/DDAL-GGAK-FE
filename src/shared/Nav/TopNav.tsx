@@ -1,13 +1,23 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { SIDE_NAV, TOP_NAV, REGEX } from 'constants/';
-import { Logo, Menu } from 'assets/icons';
+import { SIDE_NAV, TOP_NAV, REGEX, DEFAULT_VARIANTS } from 'constants/';
+import { Menu } from 'assets/icons';
 import { DEVICES } from 'styles';
 import { ThemeToggle, LogOut } from 'components';
 import { useMediaQuery } from 'hooks';
 import { useLocation, Link } from 'react-router-dom';
+import { MainLogo } from 'shared/MainLogo';
+import { Profile } from 'shared';
+import { ProjectsLink } from 'types';
+import { AnimatePresence, motion } from 'framer-motion';
+import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 
-export function TopNav() {
+interface TopNavProps {
+  data: ProjectsLink[];
+}
+
+export function TopNav({ data }: TopNavProps) {
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const { pathname } = useLocation();
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const projectId = Number(pathname.match(REGEX.PROJECT_ID)?.[1]) || null;
@@ -39,33 +49,62 @@ export function TopNav() {
   return (
     <Wrapper>
       <NavToggle>
-        <Menu size={30} />
+        <Menu
+          size={30}
+          onClick={() => setIsDropdownVisible(!isDropdownVisible)}
+        />
+        <AnimatePresence>
+          {isDropdownVisible && (
+            <DropdownWrapper
+              variants={DEFAULT_VARIANTS}
+              initial="from"
+              animate="to"
+              exit="exit"
+            >
+              {data.map((v) => (
+                <StyledLink
+                  key={v.id}
+                  to={`/project/${v.id}`}
+                  onClick={() => setIsDropdownVisible(false)}
+                >
+                  <EllipsisVerticalIcon style={{ width: 20 }} />
+                  <Image src={v.thumbnail} />
+                  <div>{v.projectTitle}</div>
+                </StyledLink>
+              ))}
+            </DropdownWrapper>
+          )}
+        </AnimatePresence>
       </NavToggle>
       <MainNav isNotSmall={isNotSmallDevice}>
-        <Link to="/">
-          <LeftWrapper>
-            <Logo size={30} />
-            <ProjectTitle>DDAL-GGAK</ProjectTitle>
-          </LeftWrapper>
-        </Link>
         {isNotSmallDevice ? (
-          <RightWrapper className="dropdown">
-            <ThemeToggle />
-            <ProfileImage onClick={toggleDropdown} />
-            {dropdownVisible && (
-              <DropdownMenu>
-                <DropdownItem onClick={() => setDropdownVisible(false)}>
-                  <Link to={`/myTicketPage`}>My Ticket</Link>
-                </DropdownItem>
-                <DropdownItem onClick={() => setDropdownVisible(false)}>
-                  <Link to={`/project/${projectId}/settings/user`}>My Page</Link>
-                </DropdownItem>
-                <DropdownItem onClick={() => setDropdownVisible(false)}>
-                  <LogOut />
-                </DropdownItem>
-              </DropdownMenu>
-            )}
-          </RightWrapper>
+          <>
+            <Link to="/">
+              <MainLogo />
+            </Link>
+
+            <RightWrapper className="dropdown">
+              <ThemeToggle />
+              <ProfileDiv onClick={toggleDropdown}>
+                <Profile />
+              </ProfileDiv>
+              {dropdownVisible && (
+                <DropdownMenu>
+                  <DropdownItem onClick={() => setDropdownVisible(false)}>
+                    <Link to={`/myTicketPage`}>My Ticket</Link>
+                  </DropdownItem>
+                  <DropdownItem onClick={() => setDropdownVisible(false)}>
+                    <Link to={`/project/${projectId}/settings/user`}>
+                      My Page
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem onClick={() => setDropdownVisible(false)}>
+                    <LogOut />
+                  </DropdownItem>
+                </DropdownMenu>
+              )}
+            </RightWrapper>
+          </>
         ) : (
           ''
         )}
@@ -77,8 +116,10 @@ export function TopNav() {
 const NavToggle = styled.div`
   width: ${SIDE_NAV.WIDTH}px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  left: 1rem;
+  top: 1rem;
+  position: absolute;
 
   @media ${DEVICES.MOBILES} {
     display: none;
@@ -91,10 +132,9 @@ const Wrapper = styled.div`
   left: 0;
   top: 0;
   z-index: 1;
-  background: ${({ theme }) => theme.navBackground};
+  background: ${({ theme }) => theme.topNavBackground};
   width: 100%;
   transition: ${({ theme }) => theme.transitionOption};
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
   transition: ${({ theme }) => theme.transitionOption};
   min-width: 400px;
@@ -120,38 +160,50 @@ const MainNav = styled.div<MainNavProps>`
 `;
 
 /* MainWrapper */
-const LeftWrapper = styled.div`
-  gap: 10px;
-  display: flex;
-`;
-
 const RightWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 15px;
 `;
 
-const ProfileImage = styled.div`
-  box-sizing: border-box;
-  width: 40px;
-  height: 40px;
-  background: url(.jpg);
-  border-bottom: 1px solid #000000;
-  border-radius: 10px;
-  background: ${({ theme }) => theme.navLinkBackground};
-  transition: ${({ theme }) => theme.transitionOption};
+const ProfileDiv = styled.div`
   cursor: pointer;
 `;
 
-const ProjectTitle = styled.div`
+const DropdownWrapper = styled(motion.div)`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  position: absolute;
+  z-index: 0;
+  top: 44px;
+  left: -16px;
+  flex-direction: column;
+  width: 100%;
+`;
 
-  /* text */
-  font-family: 'Roboto';
-  font-style: normal;
+const StyledLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   font-weight: 600;
+  font-size: 20px;
+  padding: 16px;
+  text-decoration: none;
+  color: ${({ theme }) => theme.color};
+  background: ${({ theme }) => theme.background};
+  border-bottom: 1px solid ${({ theme }) => theme.borderColor};
+  width: 100%;
+  transition: ${({ theme }) => theme.transitionOption};
+
+  :hover {
+    background-color: ${({ theme }) => theme.borderColor};
+  }
+`;
+
+const Image = styled.img<{ src: any }>`
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  background: url(${({ src }) => src});
 `;
 
 const DropdownMenu = styled.div`
@@ -165,7 +217,7 @@ const DropdownMenu = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  width: 85px
+  width: 85px;
 `;
 
 const DropdownItem = styled.div`

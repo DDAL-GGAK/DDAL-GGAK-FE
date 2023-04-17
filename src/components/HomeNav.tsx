@@ -1,7 +1,8 @@
 import styled from 'styled-components';
-import { Logo } from 'assets/icons';
 import { Link } from 'react-router-dom';
 import { useIsLogin } from 'hooks/useIsLogin';
+import { MainLogo, Profile } from 'shared';
+import { TOP_NAV } from 'constants/';
 import { LogOut } from './LogOut';
 
 export function HomeNav() {
@@ -10,10 +11,8 @@ export function HomeNav() {
   return (
     <Container>
       <LogoWrapper>
-        <Left>
-          <Logo size={50} />
-          <LogoText>DDAL-GGAK</LogoText>
-        </Left>
+        <MainLogo />
+        <div />
         <Right>
           {!isLogin ? (
             <NavItem>
@@ -27,6 +26,9 @@ export function HomeNav() {
           <NavItem>
             <Link to="/project/">My Project</Link>
           </NavItem>
+          <Link to="/project/">
+            <Profile />
+          </Link>
         </Right>
       </LogoWrapper>
     </Container>
@@ -41,34 +43,24 @@ const Container = styled.div`
 
 const LogoWrapper = styled.div`
   display: flex;
+  align-items: center;
+  box-sizing: border-box;
   justify-content: space-between;
-  gap: 0.5rem;
-  padding: 1.25rem;
+  padding: ${TOP_NAV.PADDING}px;
   color: white;
-  align-items: center;
-`;
-
-const Left = styled.div`
-  display: flex;
-  gap: 10px;
-  align-items: center;
 `;
 
 const Right = styled.div`
   display: flex;
-  gap: 10px;
   align-items: center;
-  margin-top: -8px;
-`;
-
-const LogoText = styled.h1`
-  font-weight: 600;
-  font-size: 30px;
+  gap: 10px;
+  margin-top: -7px;
 `;
 
 const NavItem = styled.div`
+  font-size: 18px;
   font-weight: 600;
-  padding: 5px;
+  padding: 10px 5px;
   box-sizing: border-box;
   border-bottom: 2px solid transparent;
   transition: ${({ theme }) => theme.transitionOption};
@@ -76,6 +68,6 @@ const NavItem = styled.div`
   :hover {
     cursor: pointer;
     box-sizing: border-box;
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid ${({ theme }) => theme.pointColor};
   }
 `;

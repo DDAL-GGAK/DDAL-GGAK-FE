@@ -8,17 +8,16 @@ const AUTH = Object.freeze({
 
 const PROJECT = Object.freeze({
   CREATE: '/api/project',
-  JOIN_PROJECT: (projectId: string | number) =>
-    `/api/project/${projectId}/join`,
+  CREATE_INVITE_CODE: (projectId: string) =>
+    `/api/project/${projectId}/inviteCode`,
   GET_DATA: '/api/project',
-  SET_THUMBNAIL: (projectId: string | number) =>
-    `/api/project/${projectId}/settings`,
-  SET_TITLE: (projectId: string | number) =>
-    `/api/project/${projectId}/settings`,
   GET_USER_PROJECTS: '/api/projects',
-  GET_PROJECT_USERS: (projectId: string | number) =>
-    `/api/project/${projectId}/users`,
+  GET_PROJECT_USERS: (projectId: string) => `/api/project/${projectId}/users`,
+  SET_THUMBNAIL: (projectId: string) => `/api/project/${projectId}/settings`,
+  SET_TITLE: (projectId: string) => `/api/project/${projectId}/settings`,
+  JOIN_PROJECT: (projectId: string) => `/api/project/${projectId}/join`,
   DELETE: '/api/project',
+  KICK_USER: (projectId: string) => `/api/project/${projectId}/user`,
 });
 
 const TASK = Object.freeze({
@@ -30,11 +29,11 @@ const TASK = Object.freeze({
 const TICKET = Object.freeze({
   CREATE: '/api/ticket',
   GET_DATA: (taskId: string) => `/api/ticket/${taskId}`,
-  DELETE: '/api/ticket',
   CHANGE_STATUS: (ticketId: string) => `/api/ticket/${ticketId}/movement`,
   SEND_REVIEW: (ticketId: string) => `/api/ticket/${ticketId}/review`,
   ASSIGN_TICKET: (ticketId: string) => `/api/ticket/${ticketId}/assign`,
   SET_LABEL: (ticketId: string) => `/api/ticket/${ticketId}/label`,
+  DELETE: '/api/ticket',
 });
 
 const USER = Object.freeze({
@@ -44,8 +43,8 @@ const USER = Object.freeze({
 });
 
 const LABEL = Object.freeze({
-  GET: (taskId: string) => `/api/task/${taskId}/labels`,
   CREATE: '/api/label',
+  GET: (taskId: string) => `/api/task/${taskId}/labels`,
   DELETE: '/api/label',
 });
 

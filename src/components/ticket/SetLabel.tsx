@@ -88,7 +88,6 @@ const LabelSelectWrapper = styled.div`
   align-items: center;
   padding: 0 8px;
   gap: 8px;
-  width: 100px;
   background: ${({ theme }) => theme.borderColor};
   color: ${({ theme }) => theme.color};
   border-radius: 4px;
@@ -125,6 +124,7 @@ const DropdownOption = styled.div`
   font-weight: 600;
   text-align: center;
   width: 100px;
+  transition: ${({ theme }) => theme.transitionOption};
   :hover {
     cursor: pointer;
     background: ${({ theme }) => theme.ticketHover};

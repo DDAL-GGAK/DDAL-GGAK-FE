@@ -1,7 +1,7 @@
 import { REGISTER_TYPE, ERROR_MESSAGE, CONFIG } from 'constants/';
 import { TicketCreateRegister } from 'types';
 import { LabelWrapper, LabelText, ErrorMessage } from 'components/containers';
-import { RadioInput, RadioLabel, RadioGroup } from '../RadioComponent';
+import { RadioGroup, RadioInput, RadioLabel } from '../RadioComponent';
 
 export function TicketDifficultyRadio({
   register,
@@ -11,8 +11,8 @@ export function TicketDifficultyRadio({
     <>
       <LabelWrapper>
         <LabelText>Difficulty:</LabelText>
-        {errors.ticketDifficulty && (
-          <ErrorMessage>{errors.ticketDifficulty.message}</ErrorMessage>
+        {errors.difficulty && (
+          <ErrorMessage>{errors.difficulty.message}</ErrorMessage>
         )}
       </LabelWrapper>
       <RadioGroup>
@@ -25,6 +25,7 @@ export function TicketDifficultyRadio({
               {...register(REGISTER_TYPE.TICKET_DIFFICULTY, {
                 required: ERROR_MESSAGE.TICKET_DIFFICULTY.REQUIRED,
               })}
+              name={REGISTER_TYPE.TICKET_DIFFICULTY}
             />
             <label htmlFor={`difficulty${i + 1}`}>{i + 1}</label>
           </RadioLabel>

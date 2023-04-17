@@ -10,12 +10,11 @@ export const lightTheme: DefaultTheme = {
   transparentColor: 'rgba(43, 43, 43, 0.65)',
   transitionOption: 'ease-in-out 0.15s',
   pointColorLight: 'rgb(68, 197, 172)',
-  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.5)',
+  boxShadow: '1px 2px 4px rgba(0, 0, 0, 0)',
+  darkBorder: '#1C1D27',
 
   /* nav */
   navBackground: '#F2F2F2',
-  navLinkBackground: '#D9D9D9',
-  borderColor: '#000000',
 
   /* login */
   loginDisable: '#C9D5DB',
@@ -25,6 +24,17 @@ export const lightTheme: DefaultTheme = {
 
   /* ticket */
   ticketHover: '#1C1D2A',
+
+  /* Pallete */
+  sideNavBackground: '#393A49',
+  sideNavCurrBorder: '#82838F',
+  sideNavColor: '#A4A5B2',
+  navLinkBackground: '#4F5060',
+  topNavBackground: '#181821',
+  borderColor: '#2C2D3C',
+  taskCardBackground: '#2C2D3C',
+  newTaskBackground: '#14141C',
+  newTaskColor: '#757686',
 };
 
 export const darkTheme: DefaultTheme = {
@@ -37,12 +47,11 @@ export const darkTheme: DefaultTheme = {
   color: '#E2E2E2',
   transparentColor: 'rgba(245, 246, 247, 0.65)',
   transitionOption: 'ease-in-out 0.15s',
-  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.5)',
+  boxShadow: '1px 2px 10px rgba(0, 0, 0, 0.16)',
+  darkBorder: '#1C1D27',
 
   /* nav */
   navBackground: '#111',
-  navLinkBackground: '#D9D9D9',
-  borderColor: '#2C2D3C',
 
   /* login */
   loginDisable: '#C9D5DB',
@@ -52,4 +61,15 @@ export const darkTheme: DefaultTheme = {
 
   /* ticket */
   ticketHover: '#1C1D2A',
+
+  /* Pallete */
+  sideNavBackground: '#393A49',
+  sideNavCurrBorder: '#82838F',
+  sideNavColor: '#A4A5B2',
+  navLinkBackground: '#4F5060',
+  topNavBackground: '#181821',
+  borderColor: '#2C2D3C',
+  taskCardBackground: '#2C2D3C',
+  newTaskBackground: '#14141C',
+  newTaskColor: '#757686',
 };

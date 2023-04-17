@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Cookies } from 'react-cookie';
-import { KEY, EXPIRE, METHOD } from 'constants/';
+import { COOKIE, METHOD, QUERY, STATUS_CODES } from 'constants/';
 import {
   AxiosInterceptorReqConfig,
   AuthReqConfig,
@@ -58,7 +58,7 @@ export class Axios {
       headers: {
         ...headers,
         Authorization: `${this.#cookie
-          .get(KEY.ACCESS_TOKEN)
+          .get(COOKIE.KEY.ACCESS_TOKEN)
           ?.replace('%', ' ')}`,
       },
     };
@@ -75,22 +75,14 @@ export class Axios {
     const { authorization, refreshtoken } = res.headers;
 
     if (authorization) {
-      const validUntil = new Date();
-      validUntil.setTime(new Date().getTime() + EXPIRE.ACCESS_TOKEN);
-
-      this.#cookie.set(KEY.ACCESS_TOKEN, authorization, {
-        path: '/',
-        expires: validUntil,
+      this.#cookie.set(COOKIE.KEY.ACCESS_TOKEN, authorization, {
+        ...COOKIE.CONFIG.DEFAULT,
       });
     }
 
     if (refreshtoken) {
-      const validUntil = new Date();
-      validUntil.setTime(new Date().getTime() + EXPIRE.REFRESH_TOKEN);
-
-      this.#cookie.set(KEY.REFRESH_TOKEN, refreshtoken, {
-        path: '/',
-        expires: validUntil,
+      this.#cookie.set(COOKIE.KEY.REFRESH_TOKEN, refreshtoken, {
+        ...COOKIE.CONFIG.DEFAULT,
       });
     }
 
@@ -98,11 +90,21 @@ export class Axios {
   }
 
   #resOnError(error: AxiosRes) {
-    if (error.response && error?.response.status === 1002) this.#getNewToken();
+    if (
+      error.response &&
+      error?.response.status === STATUS_CODES.ERROR.EXPIRED_TOKEN
+    )
+      this.#onTokenExpired();
+
     return Promise.reject(error);
   }
 
-  #getNewToken() {}
+  #onTokenExpired() {
+    this.#cookie.remove(COOKIE.KEY.ACCESS_TOKEN, {
+      ...COOKIE.CONFIG.DEFAULT,
+    });
+    localStorage.removeItem(QUERY.KEY.USER_DATA);
+  }
 
   /**
    * @param {string} endPoint

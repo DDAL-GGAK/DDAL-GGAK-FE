@@ -100,7 +100,7 @@ export function CreateProject({
       </CreateForm>
       <Hr />
       <InviteWrapper>
-        <LabelText>If you have invite code?</LabelText>
+        <LabelText>Do you have an invite code?</LabelText>
         <Button buttonType="dark" onClick={inviteHandler}>
           Enter invite code
         </Button>

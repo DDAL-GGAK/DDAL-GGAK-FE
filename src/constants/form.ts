@@ -13,8 +13,8 @@ export const REGISTER_TYPE = Object.freeze({
   NICKNAME: 'nickname',
   LABEL_TITLE: 'labelTitle',
   TASK_TITLE: 'taskTitle',
-  TICKET_SCORE: 'ticketPriority',
-  TICKET_DIFFICULTY: 'ticketDifficulty',
+  TICKET_SCORE: 'priority',
+  TICKET_DIFFICULTY: 'difficulty',
   TICKET_TITLE: 'ticketTitle',
   TICKET_DESCRIPTION: 'ticketDescription',
 });
@@ -37,7 +37,7 @@ export const ERROR_MESSAGE = Object.freeze({
   }),
   INVITE_CODE: Object.freeze({
     REQUIRED: 'This field is required!',
-    MAX_LENGTH: 'Requires shoter than 20',
+    MAX_LENGTH: 'Requires shoter than 50',
   }),
   PROJECT_TITLE: Object.freeze({
     REQUIRED: 'Please enter your projectTitle!',
@@ -81,7 +81,7 @@ export const CONFIG = Object.freeze({
       /^(?=.*[A-Za-z]+)(?=.*[~!@#$%^&*()_+=]+)(?=.*[0-9]+)[A-Za-z\d~!@#$%^&*()_+=]{8,15}$/g,
   }),
   INVITE_CODE: Object.freeze({
-    MAX_LENGTH: 20,
+    MAX_LENGTH: 50,
   }),
   PROJECT_TITLE: Object.freeze({
     MAX_LENGTH: 20,

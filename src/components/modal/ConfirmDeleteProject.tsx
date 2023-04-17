@@ -1,15 +1,15 @@
-import { QUERY, TOASTIFY } from 'constants/';
+import { QUERY, TOASTIFY, ROUTE } from 'constants/';
 import { deleteProject } from 'api';
 import { useMutation, useQueryClient } from 'react-query';
 import { useErrorHandler } from 'hooks';
 import { sendToast } from 'libs';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ProjectDataForm } from 'types';
 import styled from 'styled-components';
 
 interface ConfirmDeleteProjectProps {
   projectData: ProjectDataForm | undefined;
-  projectId: number | null;
+  projectId: string;
   closeModal: () => void;
 }
 
@@ -18,26 +18,22 @@ export function ConfirmDeleteProject({
   projectId,
   closeModal,
 }: ConfirmDeleteProjectProps) {
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const { errorHandler } = useErrorHandler({ route: pathname });
   const queryClient = useQueryClient();
-
   const { mutate } = useMutation(deleteProject, {
     ...QUERY.DEFAULT_CONFIG,
     onSuccess: () => {
-      queryClient.invalidateQueries(QUERY.KEY.PROJECT_DATA);
+      queryClient.invalidateQueries(QUERY.KEY.USER_PROJECTS);
       sendToast.success(TOASTIFY.SUCCESS.DELETE_PROJECT);
+      closeModal();
+      navigate(ROUTE.PROJECT_HOME);
     },
     onError: (error: unknown) => errorHandler(error),
   });
 
-  const onDeleteProject = () => {
-    if (projectId !== null) {
-      mutate(projectId);
-    } else {
-      console.error('Project ID is missing or invalid');
-    }
-  };
+  const onDeleteProject = () => mutate(projectId);
 
   return (
     <ConfirmDeleteWrapper>
@@ -47,9 +43,7 @@ export function ConfirmDeleteProject({
         <HighlightPoint> {projectData?.projectTitle} </HighlightPoint>?
       </Heading>
       <ButtonWrapper>
-        <DeleteButton onClick={onDeleteProject}>
-          Yes
-        </DeleteButton>
+        <DeleteButton onClick={onDeleteProject}>Yes</DeleteButton>
         <Button onClick={closeModal}>No</Button>
       </ButtonWrapper>
     </ConfirmDeleteWrapper>

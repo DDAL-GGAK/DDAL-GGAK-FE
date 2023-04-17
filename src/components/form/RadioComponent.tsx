@@ -22,6 +22,7 @@ export const RadioInput = styled.input`
   border: 1px solid ${({ theme }) => theme.color};
   border-radius: 50%;
   outline: none;
+  transition: ${({ theme }) => theme.transitionOption};
 
   &:checked {
     background-color: ${({ theme }) => theme.pointColor};
