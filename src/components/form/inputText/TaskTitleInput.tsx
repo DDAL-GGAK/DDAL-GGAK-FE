@@ -6,7 +6,7 @@ export function TaskTitleInput({ register }: TaskTitleInputProps) {
   return (
     <TextInput
       type="text"
-      placeholder="Your ProjectName"
+      placeholder="Task name"
       register={register(REGISTER_TYPE.TASK_TITLE, {
         required: ERROR_MESSAGE.TASK_TITLE.REQUIRED,
         maxLength: {

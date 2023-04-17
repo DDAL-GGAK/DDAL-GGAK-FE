@@ -30,13 +30,13 @@ export function SendTicketReviewButton({
 
   if (isLoading)
     return (
-      <Button buttonType="point">
+      <Button buttonType="small">
         <Loading />
       </Button>
     );
 
   return (
-    <Button onClick={sendReviewHandler} buttonType="point">
+    <Button onClick={sendReviewHandler} buttonType="small">
       {status === TICKET.STATUS.REVIEW
         ? 'Ticket is on Review'
         : 'Enroll Review'}

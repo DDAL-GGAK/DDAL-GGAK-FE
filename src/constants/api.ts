@@ -15,7 +15,7 @@ const PROJECT = Object.freeze({
   GET_PROJECT_USERS: (projectId: string) => `/api/project/${projectId}/users`,
   SET_THUMBNAIL: (projectId: string) => `/api/project/${projectId}/settings`,
   SET_TITLE: (projectId: string) => `/api/project/${projectId}/settings`,
-  JOIN_PROJECT: (projectId: string) => `/api/project/${projectId}/join`,
+  JOIN_PROJECT: '/api/project/join',
   DELETE: '/api/project',
   KICK_USER: (projectId: string) => `/api/project/${projectId}/user`,
 });
