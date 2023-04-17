@@ -49,7 +49,9 @@ export const TicketButton = styled(Button)<{ status: string }>`
   }
 `;
 
-export const TicketStatusButton = styled(TicketButton)<{ status: string }>`
+export const TicketStatusToggleButton = styled(TicketButton)<{
+  status: string;
+}>`
   --defaultText: ${({ status }) => `"${status}"`};
   --hoverText: ${({ status }) => {
     const { TODO, IN_PROGRESS } = TICKET.STATUS;
@@ -58,6 +60,30 @@ export const TicketStatusButton = styled(TicketButton)<{ status: string }>`
     if (status === IN_PROGRESS) return `"${TODO}"`;
 
     return `"${status}"`;
+  }};
+
+  ::before {
+    content: var(--defaultText);
+  }
+
+  ::after {
+    content: var(--hoverText);
+  }
+`;
+
+export const TicketReviewButton = styled(TicketButton)<{ status: string }>`
+  --defaultText: ${({ status }) => {
+    const { REVIEW } = TICKET.STATUS;
+    if (status === REVIEW) return `'Rollback'`;
+
+    return `'Send Review'`;
+  }};
+
+  --hoverText: ${({ status }) => {
+    const { REVIEW } = TICKET.STATUS;
+    if (status === REVIEW) return `'Rollback'`;
+
+    return `'Send Review'`;
   }};
 
   ::before {
