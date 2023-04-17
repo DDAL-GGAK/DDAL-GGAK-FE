@@ -33,7 +33,6 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
     }
   );
 
-  console.log(ticketData);
   const userData = useSelector(
     (state: RootState) => state.userDataSlicer
   ) as UserDataForm | null;

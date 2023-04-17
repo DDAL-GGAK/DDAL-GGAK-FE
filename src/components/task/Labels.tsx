@@ -5,12 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setLabel } from 'redux/modules/ticketData';
 import { LabelButton } from 'components/containers';
 import { RootState } from 'redux/store';
+import { memo, useCallback } from 'react';
 
-export function Labels({ labels }: LabelsProps) {
+export const Labels = memo(({ labels }: LabelsProps) => {
   const dispatch = useDispatch();
-  const LabelClickHandler = (labelTitle: string) => {
+  const LabelClickHandler = useCallback((labelTitle: string) => {
     dispatch(setLabel(labelTitle));
-  };
+  }, []);
 
   const { label } = useSelector(
     (state: RootState) => state.ticketDataSlicer as TicketState
@@ -51,7 +52,7 @@ export function Labels({ labels }: LabelsProps) {
       <SortMethods />
     </TopWrapper>
   );
-}
+});
 
 const Wrapper = styled.div`
   display: flex;

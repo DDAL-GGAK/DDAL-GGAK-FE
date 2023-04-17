@@ -19,6 +19,7 @@ export function TicketContainer() {
     (state: RootState) => state.userDataSlicer
   ) as UserDataForm | null;
 
+  console.log('render');
   return (
     <>
       <Wrapper>

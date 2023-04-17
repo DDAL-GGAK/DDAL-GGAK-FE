@@ -7,6 +7,7 @@ import { useLocation } from 'react-router-dom';
 import { useErrorHandler } from 'hooks';
 import { useDispatch } from 'react-redux';
 import { setTicketData } from 'redux/modules/ticketData';
+import { memo } from 'react';
 
 interface AssignCheckBoxProps {
   ticketData: {
@@ -16,7 +17,7 @@ interface AssignCheckBoxProps {
   };
 }
 
-export function AssignCheckBox({ ticketData }: AssignCheckBoxProps) {
+export const AssignCheckBox = memo(({ ticketData }: AssignCheckBoxProps) => {
   const { ticketId, assigned, isMyTicket } = ticketData;
   const { pathname } = useLocation();
   const { errorHandler } = useErrorHandler({ route: pathname });
@@ -66,7 +67,7 @@ export function AssignCheckBox({ ticketData }: AssignCheckBoxProps) {
       <AnimatePresence>{checkBranch(assigned, isMyTicket)}</AnimatePresence>
     </CheckboxWrapper>
   );
-}
+});
 
 const CheckboxWrapper = styled.div`
   display: flex;
