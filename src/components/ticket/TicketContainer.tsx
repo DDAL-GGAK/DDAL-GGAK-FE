@@ -23,8 +23,11 @@ export const TicketContainer = memo(() => {
     <>
       <Wrapper>
         {Object.entries(ticketData?.ticket || {}).map(
-          ([ticketStatus, data]) => {
-            const ticketCount = ticketData?.ticket[ticketStatus]?.length;
+          ([ticketStatus, tickets]) => {
+            const isAllTicket = ticketData?.label === 'All';
+            const ticketCount = isAllTicket
+              ? tickets.length
+              : tickets.filter((v) => v.label === ticketData.label).length;
 
             return (
               <StatusWrapper key={ticketStatus}>
@@ -33,7 +36,7 @@ export const TicketContainer = memo(() => {
                   <BoardCount>{ticketCount}</BoardCount>
                 </BoardTitle>
                 <TicketWrapper>
-                  {data.map((ticket: TicketDataForm) => {
+                  {tickets.map((ticket: TicketDataForm) => {
                     if (ticketData.label === 'All')
                       return (
                         <Ticket
