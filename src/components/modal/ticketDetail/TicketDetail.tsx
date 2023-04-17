@@ -44,6 +44,19 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
           <Header>
             <Title>{ticketData.title}</Title>
           </Header>
+          <TicketStateWrapper>
+            <div />
+            <StatusButtonWrapper>
+              <ToggleTicketStatus
+                status={ticketData.status}
+                currTicketId={currTicketId}
+              />
+              <SendTicketReviewButton
+                status={ticketData.status}
+                currTicketId={currTicketId}
+              />
+            </StatusButtonWrapper>
+          </TicketStateWrapper>
           <Content>
             <ContentRow>
               <ContentItem>
@@ -75,25 +88,12 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
               <LabelText>Description:</LabelText>
               <Text>{ticketData.description}</Text>
             </Description>
-            <BottomWrapper>
-              {ticketData?.assigned === userData?.email && (
-                <TicketStateWrapper>
-                  <ToggleTicketStatus
-                    status={ticketData.status}
-                    currTicketId={currTicketId}
-                  />
-                  <SendTicketReviewButton
-                    status={ticketData.status}
-                    currTicketId={currTicketId}
-                  />
-                  <DeleteTicketButton
-                    closeModal={closeModal}
-                    ticket={ticketData}
-                  />
-                </TicketStateWrapper>
-              )}
-            </BottomWrapper>
           </Content>
+          {ticketData?.assigned === userData?.email && (
+            <TicketStateWrapper>
+              <DeleteTicketButton closeModal={closeModal} ticket={ticketData} />
+            </TicketStateWrapper>
+          )}
         </>
       ) : (
         <Loading />
@@ -162,4 +162,7 @@ const Content = styled.div`
   gap: 1rem;
 `;
 
-const BottomWrapper = styled.div``;
+const StatusButtonWrapper = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
