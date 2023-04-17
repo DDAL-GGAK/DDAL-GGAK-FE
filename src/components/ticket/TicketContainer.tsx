@@ -29,6 +29,14 @@ export const TicketContainer = memo(() => {
               ? tickets.length
               : tickets.filter((v) => v.label === ticketData.label).length;
 
+            const myTickets = tickets.filter(
+              (ticket) => ticket.assigned === userData?.email
+            );
+            const notMyTickets = tickets.filter(
+              (ticket) => ticket.assigned !== userData?.email
+            );
+            const sortedTickets = [...myTickets, ...notMyTickets];
+
             return (
               <StatusWrapper key={ticketStatus}>
                 <BoardTitle>
@@ -36,8 +44,8 @@ export const TicketContainer = memo(() => {
                   <BoardCount>{ticketCount}</BoardCount>
                 </BoardTitle>
                 <TicketWrapper>
-                  {tickets.map((ticket: TicketDataForm) => {
-                    if (ticketData.label === 'All')
+                  {sortedTickets.map((ticket: TicketDataForm) => {
+                    if (ticketData?.label === 'All')
                       return (
                         <Ticket
                           data={ticket}
