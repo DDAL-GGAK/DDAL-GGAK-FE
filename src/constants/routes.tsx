@@ -46,7 +46,7 @@ export const ROUTE_MAP: RouteMap = Object.freeze({
     AUTH: true,
     HAS_NAV: true,
   },
-  '/myTicketPage': {
+  '/myTicket/:userId': {
     COMPONENT: MyTicketPage,
     AUTH: true,
     HAS_NAV: true,
