@@ -43,9 +43,6 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
         <>
           <Header>
             <Title>{ticketData.title}</Title>
-          </Header>
-          <TicketStateWrapper>
-            <div />
             <StatusButtonWrapper>
               <ToggleTicketStatus
                 status={ticketData.status}
@@ -56,7 +53,7 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
                 currTicketId={currTicketId}
               />
             </StatusButtonWrapper>
-          </TicketStateWrapper>
+          </Header>
           <Content>
             <ContentRow>
               <ContentItem>

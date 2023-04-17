@@ -148,6 +148,7 @@ const Small = styled.button`
 `;
 
 const BorderButton = styled.button`
+  gap: 0.5rem;
   padding: 0.5rem 1rem;
   font-size: 1rem;
   font-weight: 600;
