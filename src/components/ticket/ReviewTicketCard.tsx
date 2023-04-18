@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { RootState } from 'redux/store';
 import { TicketDataForm, Tickets, UserDataForm } from 'types';
-import { completeTicket } from 'api';
+import { completeTicket, rejectTicket } from 'api';
 import { CheckIcon, TagIcon } from '@heroicons/react/24/outline';
 import { TicketDetail } from 'components/modal';
 import { ContentText } from 'components/containers';
@@ -39,7 +39,7 @@ export const ReviewTicketCard = memo(
       onError: errorHandler,
     });
 
-    const { mutate: rejectMutate } = useMutation(completeTicket, {
+    const { mutate: rejectMutate } = useMutation(rejectTicket, {
       ...QUERY.DEFAULT_CONFIG,
       onSuccess: (data: Tickets) => {
         dispatch(setTicketData(data));

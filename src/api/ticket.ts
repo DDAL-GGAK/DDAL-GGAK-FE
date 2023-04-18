@@ -68,8 +68,8 @@ export const completeTicket: TicketResType = async (ticketId: string) => {
   return res;
 };
 
-export const rejectTicket = async (ticketId: string) => {
-  const res = await api.post(API_ROUTE.TICKET.REJECT(ticketId), {});
+export const rejectTicket: TicketResType = async (ticketId: string) => {
+  const { data: res } = await api.post(API_ROUTE.TICKET.REJECT(ticketId), {});
 
   return res;
 };
