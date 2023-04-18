@@ -33,6 +33,7 @@ const TICKET = Object.freeze({
   SEND_REVIEW: (ticketId: string) => `/api/ticket/${ticketId}/review`,
   ASSIGN_TICKET: (ticketId: string) => `/api/ticket/${ticketId}/assign`,
   SET_LABEL: (ticketId: string) => `/api/ticket/${ticketId}/label`,
+  COMPLETE: (ticketId: string) => `/api/ticket/${ticketId}/complete`,
   DELETE: '/api/ticket',
 });
 

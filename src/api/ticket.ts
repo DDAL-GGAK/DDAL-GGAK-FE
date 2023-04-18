@@ -59,3 +59,9 @@ export const setLabel = async ({ ticketId, labelId }: SetLabelForm) => {
 
   return res;
 };
+
+export const completeTicket = async (ticketId: string) => {
+  const res = await api.post(API_ROUTE.TICKET.COMPLETE(ticketId), {});
+
+  return res;
+};
