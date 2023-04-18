@@ -1,9 +1,9 @@
-import { LabelText, ModalContainer } from 'components/containers';
+import { ContentText, LabelText, ModalContainer } from 'components/containers';
 import { useLocation } from 'react-router-dom';
 import { useErrorHandler } from 'hooks';
 import { useQuery } from 'react-query';
 import { getTicketData } from 'api';
-import { REGEX, QUERY } from 'constants/';
+import { REGEX, QUERY, SVG_SIZE } from 'constants/';
 import styled from 'styled-components';
 import { Loading } from 'components';
 import {
@@ -14,6 +14,7 @@ import {
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import { UserDataForm } from 'types';
+import { TicketIcon } from '@heroicons/react/24/outline';
 
 interface TicketDetailProps {
   currTicketId: string;
@@ -41,55 +42,59 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
     <StyledModalContainer>
       {ticketData ? (
         <>
-          <Header>
-            <Title>{ticketData.title}</Title>
-            <StatusButtonWrapper>
-              <ToggleTicketStatus
-                status={ticketData.status}
-                currTicketId={currTicketId}
-              />
-              <SendTicketReviewButton
-                status={ticketData.status}
-                currTicketId={currTicketId}
-              />
-            </StatusButtonWrapper>
-          </Header>
-          <Content>
-            <ContentRow>
-              <ContentItem>
-                <LabelText>Priority:</LabelText>
-                <Text>{ticketData.priority}</Text>
-              </ContentItem>
-              <ContentItem>
-                <LabelText>Due Date:</LabelText>
-                <Text>{ticketData.dueDate}</Text>
-              </ContentItem>
-              <ContentItem>
-                <LabelText>Status:</LabelText>
-                <Text>{ticketData.status}</Text>
-              </ContentItem>
-            </ContentRow>
-            <ContentItem>
-              <LabelText>Assigned:</LabelText>
-              <Text>{ticketData.assigned}</Text>
-            </ContentItem>
-            <ContentItem>
-              <LabelText>Difficulty:</LabelText>
-              <Text>{ticketData.difficulty}</Text>
-            </ContentItem>
-            <ContentItem>
-              <LabelText>Progress:</LabelText>
-              <Text>{ticketData.progress}%</Text>
-            </ContentItem>
-            <Description>
-              <LabelText>Description:</LabelText>
-              <Text>{ticketData.description}</Text>
-            </Description>
-          </Content>
+          <TopWrapper>
+            <Header>
+              <TicketIcon width={SVG_SIZE.LOGO_SIZE} />
+              <Title>{ticketData.title}</Title>
+            </Header>
+            <Content>
+              <ContentRow>
+                <ContentWrapper>
+                  <ContentItem>
+                    <LabelText>Status:</LabelText>
+                    <ContentText>{ticketData.status}</ContentText>
+                  </ContentItem>
+                </ContentWrapper>
+                <StatusButtonWrapper>
+                  <ToggleTicketStatus
+                    status={ticketData.status}
+                    currTicketId={currTicketId}
+                  />
+                  <SendTicketReviewButton
+                    status={ticketData.status}
+                    currTicketId={currTicketId}
+                  />
+                </StatusButtonWrapper>
+              </ContentRow>
+              <BorderWrapper>
+                <ContentItem>
+                  <ContentText>Priority:</ContentText>
+                  <ContentText>{ticketData.priority}</ContentText>
+                </ContentItem>
+
+                <ContentItem>
+                  <ContentText>Assigned:</ContentText>
+                  <Text>{ticketData.assigned}</Text>
+                </ContentItem>
+                <ContentItem>
+                  <ContentText>Difficulty:</ContentText>
+                  <Text>{ticketData.difficulty}</Text>
+                </ContentItem>
+                <ContentItem>
+                  <ContentText>Progress:</ContentText>
+                  <Text>{ticketData.progress}%</Text>
+                </ContentItem>
+              </BorderWrapper>
+              <Description>
+                <ContentText>Description:</ContentText>
+                <Text>{ticketData.description}</Text>
+              </Description>
+            </Content>
+          </TopWrapper>
           {ticketData?.assigned === userData?.email && (
-            <TicketStateWrapper>
+            <TicketDeleteWrapper>
               <DeleteTicketButton closeModal={closeModal} ticket={ticketData} />
-            </TicketStateWrapper>
+            </TicketDeleteWrapper>
           )}
         </>
       ) : (
@@ -99,29 +104,38 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
   );
 }
 
+const StyledModalContainer = styled(ModalContainer)`
+  background: ${({ theme }) => theme.background};
+  padding: 0.5rem;
+  justify-content: space-between;
+  width: 700px;
+`;
+
 const ContentRow = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
   gap: 12px;
 `;
 
+const TopWrapper = styled.div``;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const StatusButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
+
 const ContentItem = styled.div`
   display: flex;
   align-items: center;
-
-  /* border: 1px solid #; */
-  padding: 12px;
-  border-radius: 12px;
-`;
-
-const StyledModalContainer = styled(ModalContainer)`
-  max-width: 1200px;
-  max-height: 900px;
-  width: 800px;
-  height: 80vh;
-  background: ${({ theme }) => theme.background};
-  padding: 1rem;
+  gap: 0.5rem;
 `;
 
 const Title = styled.div`
@@ -141,16 +155,17 @@ const Text = styled.p`
   font-size: 14px;
 `;
 
-const TicketStateWrapper = styled.div`
+const TicketDeleteWrapper = styled.div`
   display: flex;
   gap: 1rem;
-  justify-content: space-between;
+  justify-content: flex-end;
 `;
 
 const Header = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
 `;
 
 const Content = styled.div`
@@ -159,7 +174,14 @@ const Content = styled.div`
   gap: 1rem;
 `;
 
-const StatusButtonWrapper = styled.div`
+const BorderWrapper = styled.div`
+  background: ${({ theme }) => theme.background};
+  border: 1px solid ${({ theme }) => theme.borderColor};
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: ${({ theme }) => theme.boxShadow};
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  min-width: 350px;
+  gap: 0.5rem;
 `;
