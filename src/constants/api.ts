@@ -34,6 +34,7 @@ const TICKET = Object.freeze({
   ASSIGN_TICKET: (ticketId: string) => `/api/ticket/${ticketId}/assign`,
   SET_LABEL: (ticketId: string) => `/api/ticket/${ticketId}/label`,
   COMPLETE: (ticketId: string) => `/api/ticket/${ticketId}/complete`,
+  REJECT: (ticketId: string) => `/api/ticket/${ticketId}/review`,
   DELETE: '/api/ticket',
 });
 
