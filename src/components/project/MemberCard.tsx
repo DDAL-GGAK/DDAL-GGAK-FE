@@ -1,13 +1,43 @@
 import styled from 'styled-components';
-import { Participant } from 'types';
+import { Participant, ProjectDataForm, UserDataForm } from 'types';
 import { Exit } from 'assets/icons';
+import { kickUser } from 'api';
+import { useLocation } from 'react-router-dom';
+import { REGEX, QUERY, TOASTIFY } from 'constants/';
+import { useMutation, useQueryClient } from 'react-query';
+import { sendToast } from 'libs';
+import { useErrorHandler } from 'hooks';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
 
 interface MemberDataProps {
   memberData: Participant;
+  projectData?: ProjectDataForm;
 }
 
-export function MemberCard({ memberData }: MemberDataProps) {
-  const { email, nickname, thumbnail, role } = memberData;
+export function MemberCard({ memberData, projectData }: MemberDataProps) {
+  const { email, nickname, thumbnail, role, id: userId } = memberData;
+  const { pathname } = useLocation();
+  const projectId = pathname.match(REGEX.PROJECT_ID)?.[1] || '';
+  const { errorHandler } = useErrorHandler({ route: pathname });
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation(kickUser, {
+    ...QUERY.DEFAULT_CONFIG,
+    onSuccess: () => {
+      queryClient.invalidateQueries(QUERY.KEY.USER_PROJECTS);
+      sendToast.success(TOASTIFY.SUCCESS.JOIN_PROJECT);
+    },
+    onError: errorHandler,
+  });
+
+  const kickHandler = () => {
+    mutate({ projectId, userId });
+  };
+
+  const userData = useSelector(
+    (state: RootState) => state.userDataSlicer
+  ) as UserDataForm | null;
 
   return (
     <Wrapper>
@@ -25,9 +55,12 @@ export function MemberCard({ memberData }: MemberDataProps) {
         </UserInfo>
       </LeftWrapper>
       <RightWrapper>
-        <Button>
-          <Exit size={20} />
-        </Button>
+        {projectData?.projectLeader === userData?.email &&
+          projectData?.projectLeader !== email && (
+            <Button onClick={kickHandler}>
+              <Exit size={20} />
+            </Button>
+          )}
       </RightWrapper>
     </Wrapper>
   );
