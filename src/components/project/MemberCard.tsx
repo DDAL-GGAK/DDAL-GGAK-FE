@@ -26,7 +26,7 @@ export function MemberCard({ memberData, projectData }: MemberDataProps) {
     ...QUERY.DEFAULT_CONFIG,
     onSuccess: () => {
       queryClient.invalidateQueries(QUERY.KEY.USER_PROJECTS);
-      sendToast.success(TOASTIFY.SUCCESS.JOIN_PROJECT);
+      sendToast.success(TOASTIFY.SUCCESS.KICK_MEMBER);
     },
     onError: errorHandler,
   });
