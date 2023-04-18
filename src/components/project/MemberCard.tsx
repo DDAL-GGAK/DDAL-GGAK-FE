@@ -3,9 +3,8 @@ import { Participant, ProjectDataForm, UserDataForm } from 'types';
 import { Exit } from 'assets/icons';
 import { kickUser } from 'api';
 import { useLocation } from 'react-router-dom';
-import { REGEX, QUERY, TOASTIFY } from 'constants/';
+import { REGEX, QUERY } from 'constants/';
 import { useMutation, useQueryClient } from 'react-query';
-import { sendToast } from 'libs';
 import { useErrorHandler } from 'hooks';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
@@ -26,7 +25,6 @@ export function MemberCard({ memberData, projectData }: MemberDataProps) {
     ...QUERY.DEFAULT_CONFIG,
     onSuccess: () => {
       queryClient.invalidateQueries(QUERY.KEY.USER_PROJECTS);
-      sendToast.success(TOASTIFY.SUCCESS.JOIN_PROJECT);
     },
     onError: errorHandler,
   });
