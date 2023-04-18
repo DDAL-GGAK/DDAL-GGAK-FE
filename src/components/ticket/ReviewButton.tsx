@@ -1,12 +1,25 @@
 import styled from 'styled-components';
 import { TicketIcon } from '@heroicons/react/24/outline';
+import { useModal } from 'hooks';
+import { TicketReview } from 'components/modal';
+import { MODAL_CARD_VARIANTS } from 'constants/';
 
 export function ReviewButton() {
+  const { Modal, isOpen, openModal, closeModal } = useModal();
   return (
-    <ReviewWrapper>
-      <TicketIcon width={20} />
-      <ContentText>Review Request</ContentText>
-    </ReviewWrapper>
+    <>
+      <Modal
+        isOpen={isOpen}
+        closeModal={closeModal}
+        variants={MODAL_CARD_VARIANTS}
+      >
+        <TicketReview closeModal={closeModal} />
+      </Modal>
+      <ReviewWrapper onClick={openModal}>
+        <TicketIcon width={20} />
+        <ContentText>Review Request</ContentText>
+      </ReviewWrapper>
+    </>
   );
 }
 

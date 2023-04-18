@@ -9,3 +9,4 @@ export * from './CreateTicket';
 export * from './ticketDetail/TicketDetail';
 export * from './ConfirmDeleteTask';
 export * from './ManageParticipants';
+export * from './TicketReview';
