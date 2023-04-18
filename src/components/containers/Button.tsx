@@ -161,6 +161,7 @@ const BorderButton = styled.button`
   transition: ${({ theme }) => theme.transitionOption};
   background: ${({ theme }) => theme.background};
   color: ${({ theme }) => theme.transparentColor};
+  height: 40px;
 
   :hover {
     cursor: pointer;
