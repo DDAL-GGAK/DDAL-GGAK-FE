@@ -24,25 +24,26 @@ export function ReviewTicketCard({ ticketData }: ReviewTicketCardProps) {
   const { pathname } = useLocation();
   const { errorHandler } = useErrorHandler({ route: pathname });
   const queryClient = useQueryClient();
-  const { mutate } = useMutation(completeTicket, {
+  const { mutate: completeMutate } = useMutation(completeTicket, {
     ...QUERY.DEFAULT_CONFIG,
     onSuccess: () => {
-      queryClient.invalidateQueries(QUERY.KEY.USER_PROJECTS);
-      sendToast.success(TOASTIFY.SUCCESS.JOIN_PROJECT);
+      queryClient.invalidateQueries(QUERY.KEY.PROJECT_DATA);
+      sendToast.success(TOASTIFY.SUCCESS.TICKET_COMPLETE);
     },
     onError: errorHandler,
   });
 
   const { assigned, difficulty, label, priority, title, ticketId } = ticketData;
 
-  difficulty;
-  priority;
-
   const userData = useSelector(
     (state: RootState) => state.userDataSlicer
   ) as UserDataForm | null;
-  mutate;
   userData;
+
+  const completeHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    completeMutate(String(ticketId));
+  };
 
   return (
     <>
@@ -64,9 +65,9 @@ export function ReviewTicketCard({ ticketData }: ReviewTicketCardProps) {
           <AssignedText>{assigned}</AssignedText>
         </LeftWrapper>
         <RightWrapper>
-          <CheckButton>
+          <CompleteButton onClick={completeHandler}>
             <CheckIcon width={25} />
-          </CheckButton>
+          </CompleteButton>
           <RejectButton>
             <Exit size={25} />
           </RejectButton>
@@ -150,7 +151,7 @@ const Button = styled.button`
   }
 `;
 
-const CheckButton = styled(Button)`
+const CompleteButton = styled(Button)`
   :hover {
     color: ${({ theme }) => theme.pointColor};
   }
