@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { NewLabelButton, LabelConfigButton } from 'components/project';
-import { TicketState, TaskDetailDataForm } from 'types';
+import { TicketState, TaskDetailDataForm, UserDataForm } from 'types';
 import { useSelector, useDispatch } from 'react-redux';
 import { setLabel, setTicketData } from 'redux/modules/ticketData';
 import { LabelButton } from 'components/containers';
@@ -10,8 +10,8 @@ import { REGEX, QUERY } from 'constants/';
 import { getTaskData } from 'api';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
-
 import { useErrorHandler } from 'hooks';
+import { ReviewButton } from 'components/ticket';
 
 export const Labels = memo(() => {
   const { pathname } = useLocation();
@@ -55,6 +55,10 @@ export const Labels = memo(() => {
     (state: RootState) => state.ticketDataSlicer as TicketState
   );
 
+  const userData = useSelector(
+    (state: RootState) => state.userDataSlicer
+  ) as UserDataForm | null;
+
   return (
     <TopWrapper>
       <Wrapper>
@@ -87,7 +91,10 @@ export const Labels = memo(() => {
         </ConfigWrapper>
       </Wrapper>
 
-      <SortMethods />
+      <RightWrapper>
+        {/* labelLeader로 교체 */}
+        {taskData?.taskLeader === userData?.email && <ReviewButton />}
+      </RightWrapper>
     </TopWrapper>
   );
 });
@@ -105,11 +112,6 @@ const TopWrapper = styled.div`
   box-sizing: border-box;
 `;
 
-const SortMethods = styled.div`
-  display: flex;
-  padding: 0px 10px;
-`;
-
 const LabelWrapper = styled.div`
   display: flex;
   max-width: 1600px;
@@ -119,3 +121,5 @@ const LabelWrapper = styled.div`
 const ConfigWrapper = styled.div`
   display: flex;
 `;
+
+const RightWrapper = styled.div``;
