@@ -177,7 +177,7 @@ const Content = styled.div`
 const BorderWrapper = styled.div`
   background: ${({ theme }) => theme.background};
   border: 1px solid ${({ theme }) => theme.borderColor};
-  padding: 1rem;
+  padding: 1rem 1.5rem;
   border-radius: 8px;
   box-shadow: ${({ theme }) => theme.boxShadow};
   display: flex;
