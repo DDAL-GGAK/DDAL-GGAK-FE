@@ -16,6 +16,13 @@ export const getUserTicketCount = async (userId: string): Promise<TicketData[]> 
   return res.data;
 }
 
+export const getUserTotalTicket = async (userId: string, status: string) => {
+  const res = await api.get(API_ROUTE.USER.GET_USERTOTALTICKET(userId, status));
+
+  return res.data;
+}
+
+
 export const setUserProfile = async (data: FormData) => {
   const res = await api.putFormData(API_ROUTE.USER.SET_PROFILE, data);
 
