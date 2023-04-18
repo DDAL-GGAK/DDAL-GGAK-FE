@@ -19,13 +19,23 @@ export const TicketContainer = memo(() => {
     (state: RootState) => state.userDataSlicer
   ) as UserDataForm | null;
 
-  console.log('render');
   return (
     <>
       <Wrapper>
         {Object.entries(ticketData?.ticket || {}).map(
-          ([ticketStatus, data]) => {
-            const ticketCount = ticketData?.ticket[ticketStatus]?.length;
+          ([ticketStatus, tickets]) => {
+            const isAllTicket = ticketData?.label === 'All';
+            const ticketCount = isAllTicket
+              ? tickets.length
+              : tickets.filter((v) => v.label === ticketData.label).length;
+
+            const myTickets = tickets.filter(
+              (ticket) => ticket.assigned === userData?.email
+            );
+            const notMyTickets = tickets.filter(
+              (ticket) => ticket.assigned !== userData?.email
+            );
+            const sortedTickets = [...myTickets, ...notMyTickets];
 
             return (
               <StatusWrapper key={ticketStatus}>
@@ -34,8 +44,8 @@ export const TicketContainer = memo(() => {
                   <BoardCount>{ticketCount}</BoardCount>
                 </BoardTitle>
                 <TicketWrapper>
-                  {data.map((ticket: TicketDataForm) => {
-                    if (ticketData.label === 'All')
+                  {sortedTickets.map((ticket: TicketDataForm) => {
+                    if (ticketData?.label === 'All')
                       return (
                         <Ticket
                           data={ticket}
