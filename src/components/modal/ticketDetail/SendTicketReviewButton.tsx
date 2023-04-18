@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useMutation, useQueryClient } from 'react-query';
 import { sendTicketReview } from 'api';
-import { QUERY, TOASTIFY } from 'constants/';
+import { QUERY, TICKET, TOASTIFY } from 'constants/';
 import { useErrorHandler } from 'hooks';
 import { useLocation } from 'react-router-dom';
 import { Button } from 'components/containers';
@@ -29,13 +29,16 @@ export function SendTicketReviewButton({
   });
   const sendReviewHandler = () => mutate(currTicketId);
 
-  console.log(status);
   return (
-    <StatusWrapper>
-      <Button onClick={sendReviewHandler} buttonType="border">
-        Enroll Review
-      </Button>
-    </StatusWrapper>
+    <div>
+      {status !== TICKET.STATUS.DONE ? (
+        <StatusWrapper>
+          <Button onClick={sendReviewHandler} buttonType="border">
+            {status === TICKET.STATUS.REVIEW ? 'Reviewing...' : 'Enroll Review'}
+          </Button>
+        </StatusWrapper>
+      ) : null}
+    </div>
   );
 }
 
