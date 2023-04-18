@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { TicketDataForm, UserDataForm, LabelDataForm } from 'types';
+import { TicketDataForm, LabelDataForm } from 'types';
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 import {
   AssignCheckBox,
@@ -8,86 +8,83 @@ import {
   Priority,
   Image,
 } from 'components';
-import { RootState } from 'redux/store';
-import { useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
 import { useLocation } from 'react-router-dom';
 import { QUERY, REGEX } from 'constants/';
 import { getLabels } from 'api';
 import { useErrorHandler } from 'hooks';
-import { useMemo, useRef } from 'react';
+import { memo, useMemo, useRef } from 'react';
 import participantImgSrc from 'assets/img/participant1.png';
 
 interface TicketProps {
   data: TicketDataForm;
   openModal: () => void;
   setCurrTicketId: React.Dispatch<React.SetStateAction<string | undefined>>;
+  userEmail: string | undefined;
 }
 
-export function Ticket({ data, openModal, setCurrTicketId }: TicketProps) {
-  const { pathname } = useLocation();
-  const taskId = pathname.match(REGEX.TASK_ID)?.[1];
-  const { errorHandler } = useErrorHandler({ route: pathname });
-  const { ticketId, title, priority, difficulty, label, assigned } = data;
-  const labelRef = useRef<HTMLDivElement>(null);
+export const Ticket = memo(
+  ({ data, openModal, setCurrTicketId, userEmail }: TicketProps) => {
+    const { pathname } = useLocation();
+    const taskId = pathname.match(REGEX.TASK_ID)?.[1];
+    const { errorHandler } = useErrorHandler({ route: pathname });
+    const { ticketId, title, priority, difficulty, label, assigned } = data;
+    const labelRef = useRef<HTMLDivElement>(null);
 
-  const getDropdownPosition = (): { x: number; y: number } => {
-    if (!labelRef.current) return { x: 0, y: 0 };
-    const rect = labelRef.current.getBoundingClientRect();
-    return { x: rect.left, y: rect.bottom };
-  };
+    const getDropdownPosition = (): { x: number; y: number } => {
+      if (!labelRef.current) return { x: 0, y: 0 };
+      const rect = labelRef.current.getBoundingClientRect();
+      return { x: rect.left, y: rect.bottom };
+    };
 
-  const openModalHandler = () => {
-    openModal();
-    setCurrTicketId(String(ticketId));
-  };
+    const openModalHandler = () => {
+      openModal();
+      setCurrTicketId(String(ticketId));
+    };
 
-  const userData = useSelector(
-    (state: RootState) => state.userDataSlicer
-  ) as UserDataForm | null;
+    const QueryKey = useMemo(() => [QUERY.KEY.LABEL_DATA, taskId], [taskId]);
+    const { data: labelsData } = useQuery<LabelDataForm[]>(
+      QueryKey,
+      () => getLabels(String(taskId)),
+      {
+        ...QUERY.DEFAULT_CONFIG,
+        onError: errorHandler,
+      }
+    );
 
-  const QueryKey = useMemo(() => [QUERY.KEY.LABEL_DATA, taskId], [taskId]);
-  const { data: labelsData } = useQuery<LabelDataForm[]>(
-    QueryKey,
-    () => getLabels(String(taskId)),
-    {
-      ...QUERY.DEFAULT_CONFIG,
-      onError: errorHandler,
-    }
-  );
-
-  return (
-    <Wrapper onClick={openModalHandler}>
-      <LeftBox>
-        <AssignCheckBox
-          ticketData={{
-            assigned,
-            ticketId,
-            isMyTicket: assigned === userData?.nickname,
-          }}
-        />
-        <Id>Ticket {ticketId}</Id>
-        <Priority priority={priority} />
-        <Title>{title}</Title>
-      </LeftBox>
-      <Details>
-        <SetLabel
-          wrapperRef={labelRef}
-          label={label}
-          labelsData={labelsData}
-          ticketId={ticketId}
-          {...getDropdownPosition()}
-        />
-        <DetailItem>
-          <Image src={participantImgSrc} />
-          {assigned || 'unAssigned'}
-        </DetailItem>
-        <Difficulty difficulty={Number(difficulty)} />
-        <EllipsisHorizontalIcon className="ellips-icon" width={20} />
-      </Details>
-    </Wrapper>
-  );
-}
+    return (
+      <Wrapper onClick={openModalHandler}>
+        <LeftBox>
+          <AssignCheckBox
+            ticketData={{
+              assigned,
+              ticketId,
+              isMyTicket: assigned === userEmail,
+            }}
+          />
+          <Id>Ticket {ticketId}</Id>
+          <Priority priority={priority} />
+          <Title>{title}</Title>
+        </LeftBox>
+        <Details>
+          <SetLabel
+            wrapperRef={labelRef}
+            label={label}
+            labelsData={labelsData}
+            ticketId={ticketId}
+            {...getDropdownPosition()}
+          />
+          <DetailItem>
+            <Image src={participantImgSrc} />
+            {assigned || 'unAssigned'}
+          </DetailItem>
+          <Difficulty difficulty={Number(difficulty)} />
+          <EllipsisHorizontalIcon className="ellips-icon" width={20} />
+        </Details>
+      </Wrapper>
+    );
+  }
+);
 
 const Wrapper = styled.div`
   display: flex;
@@ -136,7 +133,6 @@ const Details = styled.ul`
 const DetailItem = styled.li`
   font-size: 14px;
   padding: 4px 8px;
-  background: ${({ theme }) => theme.borderColor};
   color: white;
   border-radius: 4px;
   display: flex;

@@ -56,5 +56,5 @@ export const ERROR = Object.freeze({
 });
 
 export const STATUS_CODES = Object.freeze({
-  ERROR: Object.freeze({ EXPIRED_TOKEN: 1002 }),
+  ERROR: Object.freeze({ EXPIRED_TOKEN: 1002, UNAUTHORIZED: 401 }),
 });

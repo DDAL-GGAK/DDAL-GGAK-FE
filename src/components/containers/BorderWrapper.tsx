@@ -6,8 +6,8 @@ export function BorderWrapper({ children, ...props }: Container) {
 }
 
 const Wrapper = styled.div`
-  background-color: ${({ theme }) => theme.background};
-  border: 1px solid #1c1d27;
+  background: ${({ theme }) => theme.background};
+  border: 1px solid ${({ theme }) => theme.borderColor};
   padding: 2rem;
   border-radius: 8px;
   box-shadow: ${({ theme }) => theme.boxShadow};

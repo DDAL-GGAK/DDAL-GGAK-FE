@@ -16,11 +16,10 @@ export const createProject = async (data: FormData) => {
   return res;
 };
 
-export const joinProject = async (projectId: string | number) => {
-  const res = await api.post(
-    API_ROUTE.PROJECT.JOIN_PROJECT(projectId as string),
-    {}
-  );
+export const joinProject = async (inviteCode: string) => {
+  const res = await api.post(API_ROUTE.PROJECT.JOIN_PROJECT, {
+    projectInviteCode: inviteCode,
+  });
 
   return res;
 };

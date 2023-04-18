@@ -7,7 +7,8 @@ interface ButtonProps {
     | 'default'
     | 'dangerous_big'
     | 'point_big'
-    | 'small';
+    | 'small'
+    | 'border';
   children?: React.ReactNode;
   onClick?: () => void;
 }
@@ -31,6 +32,8 @@ export function Button({
         return <PointBig {...props}>{children}</PointBig>;
       case 'small':
         return <Small {...props}>{children}</Small>;
+      case 'border':
+        return <BorderButton {...props}>{children}</BorderButton>;
       default:
         return <Default {...props}>{children}</Default>;
     }
@@ -141,5 +144,27 @@ const Small = styled.button`
   :hover {
     cursor: pointer;
     background: ${({ theme }) => theme.pointColorLight};
+  }
+`;
+
+const BorderButton = styled.button`
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: ${({ theme }) => theme.borderColor} 1px solid;
+  transition: ${({ theme }) => theme.transitionOption};
+  background: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.transparentColor};
+  height: 40px;
+
+  :hover {
+    cursor: pointer;
+    background: ${({ theme }) => theme.borderColor};
   }
 `;
