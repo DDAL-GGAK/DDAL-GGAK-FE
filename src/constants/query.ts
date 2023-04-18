@@ -8,6 +8,7 @@ const KEY = Object.freeze({
   USER_PROFILE: 'userProfile',
   USER_NICKNAME: 'userNickname',
   USER_TICKETCOUNT: 'userTicketCount',
+  USER_TOTALTICKET: 'usetTotalTicket',
   PROJECT_THUMBNAIL: 'projectThumbnail',
   PROJECT_TITLE: 'projectTitle',
   PROJECT_DATA: 'projectData',
