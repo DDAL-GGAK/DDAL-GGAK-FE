@@ -12,7 +12,11 @@ export function ManageParticipants({ projectData }: ManageParticipantsProps) {
       <TextM>Participants</TextM>
       <MemberBoard>
         {projectData?.participants?.map((memberData: Participant) => (
-          <MemberCard key={memberData.id} memberData={memberData} />
+          <MemberCard
+            key={memberData.id}
+            memberData={memberData}
+            projectData={projectData}
+          />
         ))}
       </MemberBoard>
       <Hr />
