@@ -56,14 +56,18 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
                   </ContentItem>
                 </ContentWrapper>
                 <StatusButtonWrapper>
-                  <ToggleTicketStatus
-                    status={ticketData.status}
-                    currTicketId={currTicketId}
-                  />
-                  <SendTicketReviewButton
-                    status={ticketData.status}
-                    currTicketId={currTicketId}
-                  />
+                  {ticketData?.assigned === userData?.email && (
+                    <>
+                      <ToggleTicketStatus
+                        status={ticketData.status}
+                        currTicketId={currTicketId}
+                      />
+                      <SendTicketReviewButton
+                        status={ticketData.status}
+                        currTicketId={currTicketId}
+                      />
+                    </>
+                  )}
                 </StatusButtonWrapper>
               </ContentRow>
               <BorderWrapper>
