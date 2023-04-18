@@ -9,8 +9,9 @@ import { useLocation } from 'react-router-dom';
 import { RootState } from 'redux/store';
 import { TicketDataForm, UserDataForm } from 'types';
 import { completeTicket } from 'api';
-import { CheckIcon } from '@heroicons/react/24/outline';
+import { CheckIcon, TagIcon } from '@heroicons/react/24/outline';
 import { TicketDetail } from 'components/modal';
+import { ContentText } from 'components/containers';
 
 interface ReviewTicketCardProps {
   ticketData: TicketDataForm;
@@ -34,12 +35,10 @@ export function ReviewTicketCard({ ticketData }: ReviewTicketCardProps) {
 
   difficulty;
   priority;
-  label;
 
   const userData = useSelector(
     (state: RootState) => state.userDataSlicer
   ) as UserDataForm | null;
-  console.log(ticketData);
   mutate;
   userData;
 
@@ -55,6 +54,12 @@ export function ReviewTicketCard({ ticketData }: ReviewTicketCardProps) {
             </TicketTitle>
             <AssignedText>{assigned}</AssignedText>
           </TicketInfo>
+          <LabelWrapper>
+            <TagIcon width={20} />
+            <ContentText>{label || 'unAssigned'}</ContentText>
+            <ContentText>{difficulty}</ContentText>
+            <ContentText>{priority}</ContentText>
+          </LabelWrapper>
         </LeftWrapper>
         <RightWrapper>
           <CheckButton>
@@ -87,6 +92,7 @@ const Wrapper = styled.div`
   transition: ${({ theme }) => theme.transitionOption};
 
   :hover {
+    cursor: pointer;
     background: ${({ theme }) => theme.borderColor};
   }
 `;
@@ -94,9 +100,13 @@ const Wrapper = styled.div`
 const LeftWrapper = styled.div`
   display: flex;
   flex: initial;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
   gap: 16px;
+`;
+
+const LabelWrapper = styled.div`
+  display: flex;
+  gap: 0.5rem;
 `;
 
 const RightWrapper = styled.div`
