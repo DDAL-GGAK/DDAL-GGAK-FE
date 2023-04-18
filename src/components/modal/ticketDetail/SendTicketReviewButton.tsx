@@ -1,11 +1,12 @@
+import styled from 'styled-components';
 import { useMutation, useQueryClient } from 'react-query';
 import { sendTicketReview } from 'api';
-import { QUERY, TICKET, TOASTIFY } from 'constants/';
+import { QUERY, TOASTIFY } from 'constants/';
 import { useErrorHandler } from 'hooks';
 import { useLocation } from 'react-router-dom';
 import { Button } from 'components/containers';
-import { Loading } from 'components/Loading';
 import { sendToast } from 'libs';
+// import { ArrowUpTrayIcon } from '@heroicons/react/24/outline';
 
 export function SendTicketReviewButton({
   currTicketId,
@@ -17,7 +18,7 @@ export function SendTicketReviewButton({
   const { pathname } = useLocation();
   const { errorHandler } = useErrorHandler({ route: pathname });
   const queryClient = useQueryClient();
-  const { mutate, isLoading } = useMutation(sendTicketReview, {
+  const { mutate } = useMutation(sendTicketReview, {
     ...QUERY.DEFAULT_CONFIG,
     onSuccess: () => {
       sendToast.success(TOASTIFY.SUCCESS.SEND_REVIEW);
@@ -28,18 +29,18 @@ export function SendTicketReviewButton({
   });
   const sendReviewHandler = () => mutate(currTicketId);
 
-  if (isLoading)
-    return (
-      <Button buttonType="small">
-        <Loading />
-      </Button>
-    );
-
+  console.log(status);
   return (
-    <Button onClick={sendReviewHandler} buttonType="small">
-      {status === TICKET.STATUS.REVIEW
-        ? 'Ticket is on Review'
-        : 'Enroll Review'}
-    </Button>
+    <StatusWrapper>
+      <Button onClick={sendReviewHandler} buttonType="border">
+        Enroll Review
+      </Button>
+    </StatusWrapper>
   );
 }
+
+const StatusWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
