@@ -43,8 +43,6 @@ export const Labels = memo(() => {
     }
   );
 
-  console.log(taskData);
-
   useEffect(() => {
     dispatch(setLabel('All'));
   }, []);
