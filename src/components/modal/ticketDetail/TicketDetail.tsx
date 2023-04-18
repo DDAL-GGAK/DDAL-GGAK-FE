@@ -56,7 +56,7 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
                   </ContentItem>
                 </ContentWrapper>
                 <StatusButtonWrapper>
-                  {ticketData?.assigned === userData?.email && (
+                  {ticketData?.assigned === userData?.nickname && (
                     <>
                       <ToggleTicketStatus
                         status={ticketData.status}
@@ -95,7 +95,7 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
               </Description>
             </Content>
           </TopWrapper>
-          {ticketData?.assigned === userData?.email && (
+          {ticketData?.assigned === userData?.nickname && (
             <TicketDeleteWrapper>
               <DeleteTicketButton closeModal={closeModal} ticket={ticketData} />
             </TicketDeleteWrapper>
