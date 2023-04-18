@@ -13,6 +13,7 @@ import { CheckIcon, TagIcon } from '@heroicons/react/24/outline';
 import { TicketDetail } from 'components/modal';
 import { ContentText } from 'components/containers';
 import { setTicketData } from 'redux/modules/ticketData';
+import { memo } from 'react';
 import { Difficulty } from './Icons/Difficulty';
 import { Priority } from './Icons/Priority';
 
@@ -20,89 +21,95 @@ interface ReviewTicketCardProps {
   ticketData: TicketDataForm;
 }
 
-export function ReviewTicketCard({ ticketData }: ReviewTicketCardProps) {
-  const { isOpen, openModal, closeModal, Modal } = useModal();
-  const { pathname } = useLocation();
-  const { errorHandler } = useErrorHandler({ route: pathname });
-  const queryClient = useQueryClient();
-  const dispatch = useDispatch();
+export const ReviewTicketCard = memo(
+  ({ ticketData }: ReviewTicketCardProps) => {
+    const { isOpen, openModal, closeModal, Modal } = useModal();
+    const { pathname } = useLocation();
+    const { errorHandler } = useErrorHandler({ route: pathname });
+    const queryClient = useQueryClient();
+    const dispatch = useDispatch();
 
-  const { mutate: completeMutate } = useMutation(completeTicket, {
-    ...QUERY.DEFAULT_CONFIG,
-    onSuccess: (newTicketData: Tickets) => {
-      dispatch(setTicketData(newTicketData));
-      queryClient.invalidateQueries(QUERY.KEY.PROJECT_DATA);
-      sendToast.success(TOASTIFY.SUCCESS.TICKET_COMPLETE);
-    },
-    onError: errorHandler,
-  });
+    const { mutate: completeMutate } = useMutation(completeTicket, {
+      ...QUERY.DEFAULT_CONFIG,
+      onSuccess: (data: Tickets) => {
+        dispatch(setTicketData(data));
+        queryClient.invalidateQueries(QUERY.KEY.PROJECT_DATA);
+        sendToast.success(TOASTIFY.SUCCESS.TICKET_COMPLETE);
+      },
+      onError: errorHandler,
+    });
 
-  const { mutate: rejectMutate } = useMutation(completeTicket, {
-    ...QUERY.DEFAULT_CONFIG,
-    onSuccess: (newTicketData: Tickets) => {
-      dispatch(setTicketData(newTicketData));
-      queryClient.invalidateQueries(QUERY.KEY.PROJECT_DATA);
-      sendToast.success(TOASTIFY.SUCCESS.TICKET_COMPLETE);
-    },
-    onError: errorHandler,
-  });
+    const { mutate: rejectMutate } = useMutation(completeTicket, {
+      ...QUERY.DEFAULT_CONFIG,
+      onSuccess: (data: Tickets) => {
+        dispatch(setTicketData(data));
+        queryClient.invalidateQueries(QUERY.KEY.PROJECT_DATA);
+        sendToast.success(TOASTIFY.SUCCESS.TICKET_COMPLETE);
+      },
+      onError: errorHandler,
+    });
 
-  const { assigned, difficulty, label, priority, title, ticketId } = ticketData;
+    const { assigned, difficulty, label, priority, title, ticketId } =
+      ticketData;
 
-  const userData = useSelector(
-    (state: RootState) => state.userDataSlicer
-  ) as UserDataForm | null;
-  userData;
+    const userData = useSelector(
+      (state: RootState) => state.userDataSlicer
+    ) as UserDataForm | null;
+    userData;
 
-  const completeHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    completeMutate(String(ticketId));
-  };
+    const completeHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
+      completeMutate(String(ticketId));
+    };
 
-  const rejectHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    rejectMutate(String(ticketId));
-  };
+    const rejectHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
+      rejectMutate(String(ticketId));
+    };
 
-  return (
-    <>
-      <Wrapper onClick={openModal}>
-        <LeftWrapper>
-          <TicketInfo>
-            <TicketTitle>
-              {'<'}
-              {title}
-              {'>'}
-            </TicketTitle>
-            <LabelWrapper>
-              <Priority priority={priority} />
-              <Difficulty difficulty={Number(difficulty)} />
-              <TagIcon width={20} />
-              <ContentText>{label || 'unAssigned'}</ContentText>
-            </LabelWrapper>
-          </TicketInfo>
-          <AssignedText>{assigned}</AssignedText>
-        </LeftWrapper>
-        <RightWrapper>
-          <CompleteButton onClick={completeHandler}>
-            <CheckIcon width={25} />
-          </CompleteButton>
-          <RejectButton onClick={rejectHandler}>
-            <Exit size={25} />
-          </RejectButton>
-        </RightWrapper>
-      </Wrapper>
+    return (
+      <>
+        <Wrapper onClick={openModal}>
+          <LeftWrapper>
+            <TicketInfo>
+              <TicketTitle>
+                {'<'}
+                {title}
+                {'>'}
+              </TicketTitle>
+              <LabelWrapper>
+                <Priority priority={priority} />
+                <Difficulty difficulty={Number(difficulty)} />
+                <TagIcon width={20} />
+                <ContentText>{label || 'unAssigned'}</ContentText>
+              </LabelWrapper>
+            </TicketInfo>
+            <AssignedText>{assigned}</AssignedText>
+          </LeftWrapper>
+          <RightWrapper>
+            <CompleteButton onClick={completeHandler}>
+              <CheckIcon width={25} />
+            </CompleteButton>
+            <RejectButton onClick={rejectHandler}>
+              <Exit size={25} />
+            </RejectButton>
+          </RightWrapper>
+        </Wrapper>
 
-      <Modal
-        isOpen={isOpen}
-        closeModal={closeModal}
-        variants={MODAL_CARD_VARIANTS}
-      >
-        <TicketDetail currTicketId={String(ticketId)} closeModal={closeModal} />
-      </Modal>
-    </>
-  );
-}
+        <Modal
+          isOpen={isOpen}
+          closeModal={closeModal}
+          variants={MODAL_CARD_VARIANTS}
+        >
+          <TicketDetail
+            currTicketId={String(ticketId)}
+            closeModal={closeModal}
+          />
+        </Modal>
+      </>
+    );
+  }
+);
 
 const Wrapper = styled.div`
   display: flex;

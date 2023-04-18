@@ -15,7 +15,7 @@ export const TicketReview = memo(() => {
       <BorderWrapper>
         <TicketWrapper>
           {onReviewTicket?.map((ticket) => (
-            <ReviewTicketCard ticketData={ticket} />
+            <ReviewTicketCard key={ticket.ticketId} ticketData={ticket} />
           ))}
         </TicketWrapper>
       </BorderWrapper>
