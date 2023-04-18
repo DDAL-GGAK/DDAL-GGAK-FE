@@ -12,6 +12,7 @@ import { useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
 
 import { useErrorHandler } from 'hooks';
+import { TicketIcon } from '@heroicons/react/24/outline';
 
 export const Labels = memo(() => {
   const { pathname } = useLocation();
@@ -87,7 +88,12 @@ export const Labels = memo(() => {
         </ConfigWrapper>
       </Wrapper>
 
-      <SortMethods />
+      <RightWrapper>
+        <ReviewWrapper>
+          <TicketIcon width={20} />
+          <ContentText>Review Request</ContentText>
+        </ReviewWrapper>
+      </RightWrapper>
     </TopWrapper>
   );
 });
@@ -105,11 +111,6 @@ const TopWrapper = styled.div`
   box-sizing: border-box;
 `;
 
-const SortMethods = styled.div`
-  display: flex;
-  padding: 0px 10px;
-`;
-
 const LabelWrapper = styled.div`
   display: flex;
   max-width: 1600px;
@@ -118,4 +119,28 @@ const LabelWrapper = styled.div`
 
 const ConfigWrapper = styled.div`
   display: flex;
+`;
+
+const RightWrapper = styled.div``;
+
+const ContentText = styled.div`
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: ${({ theme }) => theme.transparentColor};
+`;
+
+const ReviewWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 0.5rem;
+  margin: 0 12px;
+  transition: ${({ theme }) => theme.transitionOption};
+
+  :hover {
+    cursor: pointer;
+    color: white;
+  }
 `;
