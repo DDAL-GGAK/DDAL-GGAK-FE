@@ -5,6 +5,7 @@ import { RootState } from 'redux/store';
 import styled from 'styled-components';
 
 export const TicketReview = memo(() => {
+  /* API로 교체하면 데이터 싱크로나이즈 해결 */
   const ticketData = useSelector((state: RootState) => state.ticketDataSlicer);
   const onReviewTicket = ticketData?.ticket?.REVIEW;
 
