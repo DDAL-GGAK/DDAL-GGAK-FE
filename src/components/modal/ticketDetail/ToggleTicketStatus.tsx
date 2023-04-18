@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { changeTicketStatus } from 'api';
-import { QUERY, TICKET } from 'constants/';
+import { QUERY, SVG_SIZE, TICKET } from 'constants/';
 import { useErrorHandler } from 'hooks';
 import { useLocation } from 'react-router-dom';
 import { Button } from 'components/containers';
@@ -31,27 +31,19 @@ export const ToggleTicketStatus = memo(
       [mutate, currTicketId]
     );
 
-    const content = () => {
-      if (status === TICKET.STATUS.TODO)
-        return (
-          <Button onClick={handleStatusChange} buttonType="border">
-            <Text>Ticket</Text>
-            <PlayIcon width={20} fill="white" />
-          </Button>
-        );
+    return (
+      <StatusWrapper>
+        <Button onClick={handleStatusChange} buttonType="border">
+          <Text>Ticket</Text>
 
-      if (status === TICKET.STATUS.IN_PROGRESS)
-        return (
-          <Button onClick={handleStatusChange} buttonType="border">
-            <Text>Ticket</Text>
-            <PauseIcon width={20} fill="white" />
-          </Button>
-        );
-
-      return null;
-    };
-
-    return <StatusWrapper>{content()}</StatusWrapper>;
+          {status === TICKET.STATUS.TODO ? (
+            <PlayIcon width={SVG_SIZE.TICKET_SVG} fill="white" />
+          ) : (
+            <PauseIcon width={SVG_SIZE.TICKET_SVG} fill="white" />
+          )}
+        </Button>
+      </StatusWrapper>
+    );
   }
 );
 
