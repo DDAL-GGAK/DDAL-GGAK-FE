@@ -4,14 +4,15 @@ import { QUERY, TOASTIFY, MODAL_CARD_VARIANTS } from 'constants/';
 import { useErrorHandler, useModal } from 'hooks';
 import { sendToast } from 'libs';
 import { useMutation, useQueryClient } from 'react-query';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { RootState } from 'redux/store';
-import { TicketDataForm, UserDataForm } from 'types';
+import { TicketDataForm, Tickets, UserDataForm } from 'types';
 import { completeTicket } from 'api';
 import { CheckIcon, TagIcon } from '@heroicons/react/24/outline';
 import { TicketDetail } from 'components/modal';
 import { ContentText } from 'components/containers';
+import { setTicketData } from 'redux/modules/ticketData';
 import { Difficulty } from './Icons/Difficulty';
 import { Priority } from './Icons/Priority';
 
@@ -24,9 +25,22 @@ export function ReviewTicketCard({ ticketData }: ReviewTicketCardProps) {
   const { pathname } = useLocation();
   const { errorHandler } = useErrorHandler({ route: pathname });
   const queryClient = useQueryClient();
+  const dispatch = useDispatch();
+
   const { mutate: completeMutate } = useMutation(completeTicket, {
     ...QUERY.DEFAULT_CONFIG,
-    onSuccess: () => {
+    onSuccess: (newTicketData: Tickets) => {
+      dispatch(setTicketData(newTicketData));
+      queryClient.invalidateQueries(QUERY.KEY.PROJECT_DATA);
+      sendToast.success(TOASTIFY.SUCCESS.TICKET_COMPLETE);
+    },
+    onError: errorHandler,
+  });
+
+  const { mutate: rejectMutate } = useMutation(completeTicket, {
+    ...QUERY.DEFAULT_CONFIG,
+    onSuccess: (newTicketData: Tickets) => {
+      dispatch(setTicketData(newTicketData));
       queryClient.invalidateQueries(QUERY.KEY.PROJECT_DATA);
       sendToast.success(TOASTIFY.SUCCESS.TICKET_COMPLETE);
     },
@@ -43,6 +57,11 @@ export function ReviewTicketCard({ ticketData }: ReviewTicketCardProps) {
   const completeHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     completeMutate(String(ticketId));
+  };
+
+  const rejectHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    rejectMutate(String(ticketId));
   };
 
   return (
@@ -68,7 +87,7 @@ export function ReviewTicketCard({ ticketData }: ReviewTicketCardProps) {
           <CompleteButton onClick={completeHandler}>
             <CheckIcon width={25} />
           </CompleteButton>
-          <RejectButton>
+          <RejectButton onClick={rejectHandler}>
             <Exit size={25} />
           </RejectButton>
         </RightWrapper>
