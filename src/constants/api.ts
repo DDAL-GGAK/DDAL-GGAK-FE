@@ -41,6 +41,7 @@ const TICKET = Object.freeze({
 const USER = Object.freeze({
   GET_DATA: '/api/user',
   GET_USERTICKETCOUNT: (userId: string) => `/api/user/${userId}/completedTickets`,
+  GET_USERTOTALTICKET: (userId: string, status: string) => `/api/user/${userId}/Tickets?status=${status}`,
   SET_PROFILE: '/api/user/profile',
   SET_NICKNAME: '/api/user/nickname',
 });
