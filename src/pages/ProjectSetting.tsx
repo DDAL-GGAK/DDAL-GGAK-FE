@@ -21,7 +21,7 @@ export function ProjectSetting() {
     () => getProjectData(param as string),
     {
       ...QUERY.DEFAULT_CONFIG,
-      onError: (error: unknown) => errorHandler(error),
+      onError: errorHandler
     }
   );
 
@@ -40,7 +40,7 @@ export function ProjectSetting() {
       queryClient.invalidateQueries(QUERY.KEY.USER_PROJECTS);
       sendToast.success(TOASTIFY.SUCCESS.USER_SETTING);
     },
-    onError: (error: unknown) => errorHandler(error),
+    onError: errorHandler
   });
 
   const urlToFile = async (

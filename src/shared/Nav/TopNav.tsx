@@ -1,14 +1,16 @@
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { SIDE_NAV, TOP_NAV, REGEX, DEFAULT_VARIANTS } from 'constants/';
+import { SIDE_NAV, TOP_NAV, REGEX, DEFAULT_VARIANTS, QUERY } from 'constants/';
 import { Menu } from 'assets/icons';
 import { DEVICES } from 'styles';
-import { ThemeToggle } from 'components';
+import { ThemeToggle, LogOut } from 'components';
 import { useMediaQuery } from 'hooks';
 import { useLocation, Link } from 'react-router-dom';
 import { MainLogo } from 'shared/MainLogo';
 import { Profile } from 'shared';
-import { ProjectsLink } from 'types';
-import { useState } from 'react';
+import { RootState } from 'redux/store';
+import { useSelector } from 'react-redux';
+import { ProjectsLink, UserDataForm } from 'types';
 import { AnimatePresence, motion } from 'framer-motion';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 
@@ -19,8 +21,42 @@ interface TopNavProps {
 export function TopNav({ data }: TopNavProps) {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const { pathname } = useLocation();
+  const [dropdownVisible, setDropdownVisible] = useState(false);
   const projectId = Number(pathname.match(REGEX.PROJECT_ID)?.[1]) || null;
+  const storeData = useSelector(
+    (state: RootState) => state.userDataSlicer
+  ) as UserDataForm | null;
+
+  const localStorageStringData = localStorage.getItem(QUERY.KEY.USER_DATA);
+  const localStorageData =
+    localStorageStringData && JSON.parse(localStorageStringData);
+
+  const userData = localStorageData?.userData || storeData;
+
   const isNotSmallDevice = useMediaQuery(DEVICES.MOBILES);
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (target && !target.closest('.dropdown')) {
+        setDropdownVisible(false);
+      }
+    };
+
+    if (dropdownVisible) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [dropdownVisible]);
 
   return (
     <Wrapper>
@@ -58,11 +94,26 @@ export function TopNav({ data }: TopNavProps) {
             <Link to="/">
               <MainLogo />
             </Link>
-            <RightWrapper>
+            <RightWrapper className="dropdown">
               <ThemeToggle />
-              <Link to={`/project/${projectId}/settings/user`}>
+              <ProfileDiv onClick={toggleDropdown}>
                 <Profile />
-              </Link>
+              </ProfileDiv>
+              {dropdownVisible && (
+                <DropdownMenu>
+                  <DropdownItem onClick={() => setDropdownVisible(false)}>
+                    <Link to={`/myTicket/${userData.userId}`}>My Ticket</Link>
+                  </DropdownItem>
+                  <DropdownItem onClick={() => setDropdownVisible(false)}>
+                    <Link to={`/project/${projectId}/settings/user`}>
+                      My Page
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem onClick={() => setDropdownVisible(false)}>
+                    <LogOut />
+                  </DropdownItem>
+                </DropdownMenu>
+              )}
             </RightWrapper>
           </>
         ) : (
@@ -126,6 +177,10 @@ const RightWrapper = styled.div`
   gap: 15px;
 `;
 
+const ProfileDiv = styled.div`
+  cursor: pointer;
+`;
+
 const DropdownWrapper = styled(motion.div)`
   display: flex;
   position: absolute;
@@ -160,4 +215,27 @@ const Image = styled.img<{ src: any }>`
   height: 50px;
   border-radius: 5px;
   background: url(${({ src }) => src});
+`;
+
+const DropdownMenu = styled.div`
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: ${({ theme }) => theme.navBackground};
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 85px;
+`;
+
+const DropdownItem = styled.div`
+  padding: 5px;
+  cursor: pointer;
+  &:hover {
+    color: ${({ theme }) => theme.color};
+    font-weight: bold;
+  }
 `;

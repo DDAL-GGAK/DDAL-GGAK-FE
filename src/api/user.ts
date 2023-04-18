@@ -1,6 +1,6 @@
 import { Axios } from 'libs';
 import { API_ROUTE } from 'constants/';
-import { NicknameForm } from 'types';
+import { NicknameForm, TicketData } from 'types';
 
 const api = new Axios(true);
 
@@ -9,6 +9,12 @@ export const getUserData = async () => {
 
   return res;
 };
+
+export const getUserTicketCount = async (userId: string): Promise<TicketData[]> => {
+  const res = await api.get(API_ROUTE.USER.GET_USERTICKETCOUNT(userId));
+
+  return res.data;
+}
 
 export const setUserProfile = async (data: FormData) => {
   const res = await api.putFormData(API_ROUTE.USER.SET_PROFILE, data);

@@ -6,6 +6,7 @@ import {
   Project,
   Settings,
   ProejectHome,
+  MyTicketPage,
 } from 'pages';
 import { RouteMap } from 'types';
 
@@ -42,6 +43,11 @@ export const ROUTE_MAP: RouteMap = Object.freeze({
   },
   '/project/:id/settings/*': {
     COMPONENT: Settings,
+    AUTH: true,
+    HAS_NAV: true,
+  },
+  '/myTicket/:userId': {
+    COMPONENT: MyTicketPage,
     AUTH: true,
     HAS_NAV: true,
   },
