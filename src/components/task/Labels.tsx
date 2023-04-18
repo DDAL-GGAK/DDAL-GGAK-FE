@@ -10,9 +10,8 @@ import { REGEX, QUERY } from 'constants/';
 import { getTaskData } from 'api';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
-
 import { useErrorHandler } from 'hooks';
-import { TicketIcon } from '@heroicons/react/24/outline';
+import { ReviewButton } from 'components/ticket';
 
 export const Labels = memo(() => {
   const { pathname } = useLocation();
@@ -89,10 +88,7 @@ export const Labels = memo(() => {
       </Wrapper>
 
       <RightWrapper>
-        <ReviewWrapper>
-          <TicketIcon width={20} />
-          <ContentText>Review Request</ContentText>
-        </ReviewWrapper>
+        <ReviewButton />
       </RightWrapper>
     </TopWrapper>
   );
@@ -122,25 +118,3 @@ const ConfigWrapper = styled.div`
 `;
 
 const RightWrapper = styled.div``;
-
-const ContentText = styled.div`
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: ${({ theme }) => theme.transparentColor};
-`;
-
-const ReviewWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0 0.5rem;
-  margin: 0 12px;
-  transition: ${({ theme }) => theme.transitionOption};
-
-  :hover {
-    cursor: pointer;
-    color: white;
-  }
-`;
