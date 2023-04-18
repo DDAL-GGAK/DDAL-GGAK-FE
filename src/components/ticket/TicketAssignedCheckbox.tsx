@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { DEFAULT_VARIANTS, QUERY } from 'constants/';
+import { DEFAULT_VARIANTS, QUERY, TICKET } from 'constants/';
 import { assignTicket } from 'api';
 import { useMutation, useQueryClient } from 'react-query';
 import { useLocation } from 'react-router-dom';
@@ -8,17 +8,19 @@ import { useErrorHandler } from 'hooks';
 import { useDispatch } from 'react-redux';
 import { setTicketData } from 'redux/modules/ticketData';
 import { memo } from 'react';
+import { sendToast } from 'libs';
 
 interface AssignCheckBoxProps {
   ticketData: {
     assigned: string | null;
     isMyTicket: boolean;
     ticketId: string | number;
+    status: string;
   };
 }
 
 export const AssignCheckBox = memo(({ ticketData }: AssignCheckBoxProps) => {
-  const { ticketId, assigned, isMyTicket } = ticketData;
+  const { ticketId, assigned, isMyTicket, status } = ticketData;
   const { pathname } = useLocation();
   const { errorHandler } = useErrorHandler({ route: pathname });
   const queryClient = useQueryClient();
@@ -35,7 +37,8 @@ export const AssignCheckBox = memo(({ ticketData }: AssignCheckBoxProps) => {
 
   const toggleCheck = (e: React.MouseEvent<HTMLInputElement>) => {
     e.stopPropagation();
-    mutate(String(ticketId));
+    if (status === TICKET.STATUS.TODO) return mutate(String(ticketId));
+    sendToast.error('Ticket is on Progress!');
   };
 
   const checkBranch = (

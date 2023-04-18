@@ -28,7 +28,8 @@ export const Ticket = memo(
     const { pathname } = useLocation();
     const taskId = pathname.match(REGEX.TASK_ID)?.[1];
     const { errorHandler } = useErrorHandler({ route: pathname });
-    const { ticketId, title, priority, difficulty, label, assigned } = data;
+    const { ticketId, title, priority, difficulty, label, assigned, status } =
+      data;
     const labelRef = useRef<HTMLDivElement>(null);
 
     const getDropdownPosition = (): { x: number; y: number } => {
@@ -59,6 +60,7 @@ export const Ticket = memo(
             ticketData={{
               assigned,
               ticketId,
+              status,
               isMyTicket: assigned === userEmail,
             }}
           />
