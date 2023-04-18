@@ -82,8 +82,3 @@ export interface UpdateProjectDataProps {
   projectId: string | number;
 }
 
-/* myTicket */
-export interface TicketData {
-  date: string;
-  completedTicket: number;
-}
