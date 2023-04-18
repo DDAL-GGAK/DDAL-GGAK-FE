@@ -12,6 +12,8 @@ import { completeTicket } from 'api';
 import { CheckIcon, TagIcon } from '@heroicons/react/24/outline';
 import { TicketDetail } from 'components/modal';
 import { ContentText } from 'components/containers';
+import { Difficulty } from './Icons/Difficulty';
+import { Priority } from './Icons/Priority';
 
 interface ReviewTicketCardProps {
   ticketData: TicketDataForm;
@@ -52,14 +54,14 @@ export function ReviewTicketCard({ ticketData }: ReviewTicketCardProps) {
               {title}
               {'>'}
             </TicketTitle>
-            <AssignedText>{assigned}</AssignedText>
+            <LabelWrapper>
+              <Priority priority={priority} />
+              <Difficulty difficulty={Number(difficulty)} />
+              <TagIcon width={20} />
+              <ContentText>{label || 'unAssigned'}</ContentText>
+            </LabelWrapper>
           </TicketInfo>
-          <LabelWrapper>
-            <TagIcon width={20} />
-            <ContentText>{label || 'unAssigned'}</ContentText>
-            <ContentText>{difficulty}</ContentText>
-            <ContentText>{priority}</ContentText>
-          </LabelWrapper>
+          <AssignedText>{assigned}</AssignedText>
         </LeftWrapper>
         <RightWrapper>
           <CheckButton>
