@@ -31,17 +31,21 @@ export const ToggleTicketStatus = memo(
       [mutate, currTicketId]
     );
 
+    const isRender =
+      status === TICKET.STATUS.TODO || status === TICKET.STATUS.IN_PROGRESS;
     return (
       <StatusWrapper>
-        <Button onClick={handleStatusChange} buttonType="border">
-          <Text>Ticket</Text>
+        {isRender ? (
+          <Button onClick={handleStatusChange} buttonType="border">
+            <Text>Ticket</Text>
 
-          {status === TICKET.STATUS.TODO ? (
-            <PlayIcon width={SVG_SIZE.TICKET_SVG} fill="white" />
-          ) : (
-            <PauseIcon width={SVG_SIZE.TICKET_SVG} fill="white" />
-          )}
-        </Button>
+            {status === TICKET.STATUS.TODO ? (
+              <PlayIcon width={SVG_SIZE.TICKET_SVG} fill="white" />
+            ) : (
+              <PauseIcon width={SVG_SIZE.TICKET_SVG} fill="white" />
+            )}
+          </Button>
+        ) : null}
       </StatusWrapper>
     );
   }
