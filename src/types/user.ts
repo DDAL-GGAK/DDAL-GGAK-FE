@@ -17,3 +17,9 @@ export interface UserDataForm {
   profile: Profile;
   projects: ProjectsLink[];
 }
+
+/* myTicket */
+export interface TicketData {
+  date: string;
+  completedTicket: number;
+}

@@ -112,7 +112,7 @@ export function ContributionGraph({ userId }: { userId: string }) {
     return (
       !prevDate ||
       (date.getMonth() !== prevDate.getMonth() &&
-        (weekIndex === 0 || date.getDate() < 7))
+        (weekIndex === 0 || date.getDate() < 8))
     );
   };
 
