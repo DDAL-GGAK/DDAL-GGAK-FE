@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { NewLabelButton, LabelConfigButton } from 'components/project';
-import { TicketState, TaskDetailDataForm } from 'types';
+import { TicketState, TaskDetailDataForm, UserDataForm } from 'types';
 import { useSelector, useDispatch } from 'react-redux';
 import { setLabel, setTicketData } from 'redux/modules/ticketData';
 import { LabelButton } from 'components/containers';
@@ -43,6 +43,8 @@ export const Labels = memo(() => {
     }
   );
 
+  console.log(taskData);
+
   useEffect(() => {
     dispatch(setLabel('All'));
   }, []);
@@ -54,6 +56,10 @@ export const Labels = memo(() => {
   const { label } = useSelector(
     (state: RootState) => state.ticketDataSlicer as TicketState
   );
+
+  const userData = useSelector(
+    (state: RootState) => state.userDataSlicer
+  ) as UserDataForm | null;
 
   return (
     <TopWrapper>
@@ -88,7 +94,8 @@ export const Labels = memo(() => {
       </Wrapper>
 
       <RightWrapper>
-        <ReviewButton />
+        {/* labelLeader로 교체 */}
+        {taskData?.taskLeader === userData?.email && <ReviewButton />}
       </RightWrapper>
     </TopWrapper>
   );
