@@ -52,7 +52,7 @@ export const TicketContainer = memo(() => {
                           key={ticket.ticketId}
                           openModal={openModal}
                           setCurrTicketId={setCurrTicketId}
-                          userEmail={userData?.email}
+                          nickname={userData?.nickname}
                         />
                       );
 
@@ -63,7 +63,7 @@ export const TicketContainer = memo(() => {
                           key={ticket.ticketId}
                           openModal={openModal}
                           setCurrTicketId={setCurrTicketId}
-                          userEmail={userData?.email}
+                          nickname={userData?.nickname}
                         />
                       );
 

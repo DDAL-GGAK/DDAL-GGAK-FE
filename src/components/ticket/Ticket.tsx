@@ -20,11 +20,11 @@ interface TicketProps {
   data: TicketDataForm;
   openModal: () => void;
   setCurrTicketId: React.Dispatch<React.SetStateAction<string | undefined>>;
-  userEmail: string | undefined;
+  nickname: string | undefined;
 }
 
 export const Ticket = memo(
-  ({ data, openModal, setCurrTicketId, userEmail }: TicketProps) => {
+  ({ data, openModal, setCurrTicketId, nickname }: TicketProps) => {
     const { pathname } = useLocation();
     const taskId = pathname.match(REGEX.TASK_ID)?.[1];
     const { errorHandler } = useErrorHandler({ route: pathname });
@@ -61,7 +61,7 @@ export const Ticket = memo(
               assigned,
               ticketId,
               status,
-              isMyTicket: assigned === userEmail,
+              isMyTicket: assigned === nickname,
             }}
           />
           <Id>Ticket {ticketId}</Id>

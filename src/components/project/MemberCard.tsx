@@ -24,7 +24,7 @@ export function MemberCard({ memberData, projectData }: MemberDataProps) {
   const { mutate } = useMutation(kickUser, {
     ...QUERY.DEFAULT_CONFIG,
     onSuccess: () => {
-      queryClient.invalidateQueries(QUERY.KEY.USER_PROJECTS);
+      queryClient.invalidateQueries(QUERY.KEY.PROJECT_DATA);
     },
     onError: errorHandler,
   });
