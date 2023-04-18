@@ -13,7 +13,7 @@ export function ReviewButton() {
         closeModal={closeModal}
         variants={MODAL_CARD_VARIANTS}
       >
-        <TicketReview closeModal={closeModal} />
+        <TicketReview />
       </Modal>
       <ReviewWrapper onClick={openModal}>
         <TicketIcon width={20} />

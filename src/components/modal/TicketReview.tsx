@@ -1,17 +1,23 @@
-import { BorderWrapper } from 'components/containers';
+import { ReviewTicketCard } from 'components/ticket/ReviewTicketCard';
 import { memo } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
 import styled from 'styled-components';
 
-interface TicketReviewProps {
-  closeModal: () => void;
-}
+export const TicketReview = memo(() => {
+  const ticketData = useSelector((state: RootState) => state.ticketDataSlicer);
+  const onReviewTicket = ticketData?.ticket?.REVIEW;
 
-export const TicketReview = memo(({ closeModal }: TicketReviewProps) => {
-  console.log(closeModal);
   return (
     <Wrapper>
-      <TextL>Tickets</TextL>
-      <BorderWrapper>review</BorderWrapper>
+      <TextL>Review List</TextL>
+      <BorderWrapper>
+        <TicketWrapper>
+          {onReviewTicket?.map((ticket) => (
+            <ReviewTicketCard ticketData={ticket} />
+          ))}
+        </TicketWrapper>
+      </BorderWrapper>
     </Wrapper>
   );
 });
@@ -23,4 +29,24 @@ const TextL = styled.div`
   font-weight: 600;
   color: ${({ theme }) => theme.color};
   margin-bottom: 1rem;
+`;
+
+const TicketWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+`;
+
+const BorderWrapper = styled.div`
+  background: ${({ theme }) => theme.background};
+  border: 1px solid ${({ theme }) => theme.borderColor};
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: ${({ theme }) => theme.boxShadow};
+  display: flex;
+  flex-direction: column;
+  min-width: 450px;
+  max-width: 450px;
+  max-height: 60vh;
+  overflow-y: auto;
 `;
