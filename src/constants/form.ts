@@ -29,7 +29,7 @@ export const ERROR_MESSAGE = Object.freeze({
     REQUIRED: 'is required',
     MIN_LENGTH: 'longer more than 8',
     MAX_LENGTH: 'less then 15',
-    INVALIDATE: 'must be include Alphabet & number',
+    INVALIDATE: 'must be include Alphabet & Number & Special Characters',
   }),
   PASSWORD_CONFIRM: Object.freeze({
     REQUIRED: 'Please enter your password!',

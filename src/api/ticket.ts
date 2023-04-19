@@ -1,5 +1,10 @@
 import { Axios } from 'libs';
-import { TicketCreateForm, Query, SetLabelForm } from 'types';
+import {
+  TicketCreateForm,
+  Query,
+  SetLabelForm,
+  GetProjectUsersProps,
+} from 'types';
 import { API_ROUTE } from 'constants/';
 
 type TicketResType = (ticketId: string) => Promise<any>;
@@ -70,6 +75,18 @@ export const completeTicket: TicketResType = async (ticketId: string) => {
 
 export const rejectTicket: TicketResType = async (ticketId: string) => {
   const { data: res } = await api.post(API_ROUTE.TICKET.REJECT(ticketId), {});
+
+  return res;
+};
+
+export const getProjectUsers = async ({
+  projectId,
+  taskId,
+}: GetProjectUsersProps) => {
+  const { data: res } = await api.getByQuery(
+    API_ROUTE.PROJECT.GET_PROJECT_USERS(projectId),
+    { taskId }
+  );
 
   return res;
 };

@@ -12,6 +12,7 @@ const KEY = Object.freeze({
   PROJECT_THUMBNAIL: 'projectThumbnail',
   PROJECT_TITLE: 'projectTitle',
   PROJECT_DATA: 'projectData',
+  PROJECT_PARTICIPANTS: 'projectParticipants',
   TASK_DATA: 'taskData',
   LABEL_DATA: 'labelData',
   TICKET_DATA: 'ticketData',
