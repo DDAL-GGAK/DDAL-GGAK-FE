@@ -22,3 +22,9 @@ export interface TaskDetailDataForm {
 export interface TaskTitleInputProps {
   register: UseFormRegister<TaskCreateForm>;
 }
+
+export interface AddUserProps {
+  taskId: string;
+  projectId: string;
+  email: string;
+}

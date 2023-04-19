@@ -23,6 +23,7 @@ const PROJECT = Object.freeze({
 const TASK = Object.freeze({
   CREATE: '/api/task',
   GET_DATA: (projectId: string) => `/api/task/${projectId}`,
+  ADD_USER: (taskId: string) => `/api/task/${taskId}/invite`,
   DELETE: `/api/task`,
 });
 
@@ -40,8 +41,10 @@ const TICKET = Object.freeze({
 
 const USER = Object.freeze({
   GET_DATA: '/api/user',
-  GET_USERTICKETCOUNT: (userId: string) => `/api/user/${userId}/completedTickets`,
-  GET_USERTOTALTICKET: (userId: string, status: string) => `/api/user/${userId}/Tickets?status=${status}`,
+  GET_USERTICKETCOUNT: (userId: string) =>
+    `/api/user/${userId}/completedTickets`,
+  GET_USERTOTALTICKET: (userId: string, status: string) =>
+    `/api/user/${userId}/Tickets?status=${status}`,
   SET_PROFILE: '/api/user/profile',
   SET_NICKNAME: '/api/user/nickname',
 });

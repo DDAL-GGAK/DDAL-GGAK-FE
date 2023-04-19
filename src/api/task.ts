@@ -1,5 +1,5 @@
 import { Axios } from 'libs';
-import { TaskCreateForm, Query } from 'types';
+import { TaskCreateForm, Query, AddUserProps } from 'types';
 import { API_ROUTE } from 'constants/';
 
 const api = new Axios(true);
@@ -21,6 +21,15 @@ export const getTaskData = async ({
     API_ROUTE.TASK.GET_DATA(param),
     query
   );
+
+  return res;
+};
+
+export const addUser = async ({ taskId, projectId, email }: AddUserProps) => {
+  const { data: res } = await api.post(API_ROUTE.TASK.ADD_USER(taskId), {
+    projectId,
+    email,
+  });
 
   return res;
 };
