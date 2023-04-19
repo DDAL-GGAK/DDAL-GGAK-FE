@@ -43,7 +43,6 @@ export function LabelConfig({ labels, handleOpenModal }: LabelConfigProps) {
 const ListWrapper = styled(BorderWrapper)`
   max-height: 40vh;
   overflow-y: auto;
-  gap: 0.5rem;
 `;
 
 const LabelName = styled.div`

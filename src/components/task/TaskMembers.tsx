@@ -37,6 +37,8 @@ export const TaskMembers = memo(() => {
       <Title>Add Task member</Title>
       <ListWrapper>
         {usersData?.map((user: Participant) => {
+          if (user.email === projectData?.projectLeader) return;
+
           return (
             <AddUserCard
               key={user.id}
