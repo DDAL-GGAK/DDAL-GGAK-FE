@@ -1,7 +1,9 @@
 import styled from 'styled-components';
-import { Participant } from 'types';
+import { Participant, UserDataForm } from 'types';
 import { Add } from 'assets/icons';
 import { memo, useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
 import { ListCard } from '../containers';
 
 interface UserCardProps {
@@ -13,6 +15,9 @@ export const AddUserCard = memo(
   ({ userData, projectLeader }: UserCardProps) => {
     const memoizedUser = useMemo(() => userData, [userData]);
 
+    const currUser = useSelector(
+      (state: RootState) => state.userDataSlicer
+    ) as UserDataForm | null;
     const { nickname, id, email, role, thumbnail } = memoizedUser;
     id;
     email;
@@ -20,6 +25,10 @@ export const AddUserCard = memo(
     thumbnail;
     styled;
 
+    const addTaskHandler = () => {
+      
+    }
+    
     return (
       <ListCard>
         <LeftWrapper>
@@ -36,9 +45,9 @@ export const AddUserCard = memo(
           </UserInfo>
         </LeftWrapper>
         <RightWrapper>
-          {projectLeader === userData?.email && projectLeader !== email && (
-            <Button onClick={() => {}}>
-              <Add size={20} />+
+          {projectLeader === currUser?.email && (
+            <Button onClick={addTaskHandler}>
+              <Add size={20} />
             </Button>
           )}
         </RightWrapper>
@@ -55,14 +64,7 @@ const LeftWrapper = styled.div`
   gap: 16px;
 `;
 
-const RightWrapper = styled.div`
-  display: flex;
-  flex: initial;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
-  margin-left: auto;
-`;
+const RightWrapper = styled.div``;
 
 const UserInfo = styled.div`
   display: flex;
@@ -108,6 +110,6 @@ const Button = styled.button`
 
   :hover {
     cursor: pointer;
-    color: ${({ theme }) => theme.accentColor};
+    color: ${({ theme }) => theme.pointColor};
   }
 `;
