@@ -10,6 +10,7 @@ import { setUserData } from 'redux/modules/userData';
 import { ReactHookInput } from 'components/form';
 import { motion } from 'framer-motion';
 import { useErrorHandler } from 'hooks';
+import { GoogleLoginButton } from 'components';
 
 export function Login() {
   const { errorHandler } = useErrorHandler();
@@ -52,7 +53,10 @@ export function Login() {
               register={register}
               errorMessage={errors.password?.message}
             />
-            <Submit isValid={!Object.keys(errors)[0]}>Login</Submit>
+            <LoginWrapper>
+              <Submit isValid={!Object.keys(errors)[0]}>Login</Submit>
+              <GoogleLoginButton />
+            </LoginWrapper>
             <Hr />
             <Text>If you need an account?</Text>
 
@@ -83,6 +87,13 @@ const TopWrapper = styled.div`
 const Container = styled(motion.div)`
   backdrop-filter: blur(3px);
   width: 400px;
+`;
+
+const LoginWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `;
 
 const Title = styled.div`

@@ -7,7 +7,7 @@ import { RootState } from 'redux/store';
 import { addUser } from 'api';
 import { useLocation } from 'react-router-dom';
 import { QUERY, REGEX } from 'constants/';
-import { QueryClient, useMutation } from 'react-query';
+import { useQueryClient, useMutation } from 'react-query';
 import { useErrorHandler } from 'hooks';
 import { ListCard } from 'components/containers';
 
@@ -26,7 +26,7 @@ export const AddUserCard = memo(
       (state: RootState) => state.userDataSlicer
     ) as UserDataForm | null;
 
-    const queryClient = new QueryClient();
+    const queryClient = useQueryClient();
     const { errorHandler } = useErrorHandler({ route: pathname });
     const { mutate } = useMutation(addUser, {
       ...QUERY.DEFAULT_CONFIG,
