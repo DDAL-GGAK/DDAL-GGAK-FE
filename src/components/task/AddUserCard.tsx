@@ -6,8 +6,10 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import { addUser } from 'api';
 import { useLocation } from 'react-router-dom';
-import { REGEX } from 'constants/';
-import { ListCard } from '../containers';
+import { QUERY, REGEX } from 'constants/';
+import { QueryClient, useMutation } from 'react-query';
+import { useErrorHandler } from 'hooks';
+import { ListCard } from 'components/containers';
 
 interface UserCardProps {
   userData: Participant;
@@ -23,10 +25,21 @@ export const AddUserCard = memo(
     const currUser = useSelector(
       (state: RootState) => state.userDataSlicer
     ) as UserDataForm | null;
+
+    const queryClient = new QueryClient();
+    const { errorHandler } = useErrorHandler({ route: pathname });
+    const { mutate } = useMutation(addUser, {
+      ...QUERY.DEFAULT_CONFIG,
+      onSuccess: () => {
+        queryClient.invalidateQueries(QUERY.KEY.PROJECT_PARTICIPANTS);
+      },
+      onError: errorHandler,
+    });
+
     const { nickname, email, role, thumbnail } = memoizedUser;
 
     const addTaskHandler = async () => {
-      await addUser({ taskId, projectId, email });
+      await mutate({ taskId, projectId, email });
     };
 
     return (
