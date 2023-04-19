@@ -73,3 +73,11 @@ export const rejectTicket: TicketResType = async (ticketId: string) => {
 
   return res;
 };
+
+export const getProjectUsers = async (projectId: string) => {
+  const { data: res } = await api.get(
+    API_ROUTE.PROJECT.GET_PROJECT_USERS(projectId)
+  );
+
+  return res;
+};
