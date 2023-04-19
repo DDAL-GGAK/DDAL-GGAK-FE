@@ -7,6 +7,7 @@ export * from './AuthRoute';
 export * from './Loading';
 export * from './containers/Button';
 export * from './Hr';
+export * from './GoogleLogin';
 
 /* folder */
 export * from './ticket';

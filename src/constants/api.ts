@@ -2,6 +2,7 @@ const AUTH = Object.freeze({
   SIGN_UP: '/api/auth/signup',
   CHECK_EMAIL: '/api/auth/email',
   LOG_IN: '/api/auth/login',
+  GOOGLE_LOGIN: '/api/auth/login/google',
   LOG_OUT: '/api/auth/logout',
   VALIDATE_TOKEN: 'api/auth/validToken',
 });
