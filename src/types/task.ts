@@ -28,3 +28,8 @@ export interface AddUserProps {
   projectId: string;
   email: string;
 }
+
+export interface GetProjectUsersProps {
+  projectId: string;
+  taskId: string;
+}

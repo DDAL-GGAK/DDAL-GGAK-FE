@@ -4,6 +4,9 @@ import { Add } from 'assets/icons';
 import { memo, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
+import { addUser } from 'api';
+import { useLocation } from 'react-router-dom';
+import { REGEX } from 'constants/';
 import { ListCard } from '../containers';
 
 interface UserCardProps {
@@ -14,21 +17,18 @@ interface UserCardProps {
 export const AddUserCard = memo(
   ({ userData, projectLeader }: UserCardProps) => {
     const memoizedUser = useMemo(() => userData, [userData]);
-
+    const { pathname } = useLocation();
+    const taskId = pathname.match(REGEX.TASK_ID)?.[1] || '';
+    const projectId = pathname.match(REGEX.PROJECT_ID)?.[1] || '';
     const currUser = useSelector(
       (state: RootState) => state.userDataSlicer
     ) as UserDataForm | null;
-    const { nickname, id, email, role, thumbnail } = memoizedUser;
-    id;
-    email;
-    role;
-    thumbnail;
-    styled;
+    const { nickname, email, role, thumbnail } = memoizedUser;
 
-    const addTaskHandler = () => {
-      
-    }
-    
+    const addTaskHandler = async () => {
+      await addUser({ taskId, projectId, email });
+    };
+
     return (
       <ListCard>
         <LeftWrapper>

@@ -12,11 +12,12 @@ import { memo } from 'react';
 export const TaskMembers = memo(() => {
   const { pathname } = useLocation();
   const { errorHandler } = useErrorHandler({ route: pathname });
-  const projectId = pathname.match(REGEX.PROJECT_ID)?.[1];
+  const projectId = pathname.match(REGEX.PROJECT_ID)?.[1] || '';
+  const taskId = pathname.match(REGEX.TASK_ID)?.[1] || '';
 
   const { data: usersData } = useQuery(
     [QUERY.KEY.PROJECT_PARTICIPANTS, projectId],
-    () => getProjectUsers(projectId || ''),
+    () => getProjectUsers({ projectId, taskId }),
     {
       ...QUERY.DEFAULT_CONFIG,
       onError: errorHandler,
