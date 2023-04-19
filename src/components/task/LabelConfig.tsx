@@ -3,9 +3,12 @@ import { BorderWrapper, ListCard, Title } from 'components/containers';
 import { TagIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { LabelDataForm } from 'types';
 
-export function LabelConfig({ labels, handleOpenModal }: any) {
-  console.log(labels);
+interface LabelConfigProps {
+  labels: LabelDataForm[];
+  handleOpenModal: (label: LabelDataForm) => void;
+}
 
+export function LabelConfig({ labels, handleOpenModal }: LabelConfigProps) {
   return (
     <>
       <Title>
@@ -38,7 +41,7 @@ export function LabelConfig({ labels, handleOpenModal }: any) {
 }
 
 const ListWrapper = styled(BorderWrapper)`
-  max-height: 600px;
+  max-height: 40vh;
   overflow-y: auto;
   gap: 0.5rem;
 `;

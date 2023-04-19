@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { DEFAULT_VARIANTS, MODAL_CARD_VARIANTS } from 'constants/';
 import { ConfigLabelProps, LabelDataForm } from 'types';
-import { BorderWrapper } from 'components/containers';
 import { useModal } from 'hooks';
 import { useState } from 'react';
 import { DeleteTaskButton } from 'components/project';
@@ -43,13 +42,11 @@ export function TaskConfig({ labels }: ConfigLabelProps) {
           </Selection>
         ))}
       </Category>
-      <BorderWrapper>
-        {category === 'Member' ? (
-          <TaskMembers />
-        ) : (
-          <LabelConfig handleOpenModal={handleOpenModal} labels={labels} />
-        )}
-      </BorderWrapper>
+      {category === 'Member' ? (
+        <TaskMembers />
+      ) : (
+        <LabelConfig handleOpenModal={handleOpenModal} labels={labels} />
+      )}
       <DeleteTaskButton />
       {selectedLabel !== null && (
         <Modal
