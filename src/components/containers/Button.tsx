@@ -97,7 +97,7 @@ const Dark = styled.button`
 `;
 
 const Dangerous = styled.button`
-  background: ${({ theme }) => theme.newTaskBackground};
+  background: ${({ theme }) => theme.borderColor};
   color: ${({ theme }) => theme.color};
   transition: ${({ theme }) => theme.transitionOption};
   padding: 12px 24px;
