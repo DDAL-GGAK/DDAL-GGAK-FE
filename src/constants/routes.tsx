@@ -14,6 +14,7 @@ import {
   ProjectHeader,
   LoginHeader,
   TaskHeader,
+  SettingHeader,
 } from 'components/headers';
 import { RouteMap } from 'types';
 
@@ -56,7 +57,7 @@ export const ROUTE_MAP: RouteMap = Object.freeze({
   },
   '/project/:id/settings/*': {
     COMPONENT: Settings,
-    HEADER: HomeHeader,
+    HEADER: SettingHeader,
     AUTH: true,
     HAS_NAV: true,
   },
