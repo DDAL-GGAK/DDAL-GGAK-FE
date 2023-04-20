@@ -70,21 +70,19 @@ const SettingLink = styled(({ isCurrNav, ...rest }) => <Link {...rest} />)<{
   border-radius: 5px;
   background: ${({ isCurrNav, theme }) => (isCurrNav ? theme.borderColor : '')};
   color: ${({ isCurrNav, theme }) =>
-    isCurrNav ? 'white' : theme.transparentColor};
+    isCurrNav ? theme.color : theme.transparentColor};
   transition: ${({ theme }) => theme.transitionOption};
   font-weight: 600;
-  :hover {
-    color: white;
-  }
 `;
 const Title = styled.div`
   font-weight: 600;
-  color: white;
+  color: ${({ theme }) => theme.color};
   font-size: 20px;
   display: flex;
   align-items: center;
   gap: 8px;
   margin-bottom: 8px;
+  transition: ${({ theme }) => theme.transitionOption};
 `;
 
 const LeftWrapper = styled.div`
