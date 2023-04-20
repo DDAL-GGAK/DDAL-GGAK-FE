@@ -27,9 +27,11 @@ export function SideNav({ data }: SideNavProps) {
       </TopWrapper>
       <BottomWrapper>
         <NewProjectButton />
-        <Link to={`/project/${projectId}/settings/projectSetting`}>
-          <Config />
-        </Link>
+        {!!data?.[0] && (
+          <Link to={`/project/${projectId}/settings/projectSetting`}>
+            <Config />
+          </Link>
+        )}
       </BottomWrapper>
     </Wrapper>
   );
