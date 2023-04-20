@@ -21,7 +21,9 @@ export function MyTicketPage() {
         <LeftWrapper>
           <ViewUserTicket userId={userId} />
         </LeftWrapper>
-        <RightWrapper>.</RightWrapper>
+        <RightWrapper>
+          .
+        </RightWrapper>
       </BottomWrapper>
     </Wrapper>
   );
@@ -61,6 +63,9 @@ const GraphInfo = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
+  flex-direction: column;
+  text-align: left;
+  width: 100%;
 `;
 
 const BottomWrapper = styled.div`

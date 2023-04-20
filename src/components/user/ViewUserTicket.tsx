@@ -5,6 +5,7 @@ import { QUERY } from 'constants/';
 import { useErrorHandler } from 'hooks';
 import { getUserTotalTicket } from 'api';
 import { TicketDataForm } from 'types';
+import { Difficulty, Priority } from 'components';
 
 export function ViewUserTicket({ userId }: { userId: string }) {
   const [selectedTab, setSelectedTab] = useState('TODO');
@@ -35,27 +36,23 @@ export function ViewUserTicket({ userId }: { userId: string }) {
           ticketData.content.map((ticket: TicketDataForm) => (
             <Ticket key={ticket.ticketId}>
               <TicketHeader>
-                <TicketTitle>{ticket.title}</TicketTitle>
-                <TicketLabel>{ticket.label}</TicketLabel>
+                <IdAndPriority>
+                  <Id>Ticket {ticket.ticketId}</Id>
+                  <Priority priority={ticket.priority} />
+                </IdAndPriority>
+                {ticket.completedAt && (
+                  <TicketMetaItem>
+                    Completed : <strong>{ticket.completedAt.split('T')[0]}</strong>
+                  </TicketMetaItem>
+                )}
               </TicketHeader>
-              <TicketDescription>{ticket.description}</TicketDescription>
-              <TicketMeta>
-                <TicketMetaItem>
-                  Priority: <strong>{ticket.priority}</strong>
-                </TicketMetaItem>
-                <TicketMetaItem>
-                  Difficulty: <strong>{ticket.difficulty}</strong>
-                </TicketMetaItem>
-                <TicketMetaItem>
-                  Assigned: <strong>{ticket.assigned}</strong>
-                </TicketMetaItem>
-                <TicketMetaItem>
-                  Completed At:{' '}
-                  <strong>
-                    {ticket.completedAt ? ticket.completedAt : 'N/A'}
-                  </strong>
-                </TicketMetaItem>
-              </TicketMeta>
+              <TicketContent>
+                <TicketTitle>{ticket.title}</TicketTitle>
+                <RightContainer>
+                  <TicketLabel>{ticket.label}</TicketLabel>
+                  <Difficulty difficulty={Number(ticket.difficulty)} />
+                </RightContainer>
+              </TicketContent>
             </Ticket>
           ))}
       </TicketDataWrapper>
@@ -67,32 +64,46 @@ const Wrapper = styled.div``;
 
 const TabWrapper = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 5px;
 `;
 
 const Tab = styled.button`
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 600;
-  padding: 5px;
-  &:hover {
-  }
+cursor: pointer;
+font-size: 16px;
+font-weight: 600;
+padding: 5px 10px; // Adjust the padding if needed
+background-color: ${({ theme }) => theme.background};
+color: ${({ theme }) => theme.color};
+border: 1px solid ${({ theme }) => theme.borderColor};
+border-top-left-radius: 8px;
+border-top-right-radius: 8px;
+
+&:hover {
+  background: ${({ theme }) => theme.borderColor};
+}
 `;
 
 const TicketDataWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  max-height: 450px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 4px; // Set the width of the scrollbar
+  }
+
 `;
 
 const Ticket = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  padding: 10px;
+  padding: 5px;
   border: 1px solid ${({ theme }) => theme.borderColor};
   border-radius: 4px;
   background: ${({ theme }) => theme.background};
+  width: 100%;
 `;
 
 const TicketHeader = styled.div`
@@ -108,7 +119,7 @@ const TicketTitle = styled.h3`
 `;
 
 const TicketLabel = styled.span`
-  background-color: ${({ theme }) => theme.background};
+  background: ${({ theme }) => theme.background};
   padding: 4px 8px;
   border-radius: 4px;
   font-size: 14px;
@@ -116,20 +127,27 @@ const TicketLabel = styled.span`
   font-weight: 600;
 `;
 
-const TicketDescription = styled.p`
-  margin: 10px 0;
-  font-size: 14px;
-  line-height: 1.5;
-`;
-
-const TicketMeta = styled.ul`
-  list-style: none;
+const TicketContent = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding: 0;
+  justify-content: space-between;
 `;
 
-const TicketMetaItem = styled.li`
+const RightContainer = styled.div`
+  margin-left: auto;
+  display: flex;
+`;
+
+const TicketMetaItem = styled.div`
   font-size: 14px;
+`;
+
+const Id = styled.div`
+  width: 80px;
+  opacity: 0.5;
+`;
+
+const IdAndPriority = styled.div`
+  display: flex;
+  gap: 5px;
+  align-items: center;
 `;
