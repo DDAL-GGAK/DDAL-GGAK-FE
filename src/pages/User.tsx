@@ -77,11 +77,13 @@ export function User() {
                 <EnvelopeIcon style={{ width: 20 }} />
                 <div>E-MAIL</div>
               </ContentText>
-              <div>{userData?.data.email}</div>
+              <EmailWrapper>
+                <div>{userData?.data.email}</div>
+                <LogoutWrapper>
+                  <LogOut />
+                </LogoutWrapper>
+              </EmailWrapper>
             </TextM>
-            <LogoutWrapper>
-              <LogOut />
-            </LogoutWrapper>
           </Privacy>
         </PrivacyWrapper>
       </ProfileWrapper>
@@ -156,11 +158,16 @@ const Border = styled.div`
 `;
 
 const Privacy = styled.div`
-  padding: 1.5rem;
+  padding: 1.5rem 1.5rem 1rem 1.5rem;
   background: ${({ theme }) => theme.borderColor};
   width: calc(100% - 3rem);
-  height: calc(100% - 3rem);
   border-radius: 5px;
+`;
+
+const EmailWrapper = styled.div`
+  display: flex;
+
+  justify-content: space-between;
 `;
 
 const NickNameForm = styled.form`
