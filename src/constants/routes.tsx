@@ -13,6 +13,7 @@ import {
   SignUpHeader,
   ProjectHeader,
   LoginHeader,
+  TaskHeader,
 } from 'components/headers';
 import { RouteMap } from 'types';
 
@@ -43,13 +44,13 @@ export const ROUTE_MAP: RouteMap = Object.freeze({
   },
   '/project/:id': {
     COMPONENT: Project,
-    HEADER: HomeHeader,
+    HEADER: ProjectHeader,
     AUTH: true,
     HAS_NAV: true,
   },
   '/project/:id/task/:id': {
     COMPONENT: Task,
-    HEADER: HomeHeader,
+    HEADER: TaskHeader,
     AUTH: true,
     HAS_NAV: true,
   },
