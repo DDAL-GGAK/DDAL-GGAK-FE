@@ -1,6 +1,5 @@
 import { COOKIE, ERROR, QUERY, ROUTE, STATUS_CODES } from 'constants/';
 import { AxiosError } from 'axios';
-import { sendToast } from 'libs';
 import { useNavigate } from 'react-router-dom';
 import { Cookies } from 'react-cookie';
 import { useDispatch } from 'react-redux';
@@ -19,7 +18,6 @@ export function useErrorHandler({ route }: RouteForm = { route: null }) {
 
   const errorHandler = (err: unknown) => {
     const error = err as AxiosError;
-    sendToast.error(error.message);
 
     if (error.message === ERROR.FORBIDDEN.NO_ACCESS_RIGHTS)
       return navigate(moveTo);
