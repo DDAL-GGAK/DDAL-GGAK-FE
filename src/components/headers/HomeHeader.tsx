@@ -5,7 +5,7 @@ export function HomeHeader() {
 
   return (
     <DefaultHeader>
-      <title>DDAL-GGAK</title>
+      <title>Home</title>
       <meta property="og:title" content={pageTitle} />
       <meta name="twitter:title" content={pageTitle} />
     </DefaultHeader>
