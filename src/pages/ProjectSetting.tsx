@@ -13,10 +13,13 @@ import { BorderWrapper, Button } from 'components';
 
 export function ProjectSetting() {
   const navigate = useNavigate();
-  const { id: param } = useParams();
   const { pathname } = useLocation();
-  const { errorHandler } = useErrorHandler({ route: pathname });
   const projectId = pathname.match(REGEX.PROJECT_ID)?.[1] || '';
+
+  if (!projectId) navigate(ROUTE.PROJECT_HOME);
+
+  const { id: param } = useParams();
+  const { errorHandler } = useErrorHandler({ route: pathname });
   const { data: projectData } = useQuery<ProjectDataForm>(
     [QUERY.KEY.PROJECT_DATA, param],
     () => getProjectData(param as string),
@@ -25,10 +28,6 @@ export function ProjectSetting() {
       onError: errorHandler,
     }
   );
-
-  if (!projectId) {
-    navigate(ROUTE.PROJECT_HOME);
-  }
 
   const queryClient = useQueryClient();
   const {

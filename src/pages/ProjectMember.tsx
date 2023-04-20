@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useErrorHandler } from 'hooks';
-import { QUERY } from 'constants/';
+import { QUERY, REGEX, ROUTE } from 'constants/';
 import { useQuery } from 'react-query';
 import { getProjectData } from 'api';
 import { ProjectDataForm } from 'types';
@@ -10,6 +10,12 @@ import { BorderWrapper } from 'components';
 import { CreateInviteCodeButton } from 'components/project/CreateInviteCodeButton';
 
 export function ProjectMember() {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const projectId = pathname.match(REGEX.PROJECT_ID)?.[1] || '';
+
+  if (!projectId) navigate(ROUTE.PROJECT_HOME);
+
   const { id: param } = useParams();
   const { errorHandler } = useErrorHandler();
 
