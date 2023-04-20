@@ -5,3 +5,4 @@ export * from './ProjectHeader';
 export * from './LoginHeader';
 export * from './TaskHeader';
 export * from './SettingHeader';
+export * from './MyTicketHeader';

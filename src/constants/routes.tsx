@@ -15,6 +15,7 @@ import {
   LoginHeader,
   TaskHeader,
   SettingHeader,
+  MyTicketHeader,
 } from 'components/headers';
 import { RouteMap } from 'types';
 
@@ -63,7 +64,7 @@ export const ROUTE_MAP: RouteMap = Object.freeze({
   },
   '/myTicket/:userId': {
     COMPONENT: MyTicketPage,
-    HEADER: HomeHeader,
+    HEADER: MyTicketHeader,
     AUTH: true,
     HAS_NAV: true,
   },
