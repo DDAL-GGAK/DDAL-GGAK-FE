@@ -7,6 +7,7 @@ import { Cog6ToothIcon } from '@heroicons/react/24/outline';
 export function Settings() {
   const { pathname } = useLocation();
   const currRoute = pathname.match(REGEX.SETTING_ROUTE)?.[1];
+  const projectId = pathname.match(REGEX.PROJECT_ID);
 
   return (
     <Wrapper>
@@ -21,18 +22,22 @@ export function Settings() {
         >
           My Account
         </SettingLink>
-        <SettingLink
-          isCurrNav={currRoute === ROUTE.SETTING.PROJECT_SETTING}
-          to={ROUTE.SETTING.PROJECT_SETTING}
-        >
-          Project Settings
-        </SettingLink>
-        <SettingLink
-          isCurrNav={currRoute === ROUTE.SETTING.PROJECT_MEMBER}
-          to={ROUTE.SETTING.PROJECT_MEMBER}
-        >
-          Project Member
-        </SettingLink>
+        {projectId && (
+          <>
+            <SettingLink
+              isCurrNav={currRoute === ROUTE.SETTING.PROJECT_SETTING}
+              to={ROUTE.SETTING.PROJECT_SETTING}
+            >
+              Project Settings
+            </SettingLink>
+            <SettingLink
+              isCurrNav={currRoute === ROUTE.SETTING.PROJECT_MEMBER}
+              to={ROUTE.SETTING.PROJECT_MEMBER}
+            >
+              Project Member
+            </SettingLink>
+          </>
+        )}
       </LeftWrapper>
       <RightWrapper>
         <Routes>
