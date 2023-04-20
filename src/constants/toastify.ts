@@ -22,5 +22,6 @@ export const TOASTIFY = Object.freeze({
     CHANGE_USER_PROFILE: 'Failed to change Profile',
     LOG_OUT: 'Failed to logout',
     LOGIN: 'Check yout ID or Password',
+    INVALID_INVITE_CODE: 'Invalid Invite Code!',
   }),
 });
