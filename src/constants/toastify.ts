@@ -18,5 +18,10 @@ export const TOASTIFY = Object.freeze({
   ERROR: Object.freeze({
     SIGN_UP: 'Account creation failed!',
     INVALID_DATE_INPUT: 'No date input provided!',
+    CHANGE_USER_NAME: 'Failed to change Username',
+    CHANGE_USER_PROFILE: 'Failed to change Profile',
+    LOG_OUT: 'Failed to logout',
+    LOGIN: 'Check yout ID or Password',
+    INVALID_INVITE_CODE: 'Invalid Invite Code!',
   }),
 });

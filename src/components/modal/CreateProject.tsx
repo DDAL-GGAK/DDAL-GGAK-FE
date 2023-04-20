@@ -6,7 +6,7 @@ import { createProject } from 'api';
 import { useMutation, useQueryClient } from 'react-query';
 import { sendToast } from 'libs';
 import { ProjectTitleInput } from 'components/form';
-import { TitleForm, ProjectModalProps } from 'types';
+import { TitleForm, ProjectModalProps, ProjectsLink } from 'types';
 import {
   ModalContainer,
   Title,
@@ -18,6 +18,8 @@ import {
 import { Hr } from 'components';
 import { QUERY, TOASTIFY } from 'constants/';
 import { useErrorHandler } from 'hooks';
+import { useDispatch } from 'react-redux';
+import { setUserProjectData } from 'redux/modules/userData';
 
 export function CreateProject({
   closeModal,
@@ -34,9 +36,11 @@ export function CreateProject({
     mode: 'onChange',
   });
 
+  const dispatch = useDispatch();
   const { mutate } = useMutation(createProject, {
     ...QUERY.DEFAULT_CONFIG,
-    onSuccess: () => {
+    onSuccess: (data: ProjectsLink[]) => {
+      dispatch(setUserProjectData(data));
       queryClient.invalidateQueries(QUERY.KEY.USER_PROJECTS);
       closeModal();
       sendToast.success(TOASTIFY.SUCCESS.CREATE_PROJECT);

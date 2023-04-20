@@ -4,37 +4,36 @@ export const lightTheme: DefaultTheme = {
   pointColor: '#30B198',
   subColor: '#FFC857',
   accentColor: '#EF476F',
-  background: '#FFFFFF',
-  transparentBackground: 'rgba(245, 246, 247, 0.65)',
-  color: '#333333',
-  transparentColor: 'rgba(43, 43, 43, 0.65)',
-  transitionOption: 'ease-in-out 0.15s',
   pointColorLight: 'rgb(68, 197, 172)',
-  boxShadow: '1px 2px 4px rgba(0, 0, 0, 0)',
-  darkBorder: '#1C1D27',
-
+  background: '#F8FAFB',
+  transparentBackground: 'rgba(245, 246, 247, 0.65)',
+  color: '#191A23',
+  transparentColor: 'rgba(25, 26, 35, 0.65)',
+  transitionOption: 'ease-in-out 0.15s',
+  boxShadow: '1px 2px 10px rgba(0, 0, 0, 0.16)',
+  darkBorder: '#C9D5DB',
   /* nav */
-  navBackground: '#F2F2F2',
+  navBackground: '#F0F1F5',
 
   /* login */
-  loginDisable: '#C9D5DB',
-  loginBackground: '#F8FAFB',
+  loginDisable: '#191A23',
+  loginBackground: '#191A23',
   validColor: '#30B198',
   errorColor: '#EF476F',
 
   /* ticket */
-  ticketHover: '#1C1D2A',
+  ticketHover: '#F0F1F5',
 
   /* Pallete */
-  sideNavBackground: '#393A49',
+  sideNavBackground: '#F0F1F5',
   sideNavCurrBorder: '#82838F',
-  sideNavColor: '#A4A5B2',
-  navLinkBackground: '#4F5060',
-  topNavBackground: '#181821',
-  borderColor: '#2C2D3C',
-  taskCardBackground: '#2C2D3C',
-  newTaskBackground: '#14141C',
-  newTaskColor: '#757686',
+  sideNavColor: '#191A23',
+  navLinkBackground: '#E2E2E2',
+  topNavBackground: '#F8FAFB',
+  borderColor: '#C9D5DB',
+  taskCardBackground: '#E2E2E2',
+  newTaskBackground: '#F8FAFB',
+  newTaskColor: '#191A23',
 };
 
 export const darkTheme: DefaultTheme = {

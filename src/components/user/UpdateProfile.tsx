@@ -9,13 +9,15 @@ import { UserDataForm } from 'types';
 import { setUserProfile } from 'api';
 import { useDispatch } from 'react-redux';
 import { setUserData } from 'redux/modules/userData';
+import { useLocation } from 'react-router-dom';
 
 interface UserProfileProps {
   userData: UserDataForm | undefined;
 }
 
 export function UpdateProfile({ userData }: UserProfileProps) {
-  const { errorHandler } = useErrorHandler();
+  const { pathname } = useLocation();
+  const { errorHandler } = useErrorHandler({ route: pathname });
   const queryClient = useQueryClient();
   const [profile, setProfile] = useState<File | null>(null);
   const dispatch = useDispatch();
@@ -33,7 +35,10 @@ export function UpdateProfile({ userData }: UserProfileProps) {
       queryClient.invalidateQueries(QUERY.KEY.USER_PROFILE);
       sendToast.success(TOASTIFY.SUCCESS.USER_SETTING);
     },
-    onError: (error: unknown) => errorHandler(error),
+    onError: (error: unknown) => {
+      sendToast.error(TOASTIFY.ERROR.CHANGE_USER_PROFILE);
+      errorHandler(error);
+    },
   });
 
   const handleProfileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

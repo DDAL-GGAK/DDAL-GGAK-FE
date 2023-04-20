@@ -7,6 +7,7 @@ import { Cog6ToothIcon } from '@heroicons/react/24/outline';
 export function Settings() {
   const { pathname } = useLocation();
   const currRoute = pathname.match(REGEX.SETTING_ROUTE)?.[1];
+  const projectId = pathname.match(REGEX.PROJECT_ID);
 
   return (
     <Wrapper>
@@ -21,18 +22,22 @@ export function Settings() {
         >
           My Account
         </SettingLink>
-        <SettingLink
-          isCurrNav={currRoute === ROUTE.SETTING.PROJECT_SETTING}
-          to={ROUTE.SETTING.PROJECT_SETTING}
-        >
-          Project Settings
-        </SettingLink>
-        <SettingLink
-          isCurrNav={currRoute === ROUTE.SETTING.PROJECT_MEMBER}
-          to={ROUTE.SETTING.PROJECT_MEMBER}
-        >
-          Project Member
-        </SettingLink>
+        {projectId && (
+          <>
+            <SettingLink
+              isCurrNav={currRoute === ROUTE.SETTING.PROJECT_SETTING}
+              to={ROUTE.SETTING.PROJECT_SETTING}
+            >
+              Project Settings
+            </SettingLink>
+            <SettingLink
+              isCurrNav={currRoute === ROUTE.SETTING.PROJECT_MEMBER}
+              to={ROUTE.SETTING.PROJECT_MEMBER}
+            >
+              Project Member
+            </SettingLink>
+          </>
+        )}
       </LeftWrapper>
       <RightWrapper>
         <Routes>
@@ -65,21 +70,19 @@ const SettingLink = styled(({ isCurrNav, ...rest }) => <Link {...rest} />)<{
   border-radius: 5px;
   background: ${({ isCurrNav, theme }) => (isCurrNav ? theme.borderColor : '')};
   color: ${({ isCurrNav, theme }) =>
-    isCurrNav ? 'white' : theme.transparentColor};
+    isCurrNav ? theme.color : theme.transparentColor};
   transition: ${({ theme }) => theme.transitionOption};
   font-weight: 600;
-  :hover {
-    color: white;
-  }
 `;
 const Title = styled.div`
   font-weight: 600;
-  color: white;
+  color: ${({ theme }) => theme.color};
   font-size: 20px;
   display: flex;
   align-items: center;
   gap: 8px;
   margin-bottom: 8px;
+  transition: ${({ theme }) => theme.transitionOption};
 `;
 
 const LeftWrapper = styled.div`
@@ -101,4 +104,8 @@ const RightWrapper = styled.div`
   width: calc(100% - 200px);
   height: calc(100% - 2rem * 2);
   background: ${({ theme }) => theme.background};
+  transition: ${({ theme }) => theme.transitionOption};
+  * {
+    transition: ${({ theme }) => theme.transitionOption};
+  }
 `;

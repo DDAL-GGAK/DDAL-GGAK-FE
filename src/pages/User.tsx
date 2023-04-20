@@ -25,7 +25,7 @@ export function User() {
     mode: 'onChange',
   });
 
-  const { data: userData } = useQuery<any>(QUERY.KEY.USER_DATA, getUserData, {
+  const { data: userData } = useQuery(QUERY.KEY.USER_DATA, getUserData, {
     ...QUERY.DEFAULT_CONFIG,
     onError: (error: unknown) => errorHandler(error),
   });
@@ -39,7 +39,10 @@ export function User() {
       queryClient.invalidateQueries(QUERY.KEY.USER_DATA);
       sendToast.success(TOASTIFY.SUCCESS.USER_SETTING);
     },
-    onError: (error: unknown) => errorHandler(error),
+    onError: (error: unknown) => {
+      errorHandler(error);
+      sendToast.error(TOASTIFY.ERROR.CHANGE_USER_NAME);
+    },
   });
 
   const onNickname = async (data: NicknameForm) => mutate(data);
@@ -74,11 +77,13 @@ export function User() {
                 <EnvelopeIcon style={{ width: 20 }} />
                 <div>E-MAIL</div>
               </ContentText>
-              <div>{userData?.data.email}</div>
+              <EmailWrapper>
+                <div>{userData?.data.email}</div>
+                <LogoutWrapper>
+                  <LogOut />
+                </LogoutWrapper>
+              </EmailWrapper>
             </TextM>
-            <LogoutWrapper>
-              <LogOut />
-            </LogoutWrapper>
           </Privacy>
         </PrivacyWrapper>
       </ProfileWrapper>
@@ -118,7 +123,7 @@ const MainInfo = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
-  top: 71px;
+  top: 55px;
   left: 25px;
   z-index: 1;
 `;
@@ -149,15 +154,20 @@ const PrivacyWrapper = styled.div`
 const Border = styled.div`
   width: 100%;
   border-bottom: 1px solid ${({ theme }) => theme.navLinkBackground};
-  margin-bottom: 1rem;
+  margin: 1rem 0;
 `;
 
 const Privacy = styled.div`
-  padding: 1.5rem;
+  padding: 1.5rem 1.5rem 1rem 1.5rem;
   background: ${({ theme }) => theme.borderColor};
   width: calc(100% - 3rem);
-  height: calc(100% - 3rem);
   border-radius: 5px;
+`;
+
+const EmailWrapper = styled.div`
+  display: flex;
+
+  justify-content: space-between;
 `;
 
 const NickNameForm = styled.form`

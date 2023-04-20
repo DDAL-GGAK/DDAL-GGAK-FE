@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useIsLogin } from 'hooks/useIsLogin';
-import { MainLogo, Profile } from 'shared';
+import { MainLogo } from 'shared';
 import { TOP_NAV } from 'constants/';
-import { LogOut } from './LogOut';
+import { Profile } from 'components/user/Profile';
+import { LogOut } from 'components/LogOut';
 
 export function HomeNav() {
   const isLogin = useIsLogin();

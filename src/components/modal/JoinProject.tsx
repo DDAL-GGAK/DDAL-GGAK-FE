@@ -11,12 +11,14 @@ import { useErrorHandler } from 'hooks';
 import { JoinProjectInput } from 'components/form';
 import { InviteCodeForm, ProjectModalProps } from 'types';
 import { Title, ErrorMessage, Button } from 'components/containers';
+import { useLocation } from 'react-router-dom';
 
 export function JoinProject({
   closeModal,
   setHasInviteCode,
 }: ProjectModalProps) {
-  const { errorHandler } = useErrorHandler();
+  const { pathname } = useLocation();
+  const { errorHandler } = useErrorHandler({ route: pathname });
   const {
     register,
     handleSubmit,
@@ -26,7 +28,8 @@ export function JoinProject({
 
   const { mutate, isLoading } = useMutation(joinProject, {
     ...QUERY.DEFAULT_CONFIG,
-    onSuccess: () => {
+    onSuccess: (data: any) => {
+      console.log('new', data);
       queryClient.invalidateQueries(QUERY.KEY.USER_PROJECTS);
       closeModal();
       setHasInviteCode(false);
@@ -35,6 +38,7 @@ export function JoinProject({
     onError: (error: unknown) => {
       closeModal();
       setHasInviteCode(false);
+      sendToast.error(TOASTIFY.ERROR.INVALID_INVITE_CODE);
       errorHandler(error);
     },
   });

@@ -1,27 +1,31 @@
 import styled from 'styled-components';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { getProjectData, updateProjectTitle } from 'api';
 import { UpdateProjectTitleForm, ProjectDataForm } from 'types';
 import { useMutation, useQueryClient, useQuery } from 'react-query';
 import { ProjectTitleInput } from 'components/form';
 import { UpdateThumbnail, DeleteProjectButton } from 'components/project';
 import { useErrorHandler } from 'hooks';
-import { REGEX, QUERY, TOASTIFY } from 'constants/';
+import { REGEX, QUERY, TOASTIFY, ROUTE } from 'constants/';
 import { sendToast } from 'libs';
 import { useForm } from 'react-hook-form';
 import { BorderWrapper, Button } from 'components';
 
 export function ProjectSetting() {
-  const { id: param } = useParams();
-  const { errorHandler } = useErrorHandler();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const projectId = pathname.match(REGEX.PROJECT_ID)?.[1] || '';
+
+  if (!projectId) navigate(ROUTE.PROJECT_HOME);
+
+  const { id: param } = useParams();
+  const { errorHandler } = useErrorHandler({ route: pathname });
   const { data: projectData } = useQuery<ProjectDataForm>(
     [QUERY.KEY.PROJECT_DATA, param],
     () => getProjectData(param as string),
     {
       ...QUERY.DEFAULT_CONFIG,
-      onError: errorHandler
+      onError: errorHandler,
     }
   );
 
@@ -40,7 +44,7 @@ export function ProjectSetting() {
       queryClient.invalidateQueries(QUERY.KEY.USER_PROJECTS);
       sendToast.success(TOASTIFY.SUCCESS.USER_SETTING);
     },
-    onError: errorHandler
+    onError: errorHandler,
   });
 
   const urlToFile = async (
@@ -118,7 +122,9 @@ export function ProjectSetting() {
   );
 }
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  transition: ${({ theme }) => theme.transitionOption};
+`;
 
 const Container = styled.div`
   display: flex;
