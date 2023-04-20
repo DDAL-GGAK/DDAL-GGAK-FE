@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { CONTENT, INPUT_TYPE, TOASTIFY, ROUTE, QUERY } from 'constants/';
@@ -10,7 +10,8 @@ import { sendToast } from 'libs';
 import { useErrorHandler } from 'hooks';
 
 export function Signup() {
-  const { errorHandler } = useErrorHandler();
+  const { pathname } = useLocation();
+  const { errorHandler } = useErrorHandler({ route: pathname });
   const navigate = useNavigate();
   const {
     register,
@@ -26,7 +27,10 @@ export function Signup() {
       sendToast.success(TOASTIFY.SUCCESS.SIGN_UP);
       navigate(ROUTE.LOGIN);
     },
-    onError: (error: unknown) => errorHandler(error),
+    onError: (error: unknown) => {
+      sendToast.error(TOASTIFY.ERROR.SIGN_UP);
+      errorHandler(error);
+    },
   });
 
   const onValid = async (data: RegisterField) => mutate(data);
