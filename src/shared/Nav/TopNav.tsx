@@ -7,12 +7,12 @@ import { ThemeToggle, LogOut } from 'components';
 import { useMediaQuery } from 'hooks';
 import { useLocation, Link } from 'react-router-dom';
 import { MainLogo } from 'shared/MainLogo';
-import { Profile } from 'shared';
 import { RootState } from 'redux/store';
 import { useSelector } from 'react-redux';
 import { ProjectsLink, UserDataForm } from 'types';
 import { AnimatePresence, motion } from 'framer-motion';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
+import { Profile } from 'components/user/Profile';
 
 interface TopNavProps {
   data: ProjectsLink[];

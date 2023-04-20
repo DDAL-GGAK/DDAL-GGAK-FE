@@ -6,6 +6,7 @@ import { memo } from 'react';
 import { ContentText } from 'components/containers';
 import { TicketIcon } from '@heroicons/react/24/outline';
 import { TASKCARD_MOUNT_VARIANTS } from 'constants/';
+import { DefaultProfile } from 'components/user';
 
 interface TaskCardProps {
   taskData: TaskDataForm;
@@ -48,9 +49,14 @@ export const TaskCard = memo(({ taskData, index }: TaskCardProps) => {
           <Info>
             <ContentText>Participants: {participantsCount}</ContentText>
             <ImageWrapper>
-              {participants.slice(0, 5).map((v, i) => (
-                <Image src={v.thumbnail} index={i} key={v.id} alt="img" />
-              ))}
+              {participants.slice(0, 5).map((v, i) => {
+                if (v?.thumbnail)
+                  return (
+                    <Image src={v.thumbnail} index={i} key={v.id} alt="img" />
+                  );
+
+                return <DefaultProfile key={v.id} />;
+              })}
             </ImageWrapper>
           </Info>
         </TopWrapper>

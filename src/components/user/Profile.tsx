@@ -14,7 +14,6 @@ export function Profile() {
   const localStorageStringData = localStorage.getItem(QUERY.KEY.USER_DATA);
   const localStorageData =
     localStorageStringData && JSON.parse(localStorageStringData);
-
   const data = localStorageData?.userData || storeData;
 
   return (
