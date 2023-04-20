@@ -19,7 +19,7 @@ export function Profile() {
 
   return (
     <div>
-      {data ? (
+      {data?.profile ? (
         <ProfileImage
           profile={data.profile}
           variants={DEFAULT_VARIANTS}
@@ -59,7 +59,7 @@ const DefaultImage = styled(motion.div)`
   color: ${({ theme }) => theme.borderColor};
   width: 40px;
   height: 40px;
-  border-radius: 8px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
