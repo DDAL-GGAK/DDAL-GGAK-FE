@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 import { QUERY } from 'constants/';
 import { useErrorHandler } from 'hooks';
 import { getUserTicketCount } from 'api';
+import { getToday, getOneYearAgo, formatDate, getDateRange } from 'libs';
 
 interface GraphDayProps {
   label?: string;
@@ -19,13 +20,16 @@ const levels = ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'];
 const dayLabels = ['', 'Mon', '', 'Wed', '', 'Fri'];
 
 const calculateLevel = (completedTicket: number) => {
-  if (completedTicket < 2) {
+  if (completedTicket === 0) {
+    return 0;
+  }
+  if (completedTicket < 3) {
     return 1;
   }
-  if (completedTicket < 4) {
+  if (completedTicket < 5) {
     return 2;
   }
-  if (completedTicket < 6) {
+  if (completedTicket < 7) {
     return 3;
   }
   return 4;
@@ -42,34 +46,6 @@ export function ContributionGraph({ userId }: { userId: string }) {
     }
   );
 
-  const getToday = () => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return today;
-  };
-  const getOneYearAgo = () => {
-    const oneYearAgo = new Date();
-    oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-    oneYearAgo.setHours(0, 0, 0, 0);
-    return oneYearAgo;
-  };
-  const formatDate = (date: Date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  };
-  const getDateRange = (start: Date, end: Date) => {
-    const dates = [];
-    const currentDate = start;
-
-    while (currentDate <= end) {
-      dates.push(new Date(currentDate));
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
-
-    return dates;
-  };
   const ticketDataForAllDates = (
     dates: string[],
     ticketDataForm: TicketDataForm[]
@@ -118,58 +94,75 @@ export function ContributionGraph({ userId }: { userId: string }) {
 
   const getDayColor = (completedTicket: number) => {
     const level = calculateLevel(completedTicket);
-    return levels[level - 1];
+    return levels[level];
   };
 
   const isLabelDay = (dayIndex: number, weekIndex: number) => {
     return weekIndex === 0 && dayLabels[dayIndex];
   };
 
-  return (
-    <GraphContainer>
-      {weeksData.map((weekData, weekIndex) => {
-        const date = new Date(weekData[0].date);
-        const prevDate =
-          weekIndex > 0 ? new Date(weeksData[weekIndex - 1][0].date) : null;
-        const showMonthLabel = isMonthLabelNeeded(date, prevDate, weekIndex);
+  const totalCompletedTickets = useMemo(
+    () =>
+      filledTicketData.reduce(
+        (sum, dayData) => sum + dayData.completedTicket,
+        0
+      ),
+    [filledTicketData]
+  );
 
-        return (
-          <React.Fragment key={weekData[0].date}>
-            <GraphWeek>
-              {showMonthLabel ? (
-                <GraphLabel>
-                  {date.toLocaleDateString('en-US', { month: 'short' })}
-                </GraphLabel>
-              ) : (
-                <GraphLabelEmpty />
-              )}
-              {weekData.map((dayData, dayIndex) => {
-                const color = getDayColor(dayData.completedTicket);
-                const label = isLabelDay(dayIndex, weekIndex)
-                  ? dayLabels[dayIndex]
-                  : '';
-                const DayComponent = label ? GraphDayWithLabel : GraphDay;
-                return (
-                  <DayComponent
-                    key={dayData.date}
-                    color={color}
-                    label={label}
-                    title={`Date: ${dayData.date}, Completed Tickets: ${dayData.completedTicket}`}
-                  />
-                );
-              })}
-            </GraphWeek>
-          </React.Fragment>
-        );
-      })}
-    </GraphContainer>
+  return (
+    <Wrapper>
+      <GraphContainer>
+        {weeksData.map((weekData, weekIndex) => {
+          const date = new Date(weekData[0].date);
+          const prevDate =
+            weekIndex > 0 ? new Date(weeksData[weekIndex - 1][0].date) : null;
+          const showMonthLabel = isMonthLabelNeeded(date, prevDate, weekIndex);
+
+          return (
+            <React.Fragment key={weekData[0].date}>
+              <GraphWeek>
+                {showMonthLabel ? (
+                  <GraphLabel>
+                    {date.toLocaleDateString('en-US', { month: 'short' })}
+                  </GraphLabel>
+                ) : (
+                  <GraphLabelEmpty />
+                )}
+                {weekData.map((dayData, dayIndex) => {
+                  const color = getDayColor(dayData.completedTicket);
+                  const label = isLabelDay(dayIndex, weekIndex)
+                    ? dayLabels[dayIndex]
+                    : '';
+                  const DayComponent = label ? GraphDayWithLabel : GraphDay;
+                  return (
+                    <DayComponent
+                      key={dayData.date}
+                      color={color}
+                      label={label}
+                      title={`Date: ${dayData.date}, Completed Tickets: ${dayData.completedTicket}`}
+                    />
+                  );
+                })}
+              </GraphWeek>
+            </React.Fragment>
+          );
+        })}
+      </GraphContainer>
+      <SumContainer>
+        Total Completed Tickets : {totalCompletedTickets}
+      </SumContainer>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div``;
 
 const GraphContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-bottom: 1rem;
 `;
 
 const GraphWeek = styled.div`
@@ -212,4 +205,8 @@ const GraphDayWithLabel = styled(GraphDay)`
     left: -20px;
     font-size: 10px;
   }
+`;
+
+const SumContainer = styled.div`
+  float: left;
 `;
