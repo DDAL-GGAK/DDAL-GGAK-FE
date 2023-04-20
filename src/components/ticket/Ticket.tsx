@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { TicketDataForm, LabelDataForm } from 'types';
-import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 import {
   AssignCheckBox,
   SetLabel,
@@ -81,7 +80,6 @@ export const Ticket = memo(
             {assigned || 'unAssigned'}
           </DetailItem>
           <Difficulty difficulty={Number(difficulty)} />
-          <EllipsisHorizontalIcon className="ellips-icon" width={20} />
         </Details>
       </Wrapper>
     );
