@@ -12,10 +12,31 @@ export function Router() {
             <Route
               key={ROUTE}
               path={ROUTE}
-              element={<AuthRoute path={ROUTE} element={<DATA.COMPONENT />} />}
+              element={
+                <AuthRoute
+                  path={ROUTE}
+                  element={
+                    <>
+                      <DATA.HEADER />
+                      <DATA.COMPONENT />
+                    </>
+                  }
+                />
+              }
             />
           );
-        return <Route key={ROUTE} path={ROUTE} element={<DATA.COMPONENT />} />;
+        return (
+          <Route
+            key={ROUTE}
+            path={ROUTE}
+            element={
+              <>
+                <DATA.HEADER />
+                <DATA.COMPONENT />
+              </>
+            }
+          />
+        );
       })}
       <Route path="*" element={<NotFound />} />
     </Routes>
