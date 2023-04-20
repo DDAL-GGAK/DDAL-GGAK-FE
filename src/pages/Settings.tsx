@@ -104,4 +104,8 @@ const RightWrapper = styled.div`
   width: calc(100% - 200px);
   height: calc(100% - 2rem * 2);
   background: ${({ theme }) => theme.background};
+  transition: ${({ theme }) => theme.transitionOption};
+  * {
+    transition: ${({ theme }) => theme.transitionOption};
+  }
 `;

@@ -68,7 +68,7 @@ export function ProjectMember() {
   );
 }
 const Wrapper = styled.div`
-  background: ${({ theme }) => theme.background};
+  transition: ${({ theme }) => theme.transitionOption};
 `;
 
 const TextL = styled.div`

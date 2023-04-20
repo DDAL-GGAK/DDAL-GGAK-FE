@@ -122,7 +122,9 @@ export function ProjectSetting() {
   );
 }
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  transition: ${({ theme }) => theme.transitionOption};
+`;
 
 const Container = styled.div`
   display: flex;
