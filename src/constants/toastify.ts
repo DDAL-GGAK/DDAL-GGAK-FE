@@ -20,5 +20,7 @@ export const TOASTIFY = Object.freeze({
     INVALID_DATE_INPUT: 'No date input provided!',
     CHANGE_USER_NAME: 'Failed to change Username',
     CHANGE_USER_PROFILE: 'Failed to change Profile',
+    LOG_OUT: 'Failed to logout',
+    LOGIN: 'check yout ID or Password',
   }),
 });

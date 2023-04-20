@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { RegisterField, UserDataForm } from 'types/';
-import { CONTENT, INPUT_TYPE, ROUTE, QUERY } from 'constants/';
+import { CONTENT, INPUT_TYPE, ROUTE, QUERY, TOASTIFY } from 'constants/';
 import { logIn } from 'api';
 import { useMutation } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,9 +13,11 @@ import { useErrorHandler } from 'hooks';
 import { GoogleLoginButton } from 'components';
 import { RootState } from 'redux/store';
 import { useEffect } from 'react';
+import { sendToast } from 'libs';
 
 export function Login() {
-  const { errorHandler } = useErrorHandler();
+  const { pathname } = useLocation();
+  const { errorHandler } = useErrorHandler({ route: pathname });
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
@@ -42,7 +44,10 @@ export function Login() {
       dispatch(setUserData(userData));
       navigate(ROUTE.PROJECT_HOME);
     },
-    onError: (error: unknown) => errorHandler(error),
+    onError: (error: unknown) => {
+      sendToast.error(TOASTIFY.ERROR.LOGIN);
+      errorHandler(error);
+    },
   });
 
   const onValid = async (userInput: RegisterField) => mutate(userInput);

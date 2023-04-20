@@ -5,8 +5,9 @@ import { useDispatch } from 'react-redux';
 import { useErrorHandler } from 'hooks';
 import { logOut } from 'api';
 import { removeUserData } from 'redux/modules/userData';
-import { COOKIE, QUERY } from 'constants/';
+import { COOKIE, QUERY, TOASTIFY } from 'constants/';
 import { Cookies } from 'react-cookie';
+import { sendToast } from 'libs';
 
 export function LogOut() {
   const cookie = new Cookies();
@@ -21,7 +22,10 @@ export function LogOut() {
       dispatch(removeUserData());
       navigate('/');
     },
-    onError: (error: unknown) => errorHandler(error),
+    onError: (error: unknown) => {
+      sendToast.error(TOASTIFY.ERROR.LOG_OUT);
+      errorHandler(error);
+    },
   });
 
   const logOutHandler = () => mutate();
