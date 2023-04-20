@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { ROUTE_MAP } from 'constants/';
 import { AuthRoute } from 'components';
+import { NotFound } from 'pages';
 
 export function Router() {
   return (
@@ -16,6 +17,7 @@ export function Router() {
           );
         return <Route key={ROUTE} path={ROUTE} element={<DATA.COMPONENT />} />;
       })}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
