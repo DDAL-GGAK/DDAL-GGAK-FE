@@ -9,7 +9,7 @@ import { useLocation } from 'react-router-dom';
 import { RootState } from 'redux/store';
 import { TicketDataForm, Tickets, UserDataForm } from 'types';
 import { completeTicket, rejectTicket } from 'api';
-import { CheckIcon, TagIcon } from '@heroicons/react/24/outline';
+import { CheckIcon, TagIcon, UserIcon } from '@heroicons/react/24/outline';
 import { TicketDetail } from 'components/modal';
 import { ContentText } from 'components/containers';
 import { setTicketData } from 'redux/modules/ticketData';
@@ -77,6 +77,10 @@ export const ReviewTicketCard = memo(
                 {title}
                 {'>'}
               </TicketTitle>
+              <NicknameWrapper>
+                <UserIcon width={20} />
+                <AssignedText>{assigned}</AssignedText>
+              </NicknameWrapper>
               <LabelWrapper>
                 <Priority priority={priority} />
                 <Difficulty difficulty={Number(difficulty)} />
@@ -84,7 +88,6 @@ export const ReviewTicketCard = memo(
                 <ContentText>{label || 'unAssigned'}</ContentText>
               </LabelWrapper>
             </TicketInfo>
-            <AssignedText>{assigned}</AssignedText>
           </LeftWrapper>
           <RightWrapper>
             <CompleteButton onClick={completeHandler}>
@@ -151,6 +154,11 @@ const RightWrapper = styled.div`
 const TicketInfo = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
+`;
+
+const NicknameWrapper = styled.div`
+  display: flex;
   gap: 0.5rem;
 `;
 

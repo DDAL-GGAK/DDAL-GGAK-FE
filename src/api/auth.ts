@@ -23,10 +23,16 @@ export const checkEmail = async ({ email }: RegisterField) => {
 };
 
 export const logIn = async ({ email, password }: RegisterField) => {
-  const res = await authAPI.post(API_ROUTE.AUTH.LOG_IN, {
+  const res = await unAuthAPI.post(API_ROUTE.AUTH.LOG_IN, {
     email,
     password,
   });
+
+  return res;
+};
+
+export const googleLogin = async () => {
+  const res = await unAuthAPI.get(API_ROUTE.AUTH.GOOGLE_LOGIN);
 
   return res;
 };
