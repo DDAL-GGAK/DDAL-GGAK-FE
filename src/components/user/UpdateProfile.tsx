@@ -72,7 +72,7 @@ export function UpdateProfile({ userData }: UserProfileProps) {
         hidden
         id="profileInput"
         type="file"
-        accept="image/png, image/gif, image/jpeg, image/webp"
+        accept="image/png,  image/jpeg, image/webp"
         onChange={handleProfileChange}
       />
       <ImageLabel htmlFor="profileInput">

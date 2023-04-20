@@ -27,8 +27,6 @@ export function TopNav({ data }: TopNavProps) {
     (state: RootState) => state.userDataSlicer
   ) as UserDataForm | null;
 
-  console.log(userData);
-
   const isNotSmallDevice = useMediaQuery(DEVICES.MOBILES);
 
   const toggleDropdown = () => {

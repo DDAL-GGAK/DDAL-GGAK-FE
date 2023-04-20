@@ -9,9 +9,11 @@ import { motion } from 'framer-motion';
 import { DEFAULT_VARIANTS, SVG_SIZE, QUERY, TOASTIFY } from 'constants/';
 import { useErrorHandler } from 'hooks';
 import { JoinProjectInput } from 'components/form';
-import { InviteCodeForm, ProjectModalProps } from 'types';
+import { InviteCodeForm, ProjectModalProps, ProjectsLink } from 'types';
 import { Title, ErrorMessage, Button } from 'components/containers';
 import { useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUserProjectData } from 'redux/modules/userData';
 
 export function JoinProject({
   closeModal,
@@ -26,10 +28,11 @@ export function JoinProject({
   } = useForm<InviteCodeForm>({ mode: 'onChange' });
   const queryClient = useQueryClient();
 
+  const dispatch = useDispatch();
   const { mutate, isLoading } = useMutation(joinProject, {
     ...QUERY.DEFAULT_CONFIG,
-    onSuccess: (data: any) => {
-      console.log('new', data);
+    onSuccess: (data: ProjectsLink[]) => {
+      dispatch(setUserProjectData(data));
       queryClient.invalidateQueries(QUERY.KEY.USER_PROJECTS);
       closeModal();
       setHasInviteCode(false);

@@ -84,10 +84,6 @@ export function TicketDetail({ currTicketId, closeModal }: TicketDetailProps) {
                   <ContentText>Difficulty:</ContentText>
                   <Text>{ticketData.difficulty}</Text>
                 </ContentItem>
-                <ContentItem>
-                  <ContentText>Progress:</ContentText>
-                  <Text>{ticketData.progress}%</Text>
-                </ContentItem>
               </BorderWrapper>
               <Description>
                 <ContentText>Description:</ContentText>
