@@ -33,7 +33,10 @@ export function UpdateProfile({ userData }: UserProfileProps) {
       queryClient.invalidateQueries(QUERY.KEY.USER_PROFILE);
       sendToast.success(TOASTIFY.SUCCESS.USER_SETTING);
     },
-    onError: (error: unknown) => errorHandler(error),
+    onError: (error: unknown) => {
+      errorHandler(error);
+      sendToast.error(TOASTIFY.ERROR.CHANGE_USER_PROFILE);
+    },
   });
 
   const handleProfileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
