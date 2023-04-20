@@ -6,7 +6,7 @@ import { createProject } from 'api';
 import { useMutation, useQueryClient } from 'react-query';
 import { sendToast } from 'libs';
 import { ProjectTitleInput } from 'components/form';
-import { TitleForm, ProjectModalProps } from 'types';
+import { TitleForm, ProjectModalProps, ProjectsLink } from 'types';
 import {
   ModalContainer,
   Title,
@@ -20,12 +20,6 @@ import { QUERY, TOASTIFY } from 'constants/';
 import { useErrorHandler } from 'hooks';
 import { useDispatch } from 'react-redux';
 import { setUserProjectData } from 'redux/modules/userData';
-
-interface Project {
-  id: string;
-  thumbnail: string | null;
-  projectTitle: string;
-}
 
 export function CreateProject({
   closeModal,
@@ -45,9 +39,8 @@ export function CreateProject({
   const dispatch = useDispatch();
   const { mutate } = useMutation(createProject, {
     ...QUERY.DEFAULT_CONFIG,
-    onSuccess: (data: Project[]) => {
+    onSuccess: (data: ProjectsLink[]) => {
       dispatch(setUserProjectData(data));
-      console.log('new', data);
       queryClient.invalidateQueries(QUERY.KEY.USER_PROJECTS);
       closeModal();
       sendToast.success(TOASTIFY.SUCCESS.CREATE_PROJECT);
