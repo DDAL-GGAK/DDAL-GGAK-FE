@@ -8,9 +8,7 @@ import {
   ProejectHome,
   MyTicketPage,
 } from 'pages';
-
-import { HomeHeader } from 'components/headers';
-
+import { HomeHeader, SignUpHeader } from 'components/headers';
 import { RouteMap } from 'types';
 
 export const ROUTE_MAP: RouteMap = Object.freeze({
@@ -22,7 +20,7 @@ export const ROUTE_MAP: RouteMap = Object.freeze({
   },
   '/signup': {
     COMPONENT: Signup,
-    HEADER: HomeHeader,
+    HEADER: SignUpHeader,
     AUTH: false,
     HAS_NAV: false,
   },
