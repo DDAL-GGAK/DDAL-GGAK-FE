@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { UserDataForm } from 'types/';
 
-const initialState: UserDataForm | null = null;
+const initialState: UserDataForm | object = {};
 
 const userDataSlicer = createSlice({
   name: 'userDataSlicer',
@@ -12,9 +12,18 @@ const userDataSlicer = createSlice({
 
       return payload;
     },
-    removeUserData: () => null,
+    setUserProjectData: (state, actions) => {
+      const { payload } = actions;
+      if (state === null) return {};
+      if (typeof state === 'object')
+        return { ...(state as object), projects: [...payload] };
+
+      return state;
+    },
+    removeUserData: () => {},
   },
 });
 
 export default userDataSlicer.reducer;
-export const { setUserData, removeUserData } = userDataSlicer.actions;
+export const { setUserData, setUserProjectData, removeUserData } =
+  userDataSlicer.actions;

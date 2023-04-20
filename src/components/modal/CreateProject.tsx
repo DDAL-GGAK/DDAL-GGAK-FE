@@ -18,6 +18,14 @@ import {
 import { Hr } from 'components';
 import { QUERY, TOASTIFY } from 'constants/';
 import { useErrorHandler } from 'hooks';
+import { useDispatch } from 'react-redux';
+import { setUserProjectData } from 'redux/modules/userData';
+
+interface Project {
+  id: string;
+  thumbnail: string | null;
+  projectTitle: string;
+}
 
 export function CreateProject({
   closeModal,
@@ -34,9 +42,12 @@ export function CreateProject({
     mode: 'onChange',
   });
 
+  const dispatch = useDispatch();
   const { mutate } = useMutation(createProject, {
     ...QUERY.DEFAULT_CONFIG,
-    onSuccess: () => {
+    onSuccess: (data: Project[]) => {
+      dispatch(setUserProjectData(data));
+      console.log('new', data);
       queryClient.invalidateQueries(QUERY.KEY.USER_PROJECTS);
       closeModal();
       sendToast.success(TOASTIFY.SUCCESS.CREATE_PROJECT);

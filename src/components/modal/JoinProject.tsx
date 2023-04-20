@@ -28,7 +28,8 @@ export function JoinProject({
 
   const { mutate, isLoading } = useMutation(joinProject, {
     ...QUERY.DEFAULT_CONFIG,
-    onSuccess: () => {
+    onSuccess: (data: any) => {
+      console.log('new', data);
       queryClient.invalidateQueries(QUERY.KEY.USER_PROJECTS);
       closeModal();
       setHasInviteCode(false);
