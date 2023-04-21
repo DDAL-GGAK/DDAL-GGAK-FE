@@ -55,8 +55,8 @@ export const TaskCard = memo(({ taskData, index }: TaskCardProps) => {
                     <Image src={v.thumbnail} index={i} key={v.id} alt="img" />
                   );
 
-                return <DefaultProfile key={v.id} />;
-              })}
+                  return <DefaultImage src={''} index={i} key={v.id} alt="img" />
+                })}
             </ImageWrapper>
           </Info>
         </TopWrapper>
@@ -210,3 +210,7 @@ const Time = styled.div`
   font-size: 0.9rem;
   color: white;
 `;
+
+const DefaultImage = styled(Image)`
+  background: ${({theme}) => theme.color}
+`
