@@ -10,7 +10,6 @@ import { setUserData } from 'redux/modules/userData';
 import { ReactHookInput } from 'components/form';
 import { motion } from 'framer-motion';
 import { useErrorHandler } from 'hooks';
-import { GoogleLoginButton } from 'components';
 import { RootState } from 'redux/store';
 import { useEffect } from 'react';
 import { sendToast } from 'libs';
@@ -70,7 +69,6 @@ export function Login() {
             />
             <LoginWrapper>
               <Submit isValid={!Object.keys(errors)[0]}>Login</Submit>
-              <GoogleLoginButton />
             </LoginWrapper>
             <Hr />
             <Text>If you need an account?</Text>
