@@ -1,7 +1,15 @@
 import styled from 'styled-components';
 import { NoSymbolIcon } from '@heroicons/react/24/outline';
+import { useEffect } from 'react';
+import { ROUTE } from 'constants/';
+import { useNavigate } from 'react-router-dom';
 
 export function NotFound() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate(ROUTE.HOME);
+  }, []);
   return (
     <Wrapper>
       <NoSymbolIcon width={100} />
