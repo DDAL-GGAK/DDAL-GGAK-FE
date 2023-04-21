@@ -6,7 +6,6 @@ import { memo } from 'react';
 import { ContentText } from 'components/containers';
 import { TicketIcon } from '@heroicons/react/24/outline';
 import { TASKCARD_MOUNT_VARIANTS } from 'constants/';
-import { DefaultProfile } from 'components/user';
 
 interface TaskCardProps {
   taskData: TaskDataForm;
@@ -55,8 +54,8 @@ export const TaskCard = memo(({ taskData, index }: TaskCardProps) => {
                     <Image src={v.thumbnail} index={i} key={v.id} alt="img" />
                   );
 
-                  return <DefaultImage src={''} index={i} key={v.id} alt="img" />
-                })}
+                return <DefaultImage src={''} index={i} key={v.id} alt="img" />;
+              })}
             </ImageWrapper>
           </Info>
         </TopWrapper>
@@ -212,5 +211,5 @@ const Time = styled.div`
 `;
 
 const DefaultImage = styled(Image)`
-  background: ${({theme}) => theme.color}
-`
+  background: ${({ theme }) => theme.color};
+`;
