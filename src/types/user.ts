@@ -23,3 +23,17 @@ export interface TicketData {
   date: string;
   completedTicket: number;
 }
+
+export interface TicketStatsData {
+  id: number,
+  email: string,
+  nickname: string,
+  thumbnail: string,
+  totalDifficulty: number,
+  totalPriority: number,
+  totalTicketCount: number,
+  completedTicketCount: number,
+  averageDifficulty: number,
+  averagePriority: number,
+  totalScore: number,
+}
