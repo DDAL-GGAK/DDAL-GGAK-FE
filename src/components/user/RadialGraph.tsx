@@ -1,78 +1,58 @@
 import React from 'react';
 import { ResponsiveRadialBar } from '@nivo/radial-bar';
-// import { useQuery } from 'react-query';
-// import { QUERY } from 'constants/';
-// import { useErrorHandler } from 'hooks';
-// import { getUserTicketStats } from 'api';
-// import { TicketStatsData } from 'types';
+import { useQuery } from 'react-query';
+import { QUERY } from 'constants/';
+import { useErrorHandler } from 'hooks';
+import { getUserTicketStats } from 'api';
+import { TicketStatsData } from 'types';
 
 export function RadialGraph({ userId }: { userId: string }) {
-    // const { errorHandler } = useErrorHandler();
-    // const { data: ticketStats } = useQuery<TicketStatsData>(
-    //   QUERY.KEY.USER_TICKETSTATS,
-    //   () => getUserTicketStats(userId),
-    //   {
-    //     ...QUERY.DEFAULT_CONFIG,
-    //     onError: errorHandler,
-    //   }
-    // );
-
-    console.log(userId);
-
+  const { errorHandler } = useErrorHandler();
+  const { data: ticketStats } = useQuery<TicketStatsData>(
+    QUERY.KEY.USER_TICKETSTATS,
+    () => getUserTicketStats(userId),
+    {
+      ...QUERY.DEFAULT_CONFIG,
+      onError: errorHandler,
+    }
+  );
+  
   const data = [
     {
-      id: 'totalTicketCount',
+      id: 'averagePriority',
       data: [
         {
-          x: 'totalTicketCount',
-          y: 100,
-        },
-      ],
-    },
-    {
-      id: 'totalDifficulty',
-      data: [
-        {
-          x: 'totalDifficulty',
-          y: 115,
-        },
-      ],
-    },
-    {
-      id: 'totalPriority',
-      data: [
-        {
-          x: 'totalPriority',
-          y: 60,
-        },
-      ],
+          x: 'averagePriority',
+          y: Number(ticketStats?.averagePriority),
+        }
+      ]
     },
     {
       id: 'averageDifficulty',
       data: [
         {
           x: 'averageDifficulty',
-          y: 50,
-        },
-      ],
-    },
-    {
-      id: 'averagePriority',
-      data: [
-        {
-          x: 'averagePriority',
-          y: 30,
-        },
-      ],
+          y: Number(ticketStats?.averageDifficulty),
+        }
+      ]
     },
     {
       id: 'completedTicketCount',
       data: [
         {
           x: 'completedTicketCount',
-          y: 25,
-        },
-      ],
+          y: Number(ticketStats?.completedTicketCount),
+        }
+      ]
+    },
+    {
+      id: 'totalTicketCount',
+      data: [
+        {
+          x: 'totalTicketCount',
+          y: Number(ticketStats?.totalTicketCount),
+        }
+      ]
     },
   ];
 
@@ -85,7 +65,6 @@ export function RadialGraph({ userId }: { userId: string }) {
       margin={{ top: 40, right: 120, bottom: 40, left: 40 }}
       radialAxisStart={{ tickSize: 5, tickPadding: 5, tickRotation: 0 }}
       circularAxisOuter={{ tickSize: 5, tickPadding: 12, tickRotation: 0 }}
-      labelsTextColor={{ theme: 'labels.text.fill' }}
       legends={[
         {
           anchor: 'right',
