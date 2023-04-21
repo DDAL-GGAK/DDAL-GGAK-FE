@@ -42,7 +42,8 @@ export function ViewUserTicket({ userId }: { userId: string }) {
                 </IdAndPriority>
                 {ticket.completedAt && (
                   <TicketMetaItem>
-                    Completed : <strong>{ticket.completedAt.split('T')[0]}</strong>
+                    Completed :{' '}
+                    <strong>{ticket.completedAt.split('T')[0]}</strong>
                   </TicketMetaItem>
                 )}
               </TicketHeader>
@@ -68,19 +69,19 @@ const TabWrapper = styled.div`
 `;
 
 const Tab = styled.button`
-cursor: pointer;
-font-size: 16px;
-font-weight: 600;
-padding: 5px 10px; // Adjust the padding if needed
-background-color: ${({ theme }) => theme.background};
-color: ${({ theme }) => theme.color};
-border: 1px solid ${({ theme }) => theme.borderColor};
-border-top-left-radius: 8px;
-border-top-right-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 5px 10px; // Adjust the padding if needed
+  background-color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.color};
+  border: 1px solid ${({ theme }) => theme.borderColor};
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 
-&:hover {
-  background: ${({ theme }) => theme.borderColor};
-}
+  &:hover {
+    background: ${({ theme }) => theme.borderColor};
+  }
 `;
 
 const TicketDataWrapper = styled.div`
@@ -92,7 +93,6 @@ const TicketDataWrapper = styled.div`
   &::-webkit-scrollbar {
     width: 4px; // Set the width of the scrollbar
   }
-
 `;
 
 const Ticket = styled.div`
@@ -123,7 +123,6 @@ const TicketLabel = styled.span`
   padding: 4px 8px;
   border-radius: 4px;
   font-size: 14px;
-  color: #fff;
   font-weight: 600;
 `;
 

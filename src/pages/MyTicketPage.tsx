@@ -1,5 +1,9 @@
 import styled from 'styled-components';
-import { ContributionGraph, ViewUserTicket } from 'components/user';
+import {
+  ContributionGraph,
+  ViewUserTicket,
+  RadialGraph,
+} from 'components/user';
 import { useLocation } from 'react-router-dom';
 import { REGEX } from 'constants/';
 
@@ -21,7 +25,9 @@ export function MyTicketPage() {
         <LeftWrapper>
           <ViewUserTicket userId={userId} />
         </LeftWrapper>
-        <RightWrapper>.</RightWrapper>
+        <RightWrapper>
+          <RadialGraph userId={userId} />
+        </RightWrapper>
       </BottomWrapper>
     </Wrapper>
   );
@@ -34,7 +40,7 @@ const Wrapper = styled.div`
   gap: 10px;
   width: calc(100% - 200px);
   height: calc(100% - 4rem);
-  background: rgb(25, 26, 35);
+  background: ${({ theme }) => theme.background};
 `;
 
 const Container = styled.div``;
@@ -81,5 +87,8 @@ const LeftWrapper = styled.div`
 
 const RightWrapper = styled.div`
   flex: 1;
-  height: 100%;
+  height: 480px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 `;
