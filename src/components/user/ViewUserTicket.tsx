@@ -104,6 +104,7 @@ const Ticket = styled.div`
   border-radius: 4px;
   background: ${({ theme }) => theme.background};
   width: 100%;
+  background: t
 `;
 
 const TicketHeader = styled.div`
