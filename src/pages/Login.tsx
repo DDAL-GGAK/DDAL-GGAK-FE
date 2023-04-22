@@ -39,7 +39,6 @@ export function Login() {
     ...QUERY.DEFAULT_CONFIG,
     onSuccess: (res) => {
       const { data: userData } = res;
-      localStorage.setItem(QUERY.KEY.USER_DATA, JSON.stringify({ userData }));
       dispatch(setUserData(userData));
       navigate(ROUTE.PROJECT_HOME);
     },
