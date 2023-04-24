@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Cookies } from 'react-cookie';
-import { COOKIE, METHOD, QUERY, STATUS_CODES } from 'constants/';
+import { COOKIE, METHOD } from 'constants/';
 import {
   AxiosInterceptorReqConfig,
   AuthReqConfig,
@@ -90,20 +90,7 @@ export class Axios {
   }
 
   #resOnError(error: AxiosRes) {
-    if (
-      error.response &&
-      error?.response.status === STATUS_CODES.ERROR.EXPIRED_TOKEN
-    )
-      this.#onTokenExpired();
-
     return Promise.reject(error);
-  }
-
-  #onTokenExpired() {
-    this.#cookie.remove(COOKIE.KEY.ACCESS_TOKEN, {
-      ...COOKIE.CONFIG.DEFAULT,
-    });
-    localStorage.removeItem(QUERY.KEY.USER_DATA);
   }
 
   /**

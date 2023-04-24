@@ -1,4 +1,4 @@
-import { COOKIE, ERROR, QUERY, ROUTE, STATUS_CODES } from 'constants/';
+import { COOKIE, ROUTE, STATUS_CODES } from 'constants/';
 import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Cookies } from 'react-cookie';
@@ -18,21 +18,18 @@ export function useErrorHandler({ route }: RouteForm = { route: null }) {
 
   const errorHandler = (err: unknown) => {
     const error = err as AxiosError;
+    const statusCode = error?.response?.status as number;
 
-    if (error.message === ERROR.FORBIDDEN.NO_ACCESS_RIGHTS)
-      return navigate(moveTo);
-    if (error.message === ERROR.NOT_FOUND.USER_NOT_FOUND)
-      return navigate(moveTo);
-    if (
-      (error?.response?.status as number) === STATUS_CODES.ERROR.UNAUTHORIZED
-    ) {
+    if (statusCode === STATUS_CODES.ERROR.UNAUTHORIZED) {
       cookie.remove(COOKIE.KEY.ACCESS_TOKEN, {
         ...COOKIE.CONFIG.DEFAULT,
       });
-      localStorage.removeItem(QUERY.KEY.USER_DATA);
       dispatch(removeUserData());
+
+      return navigate(ROUTE.LOGIN);
     }
-    if ((error?.response?.status as number) >= 400) return navigate(moveTo);
+
+    return navigate(moveTo);
   };
 
   return { errorHandler };
