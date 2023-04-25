@@ -1,8 +1,17 @@
-import { useSelector } from 'react-redux';
-import { RootState } from 'redux/store';
+import { useEffect, useState } from 'react';
+import { checkAuth } from 'utils';
 
 export const useIsLogin = () => {
-  const storeData = !!useSelector((state: RootState) => state.userDataSlicer);
+  const [isAuth, setIsAuth] = useState(false);
 
-  return storeData;
+  useEffect(() => {
+    const checkValidation = async () => {
+      const auth = await checkAuth();
+      setIsAuth(auth);
+    };
+
+    checkValidation();
+  }, []);
+
+  return isAuth;
 };
