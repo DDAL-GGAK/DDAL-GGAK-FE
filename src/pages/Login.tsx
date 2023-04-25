@@ -1,18 +1,25 @@
 import styled from 'styled-components';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { RegisterField, UserDataForm } from 'types/';
-import { CONTENT, INPUT_TYPE, ROUTE, QUERY, TOASTIFY } from 'constants/';
+import { RegisterField } from 'types/';
+import {
+  CONTENT,
+  INPUT_TYPE,
+  ROUTE,
+  QUERY,
+  TOASTIFY,
+  COOKIE,
+} from 'constants/';
 import { logIn } from 'api';
 import { useMutation } from 'react-query';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setUserData } from 'redux/modules/userData';
 import { ReactHookInput } from 'components/form';
 import { motion } from 'framer-motion';
 import { useErrorHandler } from 'hooks';
-import { RootState } from 'redux/store';
 import { useEffect } from 'react';
 import { sendToast } from 'libs';
+import { Cookies } from 'react-cookie';
 
 export function Login() {
   const { pathname } = useLocation();
@@ -27,12 +34,11 @@ export function Login() {
     mode: 'onChange',
   });
 
-  const loginData = useSelector(
-    (state: RootState) => state.userDataSlicer
-  ) as UserDataForm | null;
+  const cookie = new Cookies();
+  const token = cookie.get(COOKIE.KEY.ACCESS_TOKEN);
 
   useEffect(() => {
-    if (loginData) return navigate(ROUTE.PROJECT_HOME);
+    if (token) return navigate(ROUTE.PROJECT_HOME);
   }, []);
 
   const { mutate } = useMutation(logIn, {
