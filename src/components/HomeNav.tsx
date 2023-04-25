@@ -5,9 +5,13 @@ import { MainLogo } from 'shared';
 import { TOP_NAV } from 'constants/';
 import { Profile } from 'components/user/Profile';
 import { LogOut } from 'components/LogOut';
+import { useDispatch } from 'react-redux';
+import { removeUserData } from 'redux/modules/userData';
 
 export function HomeNav() {
   const isLogin = useIsLogin();
+  const dispatch = useDispatch();
+  if (!isLogin) dispatch(removeUserData());
 
   return (
     <Container>
@@ -20,13 +24,15 @@ export function HomeNav() {
               <Link to="/login">Login</Link>
             </NavItem>
           ) : (
-            <NavItem>
-              <LogOut />
-            </NavItem>
+            <>
+              <NavItem>
+                <LogOut />
+              </NavItem>
+              <NavItem>
+                <Link to="/project/">My Project</Link>
+              </NavItem>
+            </>
           )}
-          <NavItem>
-            <Link to="/project/">My Project</Link>
-          </NavItem>
           <Link to="/project/">
             <Profile />
           </Link>
