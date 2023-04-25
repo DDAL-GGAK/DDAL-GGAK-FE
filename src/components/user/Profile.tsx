@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import { UserIcon } from '@heroicons/react/24/outline';
-import { DEFAULT_VARIANTS, QUERY } from 'constants/';
+import { DEFAULT_VARIANTS } from 'constants/';
 import { motion } from 'framer-motion';
 
 export function Profile() {
@@ -11,16 +11,11 @@ export function Profile() {
     (state: RootState) => state.userDataSlicer
   ) as UserDataForm | null;
 
-  const localStorageStringData = localStorage.getItem(QUERY.KEY.USER_DATA);
-  const localStorageData =
-    localStorageStringData && JSON.parse(localStorageStringData);
-  const data = localStorageData?.userData || storeData;
-
   return (
     <div>
-      {data?.profile ? (
+      {storeData?.profile ? (
         <ProfileImage
-          profile={data.profile}
+          profile={storeData?.profile}
           variants={DEFAULT_VARIANTS}
           initial="from"
           animate="to"

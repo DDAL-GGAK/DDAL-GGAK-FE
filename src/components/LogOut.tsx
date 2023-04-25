@@ -17,8 +17,9 @@ export function LogOut() {
   const { mutate } = useMutation(logOut, {
     ...QUERY.DEFAULT_CONFIG,
     onSuccess: () => {
-      cookie.remove(COOKIE.KEY.ACCESS_TOKEN);
-      localStorage.removeItem(QUERY.KEY.USER_DATA);
+      cookie.remove(COOKIE.KEY.ACCESS_TOKEN, {
+        ...COOKIE.CONFIG.DEFAULT,
+      });
       dispatch(removeUserData());
       navigate('/');
     },
