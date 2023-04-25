@@ -20,7 +20,10 @@ export function useErrorHandler({ route }: RouteForm = { route: null }) {
     const error = err as AxiosError;
     const statusCode = error?.response?.status as number;
 
-    if (statusCode === STATUS_CODES.ERROR.UNAUTHORIZED) {
+    if (
+      statusCode === STATUS_CODES.ERROR.EXPIRED_TOKEN ||
+      statusCode === STATUS_CODES.ERROR.UNAUTHORIZED
+    ) {
       cookie.remove(COOKIE.KEY.ACCESS_TOKEN, {
         ...COOKIE.CONFIG.DEFAULT,
       });
