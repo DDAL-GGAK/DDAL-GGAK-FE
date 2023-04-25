@@ -8,7 +8,7 @@ interface AuthLoadingProps {
 const initialState: AuthLoading = false;
 
 const authLoadingSlicer = createSlice({
-  name: 'themeToggleSlicer',
+  name: 'authLoadingSlicer',
   initialState,
   reducers: {
     setAuthLoading: (state, action: AuthLoadingProps) => action.payload,
